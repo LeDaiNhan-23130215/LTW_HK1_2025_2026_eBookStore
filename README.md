@@ -1,0 +1,1 @@
+# EBook Store (frontend scaffold)
