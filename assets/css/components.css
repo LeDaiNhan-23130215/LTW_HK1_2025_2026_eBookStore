@@ -1,0 +1,25 @@
+/* Header */
+#siteHeader {
+  margin: 0;
+  background: #9DC3E2;
+  height: 60px;
+}
+#siteHeader .headerContainer {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 10px;
+}
+
+/* Footer */
+#siteFooter {
+  margin: 0;
+  height: 200px;
+  background: white;
+  color: #000;
+}
+#siteFooter .footerContainer .topFooter {
+  background: #9DC3E2;
+  height: 50px;
+  width: 100%;
+}
+

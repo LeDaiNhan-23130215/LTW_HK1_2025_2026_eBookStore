@@ -6,6 +6,6 @@ async function includeHTML(id, url){
   el.innerHTML = await res.text();
 }
 document.addEventListener('DOMContentLoaded', () => {
-  includeHTML('header', '/components/header.html');
-  includeHTML('footer', '/components/footer.html');
+  includeHTML('header', '../components/header.html');
+  includeHTML('footer',  '../components/footer.html');
 });
