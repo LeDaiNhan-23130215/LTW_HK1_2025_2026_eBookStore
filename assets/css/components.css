@@ -1,13 +1,19 @@
 /* Header */
 #siteHeader {
+  position: relative;
   margin: 0;
   background: #9DC3E2;
-  height: 60px;
+  min-height: inherit !important;
+  
 }
 #siteHeader .headerContainer {
-  max-width: 1200px;
+  max-width: 100%;
   margin: 0 auto;
   padding: 10px;
+  margin-left: 70px;
+  margin-right: 70px;
+  color: white;
+  font-weight: 700;
 }
 
 /* Footer */
