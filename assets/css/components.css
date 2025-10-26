@@ -1,21 +1,113 @@
 /* Header */
+
 #siteHeader {
   position: relative;
   margin: 0;
-  background: #9DC3E2;
-  min-height: inherit !important;
-  
+  background: #0396c7;
+  padding: 0;  
 }
 #siteHeader .headerContainer {
   max-width: 100%;
-  margin: 0 auto;
   padding: 10px;
   margin-left: 70px;
   margin-right: 70px;
   color: white;
-  font-weight: 700;
+  font-weight: 600;
 }
 
+
+/* Header top bar */
+#siteHeader .headerContainer .topBar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 20px;
+
+}
+
+.leftContainer p{
+  font-size: 0.9rem;
+}
+
+.rightContainer {
+  margin: 0;
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+
+.rightContainer p {
+  font-size: 0.9rem;
+}
+
+.rightContainer a{
+  text-decoration: none;
+  color: white;  
+  font-size: 0.9rem;
+}
+
+.rightContainer a:hover {
+  text-decoration: underline;
+}
+.rightContainer .phoneNumber {
+  margin-left: 10px;
+  padding: 4px 15px;
+  font-weight: bold;
+  font-size: 0.9rem;
+  background-color: white;
+  color: #0396c7;
+  border: 2px solid white;
+  border-radius: 20px;
+}
+
+.phoneNumber:hover {
+  background-color: #0396c7;
+  color: #fff;
+  transition: 0.2s ease;
+}
+
+/* Header Menu */
+.headerMenu {
+  margin-left: 85px;
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  padding: 10px 0;
+}
+
+.logoImg {
+  height: 110px;
+  width: auto;
+  border: 3px solid white;
+  border-radius: 15px;
+}
+
+
+.logoImg:hover {
+  transform: scale(1.05);
+  cursor: pointer;
+  transition: 0.2s ease;
+}
+
+.headerMenu .categorymenu {
+  margin-left: 60px ;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  color:#004AAD;
+  font-size: 1.1rem;
+  font-weight: 600;
+  background-color: white;
+  padding: 12px 30px;
+  border-radius: 8px;
+  transition: 0.3s ease;
+  cursor: pointer;
+}
+
+.headerMenu .categorymenu:hover{
+    color:white;
+    background-color: #004AAD;
+}
 /* Footer */
 #siteFooter {
   margin: 0;
@@ -24,7 +116,7 @@
   color: #000;
 }
 #siteFooter .footerContainer .topFooter {
-  background: #9DC3E2;
+  background: #8BAFD0;
   height: 50px;
   width: 100%;
 }
