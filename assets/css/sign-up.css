@@ -13,7 +13,7 @@ form{
     align-items: center;
     justify-content: center;
     flex-direction: column;
-    width: 330px;
+    width: 700px;
     height: auto;
     gap: 20px;
     background-color: #fff;
@@ -26,7 +26,25 @@ form{
     font-size: 1.5rem;
     font-weight: bold;
     color: #0396c7;
-    margin-top: 75px;
+    margin-top: 25px;
+}
+.container .top-input{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 20px;
+}
+.container .mid-input{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 20px;
+}
+.container .bottom-input{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 20px;
 }
 .container .input{
     display: flex;
@@ -38,8 +56,8 @@ form{
 .container .input .input-div input{
     border: none;
     outline: none;
-    width: 240px;
-    height: 40px;
+    width: 300px;
+    height: 50px;
     padding-top: 10px;
     padding-bottom: 10px;
     padding-left: 10px;
@@ -55,8 +73,8 @@ form{
     cursor: pointer;
 }
 .container .input button{
-    width: 140px;
-    height: 45px;
+    width: 300px;
+    height: 50px;
     border-radius: 20px;
     color: #fff;
     font-weight: 500;
