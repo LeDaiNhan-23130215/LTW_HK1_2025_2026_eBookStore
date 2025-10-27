@@ -46,6 +46,13 @@ form{
     border-radius: 10px;
     box-shadow: 1px 1px 5px rgba(0, 0, 0, 0.1);
 }
+.container .input-div .error-msg {
+    color: hsl(0, 100%, 70%);
+    font-size: 0.7rem;
+    margin-top: 4px;
+    display: block;
+    height: 14px;
+}
 .container .input .input-div input::placeholder{
     color: #0396c7;
     font-weight: bold;
