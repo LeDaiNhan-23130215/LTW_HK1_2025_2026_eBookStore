@@ -1,0 +1,63 @@
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+.container{
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-evenly;
+    margin-top: 30px;
+    margin-bottom: 30px;
+}
+.container .box-left{
+    display: flex;
+    align-items: flex-start;
+    flex-direction: column;
+    gap: 20px;
+}
+.container .box-left .subTitle{
+    display: flex;
+    align-items: flex-start;
+    flex-direction: column;
+    gap: 10px;
+}
+.container .box-left .subTitle h5{
+    font-size: 1.5rem;
+}
+.container .box-left .subTitle p{
+    font-size: 1rem;
+}
+.container .box-left .option-list{
+    display: flex;
+    align-items: flex-start;
+    flex-direction: column;
+    gap: 10px;
+}
+.container .box-left .option-list li{
+    list-style: none;
+}
+.container .box-right{
+    display: flex;
+    align-items: flex-start;
+    flex-direction: column;
+    gap: 20px;
+}
+.container .box-right .subTitle{
+    display: flex;
+    align-items: flex-start;
+    flex-direction: column;
+    gap: 10px;
+}
+.container .box-right .subTitle h5{
+    font-size: 1.5rem;
+}
+.container .box-right p{
+    font-size: 1rem;
+}
+.container .box-left .option-list li:hover{
+    color: hsl(0, 0%, 60%);
+}
+.container .box-left .option-list li.selected{
+    color: hsl(0, 0%, 60%);
+}
