@@ -7,6 +7,7 @@
     <link rel="stylesheet" href="../css/base.css">
     <link rel="stylesheet" href="../css/components.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <link rel="icon" type="image/png" href="../img/ebook-logo.png">
 
 </head>
 <body>
@@ -14,24 +15,53 @@
   <div class="headerContainer">
     <div class = "topBar">
       <div class = "leftContainer">
-        <p>Chào mừng bạn đến với EBookStore</p>
+        <p id="welcomeMessage">Chào mừng bạn đến với EBookStore</p>
       </div>
       <div class = "rightContainer">
         <a href="login.html">Đăng nhập</a>
         <a href="sign-up.html">Đăng ký</a>
-        <p>Hotline:  <span class="phoneNumber"><i class="fa-solid fa-phone phoneIcon"></i> 0999.99.99.99</span></p>
+        <p>Hotline:  <span class="phoneNumber"><i class="fa-solid fa-phone phoneIcon"></i> 0354.30.09.05</span></p>
       </div>
     </div>
 
     <div class="headerMenu">
-      <a href="home.html"><img src="../img/ebook-logo2.png" alt="EBookStore Logo" class="logoImg"></a>
-      <div class="categorymenu"><i class="fa-solid fa-bars"></i> Danh mục</div>
+      <div class="logo">
+        <a href="home.html"><img src="../img/ebook-logo2.png" alt="EBookStore Logo" class="logoImg"></a>
+        <p>EBookStore</p>
+      </div>
+      <div class="categorymenu"><i class="fa-solid fa-bars"></i>  Danh mục</div>
+
+      <div class="searchBox">
+        <input type="text" placeholder="Tìm sách của bạn ở đây" id="searchBox">
+        <button><i class="fa fa-search"></i></button>
+      </div>
+
+      <div class="notyfication-button">
+        <button><i class="fa-regular fa-bell"></i></button>
+        <span class="notification-badge">3</span>
+      </div>
+
+      <div class="order">
+        <a href="your-order.html"><button><i class="fa-solid fa-cart-shopping"></i> Đơn hàng</button></a>
+        <span class="notification-badge">0</span>
+      </div>
+
     </div>
   </div>
   </header>
   <div id="main" class="main">
       <p>Test</p>
   </div>
-  <div id="footer"></div>
+<footer id="siteFooter">
+  <div class="footerContainer">
+    <div class="topFooter">
+      <div class="container">
+        
+      </div>
+    </div>
+  </div>
+</footer>
+<script src = "../js/component.js"> </script>
+
 </body>
 </html>
