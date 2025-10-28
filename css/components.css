@@ -1,6 +1,19 @@
 /* Header */
 
 #siteHeader {
+  transform: translateY(-50px);
+  opacity: 0;
+  animation: slideDown 0.8s ease-out forwards;
+}
+
+@keyframes slideDown {
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+#siteHeader {
   position: relative;
   margin: 0;
   background: #0396c7;
@@ -8,9 +21,7 @@
 }
 #siteHeader .headerContainer {
   max-width: 100%;
-  padding: 10px;
-  margin-left: 70px;
-  margin-right: 70px;
+  padding: 4px 60px;
   color: white;
   font-weight: 600;
 }
@@ -21,76 +32,111 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 10px 20px;
+  padding: 4px 0;
 
 }
 
 .leftContainer p{
-  font-size: 0.9rem;
+  font-size: 1.2rem;
+  cursor: default;
+  margin-top: 10px;
+  margin-bottom: 10px;
+  margin-left: 30px;
+}
+
+#welcomeMessage {
+  transition: 0.8s ease;
+  opacity: 1;
+}
+
+#welcomeMessage.fade-out {
+  opacity: 0;
 }
 
 .rightContainer {
   margin: 0;
   display: flex;
   align-items: center;
-  gap: 20px;
+  gap: 15px;
 }
 
 .rightContainer p {
-  font-size: 0.9rem;
+  font-size: 0.85rem;
+  margin:0;
 }
 
 .rightContainer a{
   text-decoration: none;
   color: white;  
-  font-size: 0.9rem;
+  font-size: 0.85rem;
+  transition: 0.3s;
 }
 
 .rightContainer a:hover {
-  text-decoration: underline;
+  color: #004AAD;
+  border: 2px solid white;
+  background-color: white;
+  border-radius: 15px;
+  padding: 2px 6px;
+  transition: 0.3s ease;
+  font-size: 0.95rem;
 }
 .rightContainer .phoneNumber {
-  margin-left: 10px;
-  padding: 4px 15px;
+  padding: 2px 10px;
   font-weight: bold;
-  font-size: 0.9rem;
+  font-size: 0.85rem;
   background-color: white;
   color: #0396c7;
   border: 2px solid white;
   border-radius: 20px;
+  transition: 0.3s;
 }
 
 .phoneNumber:hover {
-  background-color: #0396c7;
+  background-color: #004AAD;
   color: #fff;
   transition: 0.2s ease;
 }
 
 /* Header Menu */
 .headerMenu {
-  margin-left: 85px;
+  margin-left: 90px;
   display: flex;
   align-items: center;
-  gap: 20px;
+  gap: 15px;
   padding: 10px 0;
 }
 
 .logoImg {
-  height: 110px;
+  height: 70px;
   width: auto;
   border: 3px solid white;
-  border-radius: 15px;
+  border-radius: 10px;
+  transition: 0.3s;
 }
 
-
-.logoImg:hover {
+.headerMenu .logo:hover {
   transform: scale(1.05);
   cursor: pointer;
   transition: 0.2s ease;
 }
 
+.headerMenu .logo {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  transition: 0.3s ease;
+  margin-bottom: 0px;
+}
+
+.headerMenu .logo p {
+  font-size: 1.2rem;
+  margin-top: 5px;
+  margin-bottom: 0;
+}
+
 .headerMenu .categorymenu {
-  margin-left: 60px ;
+  margin-left: 30px ;
   display: flex;
   align-items: center;
   gap: 8px;
@@ -98,7 +144,7 @@
   font-size: 1.1rem;
   font-weight: 600;
   background-color: white;
-  padding: 12px 30px;
+  padding: 8px 25px;
   border-radius: 8px;
   transition: 0.3s ease;
   cursor: pointer;
@@ -108,7 +154,130 @@
     color:white;
     background-color: #004AAD;
 }
-/* Footer */
+
+.headerMenu .searchBox {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 10px;
+  padding: 10px 10px;
+  margin-left: 35px;
+}
+
+.headerMenu input {
+  width: 300px;
+  margin: 0;
+  background: white;
+  border: 2px solid #004AAD;
+  border-radius: 25px 0 0 25px;
+  padding: 10px 15px;
+  font-size: 0.8rem;
+  outline: none;
+  border-right: none;
+  transition: 0.3s;
+}
+
+.headerMenu .searchBox input:focus {
+  box-shadow: 0 0 10px white;
+}
+.headerMenu  .searchBox input:focus + button{
+  box-shadow: 2px 0 12px white;
+}
+
+.headerMenu .searchBox button {
+  background-color: white;
+  border: 2px solid #004AAD;
+  border-radius: 0 25px 25px 0;
+  color: #004AAD;
+  padding: 10px 15px;
+  cursor: pointer;
+  transition: 0.3s;
+  font-size: 0.8rem;
+  border-left: none;
+}
+
+.headerMenu .searchBox button:hover {
+  background-color: #004AAD;
+  color: white;
+}
+
+.headerMenu .notyfication-button {
+  position: relative; 
+  display: inline-block;
+  background-color: none;
+}
+
+.headerMenu .notyfication-button button {
+  background: none;
+  color: white;
+  border: none;
+  font-size: 2rem;
+  cursor: pointer;
+  padding-left: 30px;
+  transition: 0.3s;
+  position: relative;
+}
+
+.headerMenu .notyfication-button:hover button {
+  color: #004AAD;
+}
+
+
+.notification-badge {
+  position: absolute;
+  top: -6px;         
+  right: -2px;      
+  background-color: #004AAD;
+  color: white;
+  font-size: 12px;
+  font-weight: bold;
+  border-radius: 60%;
+  padding: 4px 1px;
+  min-width: 18px;
+  text-align: center;
+  line-height: 1;
+  transition: 0.3s ease;
+
+}
+
+.headerMenu .notyfication-button:hover .notification-badge {
+  background-color: white;    
+  color: #004AAD;             
+}
+
+
+.headerMenu .order {
+  position: relative;
+  display: inline block;
+  background-color: none;
+  margin-left: 5px;
+}
+
+.headerMenu .order button {
+  background-color: white;
+  outline: none;
+  border:none;
+  color:#004AAD;
+  font-size: 1rem;
+  font-weight: bold;
+  border-radius: 10px;
+  padding: 10px;
+  transition: 0.3s ease;
+}
+
+.headerMenu .order:hover button{
+  background-color: #004AAD;
+  color: white;
+  cursor: pointer;
+}
+
+.headerMenu .order:hover .notification-badge {
+  background-color: white;
+  color: #004AAD;
+}
+
+
+  /* Footer */
 #siteFooter {
   margin: 0;
   height: 200px;
@@ -120,4 +289,6 @@
   height: 50px;
   width: 100%;
 }
+
+
 
