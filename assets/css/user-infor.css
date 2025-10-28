@@ -15,6 +15,8 @@
     align-items: flex-start;
     flex-direction: column;
     gap: 20px;
+    width: 300px;
+    height: auto;
 }
 .container .box-left .subTitle{
     display: flex;
@@ -37,11 +39,16 @@
 .container .box-left .option-list li{
     list-style: none;
 }
+.container .box-left .option-list li a{
+    text-decoration: none;
+}
 .container .box-right{
     display: flex;
     align-items: flex-start;
     flex-direction: column;
     gap: 20px;
+    width: 750px;
+    height: auto;
 }
 .container .box-right .subTitle{
     display: flex;
@@ -55,9 +62,31 @@
 .container .box-right p{
     font-size: 1rem;
 }
-.container .box-left .option-list li:hover{
+.container .box-left .option-list li a{
+    color: #000;
+}
+.container .box-left .option-list li a:hover{
     color: hsl(0, 0%, 60%);
 }
-.container .box-left .option-list li.selected{
+.container .box-left .option-list li.selected a{
     color: hsl(0, 0%, 60%);
+}
+.container .box-right table{
+    width: 100%;
+    border-collapse: collapse;
+    text-align: center;
+}
+.container .box-right table thead th{
+    background-color: #0396c7;
+    color: white;
+    padding: 10px;
+    border: 1px solid #ccc;
+}
+.container .box-right tbody td{
+    border: 1px solid #ccc;
+    padding: 10px;
+}
+.container .box-right tbody tr td[colspan]{
+    text-align: center;
+    padding: 20px;
 }
