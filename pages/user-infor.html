@@ -4,12 +4,31 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Thông tin người dùng</title>
-    <link rel="stylesheet" href="../assets/css/base.css">
-    <link rel="stylesheet" href="../assets/css/components.css">
-    <link rel="stylesheet" href="../assets/css/user-infor.css">
+    <link rel="stylesheet" href="../css/base.css">
+    <link rel="stylesheet" href="../css/components.css">
+    <link rel="stylesheet" href="../css/user-infor.css">
 </head>
 <body>
-    <div id="header"></div>
+    <header id="siteHeader">
+    <div class="headerContainer">
+        <div class = "topBar">
+        <div class = "leftContainer">
+            <p>Chào mừng bạn đến với EBookStore</p>
+        </div>
+        <div class = "rightContainer">
+            <a href="login.html">Đăng nhập</a>
+            <a href="sign-up.html">Đăng ký</a>
+            <p>Hotline:  <span class="phoneNumber"><i class="fa-solid fa-phone phoneIcon"></i> 0999.99.99.99</span></p>
+        </div>
+        </div>
+
+        <div class="headerMenu">
+        <a href="home.html"><img src="../img/ebook-logo2.png" alt="EBookStore Logo" class="logoImg"></a>
+        <div class="categorymenu"><i class="fa-solid fa-bars"></i> Danh mục</div>
+        </div>
+
+    </div>
+    </header>
         <div class="container">
             <div class="box-left">
                 <div class="subTitle">
@@ -31,7 +50,6 @@
             </div>
         </div>
     <div id="footer"></div>
-    <script src="../assets/js/include.js" defer></script>
-    <script src="../assets/js/login.js" defer></script>
+    <script src="../js/user-infor.js" defer></script>
 </body>
 </html>
