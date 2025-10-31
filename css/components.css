@@ -1,5 +1,9 @@
+*{
+    margin: 0;
+    padding: 0;
+    font-family: Arial, Helvetica, sans-serif;
+}
 /* Header */
-
 #siteHeader {
   transform: translateY(-50px);
   opacity: 0;
@@ -16,7 +20,7 @@
 #siteHeader {
   position: relative;
   margin: 0;
-  background: #0396c7;
+  background: #0396C7;
   padding: 0;  
 }
 #siteHeader .headerContainer {
@@ -280,15 +284,202 @@
   /* Footer */
 #siteFooter {
   margin: 0;
-  height: 200px;
+  min-height: 200px;
   background: white;
   color: #000;
 }
-#siteFooter .footerContainer .topFooter {
-  background: #8BAFD0;
-  height: 50px;
-  width: 100%;
+#siteFooter .topFooter {
+  background: #0396C7;
+  padding: 15px;
+  display: flex;
+  justify-content: space-between;
+}
+
+.topFooter .left-container .informationEmailBox{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 10px;
+  padding: 10px 10px;
+}
+
+.topFooter .left-container #email-input {
+  width: 300px;
+  margin: 0;
+  background: white;
+  border: 2px solid #004AAD;
+  border-radius: 25px 0 0 25px;
+  padding: 10px 15px;
+  font-size: 0.9rem;
+  outline: none;
+  border-right: none;
+  transition: 0.3s;
+}
+
+.topFooter .left-container button {
+  background-color: #004AAD;
+  border: 2px solid #004AAD;
+  border-radius: 0 25px 25px 0;
+  color: white;
+  padding: 10px 15px;
+  cursor: pointer;
+  transition: 0.3s;
+  font-size: 0.8rem;
+  border-left: none;
+}
+.topFooter .informationEmailBox input:focus {
+  box-shadow: 0 0 10px white;
+}
+.footerContainer .informationEmailBox input:focus + button{
+  box-shadow: 2px 0 12px white;
+}
+.topFooter .informationEmailBox button:hover {
+  background-color: #004bad7e;
+  color: white;
+}
+
+.topFooter .right-container {
+    display: flex;
+    align-items: center;
+    gap: 10px; /* khoảng cách giữa text và icon */
+    justify-content: flex-end; /* đẩy sang phải */
+    padding-right: 35px;
+    color: white; /* chữ trắng trên background xanh */
+}
+
+.topFooter .right-container p{
+  font-weight: bold;
+}
+
+.topFooter .right-container .zalo-logo {
+    height: 30px; 
+    width: auto;
+    cursor: pointer;
+}
+.topFooter .right-container .facebook-logo {
+  height: 33px;
+  width: auto;
+  cursor: pointer;
+}
+
+#siteFooter .footer-container {
+  display: flex;
+  padding: 70px;
+}
+
+#siteFooter .footer-container .left {
+  max-width: 265px;
+}
+
+#siteFooter .footer-container .left .logo{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  transition: 0.3s ease;
+  margin-bottom: 0px;
+}
+
+#siteFooter .footer-container .left .logo img {
+  background-color: #0396C7;
+  height: 90px;
+  width: auto;
+}
+
+#siteFooter .footer-container .left .logo p {
+  color: #0396C7;
+  font-weight: bold;
+  font-size: 1.2rem;
+  margin-top: 5px;
+}
+
+#siteFooter .footer-container .left h3 {
+  font-size: 1.1rem;
+  margin-top: 15px;
+}
+
+#siteFooter .footer-container .left p {
+  font-size: 0.9rem;
+  margin-top: 15px;
+}
+
+#siteFooter .footer-container .cs-hd-dm{
+  display: flex;
+  flex-direction: row;
+  gap: 10px;
 }
 
 
+#siteFooter .footer-container .cs-hd-dm .option {
+  width: 200px;
+  height: auto;
+  margin-left: 30px;
+}
+
+#siteFooter .footer-container .cs-hd-dm .option h3{
+  font-size: 1.1rem;
+  color: #0396C7;
+  padding-left: 4px;
+}
+
+#siteFooter .footer-container .cs-hd-dm .option ul {
+  padding-left: 5px;
+  margin-top:10px
+}
+
+#siteFooter .footer-container .cs-hd-dm .option ul li{
+  font-size: 0.9rem;
+  margin-top: 15px;
+  padding-right: 5px;
+}
+
+#siteFooter .footer-container .cs-hd-dm .option ul li a{
+  text-decoration: none;
+  color: black;
+}
+
+#siteFooter .footer-container .cs-hd-dm .option ul li a:hover{
+  color: gray;
+}  
+
+#siteFooter .footer-container .kn-tt .payment-logo {
+  height: 85px;
+  width: auto;
+}
+
+#siteFooter .footer-container .kn-tt  h3{
+  font-size: 1.1rem;
+  color: #0396C7;
+  margin-bottom: 15px;
+}
+
+#siteFooter .footer-container .kn-tt p{
+  font-size: 0.9rem;
+  margin-top: 15px;
+  margin-bottom: 15px;
+}
+
+#siteFooter .footer-container .kn-tt a{
+  font-size: 1.3rem;
+  text-decoration: none;
+  font-weight: bold;
+  color: #004AAD;
+}
+
+#siteFooter .footer-bottom {
+  background-color: #0396C7;
+  margin: 0 auto;            
+  height: 40px;
+  display: flex;              
+  justify-content: center;    
+  align-items: center;        
+  width: 100%;                
+}
+
+
+#siteFooter .footer-bottom p {
+  color: white;
+  font-weight: bold;
+  font-size: 1.5rem;
+  margin: 3px;
+}
 

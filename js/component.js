@@ -8,7 +8,7 @@ const greetings = [
 ]
 
 
-const greeting = document.getElementById("welcomeMessage");
+const greeting = document.getElementById('welcomeMessage');
 
 function autoGreetingsChanger() {
     greeting.classList.add("fade-out");
