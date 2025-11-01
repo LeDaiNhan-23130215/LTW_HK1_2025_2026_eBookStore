@@ -1,7 +1,7 @@
-*{
-    margin: 0;
-    padding: 0;
-    font-family: Arial, Helvetica, sans-serif;
+* {
+  margin: 0;
+  padding: 0;
+  font-family: Arial, Helvetica, sans-serif;
 }
 /* Header */
 #siteHeader {
@@ -20,8 +20,8 @@
 #siteHeader {
   position: relative;
   margin: 0;
-  background: #0396C7;
-  padding: 0;  
+  background: #0396c7;
+  padding: 0;
 }
 #siteHeader .headerContainer {
   max-width: 100%;
@@ -30,17 +30,16 @@
   font-weight: 600;
 }
 
-
 /* Header top bar */
 #siteHeader .headerContainer .topBar {
+  margin-top: 10px;
   display: flex;
   justify-content: space-between;
   align-items: center;
   padding: 4px 0;
-
 }
 
-.leftContainer p{
+.leftContainer p {
   font-size: 1.2rem;
   cursor: default;
   margin-top: 10px;
@@ -61,23 +60,24 @@
   margin: 0;
   display: flex;
   align-items: center;
+  justify-content: end;
   gap: 15px;
 }
 
 .rightContainer p {
   font-size: 0.85rem;
-  margin:0;
+  margin: 0;
 }
 
-.rightContainer a{
+.rightContainer a {
   text-decoration: none;
-  color: white;  
+  color: white;
   font-size: 0.85rem;
   transition: 0.3s;
 }
 
 .rightContainer a:hover {
-  color: #004AAD;
+  color: #004aad;
   border: 2px solid white;
   background-color: white;
   border-radius: 15px;
@@ -97,18 +97,17 @@
 }
 
 .phoneNumber:hover {
-  background-color: #004AAD;
+  background-color: #004aad;
   color: #fff;
   transition: 0.2s ease;
 }
 
 /* Header Menu */
 .headerMenu {
-  margin-left: 90px;
+  margin: 5px 90px;
   display: flex;
   align-items: center;
-  gap: 15px;
-  padding: 10px 0;
+  justify-content: space-between;
 }
 
 .logoImg {
@@ -140,11 +139,10 @@
 }
 
 .headerMenu .categorymenu {
-  margin-left: 30px ;
   display: flex;
   align-items: center;
   gap: 8px;
-  color:#004AAD;
+  color: #004aad;
   font-size: 1.1rem;
   font-weight: 600;
   background-color: white;
@@ -154,9 +152,9 @@
   cursor: pointer;
 }
 
-.headerMenu .categorymenu:hover{
-    color:white;
-    background-color: #004AAD;
+.headerMenu .categorymenu:hover {
+  color: white;
+  background-color: #004aad;
 }
 
 .headerMenu .searchBox {
@@ -165,14 +163,13 @@
   justify-content: center;
   border-radius: 10px;
   padding: 10px 10px;
-  margin-left: 35px;
 }
 
-.headerMenu input {
+.headerMenu .searchBox input {
   width: 300px;
   margin: 0;
   background: white;
-  border: 2px solid #004AAD;
+  border: 2px solid #004aad;
   border-radius: 25px 0 0 25px;
   padding: 10px 15px;
   font-size: 0.8rem;
@@ -184,15 +181,15 @@
 .headerMenu .searchBox input:focus {
   box-shadow: 0 0 10px white;
 }
-.headerMenu  .searchBox input:focus + button{
+.headerMenu .searchBox input:focus + button {
   box-shadow: 2px 0 12px white;
 }
 
 .headerMenu .searchBox button {
   background-color: white;
-  border: 2px solid #004AAD;
+  border: 2px solid #004aad;
   border-radius: 0 25px 25px 0;
-  color: #004AAD;
+  color: #004aad;
   padding: 10px 15px;
   cursor: pointer;
   transition: 0.3s;
@@ -201,17 +198,22 @@
 }
 
 .headerMenu .searchBox button:hover {
-  background-color: #004AAD;
+  background-color: #004aad;
   color: white;
 }
 
-.headerMenu .notyfication-button {
-  position: relative; 
-  display: inline-block;
-  background-color: none;
+.headerMenu .after-searchbox {
+  display: flex;
 }
 
-.headerMenu .notyfication-button button {
+.headerMenu .after-searchbox .notification-button {
+  position: relative;
+  display: inline-block;
+  background-color: none;
+  cursor: pointer;
+}
+
+.headerMenu .after-searchbox .notification-button a {
   background: none;
   color: white;
   border: none;
@@ -222,16 +224,15 @@
   position: relative;
 }
 
-.headerMenu .notyfication-button:hover button {
-  color: #004AAD;
+.headerMenu .after-searchbox .notification-button:hover a {
+  color: #004aad;
 }
-
 
 .notification-badge {
   position: absolute;
-  top: -6px;         
-  right: -2px;      
-  background-color: #004AAD;
+  top: -6px;
+  right: -2px;
+  background-color: #004aad;
   color: white;
   font-size: 12px;
   font-weight: bold;
@@ -241,27 +242,25 @@
   text-align: center;
   line-height: 1;
   transition: 0.3s ease;
-
 }
 
-.headerMenu .notyfication-button:hover .notification-badge {
-  background-color: white;    
-  color: #004AAD;             
+.headerMenu .after-searchbox .notification-button:hover .notification-badge {
+  background-color: white;
+  color: #004aad;
 }
 
-
-.headerMenu .order {
+.headerMenu .after-searchbox .order {
   position: relative;
   display: inline block;
   background-color: none;
-  margin-left: 5px;
+  margin-left: 20px;
 }
 
-.headerMenu .order button {
+.headerMenu .after-searchbox .order button {
   background-color: white;
   outline: none;
-  border:none;
-  color:#004AAD;
+  border: none;
+  color: #004aad;
   font-size: 1rem;
   font-weight: bold;
   border-radius: 10px;
@@ -269,19 +268,18 @@
   transition: 0.3s ease;
 }
 
-.headerMenu .order:hover button{
-  background-color: #004AAD;
+.headerMenu .after-searchbox .order:hover button {
+  background-color: #004aad;
   color: white;
   cursor: pointer;
 }
 
-.headerMenu .order:hover .notification-badge {
+.headerMenu .after-searchbox .order:hover .notification-badge {
   background-color: white;
-  color: #004AAD;
+  color: #004aad;
 }
 
-
-  /* Footer */
+/* Footer */
 #siteFooter {
   margin: 0;
   min-height: 200px;
@@ -289,13 +287,13 @@
   color: #000;
 }
 #siteFooter .topFooter {
-  background: #0396C7;
-  padding: 15px;
+  background: #0396c7;
+  padding: 4px 60px;
   display: flex;
   justify-content: space-between;
 }
 
-.topFooter .left-container .informationEmailBox{
+.topFooter .left-container .informationEmailBox {
   display: flex;
   align-items: center;
   justify-content: center;
@@ -307,7 +305,7 @@
   width: 300px;
   margin: 0;
   background: white;
-  border: 2px solid #004AAD;
+  border: 2px solid #004aad;
   border-radius: 25px 0 0 25px;
   padding: 10px 15px;
   font-size: 0.9rem;
@@ -317,8 +315,8 @@
 }
 
 .topFooter .left-container button {
-  background-color: #004AAD;
-  border: 2px solid #004AAD;
+  background-color: #004aad;
+  border: 2px solid #004aad;
   border-radius: 0 25px 25px 0;
   color: white;
   padding: 10px 15px;
@@ -330,7 +328,7 @@
 .topFooter .informationEmailBox input:focus {
   box-shadow: 0 0 10px white;
 }
-.footerContainer .informationEmailBox input:focus + button{
+.footerContainer .informationEmailBox input:focus + button {
   box-shadow: 2px 0 12px white;
 }
 .topFooter .informationEmailBox button:hover {
@@ -339,22 +337,22 @@
 }
 
 .topFooter .right-container {
-    display: flex;
-    align-items: center;
-    gap: 10px; /* khoảng cách giữa text và icon */
-    justify-content: flex-end; /* đẩy sang phải */
-    padding-right: 35px;
-    color: white; /* chữ trắng trên background xanh */
+  display: flex;
+  align-items: center;
+  gap: 10px; /* khoảng cách giữa text và icon */
+  justify-content: flex-end; /* đẩy sang phải */
+  padding-right: 35px;
+  color: white; /* chữ trắng trên background xanh */
 }
 
-.topFooter .right-container p{
+.topFooter .right-container p {
   font-weight: bold;
 }
 
 .topFooter .right-container .zalo-logo {
-    height: 30px; 
-    width: auto;
-    cursor: pointer;
+  height: 30px;
+  width: auto;
+  cursor: pointer;
 }
 .topFooter .right-container .facebook-logo {
   height: 33px;
@@ -364,6 +362,7 @@
 
 #siteFooter .footer-container {
   display: flex;
+  justify-content: space-between;
   padding: 70px;
 }
 
@@ -371,7 +370,7 @@
   max-width: 265px;
 }
 
-#siteFooter .footer-container .left .logo{
+#siteFooter .footer-container .left .logo {
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -380,13 +379,13 @@
 }
 
 #siteFooter .footer-container .left .logo img {
-  background-color: #0396C7;
+  background-color: #0396c7;
   height: 90px;
   width: auto;
 }
 
 #siteFooter .footer-container .left .logo p {
-  color: #0396C7;
+  color: #0396c7;
   font-weight: bold;
   font-size: 1.2rem;
   margin-top: 5px;
@@ -402,12 +401,11 @@
   margin-top: 15px;
 }
 
-#siteFooter .footer-container .cs-hd-dm{
+#siteFooter .footer-container .cs-hd-dm {
   display: flex;
   flex-direction: row;
   gap: 10px;
 }
-
 
 #siteFooter .footer-container .cs-hd-dm .option {
   width: 200px;
@@ -415,66 +413,65 @@
   margin-left: 30px;
 }
 
-#siteFooter .footer-container .cs-hd-dm .option h3{
+#siteFooter .footer-container .cs-hd-dm .option h3 {
   font-size: 1.1rem;
-  color: #0396C7;
+  color: #0396c7;
   padding-left: 4px;
 }
 
 #siteFooter .footer-container .cs-hd-dm .option ul {
   padding-left: 5px;
-  margin-top:10px
+  margin-top: 10px;
 }
 
-#siteFooter .footer-container .cs-hd-dm .option ul li{
+#siteFooter .footer-container .cs-hd-dm .option ul li {
   font-size: 0.9rem;
   margin-top: 15px;
   padding-right: 5px;
 }
 
-#siteFooter .footer-container .cs-hd-dm .option ul li a{
+#siteFooter .footer-container .cs-hd-dm .option ul li a {
   text-decoration: none;
   color: black;
 }
 
-#siteFooter .footer-container .cs-hd-dm .option ul li a:hover{
+#siteFooter .footer-container .cs-hd-dm .option ul li a:hover {
   color: gray;
-}  
+}
 
 #siteFooter .footer-container .kn-tt .payment-logo {
   height: 85px;
   width: auto;
 }
 
-#siteFooter .footer-container .kn-tt  h3{
+#siteFooter .footer-container .kn-tt h3 {
   font-size: 1.1rem;
-  color: #0396C7;
+  color: #0396c7;
   margin-bottom: 15px;
 }
 
-#siteFooter .footer-container .kn-tt p{
+#siteFooter .footer-container .kn-tt p {
   font-size: 0.9rem;
   margin-top: 15px;
   margin-bottom: 15px;
 }
 
-#siteFooter .footer-container .kn-tt a{
+#siteFooter .footer-container .kn-tt a {
   font-size: 1.3rem;
   text-decoration: none;
   font-weight: bold;
-  color: #004AAD;
+  color: #004aad;
 }
 
 #siteFooter .footer-bottom {
-  background-color: #0396C7;
-  margin: 0 auto;            
+  background-color: #0396c7;
+  margin: 0 auto;
   height: 40px;
-  display: flex;              
-  justify-content: center;    
-  align-items: center;        
-  width: 100%;                
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
 }
-
 
 #siteFooter .footer-bottom p {
   color: white;
@@ -482,4 +479,3 @@
   font-size: 1.5rem;
   margin: 3px;
 }
-
