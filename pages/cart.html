@@ -1,23 +1,20 @@
 <!DOCTYPE html>
-<html lang="vn">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Home</title>
-    <link rel="stylesheet" href="../css/base.css" />
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Giỏ hàng</title>
+     <link rel="stylesheet" href="../css/base.css" />
     <link rel="stylesheet" href="../css/components.css" />
     <link
       rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"
     />
     <link rel="icon" type="image/png" href="../img/ebook-logo2.png" />
-    <link rel="stylesheet" href="../css/home.css" />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Pacifico&display=swap"
-      rel="stylesheet"
-    />
-  </head>
-  <body>
+    <link rel="stylesheet" href="../css/cart.css" />
+</head>
+<body>
+    <!-- #Header -->
     <header id="siteHeader">
       <div class="headerContainer">
         <div class="topBar">
@@ -66,7 +63,7 @@
             </div>
 
             <div class="order">
-              <a href="cart.html"
+              <a href="your-order.html"
                 ><button>
                   <i class="fa-solid fa-cart-shopping"></i> Đơn hàng
                 </button></a
@@ -77,57 +74,63 @@
         </div>
       </div>
     </header>
-    <div class="home-image">
-      <img
-        src="https://images.squarespace-cdn.com/content/v1/62ab7b824526d0409e7d65f4/6f19b9a3-f4b5-4471-8630-2dd6aeedeadd/AdobeStock_566655293.jpeg"
-        alt=""
-      />
-      <p class="slogan">Digital books, infinite stories.</p>
-    </div>
 
     <div class="container">
-      <div class="danh-muc-noi-bat">
-        <h5>Danh mục nổi bật:</h5>
-        <div class="danh-sach-danh-muc">
-          
-          <a href="">
-            <div class="danh-muc">
-              <i class="fa-solid fa-microchip"></i>
-              <p>Tech</p>
+        <div class="inner-container">
+            <div class="cart-container">
+                <form action="">
+                    <div class="cart-header">
+                        <div class="header">Thông tin sản phẩm</div>
+                        <div class="header">Đơn giá</div>
+                        <div class="header">Thành tiền</div>
+                    </div>
+                    <div class="cart-inner">
+                        <div class="cart-row">
+                            <!-- Cột 1: Sản phẩm -->
+                            <div class="cart-product" data-line="1">
+                                <a href="#" class="cart-img" title="Deep Work">
+                                <img src="https://tse2.mm.bing.net/th/id/OIP.IUVt53fcwXP23-Snmv6SfAHaG1?pid=Api&P=0&h=180" alt="Deep Work">
+                                </a>
+                                <div class="cart-infor">
+                                <div class="cart-name">
+                                    <a href="#" class="product_name" title="Deep Work">Deep Work</a>
+                                    <a class="remove-item-cart" data-line="1">Xóa</a>
+                                </div>
+                                </div>
+                            </div>
+
+                            <!-- Cột 2: Đơn giá -->
+                            <div class="cart-price">
+                                <span>280.000 VND</span>
+                            </div>
+
+                            <!-- Cột 3: Thành tiền -->
+                            <div class="cart-price">
+                                <span>280.000 VND</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="cart-footer">
+                        <div class="footer-row">
+                            <div class="footer-container">
+                                <div></div>
+                                <div class="cart-btn">
+                                    <button type="button">Thanh toán</button>
+                                    <div class="term">
+                                        Bằng việc mua hàng, bạn đồng ý với  
+                                        <br>
+                                        <a href="#">Điều khoản & Điều kiện EBOOK</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </form>
             </div>
-          </a>
-
-          <a href="">
-            <div class="danh-muc">
-              <i class="fa-solid fa-brain"></i>
-              <p>AI</p>
-            </div></a
-          >
-
-          <a href="">
-            <div class="danh-muc">
-              <i class="fa-solid fa-language"></i>
-              <p>Tiếng Anh</p>
-            </div></a
-          >
-
         </div>
-
-        <div class="san-pham-moi">
-          <h5>Sản phẩm mới: </h5>
-
-          <div class="product-card">
-            <img src="https://tse2.mm.bing.net/th/id/OIP.IUVt53fcwXP23-Snmv6SfAHaG1?pid=Api&P=0&h=180" alt="Deep Work – Cal Newport">
-            <p class="book-title">Deep Work – Cal Newport</p>
-            <div>
-              <span>280000 VNĐ</span>
-              <a href=""><i class="fa-solid fa-cart-plus"></i></a>
-            </div>
-          </div>
-        </div>
-      </div>
     </div>
 
+    <!-- #Footer -->
     <footer id="siteFooter">
       <div class="topFooter">
         <div class="left-container">
@@ -172,7 +175,8 @@
             tích hợp đa dạng sản phẩm các loại sách
           </p>
           <p>
-            <i class="fa-solid fa-location-dot"></i><a href="../pages/address.html">Khu phố 33, Phường Linh Xuân, TP. Hồ Chí Minh, Việt Nam</a>
+            <i class="fa-solid fa-location-dot"></i> Trụ sở: Khu phố 33, Phường
+            Linh Xuân, TP. Hồ Chí Minh, Việt Nam
           </p>
           <p><i class="fa-solid fa-phone phoneIcon"></i> 0354.30.09.05</p>
           <p><i class="fa-solid fa-envelope"></i> ebookstore@gmail.com</p>
@@ -201,7 +205,7 @@
             <ul>
               <li><a href="../pages/home.html">Trang chủ</a></li>
               <li><a href="">Giới Thiệu</a></li>
-              <li><a href="../pages/news.html">Tin tức</a></li>
+              <li><a href="">Tin tức</a></li>
               <li><a href="">Liên hệ</a></li>
             </ul>
           </div>
@@ -229,7 +233,7 @@
         <p>Chúc bạn tìm được eBook ưng ý!!!</p>
       </div>
     </footer>
-
+    
     <script src="../js/component.js"></script>
-  </body>
+</body>
 </html>
