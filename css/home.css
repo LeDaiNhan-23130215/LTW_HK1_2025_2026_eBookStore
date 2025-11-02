@@ -89,16 +89,24 @@
 }
 
 .container .danh-muc p {
-  font-size: 1.3rem;
+  font-size: 1rem;
   font-weight: bold;
   transition: 0.3s;
 }
 
 .container .danh-muc i {
-  font-size: 3rem;
+  font-size: 2.5rem;
   margin-bottom: 5px;
   color: #004aad;
   transition: 0.3s;
+}
+
+.container .san-pham-moi {
+  margin-top: 30px;
+}
+
+.container .san-pham-moi h5 {
+  margin: 0;
 }
 
 .container .product-card {
@@ -106,15 +114,33 @@
   background-color: #fff;
   padding: 1em;
   box-shadow: 0 5px 5px #ececec;
+  border: 1px solid lightblue;
+  border-radius: 10px;
+  cursor: grab;
+  overflow: hidden;
+  position: relative;
+  transition: box-shadow 0.3s ease;
+
+}
+.img-wrapper {
+  width: 100%;
+  overflow: hidden;
+  border: 2px solid lightblue;
+  border-radius: 8px;
 }
 
 .container .product-card img {
+  border-radius: 10px;
   max-width: 100%;
+  object-fit: cover;
+  transition: transform 0.4s ease;
+  display: block;
 }
 
 .container .product-card p {
-  font-size: 1.3em;
-  margin: 0.5em 0;
+  font-size: 0.9em;
+  margin-top: 10px;
+  margin-bottom: 12px;
   font-weight: bold;
 }
 
@@ -126,10 +152,162 @@
 }
 
 .container .product-card a {
+  font-size: 1rem;
   border-radius: 50%;
   text-decoration: none;
   color: white;
   padding: 10px;
   background-color: #0396c7;
   border-radius: 50%;
+  transition: 0.3s;
+}
+
+.container .product-card span {
+  color: #004aad;
+}
+
+.container .product-card:hover {
+  box-shadow: 0 5px 10px rgba(0, 0, 0, 0.7);
+}
+
+.container .product-card:hover img{
+  transform: scale(1.1);
+}
+
+.container .product-card a:hover {
+  background-color: #004aad;
+  transform: translateY(-10px);
+}
+
+.slider-container {
+  position: relative;
+  width: 100%;
+  max-width: 90vw;
+  display: block;
+}
+
+/* phần scrollable thực sự */
+.slider {
+  display: flex;
+  gap: 20px;
+  overflow-x: auto;                /*cho phép scroll ngang */
+  scroll-behavior: smooth;
+  padding: 10px 0;
+  margin-top: 5px;
+  margin-bottom: 20px;
+}
+
+.slider::-webkit-scrollbar { display: none; }
+
+.product-card {
+  flex: 0 0 200px;
+  scroll-snap-align: start;
+}
+
+/* nút điều hướng */
+.prev-btn, .next-btn {
+  position: absolute;
+  top: 45%;
+  transform: translateY(-50%);
+  background-color: rgba(0,0,0,0.1);
+  border: none;
+  color: #0396c7;
+  font-size: 1.3rem;
+  cursor: pointer;
+  padding-right: 10px;
+  z-index: 20;
+}
+.prev-btn { 
+  left: 0px;
+  padding: 12px 10px 12px 10px;
+  border-radius: 0 10px 10px 0;
+
+}
+.next-btn { 
+  right: 0px;
+  padding: 12px 10px 12px 10px;
+  border-radius: 30% 0 0 30%; 
+}
+.prev-btn:hover, .next-btn:hover {
+   background-color: #0396c7;
+   color: white 
+}
+
+.sp-noi-bat-grid {
+  width: 90vw;
+  display: grid;
+
+  grid-template-columns: repeat(5, 1fr);
+  grid-template-rows: repeat(2,1fr);
+
+  gap: 10px;
+}
+
+.sp-noi-bat-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.sp-noi-bat-container button{
+  color: black;
+  background-color: none;
+  Border: 3px solid #004aad;
+  padding: 10px 20px;
+  font-size: 1rem;
+  border-radius: 10px;
+  cursor: pointer;
+  margin: 30px;
+  transition: 0.3s;
+}
+
+.sp-noi-bat-container button:hover {
+  color: white;
+  background-color: #004aad;
+}
+
+.banner {
+  margin: 0 auto;
+  display: flex;
+  justify-content: space-between;
+  gap: 30px;
+}
+
+.banner img {
+  width: 500px;
+}
+
+.sp-theo-danh-muc {
+  margin-top: 60px;
+}
+
+.sp-theo-danh-muc .sp-container {
+  display: flex;
+  flex-direction: row;
+}
+.sp-theo-danh-muc .sp-container .sp-banner {
+  display: flex;
+  flex-direction: column;
+  width: 270px;
+  height: auto;
+}
+
+.sp-banner img {
+  width: 100%;
+  margin: 5px;
+  border: 1px solid lightblue;
+}
+
+.sp-container-right {
+  position: relative;          /* tạo khung tham chiếu */
+  display: flex;
+  flex-direction: column;      /* để phần khác (vd: sản phẩm) nằm dưới */
+}
+
+.sp-container-right .choosing-button {
+  position: absolute;          /* nằm chồng lên trong khung cha */
+  top: 0;
+  right: 0;                    /* góc trên bên phải */
+  display: flex;
+  gap: 10px;
 }
