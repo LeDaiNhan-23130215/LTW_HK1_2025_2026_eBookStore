@@ -1,0 +1,129 @@
+body {
+    font-family: Arial, sans-serif;
+    background: #fff;
+    color: #222;
+    margin: 0;
+    padding: 40px;
+}
+
+.news-container {
+    display: flex;
+    gap: 30px;
+}
+
+.news-left {
+    flex: 3;
+}
+
+.news-left h2 {
+    color: #1c1c1c;
+    margin-bottom: 20px;
+}
+
+.news-item {
+    margin-bottom: 40px;
+    position: relative;
+}
+
+.news-item img {
+    width: 100%;
+    height: auto;
+    border-radius: 6px;
+}
+
+.date {
+    background: #ffcc33;
+    color: #000;
+    padding: 4px 10px;
+    border-radius: 4px;
+    position: absolute;
+    top: 10px;
+    left: 10px;
+    font-size: 14px;
+    font-weight: bold;
+}
+
+.news-item h3 {
+    margin-top: 15px;
+    font-size: 18px;
+}
+
+.news-item p {
+    font-size: 14px;
+    color: #444;
+}
+
+.btn {
+    display: inline-block;
+    border: 1px solid #ffcc33;
+    color: #000;
+    padding: 6px 14px;
+    border-radius: 6px;
+    text-decoration: none;
+    font-size: 14px;
+}
+
+.btn:hover {
+    background: #ffcc33;
+}
+
+.news-right {
+    flex: 1;
+}
+
+.category-box, .latest-news {
+    background: #fff5cc;
+    border: 1px solid #eee;
+    border-radius: 6px;
+    margin-bottom: 20px;
+    padding: 10px 15px;
+}
+
+.category-box h3, .latest-news h3 {
+    background: #ffcc33;
+    padding: 8px;
+    margin: -10px -15px 10px -15px;
+    border-radius: 6px 6px 0 0;
+}
+
+.category-box ul, .latest-news ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.category-box li {
+    padding: 6px 0;
+    border-bottom: 1px solid #ddd;
+}
+
+.latest-news li {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+    margin-bottom: 10px;
+}
+
+.latest-news img {
+    width: 50px;
+    height: 50px;
+    border-radius: 4px;
+}
+
+.latest-news p {
+    font-size: 14px;
+    font-weight: bold;
+    margin: 0;
+}
+
+.latest-news span {
+    font-size: 12px;
+    color: #666;
+}
+.news-item img {
+    width: 20%;         /* giảm kích thước ảnh (có thể chỉnh 50–70%) */
+    height: auto;
+    border-radius: 6px;
+    display: block;
+    margin: 10px auto;  /* căn giữa ảnh */
+}
