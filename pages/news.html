@@ -3,7 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Home</title>
+    <title>News</title>
     <link rel="stylesheet" href="../css/base.css" />
     <link rel="stylesheet" href="../css/components.css" />
     <link
@@ -12,10 +12,7 @@
     />
     <link rel="icon" type="image/png" href="../img/ebook-logo2.png" />
     <link rel="stylesheet" href="../css/home.css" />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Pacifico&display=swap"
-      rel="stylesheet"
-    />
+    <link rel="stylesheet" href="../css/news.css">
   </head>
   <body>
     <header id="siteHeader">
@@ -77,57 +74,84 @@
         </div>
       </div>
     </header>
-    <div class="home-image">
-      <img
-        src="https://images.squarespace-cdn.com/content/v1/62ab7b824526d0409e7d65f4/6f19b9a3-f4b5-4471-8630-2dd6aeedeadd/AdobeStock_566655293.jpeg"
-        alt=""
-      />
-      <p class="slogan">Digital books, infinite stories.</p>
-    </div>
 
+
+       <!-- Tin tức -->
+       <main class="news-container">
+        <!-- Cột trái -->
+        <section class="news-left">
+            <h2>Tin tức</h2>
+
+            <div class="news-item">
+                <div class="date">09/06/2025</div>
+                <img src="../img/10439-lam-ra-lam-choi-ra-choi-1.jpg" alt="Book 1">
+                <h3>4 TỰA SÁCH GIÚP BẠN "CHỮA LÀNH" ĐƯỢC YÊU THÍCH NHẤT NĂM 2024</h3>
+                <p>4 tựa sách giúp bạn “chữa lành” được yêu thích nhất năm 2024. Chắc hẳn bất cứ ai trong chúng ta đều có những khoảng thời gian mệt mỏi...</p>
+                <a href="#" class="btn">Đọc tiếp</a>
+            </div>
+
+            <div class="news-item">
+                <div class="date">31/07/2024</div>
+                <img src="../img/atomic-habits-dots.png" alt="Book 2">
+                <h3>REVIEW TOP 10 NHỮNG CUỐN SÁCH NÊN ĐỌC TRONG ĐỜI ĐỂ PHÁT TRIỂN BẢN THÂN</h3>
+                <p>Sách mang lại cho chúng ta một kho tàng tri thức khổng lồ và giúp bạn vượt qua những vấn đề trong hành trình...</p>
+                <a href="#" class="btn">Đọc tiếp</a>
+            </div>
+        </section>
+
+        <!-- Cột phải -->
+        <aside class="news-right">
+            <div class="category-box">
+                <h3>Danh mục</h3>
+                <ul>
+                    <li>Sách Văn Học</li>
+                    <li>Sách Kinh Tế</li>
+                    <li>Thiếu Nhi</li>
+                    <li>Ngoại Ngữ</li>
+                    <li>Tâm Lý - Kỹ Năng Sống</li>
+                    <li>Văn Phòng Phẩm</li>
+                    <li>Đồ Chơi</li>
+                </ul>
+            </div>
+
+            <div class="latest-news">
+                <h3>Tin mới nhất</h3>
+                <ul>
+                    <li>
+                        <img src="../img/10439-lam-ra-lam-choi-ra-choi-1.jpg" alt="deep-work">
+                        <div>
+                            <p>4 TỰA SÁCH GIÚP BẠN “CHỮA LÀNH”</p>
+                            <span>09/06/2025</span>
+                        </div>
+                    </li>
+                    <li>
+                        <img src="../img/atomic-habits-dots.png" alt="atomic-habits-dots">
+                        <div>
+                            <p>REVIEW TOP 10 CUỐN SÁCH NÊN ĐỌC</p>
+                            <span>31/07/2024</span>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </aside>
+    </main>
+
+
+
+
+
+
+
+
+
+
+    <!-- SLIDER -->
     <div class="container">
-      <div class="danh-muc-noi-bat">
-        <h5>Danh mục nổi bật:</h5>
-        <div class="danh-sach-danh-muc">
-          
-          <a href="">
-            <div class="danh-muc">
-              <i class="fa-solid fa-microchip"></i>
-              <p>Tech</p>
-            </div>
-          </a>
-
-          <a href="">
-            <div class="danh-muc">
-              <i class="fa-solid fa-brain"></i>
-              <p>AI</p>
-            </div></a
-          >
-
-          <a href="">
-            <div class="danh-muc">
-              <i class="fa-solid fa-language"></i>
-              <p>Tiếng Anh</p>
-            </div></a
-          >
-
+      <div class="home-image">
         </div>
-
-        <div class="san-pham-moi">
-          <h5>Sản phẩm mới: </h5>
-
-          <div class="product-card">
-            <img src="https://tse2.mm.bing.net/th/id/OIP.IUVt53fcwXP23-Snmv6SfAHaG1?pid=Api&P=0&h=180" alt="Deep Work – Cal Newport">
-            <p class="book-title">Deep Work – Cal Newport</p>
-            <div>
-              <span>280000 VNĐ</span>
-              <a href=""><i class="fa-solid fa-cart-plus"></i></a>
-            </div>
-          </div>
+        <div class="slider-nav" id="sliderNav" aria-hidden="false">          
         </div>
       </div>
-    </div>
-
     <footer id="siteFooter">
       <div class="topFooter">
         <div class="left-container">
@@ -172,7 +196,8 @@
             tích hợp đa dạng sản phẩm các loại sách
           </p>
           <p>
-            <i class="fa-solid fa-location-dot"></i><a href="../pages/address.html">Khu phố 33, Phường Linh Xuân, TP. Hồ Chí Minh, Việt Nam</a>
+            <i class="fa-solid fa-location-dot"></i> Trụ sở: Khu phố 33, Phường
+            Linh Xuân, TP. Hồ Chí Minh, Việt Nam
           </p>
           <p><i class="fa-solid fa-phone phoneIcon"></i> 0354.30.09.05</p>
           <p><i class="fa-solid fa-envelope"></i> ebookstore@gmail.com</p>
