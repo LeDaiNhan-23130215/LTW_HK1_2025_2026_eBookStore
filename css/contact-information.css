@@ -144,6 +144,13 @@ body .checkout-container .checkout-left .form-container form .option button:hove
     background-color: hsl(195, 98%, 50%);
     cursor: pointer;
 }
+.container .input-div .error-msg {
+    color: hsl(0, 100%, 70%);
+    font-size: 0.7rem;
+    margin-top: 4px;
+    display: block;
+    height: 14px;
+}
 body .checkout-container .checkout-right{
     flex: 1;
     background-color: #fff;
