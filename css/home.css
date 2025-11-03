@@ -124,12 +124,15 @@
 }
 .img-wrapper {
   width: 100%;
+  height: auto;
   overflow: hidden;
   border: 2px solid lightblue;
   border-radius: 8px;
 }
 
 .container .product-card img {
+  width: 100%;
+  height: auto;
   border-radius: 10px;
   max-width: 100%;
   object-fit: cover;
@@ -142,6 +145,7 @@
   margin-top: 10px;
   margin-bottom: 12px;
   font-weight: bold;
+  height: 1.8em;
 }
 
 .product-card div {
@@ -278,36 +282,75 @@
 }
 
 .sp-theo-danh-muc {
-  margin-top: 60px;
+  width: 100%;
+  padding: 20px;
+  box-sizing: border-box;
 }
 
-.sp-theo-danh-muc .sp-container {
+.choosing-button {
   display: flex;
-  flex-direction: row;
+  overflow-x: auto;
+  gap: 10px;
+  padding: 10px 0;
+  scroll-snap-type: x mandatory;
 }
-.sp-theo-danh-muc .sp-container .sp-banner {
+
+.choosing-button button {
+  flex: 0 0 auto;
+  scroll-snap-align: start;
+  padding: 10px 20px;
+  border: 1px solid lightgray;
+  background: white;
+  border-radius: 20px;
+  cursor: pointer;
+  transition: 0.2s;
+}
+
+.choosing-button button:hover {
+  background-color: #0078d4;
+  color: white;
+}
+
+.sp-container {
+  display: grid;
+  grid-template-columns: 270px 1fr;
+  align-items: stretch;
+  gap: 20px;
+}
+
+.sp-banner {
   display: flex;
   flex-direction: column;
-  width: 270px;
-  height: auto;
+  justify-content: space-between;
+  height: 100%;
+  gap: 20px;
 }
 
 .sp-banner img {
   width: 100%;
-  margin: 5px;
-  border: 1px solid lightblue;
+  height: 100%;
+  object-fit: cover;
+  flex: 1;
+  border-radius: 8px;
 }
 
-.sp-container-right {
-  position: relative;          /* tạo khung tham chiếu */
-  display: flex;
-  flex-direction: column;      /* để phần khác (vd: sản phẩm) nằm dưới */
+.product-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  grid-template-rows: repeat(2, 1fr);
+  gap: 20px;
 }
 
-.sp-container-right .choosing-button {
-  position: absolute;          /* nằm chồng lên trong khung cha */
-  top: 0;
-  right: 0;                    /* góc trên bên phải */
-  display: flex;
-  gap: 10px;
+.product-card {
+  background: white;
+  border: 1px solid #eee;
+  border-radius: 8px;
+  padding: 15px;
+  text-align: center;
+  box-shadow: 0 1px 4px rgba(0,0,0,0.1);
+  transition: transform 0.2s;
+}
+
+.product-card:hover {
+  transform: translateY(-4px);
 }
