@@ -24,16 +24,19 @@
             <div class="form-container">
                 <form action="">
                     <div class="input">
-                        <input class="emailInput" type="email" placeholder=" " required>
+                        <input class="emailInput" id="emailInput" type="email" placeholder=" " required>
                         <label for="emailInput">Email</label>
+                        <span class="error-msg"></span>
                     </div>
                     <div class="input">
-                        <input class="fullNameInput" type="text" placeholder=" " required>
+                        <input class="fullNameInput" id="fullNameInput" type="text" placeholder=" " required>
                         <label for="fullNameInput">Họ và tên</label>
+                        <span class="error-msg"></span>
                     </div>
                     <div class="input">
-                        <input class="phoneNumInput" type="text" placeholder=" " required>
+                        <input class="phoneNumInput" id="phoneNumInput" type="text" placeholder=" " required>
                         <label for="phoneNumInput">Số điện thoại</label>
+                        <span class="error-msg"></span>
                     </div>
                     <div class="input">
                         <textarea name="note" id="note" placeholder=" "></textarea>
@@ -41,7 +44,7 @@
                     </div>
                     <div class="option">
                         <a href="cart.html"><i class="fa-solid fa-arrow-left"></i>Giỏ hàng</a>
-                        <button type="button">Tiếp tục phương thức thanh toán</button>
+                        <button class="continue-btn" type="button">Tiếp tục phương thức thanh toán</button>
                     </div>
                 </form>
             </div>
@@ -65,5 +68,6 @@
             </div>
         </div>
     </div>
+    <script src="../js/contact-information.js"></script>
 </body>
 </html>
