@@ -28,6 +28,17 @@ continueBtn.addEventListener('click', (e) => {
     if(!phoneRegex.test(phoneNumInput)){
         showError('phoneNumInput', "Số điện thoại của bạn không đúng");
     }
+
+    const errors = document.querySelectorAll('.error-msg');
+    let hasError = false;
+    for(const e of errors){
+        if(e.textContent !== ""){
+            hasError = true;
+            break;
+        }
+    }
+    if(hasError) return;
+    window.location.href = "../pages/payment.html"
 });
 
 function showError(inputId, message) {
