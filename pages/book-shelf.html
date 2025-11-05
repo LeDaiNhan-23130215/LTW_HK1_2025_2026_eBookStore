@@ -1,20 +1,19 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Thông tin người dùng</title>
-    <link rel="stylesheet" href="../css/base.css">
-    <link rel="stylesheet" href="../css/components.css">
-    <link rel="stylesheet" href="../css/user-infor.css">
-      <link
+    <link rel="stylesheet" href="../css/base.css" />
+    <link rel="stylesheet" href="../css/components.css" />
+    <link rel="stylesheet" href="../css/user-infor.css" />
+    <link
       rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"
     />
-    <link rel="icon" type="image/png" href="../img/ebook-logo2.png">
-
-</head>
-<body>
+    <link rel="icon" type="image/png" href="../img/ebook-logo2.png" />
+  </head>
+  <body>
     <header id="siteHeader">
       <div class="headerContainer">
         <div class="topBar">
@@ -22,7 +21,8 @@
             <p id="welcomeMessage">Chào mừng bạn đến với EBookStore</p>
           </div>
           <div class="rightContainer">
-            <a href="user-infor.html">Nguyễn Văn A</a>
+            <a href="login.html">Đăng nhập</a>
+            <a href="sign-up.html">Đăng ký</a>
             <p>
               Hotline:
               <span class="phoneNumber"
@@ -34,7 +34,7 @@
 
         <div class="headerMenu">
           <div class="logo">
-            <a href="home-Login.html"
+            <a href="home.html"
               ><img
                 src="../img/ebook-logo2.png"
                 alt="EBookStore Logo"
@@ -62,9 +62,9 @@
             </div>
 
             <div class="order">
-              <a href="cart.html"
+              <a href="your-order.html"
                 ><button>
-                  <i class="fa-solid fa-cart-shopping"></i> Giỏ hàng
+                  <i class="fa-solid fa-cart-shopping"></i> Đơn hàng
                 </button></a
               >
               <span class="notification-badge">0</span>
@@ -73,41 +73,52 @@
         </div>
       </div>
     </header>
-        <div class="container">
-            <div class="box-left">
-                <div class="subTitle">
-                    <h5>TRANG TÀI KHOẢN</h5>
-                    <p><b>Xin chào, </b> <b style="color: hsl(0, 100%, 60%); font-weight: 550;">Nguyễn Văn A</b> !</p>
-                </div>
-                <ul class="option-list">
-                    <li><a href="user-infor.html">Thông tin tài khoản</a></li>
-                    <li><a href="your-order.html">Đơn hàng của bạn</a></li>
-                    <li><a href="book-shelf.html">Tủ sách của bạn</a></li>
-                    <li><a href="wishlist.html">Danh mục yêu thích</a></li>
-                    <li class="selected"><a href="#">Đổi mật khẩu</a></li>
-                </ul>
-            </div>
-            <div class="box-right">
-                <div class="subTitle">
-                    <h5>ĐỔI MẬT KHẨU</h5>
-                    <form class="changePass">
-                        <div class="input-div">
-                            <input type="password" name="password" id="password" placeholder="Mật khẩu cũ" autocomplete>
-                            <span class="error-msg"></span>
-                        </div>
-                        <div class="input-div">
-                            <input type="password" name="newPassword" id="newPassword" placeholder="Mật khẩu mới" autocomplete>
-                            <span class="error-msg"></span>
-                        </div>
-                        <div class="input-div">
-                            <input type="password" name="confirmPassword" id="confirmPassword" placeholder="Xác nhận lại mật khẩu" autocomplete>
-                            <span class="error-msg"></span>
-                        </div>
-                        <button type="button" class="changePass-btn">Đổi mật khẩu</button>
-                    </form>
-                </div>
-            </div>
+    <div class="container">
+      <div class="box-left">
+        <div class="subTitle">
+          <h5>TRANG TÀI KHOẢN</h5>
+          <p>
+            <b>Xin chào, </b>
+            <b style="color: hsl(0, 100%, 60%); font-weight: 550"
+              >Nguyễn Văn A 
+            </b>
+            !
+          </p>
         </div>
+        <ul class="option-list">
+          <li><a href="user-infor.html">Thông tin tài khoản</a></li>
+          <li><a href="your-order.html">Đơn hàng của bạn</a></li>
+          <li class="selected"><a href="#">Tủ sách của bạn</a></li>
+          <li><a href="wishlist.html">Danh mục yêu thích</a></li>
+          <li><a href="change-password.html">Đổi mật khẩu</a></li>
+        </ul>
+      </div>
+        <section class="box-right" id="page-content">
+            <h5>TỦ SÁCH CỦA BẠN</h5>
+            <p>Dưới đây là các cuốn sách bạn đã sở hữu:</p>
+
+            <div class="bookshelf">
+                <!-- Sách 1 -->
+                <div class="book">
+                <img
+                    src="https://tse2.mm.bing.net/th/id/OIP.IUVt53fcwXP23-Snmv6SfAHaG1?pid=Api&P=0&h=180"
+                    alt="Deep Work"
+                />
+                <h3>Deep Work</h3>
+                </div>
+
+                <!-- Sách 2 -->
+                <div class="book">
+                <img
+                    src="https://i.pinimg.com/originals/03/5f/87/035f871609ba334ee7bd3766ccdc3f62.jpg"
+                    alt="Atomic Habits"
+                />
+                <h3>Atomic Habits</h3>
+                </div>
+            </div>
+        </section>
+    </div>
+
     <footer id="siteFooter">
       <div class="topFooter">
         <div class="left-container">
@@ -151,11 +162,10 @@
             <span>EBookStore</span> là mô hình nhà sách dành cho thế hệ trẻ,
             tích hợp đa dạng sản phẩm các loại sách
           </p>
-          <a href="../pages/address.html">
-            <i class="fa-solid fa-location-dot"></i>Khu phố 33, Phường Linh
-            Xuân, TP. Hồ Chí Minh, Việt Nam</a
-          >
-
+          <p>
+            <i class="fa-solid fa-location-dot"></i> Trụ sở: Khu phố 33, Phường
+            Linh Xuân, TP. Hồ Chí Minh, Việt Nam
+          </p>
           <p><i class="fa-solid fa-phone phoneIcon"></i> 0354.30.09.05</p>
           <p><i class="fa-solid fa-envelope"></i> ebookstore@gmail.com</p>
         </div>
@@ -181,9 +191,9 @@
           <div class="option">
             <h3>DANH MỤC</h3>
             <ul>
-              <li><a href="../pages/home-Login.html">Trang chủ</a></li>
+              <li><a href="../pages/home.html">Trang chủ</a></li>
               <li><a href="">Giới Thiệu</a></li>
-              <li><a href="../pages/news.html">Tin tức</a></li>
+              <li><a href="">Tin tức</a></li>
               <li><a href="">Liên hệ</a></li>
             </ul>
           </div>
@@ -211,7 +221,7 @@
         <p>Chúc bạn tìm được eBook ưng ý!!!</p>
       </div>
     </footer>
-    <script src = "../js/component.js"></script>
+    <script src="../js/component.js"></script>
     <script src="../js/user-infor.js" defer></script>
-</body>
+  </body>
 </html>

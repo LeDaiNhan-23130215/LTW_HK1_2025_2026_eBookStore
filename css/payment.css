@@ -26,115 +26,147 @@ body .checkout-container .checkout-left{
     border-radius: 8px;
     box-shadow: 0px 2px 6px rgba(0, 0, 0, 0.1);
 }
+
 body .checkout-container .checkout-left .image{
     display: flex;
     justify-content: center;
     align-items: center;
 }
+
 body .checkout-container .checkout-left .image img{
     width: 150px;
     background-color: #0396c7;
     border-radius: 8px;
     margin-bottom: 30px;
 }
-body .checkout-container .checkout-left .label-logout{
+
+body .checkout-container .checkout-left .label-infor{
     display: flex;
     justify-content: space-between;
     align-items: center;
     margin-bottom: 10px;
 }
-body .checkout-container .checkout-left .label-logout p{
+
+body .checkout-container .checkout-left .label-infor p{
     font-size: 1.1rem;
     font-weight: 600;
 }
-body .checkout-container .checkout-left .label-logout a{
+
+body .checkout-container .checkout-left .label-infor a{
     color: #0396c7;
     text-decoration: none;
     transition: all 0.5s ease;
 }
-body .checkout-container .checkout-left .label-logout a:hover {
+
+body .checkout-container .checkout-left .label-infor a:hover {
     color: hsl(195, 98%, 50%);
     cursor: pointer;
 }
-body .checkout-container .checkout-left .label-logout a i{
-    margin-right: 10px;
+
+body .checkout-container .checkout-left .user-information{
+    margin-bottom: 30px;
+    border-bottom: 1px solid #ccc;
 }
-body .checkout-container .checkout-left .form-container form{
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
+
+body .checkout-container .checkout-left .user-information > p{
+    margin-top: 10px;
+    margin-bottom: 10px;
+    color: #aaa;
 }
-body .checkout-container .checkout-left .form-container form .input{
+
+body .checkout-container .checkout-left form p{
+    font-size: 1.1rem;
+    font-weight: 600;
+}
+
+body .checkout-container .checkout-left form .payment-container {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  margin-top: 15px;
+}
+
+body .checkout-container .checkout-left form .payment-container .payment-option{
     display: flex;
     align-items: center;
-    position: relative;
-    margin-bottom: 20px;
+    gap: 10px;
     border: 1px solid #ccc;
-    border-radius: 5px;
-    padding: 12px;
-    transition: border-color 0.3s ease;
+    border-radius: 8px;
+    padding: 10px 15px;
+    transition: all 0.3s ease;
+    cursor: pointer;
 }
-body .checkout-container .checkout-left .form-container form .input label{
-    position: absolute;
-    left: 15px;
-    top: 50%;
-    transform: translateY(-50%);
-    color: #aaa;
-    font-size: 0.95rem;
-    pointer-events: none;
-    transition: all 0.25s ease;
-    background-color: #fff;
-    padding: 0 4px;
-}
-body .checkout-container .checkout-left .form-container form .input input{
-    border: none;
-    outline: none;
-    padding-top: 15px;
-    padding-bottom: 15px;
-    padding-left: 25px;
-    width: 100%;
-}
-body .checkout-container .checkout-left .form-container form .input textarea{
-    border: none;
-    outline: none;
-    width: 100%;
-}
-body .checkout-container .checkout-left .form-container form .input input,
-body .checkout-container .checkout-left .form-container form .input textarea {
-    width: 100%;
-    border: none;
-    outline: none;
-    font-size: 1rem;
-    background: none;
-    padding: 10px 5px 5px 5px;
-    resize: none;
-}
-body .checkout-container .checkout-left .form-container form .input input:focus + label,
-body .checkout-container .checkout-left .form-container form .input input:not(:placeholder-shown) + label,
-body .checkout-container .checkout-left .form-container form .input textarea:focus + label,
-body .checkout-container .checkout-left .form-container form .input textarea:not(:placeholder-shown) + label {
-    top: 0px;
-    left: 10px;
-    font-size: 0.8rem;
-    color: #0396c7; 
-}
-body .checkout-container .checkout-left .form-container form .input:focus-within{
+
+body .checkout-container .checkout-left form .payment-container .payment-option:hover {
     border-color: #0396c7;
+    background-color: #f8fbfd;
 }
-body .checkout-container .checkout-left .form-container form .option{
+
+body .checkout-container .checkout-left form .payment-container input[type="radio"]:checked + label {
+    color: #0396c7;
+    font-weight: 600;
+}
+
+body .checkout-container .checkout-left form .payment-container input[type="radio"] {
+    display: none;
+}
+
+body .checkout-container .checkout-left form .payment-container .payment-option label {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    width: 100%;
+    cursor: pointer;
+}
+
+body .checkout-container .checkout-left form .payment-container .payment-option img{
+    width: 40px;
+    height: auto;
+    object-fit: cover;
+    border-radius: 5px;
+}
+
+body .checkout-container .checkout-left form .payment-container .qr-container{
+    display: flex;
+    margin-top: 20px;
+    display: none;
+}
+
+body .checkout-container .checkout-left form .payment-container .qr-container img {
+    width: 160px;
+    height: 160px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    margin-top: 10px;
+}
+
+body .checkout-container .checkout-left form .payment-container .qr-container p {
+    color: #0396c7;
+    font-weight: 600;
+    margin-bottom: 8px;
+}
+
+body .checkout-container .checkout-left form .payment-container .qr-container.active{
+    display: block;
+}
+
+body .checkout-container .checkout-left .option{
     display: flex;
     justify-content: space-between;
     align-items: center;
     margin-top: 15px;
 }
-body .checkout-container .checkout-left .form-container form .option a{
+
+body .checkout-container .checkout-left .option a{
     color: #0396c7;
     text-decoration: none;
 }
-body .checkout-container .checkout-left .form-container form .option a i{
+
+body .checkout-container .checkout-left .option a i{
     margin-right: 10px;
 }
-body .checkout-container .checkout-left .form-container form .option button{
+
+body .checkout-container .checkout-left .option button{
     border: none;
     background-color: #0396c7;
     color: #fff;
@@ -143,21 +175,20 @@ body .checkout-container .checkout-left .form-container form .option button{
     font-size: 1rem;
     transition: all 0.5s ease;
 }
-body .checkout-container .checkout-left .form-container form .option button:hover{
+
+body .checkout-container .checkout-left .option button:hover{
     background-color: hsl(195, 98%, 50%);
     cursor: pointer;
 }
-body .checkout-container .checkout-left .form-container form .input .error-msg {
-    color: hsl(0, 100%, 70%);
-    font-size: 0.75rem;
-    margin-top: 4px;
-    display: flex;
-    flex-direction: row;
-    justify-content: flex-start;
-    align-items: center;
-    height: 14px;
-    width: 250px;
+
+body .checkout-container .checkout-left .option button {
+    transition: background-color 0.3s ease, transform 0.1s ease;
 }
+
+body .checkout-container .checkout-left .option button:active {
+    transform: scale(0.97);
+}
+
 body .checkout-container .checkout-right{
     flex: 1;
     background-color: #fff;
@@ -165,18 +196,21 @@ body .checkout-container .checkout-right{
     border-radius: 8px;
     box-shadow: 0px 2px 6px rgba(0, 0, 0, 0.1);
 }
+
 body .checkout-container .checkout-right .label-right{
     font-size: 1.1rem;
     font-weight: 600;
     padding-bottom: 15px;
     border-bottom: 1px solid #ccc;
 }
+
 body .checkout-container .checkout-right .product-row{
     display: flex;
     justify-content: space-between;
     align-items: center;
     border-bottom: 1px solid #ccc;
 }
+
 body .checkout-container .checkout-right .product-row .product-detail{
     display: flex;
     flex-direction: row;
@@ -185,18 +219,22 @@ body .checkout-container .checkout-right .product-row .product-detail{
     margin-top: 15px;
     margin-bottom: 15px;
 }
+
 body .checkout-container .checkout-right .product-price,
 body .checkout-container .checkout-right .sub-price-title{
     color: #aaa;
 }
+
 body .checkout-container .checkout-right .total-price-title{
     font-size: 1.2rem;
     color: #aaa;
 }
+
 body .checkout-container .checkout-right .total-price{
     font-size: 1.4rem;
     color: #0396c7;
 }
+
 body .checkout-container .checkout-right .product-row .product-detail img{
     width: 70px;
     height: auto;
@@ -204,6 +242,7 @@ body .checkout-container .checkout-right .product-row .product-detail img{
     border-radius: 5px;
     border: 0.5px solid #ccc;
 }
+
 body .checkout-container .checkout-right .price{
     display: flex;
     justify-content: space-between;
@@ -213,6 +252,7 @@ body .checkout-container .checkout-right .price{
     margin-bottom: 15px;
     border-bottom: 1px solid #ccc;
 }
+
 body .checkout-container .checkout-right .total{
     display: flex;
     justify-content: space-between;
