@@ -33,7 +33,7 @@ signInBtn.addEventListener('click', (e) => {
     const found = users.find(u => u.email === email && u.password === password);
     if(isValid && found){
         alert("Đăng nhập thành công")
-        window.location.href = "../pages/home.html";
+        window.location.href = "../pages/home-Login.html";
     }
     else{
         showError('userAndEmail', "Sai email hoặc mật khẩu");
