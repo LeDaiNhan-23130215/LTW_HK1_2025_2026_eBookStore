@@ -402,6 +402,14 @@
   margin-top: 15px;
 }
 
+#siteFooter .footer-container .left a{  
+  display: inline-block; 
+  margin-top: 15px;
+  font-size: 0.9rem;
+  text-decoration: none;
+  color: black;
+}
+
 #siteFooter .footer-container .cs-hd-dm {
   display: flex;
   flex-direction: row;
@@ -480,3 +488,4 @@
   font-size: 1.5rem;
   margin: 3px;
 }
+

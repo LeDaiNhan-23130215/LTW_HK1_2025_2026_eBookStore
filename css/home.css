@@ -48,6 +48,7 @@
   display: flex;
   flex-direction: column; 
   align-items: flex-start;
+  margin-top: 60px;
 }
 
 .container .danh-muc-noi-bat h5 {
@@ -102,7 +103,7 @@
 }
 
 .container .san-pham-moi {
-  margin-top: 30px;
+  margin-top: 60px;
 }
 
 .container .san-pham-moi h5 {
@@ -237,6 +238,9 @@
    color: white 
 }
 
+.sp-noi-bat {
+  margin-top: 60px;
+}
 .sp-noi-bat-grid {
   width: 90vw;
   display: grid;
@@ -261,7 +265,7 @@
   font-size: 1rem;
   border-radius: 10px;
   cursor: pointer;
-  margin: 30px;
+  margin: 10px 0;
   transition: 0.3s;
 }
 
@@ -271,7 +275,7 @@
 }
 
 .banner {
-  margin: 0 auto;
+  margin: 60px auto;
   display: flex;
   justify-content: space-between;
   gap: 30px;
@@ -283,10 +287,14 @@
 
 .sp-theo-danh-muc {
   width: 100%;
-  padding: 20px;
   box-sizing: border-box;
+  margin-top: 60px;
 }
 
+
+.sp-theo-danh-muc h5 {
+  margin-bottom: 20px;
+}
 .choosing-button {
   display: flex;
   overflow-x: auto;
@@ -299,9 +307,11 @@
   flex: 0 0 auto;
   scroll-snap-align: start;
   padding: 10px 20px;
-  border: 1px solid lightgray;
+  border: 1px solid #0078d4;
+  font-weight: bold;
+  color:#0078d4;
   background: white;
-  border-radius: 20px;
+  border-radius: 10px;
   cursor: pointer;
   transition: 0.2s;
 }
@@ -315,7 +325,6 @@
   display: grid;
   grid-template-columns: 270px 1fr;
   align-items: stretch;
-  gap: 20px;
 }
 
 .sp-banner {
@@ -338,7 +347,6 @@
   display: grid;
   grid-template-columns: repeat(4, 1fr);
   grid-template-rows: repeat(2, 1fr);
-  gap: 20px;
 }
 
 .product-card {
@@ -354,3 +362,4 @@
 .product-card:hover {
   transform: translateY(-4px);
 }
+
