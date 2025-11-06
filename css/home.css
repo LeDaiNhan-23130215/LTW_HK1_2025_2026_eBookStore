@@ -125,18 +125,20 @@
 }
 .img-wrapper {
   width: 100%;
-  height: auto;
+  height: 180px;
   overflow: hidden;
   border: 2px solid lightblue;
   border-radius: 8px;
+  position: relative;
 }
 
 .container .product-card img {
   width: 100%;
-  height: auto;
+  height: 100%;
   border-radius: 10px;
   max-width: 100%;
-  object-fit: cover;
+  object-fit: contain;
+  object-position: top;
   transition: transform 0.4s ease;
   display: block;
 }
@@ -146,7 +148,8 @@
   margin-top: 10px;
   margin-bottom: 12px;
   font-weight: bold;
-  height: 1.8em;
+  height: 3em;
+  text-align: left;
 }
 
 .product-card div {
@@ -367,6 +370,56 @@
   transform: translateY(-4px);
 }
 
+.more {
+  margin-top: 15px;
+}
+
+.more .all-product-button {
+  color: black;
+  background-color: none;
+  Border: 3px solid #004aad;
+  padding: 10px 20px;
+  font-size: 0.8rem;
+  font-weight: 500;
+  border-radius: 10px;
+  cursor: pointer;
+  margin: 10px 0;
+  transition: 0.3s;
+  margin-left: 50%;
+}
+.more .all-product-button:hover {
+  background-color: #004aad;
+  color: white;
+}
+
+.more h6 {
+  font-size: 1rem;
+}
+
+.more .finding-button {
+  margin-top: 10px;
+  display: flex;
+  gap: 10px;
+}
+
+.more .finding-button button {
+  color:white;
+  background-color: #0078d4;
+  padding: 10px 20px;
+  border: 1px solid #0078d4;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.more .finding-button button:hover {
+  color: #0078d4;
+  background-color: white;
+
+}
+
+
+
 .ebook-description {
   margin: 60px auto;
   display: flex;
@@ -444,3 +497,4 @@
   color: #444;
   line-height: 1.6;
 }
+
