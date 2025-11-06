@@ -142,7 +142,6 @@
   display: flex;
   align-items: center;
   gap: 8px;
-  color: #004aad;
   font-size: 1.1rem;
   font-weight: 600;
   background-color: white;
@@ -152,10 +151,20 @@
   cursor: pointer;
 }
 
+.headerMenu .categorymenu a{
+  text-decoration: none;
+  color: #004aad;
+
+}
+
 .headerMenu .categorymenu:hover {
-  color: white;
   background-color: #004aad;
 }
+
+.headerMenu .categorymenu:hover a{
+  color: white;
+}
+
 
 .headerMenu .searchBox {
   display: flex;

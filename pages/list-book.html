@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>EBook</title>
+    <link rel="stylesheet" href="../css/base.css" />
+    <link rel="stylesheet" href="../css/components.css" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"
+    />
+    <link rel="icon" type="image/png" href="../img/ebook-logo2.png" />
+  </head>
+  <body>
+    <header id="siteHeader">
+      <div class="headerContainer">
+        <div class="topBar">
+          <div class="leftContainer">
+            <p id="welcomeMessage">Chào mừng bạn đến với EBookStore</p>
+          </div>
+          <div class="rightContainer">
+            <a href="user-infor.html">Nguyễn Văn A</a>
+            <a href="home-notLogin.html">Đăng xuất</a>
+            <p>
+              Hotline:
+              <span class="phoneNumber"
+                ><i class="fa-solid fa-phone phoneIcon"></i> 0354.30.09.05</span
+              >
+            </p>
+          </div>
+        </div>
+
+        <div class="headerMenu">
+          <div class="logo">
+            <a href="home-Login.html"
+              ><img
+                src="../img/ebook-logo2.png"
+                alt="EBookStore Logo"
+                class="logoImg"
+            /></a>
+            <p>EBookStore</p>
+          </div>
+          <div class="categorymenu">
+            <a href="category.html"
+              ><i class="fa-solid fa-bars"></i> Danh mục</a
+            >
+          </div>
+
+          <div class="searchBox">
+            <input
+              type="text"
+              placeholder="Tìm sách của bạn ở đây"
+              id="searchBox"
+            />
+            <button><i class="fa fa-search"></i></button>
+          </div>
+
+          <div class="after-searchbox">
+            <div class="notification-button">
+              <a><i class="fa-regular fa-bell"></i></a>
+              <span class="notification-badge">3</span>
+            </div>
+
+            <div class="order">
+              <a href="cart.html"
+                ><button>
+                  <i class="fa-solid fa-cart-shopping"></i> Giỏ hàng
+                </button></a
+              >
+              <span class="notification-badge">0</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </header>
+
+    <main>
+      <aside class="sidebar">
+        <div class="filter">
+          <h3>Thể loại</h3>
+          <label><input type="checkbox" />Tech</label>
+          <label><input type="checkbox" />Tham khảo</label>
+          <label><input type="checkbox" />Tiếng Anh</label>
+          <label><input type="checkbox" />Văn học Việt Nam</label>
+        </div>
+        <a href="all-category"
+          ><i class="fa-solid fa-book"></i> Tất cả danh mục</a
+        >
+        <div class="filter">
+          <h3>Giá</h3>
+          <label><input type="checkbox" />Miễn phí</label>
+          <label><input type="checkbox" />Có phí</label>
+        </div>
+
+        <div class="filter">
+          <h3>Loại file</h3>
+          <label><input type="checkbox" />PDF</label>
+          <label><input type="checkbox" />EPUB</label>
+          <label><input type="checkbox" />MOBI</label>
+        </div>
+      </aside>
+
+      <section class="content">
+        <div class="selected-filters">
+          <strong>Đang chọn:</strong>
+          <span>Thể loại: Công nghệ</span>
+          <span>Giá: Miễn phí</span>
+          <span>File: PDF</span>
+        </div>
+      </section>
+    </main>
+
+    <footer id="siteFooter">
+      <div class="topFooter">
+        <div class="left-container">
+          <div class="informationEmailBox">
+            <input
+              type="text"
+              placeholder="Nhập email để nhận thông tin mới nhất!"
+              id="email-input"
+            />
+            <button>ĐĂNG KÝ</button>
+          </div>
+        </div>
+
+        <div class="right-container">
+          <p>Kết nối với chúng tôi:</p>
+          <img src="../img/zalo-logo.png" alt="zalo" class="zalo-logo" />
+          <img
+            src="../img/facebook-logo.png"
+            alt="facebook"
+            class="facebook-logo"
+          />
+        </div>
+      </div>
+
+      <div class="footer-container">
+        <div class="left">
+          <div class="logo">
+            <a href="home-Login.html"
+              ><img
+                src="../img/ebook-logo2.png"
+                alt="EBookStore Logo"
+                class="logoImg"
+            /></a>
+            <p>EBookStore</p>
+          </div>
+          <h3>Công ty EBookStore</h3>
+          <p>
+            Địa chỉ: Khu phố 33, Phường Linh Xuân, TP. Hồ Chí Minh, Việt Nam
+          </p>
+          <p>
+            <span>EBookStore</span> là mô hình nhà sách dành cho thế hệ trẻ,
+            tích hợp đa dạng sản phẩm các loại sách
+          </p>
+          <a href="../pages/address.html">
+            <i class="fa-solid fa-location-dot"></i>Khu phố 33, Phường Linh
+            Xuân, TP. Hồ Chí Minh, Việt Nam</a
+          >
+
+          <p><i class="fa-solid fa-phone phoneIcon"></i> 0354.30.09.05</p>
+          <p><i class="fa-solid fa-envelope"></i> ebookstore@gmail.com</p>
+        </div>
+
+        <div class="cs-hd-dm">
+          <div class="option">
+            <h3>CHÍNH SÁCH</h3>
+            <ul>
+              <li><a href="">Chính Sách Bảo Mật Thông Tin Cá Nhân</a></li>
+              <li><a href="">Chính Sách Bảo Mật Thanh Toán</a></li>
+              <li><a href="">Điều Khoản sử dụng</a></li>
+            </ul>
+          </div>
+
+          <div class="option">
+            <h3>HƯỚNG DẪN</h3>
+            <ul>
+              <li><a href="">Hướng dẫn mua hàng</a></li>
+              <li><a href="">Phương thức thanh toán</a></li>
+            </ul>
+          </div>
+
+          <div class="option">
+            <h3>DANH MỤC</h3>
+            <ul>
+              <li><a href="../pages/home-Login.html">Trang chủ</a></li>
+              <li><a href="">Giới Thiệu</a></li>
+              <li><a href="../pages/news.html">Tin tức</a></li>
+              <li><a href="">Liên hệ</a></li>
+            </ul>
+          </div>
+
+          <div class="kn-tt">
+            <h3>GÓP Ý KHIẾU NẠI</h3>
+            <a href="#">0354.30.09.05</a>
+            <p>Tất cả các ngoài trong tuần (Trừ thứ 7 - CN, các ngày lễ)</p>
+            <h3>THANH TOÁN</h3>
+            <div class="payment-grid">
+              <img src="../img/momo-logo.png" alt="momo" class="payment-logo" />
+              <img src="../img/mb-logo.png" alt="mbbank" class="payment-logo" />
+              <img
+                src="../img/zalo-pay.png"
+                alt="zalopay"
+                class="payment-logo"
+              />
+              <img src="../img/vnpay.png" alt="vnpay" class="payment-logo" />
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="footer-bottom">
+        <p>Chúc bạn tìm được eBook ưng ý!!!</p>
+      </div>
+    </footer>
+  </body>
+</html>
