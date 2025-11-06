@@ -2,11 +2,7 @@ const signInBtn = document.querySelector('.signIn-btn');
 const signUpBtn = document.querySelector('.signUp');
 const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 const passwordRegex = /^[A-Za-z0-9!@#$%^&*]{6,}$/;
-//Dữ liệu mẫu dùng để đăng nhập
-const users = [
-    { email: "admin@gmail.com", password: "123456" },
-    { email: "user@gmail.com", password: "abcdef" }
-];
+
 signInBtn.addEventListener('click', (e) => {
     e.preventDefault();
     //Lấy dữ liệu từ input email và password
@@ -29,9 +25,7 @@ signInBtn.addEventListener('click', (e) => {
         return;
     }
     //Change page
-    //Giả lập đăng nhập đúng (ví dụ tạm thời)
-    const found = users.find(u => u.email === email && u.password === password);
-    if(isValid && found){
+    if(isValid){
         alert("Đăng nhập thành công")
         window.location.href = "../pages/home-Login.html";
     }
