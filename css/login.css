@@ -75,6 +75,9 @@ form{
     background-color: hsl(195, 98%, 50%);
     cursor: pointer;
 }
+.container a {
+    text-decoration: none;
+}
 .container .forgetPassword{
     font-size: 0.9rem;
     color: rgb(185 185 185);
