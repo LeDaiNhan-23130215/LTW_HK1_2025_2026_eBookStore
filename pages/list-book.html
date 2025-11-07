@@ -6,6 +6,7 @@
     <title>EBook</title>
     <link rel="stylesheet" href="../css/base.css" />
     <link rel="stylesheet" href="../css/components.css" />
+    <link rel="stylesheet" href="../css/list-book.css" />
     <link
       rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"
@@ -79,34 +80,277 @@
       <aside class="sidebar">
         <div class="filter">
           <h3>Thể loại</h3>
-          <label><input type="checkbox" />Tech</label>
-          <label><input type="checkbox" />Tham khảo</label>
-          <label><input type="checkbox" />Tiếng Anh</label>
-          <label><input type="checkbox" />Văn học Việt Nam</label>
+          <label><input type="checkbox" /> Tech</label>
+          <label><input type="checkbox" /> Tham khảo</label>
+          <label><input type="checkbox" /> Tiếng Anh</label>
+          <label><input type="checkbox" /> Văn học Việt Nam</label>
+          <a href="category.html"
+            ><i class="fa-solid fa-book"></i> Tất cả danh mục</a
+          >
         </div>
-        <a href="all-category"
-          ><i class="fa-solid fa-book"></i> Tất cả danh mục</a
-        >
+
         <div class="filter">
           <h3>Giá</h3>
-          <label><input type="checkbox" />Miễn phí</label>
-          <label><input type="checkbox" />Có phí</label>
+          <label><input type="checkbox" /> Miễn phí</label>
+          <label><input type="checkbox" /> Có phí</label>
         </div>
 
         <div class="filter">
           <h3>Loại file</h3>
-          <label><input type="checkbox" />PDF</label>
-          <label><input type="checkbox" />EPUB</label>
-          <label><input type="checkbox" />MOBI</label>
+          <label><input type="checkbox" /> PDF</label>
+          <label><input type="checkbox" /> EPUB</label>
+          <label><input type="checkbox" /> MOBI</label>
         </div>
       </aside>
 
       <section class="content">
         <div class="selected-filters">
           <strong>Đang chọn:</strong>
-          <span>Thể loại: Công nghệ</span>
-          <span>Giá: Miễn phí</span>
-          <span>File: PDF</span>
+          <div class="filter-show">
+            <span>Thể loại:</span>
+            <span>Giá:</span>
+            <span>File:</span>
+          </div>
+        </div>
+
+        <div class="local-filters">
+          <strong>Xếp theo:</strong>
+
+          <div class="local-filter-button-container">
+            <button class="sort-button" data-order="asc" id="sortByName">
+              <i class="fa-solid fa-arrow-down-a-z"></i> A - Z
+            </button>
+
+            <button class="sort-button" data-order="desc" id="sortByName">
+              <i class="fa-solid fa-arrow-up-a-z"></i> Z - A
+            </button>
+
+            <button class="sort-button" data-order="asc" id="sortByPrice">
+              <i class="fa-solid fa-arrow-up"></i> Giá tăng dần
+            </button>
+
+            <button class="sort-button" data-order="desc" id="sortByPrice">
+              <i class="fa-solid fa-arrow-down"></i> Giá giảm dần
+            </button>
+
+            <button class="sort-button" data-order="desc" id="sortByDate">
+              <i class="fa-solid fa-calendar"></i> Sản phẩm mới
+            </button>
+          </div>
+        </div>
+
+        <div class="product-grid">
+          <div class="product-card">
+            <div class="img-wrapper">
+              <img
+                src="https://tse2.mm.bing.net/th/id/OIP.IUVt53fcwXP23-Snmv6SfAHaG1?pid=Api&P=0&h=180"
+                alt="Deep Work"
+              />
+            </div>
+            <p>Deep Work – Cal Newport</p>
+            <div>
+              <span>280.000 VNĐ</span>
+              <a href="cart.html"><i class="fa-solid fa-cart-plus"></i></a>
+            </div>
+          </div>
+
+          <div class="product-card">
+            <div class="img-wrapper">
+              <img
+                src="https://m.media-amazon.com/images/I/71fqxXDY2ZL._AC_UF1000,1000_QL80_.jpg"
+                alt="Machine Learning: A Probabilistic Perspective — Kevin P. Murphy"
+              />
+            </div>
+            <p>
+              Machine Learning: A Probabilistic Perspective — Kevin P. Murphy
+            </p>
+            <div>
+              <span>3.288.000 VNĐ</span>
+              <a href="cart.html"><i class="fa-solid fa-cart-plus"></i></a>
+            </div>
+          </div>
+
+          <div class="product-card">
+            <div class="img-wrapper">
+              <img
+                src="https://nhasachmienphi.com/images/thumbnail/nhasachmienphi-ranh-gioi.jpg"
+                alt="Ranh giới"
+              />
+            </div>
+            <p>Ranh Giới</p>
+            <div>
+              <span>79.000 VNĐ</span>
+              <a href="cart.html"><i class="fa-solid fa-cart-plus"></i></a>
+            </div>
+          </div>
+
+          <div class="product-card">
+            <div class="img-wrapper">
+              <img
+                src="https://images.openai.com/static-rsc-1/UKOZBe1niJXMPnqBsmcOK9GaTn-10svkJnhO91TQE0Cfns8VTUGkXNVc-o7Hj2lyDLlpvLMiXfE2BcwWiVkEl4k2p1DRp8OH-R5Ho_DSWEaXJjMzgb6KYR05MsiXkyuoE2lDK2YbjOe0_RydthXDBt-RfbM2KTk5SpdjtmCEqBtvqGW4TyqRYyJYNaDuL4D_jMIdbW0DLXJvfbCGzXtwL_3dTkZjdpVKujQe6rxsgayMOavxsZLoJ0REjI-_Apxg"
+                alt="Life Skills by Julia Laflin"
+              />
+            </div>
+            <p>Life Skills by Julia Laflin</p>
+            <div>
+              <span>136.000 VNĐ</span>
+              <a href="cart.html"><i class="fa-solid fa-cart-plus"></i></a>
+            </div>
+          </div>
+
+          <div class="product-card">
+            <div class="img-wrapper">
+              <img
+                src="https://nhasachmienphi.com/images/thumbnail/nhasachmienphi-dem-hoi-long-tri.jpg"
+                alt="Đêm Hội Long Trì"
+              />
+            </div>
+            <p>Đêm Hội Long Trì</p>
+            <div>
+              <span>100.000 VNĐ</span>
+              <a href="cart.html"><i class="fa-solid fa-cart-plus"></i></a>
+            </div>
+          </div>
+
+          <div class="product-card">
+            <div class="img-wrapper">
+              <img
+                src="https://nhasachmienphi.com/images/thumbnail/nhasachmienphi-an-may-di-vang.jpg"
+                alt="Ăn Mày Dĩ Vãng"
+              />
+            </div>
+            <p>Ăn Mày Dĩ Vãng</p>
+            <div>
+              <span>34.000 VNĐ</span>
+              <a href="cart.html"><i class="fa-solid fa-cart-plus"></i></a>
+            </div>
+          </div>
+
+          <div class="product-card">
+            <div class="img-wrapper">
+              <img
+                src="https://nhasachmienphi.com/images/thumbnail/nhasachmienphi-mot-chu-nhat-khac.jpg"
+                alt="Một Chủ Nhật Khác"
+              />
+            </div>
+            <p>Một Chủ Nhật Khác</p>
+            <div>
+              <span>69.000 VNĐ</span>
+              <a href="cart.html"><i class="fa-solid fa-cart-plus"></i></a>
+            </div>
+          </div>
+
+          <div class="product-card">
+            <div class="img-wrapper">
+              <img
+                src="https://images.openai.com/static-rsc-1/uv2mkcawi4hHcOSCzxAJg4x5ypciL-z92U6ZfJzonI0Z-W8m3s0hFm_l5_AOKF5Z-6Ey6RL8RLgwYINnoG7aYC6zcmWY0xP7mCyKIaeOfWHlKw5qoS2Ggne7KIEvXD1MvkqTh9uuuw8nM1d85yyrDCHlzC8hezCOe9SW8bPZhOloo4rxNCwkFzS7l1t8qPY00RklS_coXkXrZwYx4DduU7F-E13T1eCJihU4WBr9RPGbBM7Yg9fRIJ5wLqvCcSW_I5LdEx6QNwr92NBEbKjAJg"
+                alt="The Power of Now"
+              />
+            </div>
+            <p>The Power of Now</p>
+            <div>
+              <span>250.000 VNĐ</span>
+              <a href="cart.html"><i class="fa-solid fa-cart-plus"></i></a>
+            </div>
+          </div>
+
+          <div class="product-card">
+            <div class="img-wrapper">
+              <img
+                src="https://images.openai.com/static-rsc-1/ZtHzCxNPOSldGnQ8CE6MI0l5yahrsdtvFHrsyBOQFfT8xlPL7RBqngnqyBynDpNj5V5UKoeP2fdRO5C4_DfqZHRkOqYcT1UKaEhDctiNnLEzTmeGCyykNcz3QTzdyTvyhbKe3UfXmEBpwl5RI8oWgHHNRmWZvaF6pyMEnoLgn19yvxnhk4k6DbcAqV83a8NQwwlVbcVQvrZtI8FkakCW8Zp4rrlJCodZRhOTaq9CWGEMRlCcZzVCRXUpnbGsbH9q"
+                alt="Collins Vietnamese Dictionary Essential Edition"
+              />
+            </div>
+            <p>Collins Vietnamese Dictionary Essential Edition</p>
+            <div>
+              <span>480.000 VNĐ</span>
+              <a href="cart.html"><i class="fa-solid fa-cart-plus"></i></a>
+            </div>
+          </div>
+
+          <div class="product-card">
+            <div class="img-wrapper">
+              <img
+                src="https://tse3.mm.bing.net/th/id/OIP.vg_jWjn6hEIOjIBAwk_IygHaHa?pid=Api&P=0&h=180"
+                alt="Bí Mật Của May Mắn – Alex Rovira & Fernando Trías de Bes"
+              />
+            </div>
+            <p>Bí Mật Của May Mắn – Alex Rovira & Fernando Trías de Besr</p>
+            <div>
+              <span>115.000 VNĐ</span>
+              <a href="cart.html"><i class="fa-solid fa-cart-plus"></i></a>
+            </div>
+          </div>
+
+          <div class="product-card">
+            <div class="img-wrapper">
+              <img
+                src="https://nxbphunu.com.vn/wp-content/uploads/2018/09/120-mon-sup-bo-duong.jpg"
+                alt="120 Món Súp Bổ Dưỡng Cho Trẻ Em Và Người Bệnh (Mỹ Hạnh)"
+              />
+            </div>
+            <p>120 Món Súp Bổ Dưỡng Cho Trẻ Em Và Người Bệnh (Mỹ Hạnh)</p>
+            <div>
+              <span>78.000 VNĐ</span>
+              <a href="cart.html"><i class="fa-solid fa-cart-plus"></i></a>
+            </div>
+          </div>
+
+          <div class="product-card">
+            <div class="img-wrapper">
+              <img
+                src="https://nhasachmienphi.com/images/thumbnail/nhasachmienphi-nhieu-cach-song.jpg"
+                alt="Atomic Habits"
+              />
+            </div>
+            <p>Nhiều Cách Sống</p>
+            <div>
+              <span>78.000 VNĐ</span>
+              <a href="cart.html"><i class="fa-solid fa-cart-plus"></i></a>
+            </div>
+          </div>
+
+          <div class="product-card">
+            <div class="img-wrapper">
+              <img
+                src="https://m.media-amazon.com/images/I/71NMJeBW1AL._AC_UF1000%2C1000_QL80_.jpg"
+                alt="The Phoenix Project — Gene Kim, Kevin Behr, George Spafford"
+              />
+            </div>
+            <p>The Phoenix Project — Gene Kim, Kevin Behr, George Spafford</p>
+            <div>
+              <span>630.000 VNĐ</span>
+              <a href="cart.html"><i class="fa-solid fa-cart-plus"></i></a>
+            </div>
+          </div>
+
+          <div class="product-card">
+            <div class="img-wrapper">
+              <img
+                src="https://m.media-amazon.com/images/I/61JmBUeCaNL._AC_UF1000%2C1000_QL80_.jpg"
+                alt="Computer Networks — Andrew S. Tanenbaum / Kurose & Ross"
+              />
+            </div>
+            <p>Computer Networks — Andrew S. Tanenbaum / Kurose & Ross</p>
+            <div>
+              <span>250.000 VNĐ</span>
+              <a href="cart.html"><i class="fa-solid fa-cart-plus"></i></a>
+            </div>
+          </div>
+
+          <div class="product-card">
+            <div class="img-wrapper">
+              <img
+                src="https://m.media-amazon.com/images/I/51hobElGJaL._AC_UF1000%2C1000_QL80_.jpg"
+                alt="TCP/IP Illustrated (Vol 1) — W. Richard Stevens"
+              />
+            </div>
+            <p>TCP/IP Illustrated (Vol 1) — W. Richard Stevens</p>
+            <div>
+              <span>250.000 VNĐ</span>
+              <a href="cart.html"><i class="fa-solid fa-cart-plus"></i></a>
+            </div>
+          </div>
         </div>
       </section>
     </main>
