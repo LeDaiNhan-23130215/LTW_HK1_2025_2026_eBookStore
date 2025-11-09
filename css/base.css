@@ -20,7 +20,7 @@ body{
   position: relative;
   transition: box-shadow 0.3s ease;
 
-/* .product-card {
+.product-card {
   background: white;
   border: 1px solid #eee;
   border-radius: 8px;
@@ -28,7 +28,7 @@ body{
   text-align: center;
   box-shadow: 0 1px 4px rgba(0,0,0,0.1);
   transition: transform 0.2s;
-} */
+}
 
 }
 .img-wrapper {
@@ -68,7 +68,7 @@ body{
   align-items: center;
 }
 
-.product-card a {
+.add-to-cart-btn {
   font-size: 1rem;
   border-radius: 50%;
   text-decoration: none;
@@ -77,6 +77,7 @@ body{
   background-color: #0396c7;
   border-radius: 50%;
   transition: 0.3s;
+  cursor: pointer;
 }
 
 .product-card span {
@@ -95,7 +96,7 @@ body{
   transform: translateY(-4px);
 }
 
-.product-card a:hover {
+.product-card .add-to-cart-btn:hover {
   background-color: #004aad;
   transform: translateY(-10px);
 }
