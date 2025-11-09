@@ -21,3 +21,10 @@ document.addEventListener('DOMContentLoaded', () => {
     slider.scrollBy({ left: -getStep(), behavior: 'smooth' });
   });
 });
+
+
+document.querySelectorAll('.all-product-button').forEach(btn => {
+  btn.addEventListener('click', () => {
+    window.location.href = 'list-book.html';
+  });
+});

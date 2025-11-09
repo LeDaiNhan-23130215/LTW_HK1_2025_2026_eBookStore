@@ -184,7 +184,7 @@
   align-items: center;
 }
 
-.sp-noi-bat-container button{
+.sp-noi-bat-container a{
   color: black;
   background-color: none;
   Border: 3px solid #004aad;
@@ -193,10 +193,11 @@
   border-radius: 10px;
   cursor: pointer;
   margin: 10px 0;
+  text-decoration: none;
   transition: 0.3s;
 }
 
-.sp-noi-bat-container button:hover {
+.sp-noi-bat-container a:hover {
   color: white;
   background-color: #004aad;
 }
