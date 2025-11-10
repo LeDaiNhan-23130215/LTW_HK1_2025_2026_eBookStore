@@ -1,0 +1,281 @@
+<!DOCTYPE html>
+<html lang="vn">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>BookDetail</title>
+    <link rel="stylesheet" href="../css/base.css" />
+    <link rel="stylesheet" href="../css/components.css" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"
+    />
+    <link rel="icon" type="image/png" href="../img/ebook-logo2.png" />
+    <link rel="stylesheet" href="../css/home.css" />
+    <link rel="stylesheet" href="../css/news.css">
+    <link rel="stylesheet" href="../css/bookdetail.css">
+  </head>
+  <body>
+    <header id="siteHeader">
+      <div class="headerContainer">
+        <div class="topBar">
+          <div class="leftContainer">
+            <p id="welcomeMessage">Chào mừng bạn đến với EBookStore</p>
+          </div>
+          <div class="rightContainer">
+            <a href="user-infor.html">Nguyễn Văn A</a>
+            <a href="home-notLogin.html">Đăng xuất</a>
+            <p>
+              Hotline:
+              <span class="phoneNumber"
+                ><i class="fa-solid fa-phone phoneIcon"></i> 0354.30.09.05</span
+              >
+            </p>
+          </div>
+        </div>
+
+        <div class="headerMenu">
+          <div class="logo">
+            <a href="home-Login.html"
+              ><img
+                src="../img/ebook-logo2.png"
+                alt="EBookStore Logo"
+                class="logoImg"
+            /></a>
+            <p>EBookStore</p>
+          </div>
+          <div class="categorymenu">
+            <a href="category.html"><i class="fa-solid fa-bars"></i> Danh mục</a>
+          </div>
+
+          <div class="searchBox">
+            <input
+              type="text"
+              placeholder="Tìm sách của bạn ở đây"
+              id="searchBox"
+            />
+            <button><i class="fa fa-search"></i></button>
+          </div>
+
+          <div class="after-searchbox">
+            <div class="notification-button">
+              <a><i class="fa-regular fa-bell"></i></a>
+              <span class="notification-badge">3</span>
+            </div>
+
+            <div class="order">
+              <a href="cart.html"
+                ><button>
+                  <i class="fa-solid fa-cart-shopping"></i> Giỏ hàng
+                </button></a
+              >
+              <span class="notification-badge">0</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </header>
+
+<main class="container">
+        <!-- Cột trái: hình ảnh sách -->
+        <div class="book-image">
+            <img src="../img/10439-lam-ra-lam-choi-ra-choi-1.jpg" alt="">
+        </div>
+
+        <!-- Cột phải: thông tin chi tiết -->
+        <div class="book-info">
+            <h2>Deep Work</h2>
+            <p class="status">Tình trạng: <strong>Còn hàng</strong></p>
+            <p class="type">Loại:<strong>Điện tử</strong></p>
+            <p class="author">Tác giả:<strong>Carl Newport</strong></p>
+            <p class="idbook">Mã sách:<strong>12345</strong></p>
+
+            <p class="price">
+                <span class="current">85.500 VNĐ</span>
+                <span class="old">95.000 VNĐ</span>
+            </p>
+
+            <p class="save">Tiết kiệm: 9.500 VNĐ</p>
+
+            <div class="quantity">
+                <label for="quantity">Số lượng:</label>
+                <input type="number" id="quantity" min="1" value="1">
+            </div>
+
+            <button class="add-btn">Thêm vào giỏ</button>
+            <button class="add-yeuthich">Thêm vào danh sách yêu thích</button>
+
+            <div class="promo">
+                <p>🎁 Giảm 10% cho mỗi quyển sách trên hóa đơn.</p>
+                <p>🚚 FREESHIP cho hóa đơn trên 500K.</p>
+            </div>
+        </div>
+    </main>
+
+    <!-- Mô tả sản phẩm -->
+    <section class="description">
+        <h3>Mô tả sản phẩm</h3>
+        <p>
+            Cal Newport lập luận rằng trong thời đại ngập tràn thông tin và xao nhãng, khả năng “làm việc sâu” – tập trung hoàn toàn vào một nhiệm vụ khó – là kỹ năng quý giá nhất. Ông đưa ra các chiến lược cụ thể để rèn luyện sự tập trung, loại bỏ thói quen làm việc nông, và đạt hiệu suất vượt trội. Cuốn sách kết hợp nghiên cứu khoa học, ví dụ thực tế và lời khuyên thực hành, giúp người đọc làm việc thông minh hơn, sáng tạo hơn và đạt thành tựu lớn mà vẫn duy trì cân bằng cuộc sống.
+        </p>
+    </section>
+
+    <!-- Gợi ý sách -->
+    <section class="suggest">
+        <h3>Có thể bạn đang tìm</h3>
+        <div class="suggest-list">
+            <div class="suggest-item">
+                <img src="../img/atomic-habits-dots.png" alt="">
+                <p>Atomic habits</p>
+                <span>495.000 VNĐ</span>
+            </div>
+           <div class="suggest-item">
+                <img src="../img/atomic-habits-dots.png" alt="">
+                <p>Atomic habits</p>
+                <span>495.000 VNĐ</span>
+            </div><div class="suggest-item">
+                <img src="../img/atomic-habits-dots.png" alt="">
+                <p>Atomic habits</p>
+                <span>495.000 VNĐ</span>
+            </div>
+            </div>
+            <div class="suggest-item">
+                <img src="../img/atomic-habits-dots.png" alt="">
+                <p>Atomic habits</p>
+                <span>495.000 VNĐ</span>
+            </div>
+            <div class="suggest-item">
+                <img src="../img/atomic-habits-dots.png" alt="">
+                <p>Atomic habits</p>
+                <span>495.000 VNĐ</span>
+            </div>
+            <div class="suggest-item">
+                <img src="../img/atomic-habits-dots.png" alt="">
+                <p>Atomic habits</p>
+                <span>495.000 VNĐ</span>
+            </div>
+        </div>
+    </section>
+      
+
+     
+
+
+
+
+
+
+
+
+   
+
+
+    <footer id="siteFooter">
+      <div class="topFooter">
+        <div class="left-container">
+          <div class="informationEmailBox">
+            <input
+              type="text"
+              placeholder="Nhập email để nhận thông tin mới nhất!"
+              id="email-input"
+            />
+            <button>ĐĂNG KÝ</button>
+          </div>
+        </div>
+
+        <div class="right-container">
+          <p>Kết nối với chúng tôi:</p>
+          <img src="../img/zalo-logo.png" alt="zalo" class="zalo-logo" />
+          <img
+            src="../img/facebook-logo.png"
+            alt="facebook"
+            class="facebook-logo"
+          />
+        </div>
+      </div>
+
+      <div class="footer-container">
+        <div class="left">
+          <div class="logo">
+            <a href="home-Login.html"
+              ><img
+                src="../img/ebook-logo2.png"
+                alt="EBookStore Logo"
+                class="logoImg"
+            /></a>
+            <p>EBookStore</p>
+          </div>
+          <h3>Công ty EBookStore</h3>
+          <p>
+            Địa chỉ: Khu phố 33, Phường Linh Xuân, TP. Hồ Chí Minh, Việt Nam
+          </p>
+          <p>
+            <span>EBookStore</span> là mô hình nhà sách dành cho thế hệ trẻ,
+            tích hợp đa dạng sản phẩm các loại sách
+          </p>
+          <a href="../pages/address.html">
+            <i class="fa-solid fa-location-dot"></i>Khu phố 33, Phường Linh
+            Xuân, TP. Hồ Chí Minh, Việt Nam</a
+          >
+
+          <p><i class="fa-solid fa-phone phoneIcon"></i> 0354.30.09.05</p>
+          <p><i class="fa-solid fa-envelope"></i> ebookstore@gmail.com</p>
+        </div>
+
+        <div class="cs-hd-dm">
+          <div class="option">
+            <h3>CHÍNH SÁCH</h3>
+            <ul>
+              <li><a href="">Chính Sách Bảo Mật Thông Tin Cá Nhân</a></li>
+              <li><a href="">Chính Sách Bảo Mật Thanh Toán</a></li>
+              <li><a href="">Điều Khoản sử dụng</a></li>
+            </ul>
+          </div>
+
+          <div class="option">
+            <h3>HƯỚNG DẪN</h3>
+            <ul>
+              <li><a href="">Hướng dẫn mua hàng</a></li>
+              <li><a href="">Phương thức thanh toán</a></li>
+            </ul>
+          </div>
+
+          <div class="option">
+            <h3>DANH MỤC</h3>
+            <ul>
+              <li><a href="../pages/home-Login.html">Trang chủ</a></li>
+              <li><a href="">Giới Thiệu</a></li>
+              <li><a href="../pages/news.html">Tin tức</a></li>
+              <li><a href="">Liên hệ</a></li>
+            </ul>
+          </div>
+
+          <div class="kn-tt">
+            <h3>GÓP Ý KHIẾU NẠI</h3>
+            <a href="#">0354.30.09.05</a>
+            <p>Tất cả các ngoài trong tuần (Trừ thứ 7 - CN, các ngày lễ)</p>
+            <h3>THANH TOÁN</h3>
+            <div class="payment-grid">
+              <img src="../img/momo-logo.png" alt="momo" class="payment-logo" />
+              <img src="../img/mb-logo.png" alt="mbbank" class="payment-logo" />
+              <img
+                src="../img/zalo-pay.png"
+                alt="zalopay"
+                class="payment-logo"
+              />
+              <img src="../img/vnpay.png" alt="vnpay" class="payment-logo" />
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="footer-bottom">
+        <p>Chúc bạn tìm được eBook ưng ý!!!</p>
+      </div>
+    </footer>
+
+    <script src="../js/component.js"></script>
+    <script src="../js/home.js"></script>
+
+  </body>
+</html>
