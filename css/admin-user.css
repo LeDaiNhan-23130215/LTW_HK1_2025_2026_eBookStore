@@ -56,10 +56,6 @@ body .main-content .topbar{
     padding: 10px 25px;
     box-shadow: 0 2px 4px rgba(0,0,0,0.1);
 }
-body .main-content .topbar .topbar-title{
-    font-size: 2rem;
-    font-weight: bold;
-}
 body .main-content .topbar .topbar-actions{
     display: flex;
     flex-direction: row;
@@ -82,34 +78,58 @@ body .main-content .topbar button:hover {
 body .main-content .dashboard{
     padding: 20px;
 }
-body .main-content .dashboard .cards{
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-    gap: 15px;
-    margin-bottom: 25px;
-}
-body .main-content .dashboard .card{
-    background: #ffffff;
-    border-radius: 8px;
-    padding: 20px;
-    box-shadow: 0 2px 4px rgba(0,0,0,0.05);
-}
-body .main-content .dashboard .card h3{
-    margin: 0;
-    font-size: 1rem;
-    color: #374151;
-}
-body .main-content .dashboard .card p{
-    font-size: 1.4rem;
-    font-weight: bold;
-    margin-top: 8px;
-    color: #1f2937;
-}
-body .main-content .dashboard .chart-container{
+body .main-content .add-form {
     background: white;
-    border-radius: 8px;
     padding: 20px;
-    box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+    border-radius: 10px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+    margin: 20px;
+}
+
+body .main-content .add-form h2 {
+    color: #2563eb;
+    margin-bottom: 15px;
+}
+
+body .main-content .add-form .form-row {
+    margin-bottom: 12px;
+    display: flex;
+    flex-direction: column;
+}
+
+body .main-content .add-form label {
+    margin-bottom: 5px;
+    color: #374151;
+    font-weight: bold;
+}
+
+body .main-content .add-form input,
+body .main-content .add-form select,
+body .main-content .add-form textarea {
+    padding: 8px 10px;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    outline: none;
+    transition: border 0.2s;
+}
+
+body .main-content .add-form input:focus,
+body .main-content .add-form textarea:focus,
+body .main-content .add-form select:focus {
+    border-color: #2563eb;
+}
+
+body .main-content .btn-addUser {
+    background: #2563eb;
+    color: white;
+    border: none;
+    padding: 10px 15px;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: background 0.3s;
+}
+body .main-content .btn-addUser:hover {
+    background: #1e40af;
 }
 body .main-content .table-section {
     margin: 20px;
@@ -122,9 +142,6 @@ body .main-content .table-section table {
     width: 100%;
     border-collapse: collapse;
     min-width: 800px;
-}
-body .main-content .table-section h2{
-    padding: 20px;
 }
 body .main-content .table-section th, 
 body .main-content .table-section td {
@@ -139,15 +156,34 @@ body .main-content .table-section th {
 body .main-content .table-section tr:hover {
     background: #f9fafb;
 }
+body .main-content .btn-Edit, body .main-content .btn-Del {
+    border: none;
+    padding: 6px 10px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 0.9rem;
+}
+body .main-content .btn-Edit {
+    background: #facc15;
+    color: #111827;
+}
+body .main-content .btn-Edit:hover {
+    background: #eab308;
+}
+body .main-content .btn-Del {
+    background: #ef4444;
+    color: white;
+}
+body .main-content .btn-Del:hover {
+    background: #dc2626;
+}
 body.dark {
     background: #111827;
     color: #f3f4f6;
 }
-
 body.dark .sidebar {
     background: #0f172a;
 }
-
 body.dark .card,
 body.dark .topbar {
     background: #1e293b;
@@ -156,10 +192,6 @@ body.dark .topbar {
 body.dark .table-section table {
     background: #1e293b;
     color: #f9fafb;
-}
-body.dark .table-section h2{
-    background: #1e293b;
-    color: f9fafb;
 }
 body.dark .table-section th {
     background: #273449;
