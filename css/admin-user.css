@@ -189,6 +189,28 @@ body.dark .topbar {
     background: #1e293b;
     color: #f9fafb;
 }
+body.dark .add-form {
+    background: #1e293b;
+    color: #f9fafb;
+    border: 1px solid #334155;
+}
+
+body.dark .add-form label {
+    color: #cbd5e1;
+}
+
+body.dark .add-form input,
+body.dark .add-form select,
+body.dark .add-form textarea {
+    background: #334155;
+    color: #f9fafb;
+    border: 1px solid #475569;
+}
+
+body.dark .add-form input:focus,
+body.dark .add-form select:focus {
+    border-color: #60a5fa;
+}
 body.dark .table-section table {
     background: #1e293b;
     color: #f9fafb;
