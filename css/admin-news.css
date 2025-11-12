@@ -1,0 +1,254 @@
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: Arial, Helvetica, sans-serif;
+}
+body{
+    margin: 0;
+    display: flex;
+    background: #f5f6fa;
+}
+body .sidebar{
+    width: 240px;
+    height: 100vh;
+    background: #0396c7;
+    color: #fff;
+    display: flex;
+    flex-direction: column;
+    position: fixed;
+}
+body .sidebar .sidebar-logo{
+    text-align: center;
+    padding: 20px;
+    border-bottom: 1px solid #374151;
+}
+body .sidebar .sidebar-nav{
+    display: flex;
+    flex-direction: column;
+    padding: 10px;
+
+}
+body .sidebar .sidebar-nav a{
+    color: #cbd5e1;
+    text-decoration: none;
+    padding: 10px 15px;
+    margin: 2px 0;
+    transition: background 0.3s;
+    border-radius: 5px;
+}
+.sidebar-nav a:hover,
+.sidebar-nav a.active {
+    background: #2563eb;
+    color: white;
+}
+body .main-content{
+    margin-left: 240px;
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+}
+body .main-content .topbar{
+    background: #ffffff;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 25px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+body .main-content .topbar .topbar-actions{
+    display: flex;
+    flex-direction: row;
+    gap: 10px;
+    align-items: center;
+    justify-content: center;
+}
+body .main-content .topbar button {
+    background: #2563eb;
+    border: none;
+    color: white;
+    padding: 8px 15px;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: background 0.3s;
+}
+body .main-content .topbar button:hover {
+    background: #1d4ed8;
+}
+body .main-content .dashboard{
+    padding: 20px;
+}
+body .main-content .add-form {
+    background: white;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+    margin: 20px;
+}
+body .main-content .add-form h2 {
+    color: #2563eb;
+    margin-bottom: 15px;
+}
+body .main-content .add-form .form-row {
+    margin-bottom: 12px;
+    display: flex;
+    flex-direction: column;
+}
+body .main-content .add-form label {
+    margin-bottom: 5px;
+    color: #374151;
+    font-weight: bold;
+}
+body .main-content .add-form .banner-preview{
+    margin-top: 10px;
+    margin-bottom: 10px;
+    text-align: center;
+}
+body .main-content .add-form .banner-preview img{
+    max-width: 100%;
+    height: auto;
+    border-radius: 10px;
+    border: 2px solid #ccc;
+    transition: transform 0.3s ease, border-color 0.3s ease;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+}
+body .main-content .add-form .banner-preview img:hover{
+    transform: scale(1.02);
+    border-color: #4caf50;
+}
+body .main-content .add-form input,
+body .main-content .add-form select,
+body .main-content .add-form textarea {
+    padding: 8px 10px;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    outline: none;
+    transition: border 0.2s;
+}
+body .main-content .add-form input:focus,
+body .main-content .add-form textarea:focus,
+body .main-content .add-form select:focus {
+    border-color: #2563eb;
+}
+body .main-content .btn-add {
+    background: #2563eb;
+    color: white;
+    border: none;
+    padding: 10px 15px;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: background 0.3s;
+}
+body .main-content .btn-add:hover {
+    background: #1e40af;
+}
+body .main-content .table-section {
+    margin: 20px;
+    background: white;
+    border-radius: 10px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+    overflow-x: auto;
+}
+body .main-content .table-section h2{
+    padding: 12px;
+}
+body .main-content .table-section table {
+    width: 100%;
+    border-collapse: collapse;
+    min-width: 800px;
+}
+body .main-content .table-section th, 
+body .main-content .table-section td {
+    padding: 12px;
+    text-align: left;
+    border-bottom: 1px solid #e5e7eb;
+}
+body .main-content .table-section th {
+    background: #f3f4f6;
+    color: #374151;
+}
+body .main-content .table-section tr:hover {
+    background: #f9fafb;
+}
+body .main-content .btn-Edit, body .main-content .btn-Del {
+    border: none;
+    padding: 6px 10px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 0.9rem;
+}
+
+body .main-content .btn-Edit {
+    background: #facc15;
+    color: #111827;
+}
+body .main-content .btn-Edit:hover {
+    background: #eab308;
+}
+
+body .main-content .btn-Del {
+    background: #ef4444;
+    color: white;
+}
+body .main-content .btn-Del:hover {
+    background: #dc2626;
+}
+body.dark {
+    background: #111827;
+    color: #f3f4f6;
+}
+body.dark .sidebar {
+    background: #0f172a;
+}
+body.dark .topbar {
+    background: #1e293b;
+    color: #f9fafb;
+}
+body.dark .topbar button {
+    background: #374151;
+    color: #e5e7eb;
+}
+body.dark .topbar button:hover {
+    background: #475569;
+}
+body.dark .add-form {
+    background: #1e293b;
+    color: #f9fafb;
+    border: 1px solid #334155;
+}
+body.dark .add-form label {
+    color: #cbd5e1;
+}
+body.dark .add-form input,
+body.dark .add-form select,
+body.dark .add-form textarea {
+    background: #334155;
+    color: #f9fafb;
+    border: 1px solid #475569;
+}
+body.dark .add-form input:focus,
+body.dark .add-form select:focus {
+    border-color: #60a5fa;
+}
+body.dark .table-section {
+    background: #1e293b;
+    color: #f9fafb;
+}
+body.dark .table-section th {
+    background: #273449;
+    color: #e5e7eb;
+}
+body.dark .table-section td {
+    border-bottom: 1px solid #374151;
+}
+body.dark .table-section tr:hover {
+    background: #2d3b52;
+}
+/* Transition mượt cho dark mode */
+body,
+.sidebar,
+.topbar,
+.table-section table,
+.add-form {
+    transition: background-color 0.3s ease, color 0.3s ease;
+}

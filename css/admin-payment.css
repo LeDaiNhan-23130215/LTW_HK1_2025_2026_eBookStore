@@ -123,7 +123,7 @@ input[type="date"]:focus {
 }
 
 .btn-filter {
-    background-color: #1abc9c;
+    background: #2563eb;
     color: #fff;
     padding: 8px 15px;
     border: none;
@@ -133,7 +133,7 @@ input[type="date"]:focus {
 }
 
 .btn-filter:hover {
-    background-color: #16a085;
+    background: #1e40af;
 }
 
 /* ======== TABLE SECTION ======== */
@@ -155,8 +155,8 @@ table {
 }
 
 thead {
-    background: #1abc9c;
-    color: white;
+    background: #f3f4f6;
+    color: #000;
 }
 
 th,
@@ -242,7 +242,10 @@ body.dark .table-section table {
 body.dark .filter-section h2{
     color: #eee;
 }
-
+body.dark table thead{
+    background-color: #2f2f44;
+    color: #eee;
+}
 body.dark table tbody tr:hover {
     background-color: #3a3a55;
 }
