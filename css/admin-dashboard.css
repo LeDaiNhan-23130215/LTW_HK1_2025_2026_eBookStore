@@ -105,6 +105,12 @@ body .main-content .dashboard .card p{
     margin-top: 8px;
     color: #1f2937;
 }
+body .main-content .dashboard .card:hover{
+    transform: translateY(-5px);
+    transition: all 0.5s ease;
+    cursor: pointer;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.5);
+}
 body .main-content .dashboard .chart-container{
     background: white;
     border-radius: 8px;
@@ -177,4 +183,11 @@ body.dark .topbar button {
 }
 body.dark .topbar button:hover {
     background: #475569;
+}
+body,
+.sidebar,
+.topbar,
+.table-section table 
+{
+    transition: background-color 0.3s ease, color 0.3s ease;
 }

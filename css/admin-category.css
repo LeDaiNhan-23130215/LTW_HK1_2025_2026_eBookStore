@@ -224,3 +224,10 @@ body.dark .table-section td {
 body.dark .table-section tr:hover {
     background: #2d3b52;
 }
+body,
+.sidebar,
+.topbar,
+.table-section table,
+.add-form {
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
