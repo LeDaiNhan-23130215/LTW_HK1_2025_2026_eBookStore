@@ -1,0 +1,264 @@
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: Arial, Helvetica, sans-serif;
+}
+body{
+    margin: 0;
+    display: flex;
+    background: #f5f6fa;
+}
+body .sidebar{
+    width: 240px;
+    height: 100vh;
+    background: #0396c7;
+    color: #fff;
+    display: flex;
+    flex-direction: column;
+    position: fixed;
+}
+body .sidebar .sidebar-logo{
+    text-align: center;
+    padding: 20px;
+    border-bottom: 1px solid #374151;
+}
+body .sidebar .sidebar-nav{
+    display: flex;
+    flex-direction: column;
+    padding: 10px;
+
+}
+body .sidebar .sidebar-nav a{
+    color: #cbd5e1;
+    text-decoration: none;
+    padding: 10px 15px;
+    margin: 2px 0;
+    transition: background 0.3s;
+    border-radius: 5px;
+}
+.sidebar-nav a:hover,
+.sidebar-nav a.active {
+    background: #2563eb;
+    color: white;
+}
+body .main-content{
+    margin-left: 240px;
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+}
+body .main-content .topbar{
+    background: #ffffff;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 25px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+body .main-content .topbar .topbar-actions{
+    display: flex;
+    flex-direction: row;
+    gap: 10px;
+    align-items: center;
+    justify-content: center;
+}
+body .main-content .topbar button {
+    background: #2563eb;
+    border: none;
+    color: white;
+    padding: 8px 15px;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: background 0.3s;
+}
+body .main-content .topbar button:hover {
+    background: #1d4ed8;
+}
+body .main-content .dashboard{
+    padding: 20px;
+}
+.filter-section {
+    background: #fff;
+    border-radius: 10px;
+    padding: 20px;
+    box-shadow: 0 1px 4px rgba(0, 0, 0, 0.1);
+}
+
+.filter-section h2 {
+    font-size: 1.2rem;
+    margin-bottom: 15px;
+    color: #333;
+}
+
+form#filterPaymentForm {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 15px;
+    align-items: center;
+}
+
+.form-row {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 10px;
+}
+
+.form-row label {
+    font-weight: 600;
+}
+
+select,
+input[type="date"] {
+    padding: 6px 8px;
+    border-radius: 6px;
+    border: 1px solid #ccc;
+    outline: none;
+}
+
+select:focus,
+input[type="date"]:focus {
+    border-color: #1abc9c;
+}
+
+.btn-filter {
+    background-color: #1abc9c;
+    color: #fff;
+    padding: 8px 15px;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.btn-filter:hover {
+    background-color: #16a085;
+}
+
+/* ======== TABLE SECTION ======== */
+.table-section {
+    padding: 20px 30px;
+}
+
+.table-section h2 {
+    margin-bottom: 15px;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    background: #fff;
+    border-radius: 10px;
+    overflow: hidden;
+    box-shadow: 0 1px 4px rgba(0, 0, 0, 0.1);
+}
+
+thead {
+    background: #1abc9c;
+    color: white;
+}
+
+th,
+td {
+    padding: 12px 15px;
+    text-align: left;
+    border-bottom: 1px solid #eee;
+}
+
+tbody tr:hover {
+    background-color: #f9f9f9;
+}
+
+/* ======== BUTTONS ======== */
+.btn-View,
+.btn-Del {
+    border: none;
+    padding: 6px 10px;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.btn-View {
+    background: #3498db;
+    color: white;
+}
+
+.btn-View:hover {
+    background: #2980b9;
+}
+
+.btn-Del {
+    background: #e74c3c;
+    color: white;
+}
+
+.btn-Del:hover {
+    background: #c0392b;
+}
+
+/* ======== STATUS BADGES ======== */
+.status {
+    padding: 4px 8px;
+    border-radius: 5px;
+    color: #fff;
+    font-weight: bold;
+    font-size: 0.85rem;
+}
+
+.status.success {
+    background-color: #27ae60;
+}
+
+.status.pending {
+    background-color: #f39c12;
+}
+
+.status.failed {
+    background-color: #e74c3c;
+}
+
+/* ======== DARK MODE ======== */
+body.dark {
+    background-color: #1e1e2e;
+    color: #eee;
+}
+
+body.dark .sidebar {
+    background-color: #161625;
+}
+
+body.dark .topbar {
+    background-color: #2a2a3d;
+    box-shadow: none;
+}
+
+body.dark .filter-section,
+body.dark .table-section table {
+    background-color: #2f2f44;
+    color: #eee;
+}
+body.dark .filter-section h2{
+    color: #eee;
+}
+
+body.dark table tbody tr:hover {
+    background-color: #3a3a55;
+}
+
+body.dark select,
+body.dark input[type="date"] {
+    background: #3a3a55;
+    color: #fff;
+    border-color: #555;
+}
+
+/* Transition mượt cho dark mode */
+body,
+.sidebar,
+.topbar,
+.table-section table,
+.filter-section {
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
