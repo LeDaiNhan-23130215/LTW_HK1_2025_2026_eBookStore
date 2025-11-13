@@ -1,50 +1,141 @@
-.address-container {
-  display: flex;
-  justify-content: center;
-  align-items: flex-start;
-  gap: 40px;
-  margin: 60px auto;
-  padding: 40px;
-  max-width: 1200px;
-  flex-wrap: wrap; /* giúp tự xuống dòng khi thu nhỏ */
+/* Thiết lập cơ bản */
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    font-family: sans-serif;
 }
 
-.contact-info, .map-section {
-  flex: 1 1 45%;
-  min-width: 320px;
+/* container */
+.addressMainContent {
+    display: flex;
+    max-width: 90vw; 
+    height: 85vh; /* Chiều cao tổng thể */
+    margin: 2.5vh auto; 
+    padding: 0 20px;
+    gap: 15px; 
 }
 
-.contact-info h2, .map-section h2 {
-  color: #004aad;
-  margin-bottom: 15px;
-  font-size: 1.5rem;
+/* thông tin liên hệ */
+.contactInfoContainer {
+    flex: 1 1 40%; 
+    display: flex;
+    flex-direction: column;
+    gap: 15px; 
+    height: 100%; /* Buộc cột này kéo dài bằng Bản đồ */
 }
 
-.card {
-  border: 2px solid #ccc;
-  border-radius: 20px;
-  padding: 20px;
-  margin-bottom: 30px;
-  background-color: #f9f9f9;
-  box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+/* Thẻ Thông tin Nhà Sách  */
+.infoCard--primary {
+    flex-shrink: 0; /* không cho co dãn */
 }
 
-.contact-item {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  margin: 8px 0;
+/* Thẻ liên hệ */
+.contactFormCard {
+    /* Quan trọng: Cho phép thẻ Form kéo dài để lấp đầy khoảng trống còn lại */
+    flex-grow: 1; 
+    display: flex; /* Dùng flex để quản lý nội dung bên trong */
+    flex-direction: column; 
+    border-radius: 8px;
+    box-shadow: 0 2px 8px rgba(255, 255, 255, 0.1);
+    overflow: hidden;
+    background-color: #fff;
 }
 
-.icon {
-  color: #0396c7;
-  font-size: 1.3rem;
+
+/* bản đồ google map */
+.mapContainer {
+    flex: 1 1 60%; 
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 2px 8px rgba(255, 255, 255, 0.1);
+    height: 100%; 
 }
 
-iframe {
-  width: 100%;
-  height: 400px;
-  border: none;
-  border-radius: 15px;
-  box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+.mapContainer iframe {
+    width: 100%;
+    height: 100%;
+    border: none;
+    display: block;
+}
+
+/* --- kích thước nội dung form --- */
+
+/* Header Form */
+.contactFormCard h3 {
+    background-color: #0396c7;
+    padding: 8px 12px; 
+    font-size: 1.1rem; 
+    flex-shrink: 0; /* Không cho header co lại */
+    color: #fff;
+}
+
+.contactDescription {
+    padding: 10px 12px 5px; 
+    font-size: 0.9rem; 
+    flex-shrink: 0; /* Không cho mô tả co lại */
+}
+
+.contactForm {
+    /* Cho form chiếm hết phần còn lại */
+    flex-grow: 1; 
+    padding: 10px 12px 12px; 
+    display: flex;
+    flex-direction: column;
+    gap: 8px; 
+    /* Bỏ height: 100% ở đây, để nó tự co giãn theo flex-grow */
+}
+
+/* Quan trọng: Cho textarea kéo dài */
+.contactForm textarea {
+    /* Cho textarea kéo dài để lấp đầy khoảng trống lớn nhất */
+    flex-grow: 1; 
+    min-height: 70px; /* Chiều cao tối thiểu */
+    padding: 6px 10px;
+    font-size: 0.9rem;
+    resize: none; /* Khóa resize để form không bị lỗi */
+}
+
+.submitButton {
+    padding: 6px 12px; 
+    font-size: 0.95rem; 
+    align-self: flex-start;
+    flex-shrink: 0; /* Không cho nút co lại */
+}
+
+/* --- định dạng phần còn lại --- */
+
+.infoCard--primary h2 {
+    background-color: #0396c7;
+    padding: 8px 12px; 
+    font-size: 1.2rem; 
+    color: #fff;
+}
+
+.infoDetail {
+    padding: 12px; 
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px 15px; 
+}
+
+/* Media Query (Vẫn đảm bảo responsive) */
+@media (max-width: 992px) {
+    .addressMainContent {
+        flex-direction: column;
+        height: auto; 
+    }
+    .contactInfoContainer, .contactFormCard {
+        height: auto; 
+    }
+    .contactForm {
+        flex-grow: 0; /* Bỏ kéo dài trên mobile */
+    }
+    .contactForm textarea {
+        flex-grow: 0;
+        height: 100px; /* Cố định chiều cao trên mobile */
+    }
+    .mapContainer {
+        height: 350px; 
+    }
 }
