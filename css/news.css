@@ -72,7 +72,7 @@
 .news-title {
     font-size: 18px;
     font-weight: bold;
-    color: #ffffff;
+    color: #000000;
     margin-bottom: 10px;
     line-height: 1.4;
     text-transform: uppercase;
@@ -84,7 +84,6 @@
     margin-bottom: 15px;
     line-height: 1.6;
     display: -webkit-box;
-    -webkit-line-clamp: 3;
     -webkit-box-orient: vertical;
     overflow: hidden;
 }
@@ -226,11 +225,11 @@
 .latest-news-title {
     font-size: 14px;
     font-weight: 500;
-    color: #ffffff;
+    color: #000000;
     margin: 0 0 5px 0;
     line-height: 1.4;
     display: -webkit-box;
-    -webkit-line-clamp: 2;
+    
     -webkit-box-orient: vertical;
     overflow: hidden;
 }
