@@ -240,3 +240,187 @@ body,
 .add-form {
     transition: background-color 0.3s ease, color 0.3s ease;
 }
+/* ========================================================= */
+/*                     RESPONSIVE DESIGN                     */
+/* ========================================================= */
+
+/* ----------- Laptop nhỏ (≤ 1200px) ----------- */
+@media (max-width: 1200px) {
+    .main-content .dashboard {
+        padding: 15px;
+    }
+    .add-form,
+    .table-section {
+        margin: 15px;
+    }
+}
+
+/* ----------- Tablet ngang (≤ 1024px) ----------- */
+@media (max-width: 1024px) {
+    .sidebar {
+        width: 200px;
+    }
+    .main-content {
+        margin-left: 200px;
+    }
+    .topbar {
+        padding: 10px 15px;
+    }
+    .topbar button {
+        padding: 6px 12px;
+    }
+}
+
+/* ----------- Tablet dọc (≤ 768px) ----------- */
+@media (max-width: 768px) {
+
+    /* Thu nhỏ sidebar */
+    .sidebar {
+        width: 70px;
+        align-items: center;
+    }
+
+    .sidebar .sidebar-logo {
+        padding: 10px;
+        font-size: 0.85rem;
+    }
+
+    .sidebar .sidebar-nav a {
+        padding: 8px 0;
+        text-align: center;
+        font-size: 0.8rem;
+    }
+
+    .main-content {
+        margin-left: 70px;
+    }
+
+    .topbar button {
+        padding: 6px 10px;
+        font-size: 0.8rem;
+    }
+
+    .add-form,
+    .table-section {
+        margin: 12px;
+        padding: 15px;
+    }
+
+    .btn-Edit,
+    .btn-Del {
+        font-size: 0.8rem;
+        padding: 5px 8px;
+    }
+}
+
+/* ----------- Mobile lớn (≤ 600px) ----------- */
+@media (max-width: 600px) {
+
+    /* Sidebar dạng trượt (ẩn mặc định) */
+    .sidebar {
+        left: -240px;
+        width: 240px;
+        transition: left 0.3s ease;
+        z-index: 1000;
+    }
+
+    .sidebar.show-sidebar {
+        left: 0;
+    }
+
+    .main-content {
+        margin-left: 0;
+        width: 100%;
+    }
+
+    .topbar {
+        padding: 10px;
+    }
+
+    .topbar .topbar-actions {
+        gap: 6px;
+    }
+
+    .topbar button {
+        padding: 6px 10px;
+        font-size: 0.8rem;
+    }
+
+    .add-form,
+    .table-section {
+        margin: 10px;
+    }
+
+    .add-form input,
+    .add-form textarea,
+    .add-form select {
+        font-size: 0.9rem;
+    }
+
+    .table-section table {
+        min-width: 650px; /* giữ bảng không bị bóp */
+    }
+}
+
+/* ----------- Mobile phổ biến (≤ 480px) ----------- */
+@media (max-width: 480px) {
+    .topbar {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 12px;
+    }
+
+    .topbar-actions {
+        width: 100%;
+        justify-content: space-between;
+    }
+
+    .add-form {
+        padding: 12px;
+    }
+
+    .add-form label {
+        font-size: 0.85rem;
+    }
+
+    .add-form input,
+    .add-form select,
+    .add-form textarea {
+        font-size: 0.85rem;
+    }
+
+    .table-section th,
+    .table-section td {
+        font-size: 0.85rem;
+        padding: 8px;
+    }
+
+    .btn-Edit,
+    .btn-Del {
+        font-size: 0.75rem;
+        padding: 5px 7px;
+    }
+}
+
+/* ----------- Mobile nhỏ (≤ 360px) ----------- */
+@media (max-width: 360px) {
+
+    .topbar .topbar-title {
+        font-size: 1.1rem;
+    }
+
+    .add-form {
+        padding: 10px;
+    }
+
+    .table-section th,
+    .table-section td {
+        font-size: 0.75rem;
+        padding: 6px;
+    }
+
+    .btn-Edit,
+    .btn-Del {
+        padding: 4px 6px;
+    }
+}

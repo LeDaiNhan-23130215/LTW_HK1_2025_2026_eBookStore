@@ -81,3 +81,53 @@ body form .container .header{
     display: block;
     height: 14px;
 }
+/* Tablet ≤ 768px */
+@media (max-width: 768px) {
+    .container {
+        width: 90%;
+        padding: 20px;
+    }
+
+    .container .input .input-div input,
+    .container .input button {
+        width: 260px;
+        height: 45px;
+    }
+
+    body form .container .header {
+        font-size: 1.4rem;
+    }
+}
+
+/* Mobile ≤ 480px */
+@media (max-width: 480px) {
+    body {
+        padding: 15px;
+    }
+
+    .container {
+        width: 100%;
+        padding: 15px;
+        border-radius: 8px;
+    }
+
+    .container .input .input-div input,
+    .container .input button {
+        width: 100%;       /* Auto fit theo màn hình */
+        height: 45px;
+        font-size: 0.9rem;
+    }
+
+    body form .container .header {
+        font-size: 1.2rem;
+    }
+}
+
+/* Mobile nhỏ ≤ 360px */
+@media (max-width: 360px) {
+    .container .input .input-div input,
+    .container .input button {
+        height: 42px;
+        font-size: 0.85rem;
+    }
+}
