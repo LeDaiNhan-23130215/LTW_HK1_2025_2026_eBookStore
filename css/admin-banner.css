@@ -249,3 +249,179 @@ body,
 .add-form {
     transition: background-color 0.3s ease, color 0.3s ease;
 }
+/* ===================================================== */
+/*                     RESPONSIVE CSS                    */
+/* ===================================================== */
+
+/* ---------- ≤ 1200px ---------- */
+@media (max-width: 1200px) {
+    .table-section table {
+        min-width: 700px;
+    }
+}
+
+/* ---------- ≤ 992px (Tablet ngang) ---------- */
+@media (max-width: 992px) {
+
+    /* Sidebar thu nhỏ */
+    .sidebar {
+        width: 200px;
+    }
+
+    .main-content {
+        margin-left: 200px;
+    }
+
+    .topbar {
+        padding: 10px 15px;
+    }
+}
+
+/* ---------- ≤ 768px (Tablet dọc) ---------- */
+@media (max-width: 768px) {
+
+    /* Sidebar nhỏ lại chỉ hiển thị icon (nếu có icon) */
+    .sidebar {
+        width: 70px;
+        align-items: center;
+        text-align: center;
+    }
+
+    .sidebar-logo {
+        font-size: 0.75rem;
+        padding: 10px;
+    }
+
+    .sidebar-nav a {
+        font-size: 0.8rem;
+        padding: 8px 0;
+    }
+
+    .main-content {
+        margin-left: 70px;
+    }
+
+    .add-form {
+        margin: 15px;
+        padding: 15px;
+    }
+
+    .table-section {
+        margin: 15px;
+    }
+
+    .topbar button {
+        padding: 6px 10px;
+        font-size: 0.85rem;
+    }
+
+    /* Form add/banner */
+    .add-form .form-row {
+        flex-direction: column;
+    }
+}
+
+/* ---------- ≤ 600px (Mobile lớn) ---------- */
+@media (max-width: 600px) {
+
+    /* Sidebar dạng trượt */
+    .sidebar {
+        width: 240px;
+        left: -240px;
+        transition: left 0.3s ease;
+        z-index: 999;
+    }
+
+    .sidebar.show {
+        left: 0;
+    }
+
+    .main-content {
+        margin-left: 0;
+        width: 100%;
+    }
+
+    .topbar {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 10px;
+        padding: 12px;
+    }
+
+    .topbar-actions {
+        width: 100%;
+        justify-content: space-between;
+    }
+
+    .add-form,
+    .table-section {
+        margin: 10px;
+        padding: 15px;
+    }
+
+    .table-section table {
+        min-width: 600px;
+    }
+
+    th, td {
+        padding: 10px;
+        font-size: 0.85rem;
+    }
+
+    .btn-Edit, .btn-Del {
+        padding: 5px 8px;
+        font-size: 0.8rem;
+    }
+}
+
+/* ---------- ≤ 480px (Mobile) ---------- */
+@media (max-width: 480px) {
+
+    .topbar {
+        padding: 10px;
+    }
+
+    .topbar-actions {
+        gap: 6px;
+    }
+
+    .add-form h2 {
+        font-size: 1.1rem;
+    }
+
+    .add-form .form-row {
+        font-size: 0.9rem;
+    }
+
+    .table-section table {
+        min-width: 550px;
+    }
+
+    th, td {
+        padding: 8px;
+        font-size: 0.8rem;
+    }
+
+    .btn-Edit, .btn-Del {
+        font-size: 0.75rem;
+        padding: 4px 6px;
+    }
+}
+
+/* ---------- ≤ 360px (Mobile nhỏ) ---------- */
+@media (max-width: 360px) {
+    .topbar button {
+        font-size: 0.75rem;
+        padding: 5px 8px;
+    }
+
+    th, td {
+        padding: 6px;
+        font-size: 0.75rem;
+    }
+
+    .btn-Edit, .btn-Del {
+        padding: 3px 5px;
+        font-size: 0.7rem;
+    }
+}

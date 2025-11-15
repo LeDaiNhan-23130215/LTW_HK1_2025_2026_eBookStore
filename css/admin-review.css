@@ -263,3 +263,201 @@ body,
 {
     transition: background-color 0.3s ease, color 0.3s ease;
 }
+/* ========================================================= */
+/*                      RESPONSIVE DESIGN                     */
+/* ========================================================= */
+
+/* ----------- Màn hình ≤ 1200px ----------- */
+@media (max-width: 1200px) {
+    .table-section {
+        padding: 15px 20px;
+    }
+    .filter-section {
+        padding: 15px;
+    }
+}
+
+/* ----------- Màn hình ≤ 1024px (Tablet ngang) ----------- */
+@media (max-width: 1024px) {
+
+    .sidebar {
+        width: 200px;
+    }
+
+    .main-content {
+        margin-left: 200px;
+    }
+
+    table {
+        min-width: 900px !important; /* giữ bảng không co lại */
+    }
+}
+
+/* ----------- Màn hình ≤ 768px (Tablet dọc) ----------- */
+@media (max-width: 768px) {
+
+    /* Thu nhỏ sidebar dạng icon */
+    .sidebar {
+        width: 70px;
+        align-items: center;
+    }
+
+    .sidebar-logo {
+        font-size: 0.8rem;
+        padding: 12px;
+    }
+
+    .sidebar-nav a {
+        font-size: 0.75rem;
+        text-align: center;
+        padding: 8px 0;
+    }
+
+    .main-content {
+        margin-left: 70px;
+    }
+
+    .topbar {
+        padding: 10px 15px;
+    }
+
+    .topbar-actions button {
+        padding: 6px 10px;
+        font-size: 0.8rem;
+    }
+
+    .filter-section {
+        padding: 15px;
+    }
+
+    #filterPaymentForm {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .form-row {
+        width: 100%;
+        justify-content: space-between;
+    }
+
+    table {
+        min-width: 750px;
+    }
+}
+
+/* ----------- Màn hình ≤ 600px (Mobile lớn) ----------- */
+@media (max-width: 600px) {
+
+    /* Sidebar dạng trượt */
+    .sidebar {
+        width: 240px;
+        left: -240px;
+        transition: left 0.3s ease;
+        z-index: 999;
+    }
+
+    .sidebar.show-sidebar {
+        left: 0;
+    }
+
+    .main-content {
+        margin-left: 0;
+        width: 100%;
+    }
+
+    .topbar {
+        padding: 10px;
+    }
+
+    .topbar-actions {
+        gap: 6px;
+    }
+
+    .filter-section {
+        padding: 12px;
+        margin: 10px;
+    }
+
+    .form-row label {
+        font-size: 0.9rem;
+    }
+
+    .table-section {
+        padding: 10px;
+    }
+
+    table {
+        min-width: 650px;
+    }
+
+    th, td {
+        padding: 10px;
+        font-size: 0.85rem;
+    }
+
+    .btn-View,
+    .btn-Del {
+        padding: 5px 8px;
+        font-size: 0.75rem;
+    }
+}
+
+/* ----------- Màn hình ≤ 480px (Mobile) ----------- */
+@media (max-width: 480px) {
+
+    /* Topbar chia thành 2 dòng */
+    .topbar {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 12px;
+    }
+
+    .topbar-actions {
+        width: 100%;
+        justify-content: space-between;
+    }
+
+    #filterPaymentForm {
+        width: 100%;
+    }
+
+    .form-row {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 5px;
+        width: 100%;
+    }
+
+    table {
+        min-width: 580px;
+    }
+
+    th, td {
+        padding: 8px;
+        font-size: 0.8rem;
+    }
+
+    .status {
+        font-size: 0.75rem;
+        padding: 3px 6px;
+    }
+}
+
+/* ----------- Màn hình ≤ 360px (Mobile nhỏ) ----------- */
+@media (max-width: 360px) {
+    .topbar-actions button {
+        font-size: 0.75rem;
+        padding: 5px 8px;
+    }
+
+    th, td {
+        padding: 6px;
+        font-size: 0.75rem;
+    }
+
+    .btn-View,
+    .btn-Del {
+        padding: 4px 6px;
+        font-size: 0.7rem;
+    }
+}
