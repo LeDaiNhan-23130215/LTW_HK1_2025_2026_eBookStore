@@ -276,3 +276,84 @@
 .wishlist-item button.remove:hover {
     background-color: hsl(0, 70%, 45%);
 }
+/* =================== Responsive max-width 900px =================== */
+@media (max-width: 900px) {
+
+    /* Container co gọn và stack dọc */
+    .container {
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        margin: 20px auto;
+        gap: 20px;
+    }
+
+    /* Box left & right stack dọc */
+    .container .box-left,
+    .container .box-right {
+        width: 90%;
+        max-width: 100%;
+        align-items: flex-start;
+    }
+
+    /* Box left option list */
+    .container .box-left .option-list {
+        gap: 5px;
+    }
+
+    /* Box right table co gọn */
+    .container .box-right table {
+        width: 100%;
+        font-size: 0.9rem;
+    }
+
+    .container .box-right table thead th,
+    .container .box-right tbody td {
+        padding: 8px;
+    }
+
+    .container .changePass .input-div input,
+    .container .changePass button {
+        width: 300px;
+    }
+
+    /* Bookshelf responsive */
+    .bookshelf {
+        grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+        gap: 20px;
+        padding: 20px 10px;
+    }
+
+    .book img {
+        height: 200px;
+    }
+
+    .book h3 {
+        font-size: 14px;
+    }
+
+    /* Wishlist responsive */
+    .wishlist-container {
+        grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+        gap: 15px;
+    }
+
+    .wishlist-item img {
+        height: 220px;
+    }
+
+    .wishlist-item .infor h3 {
+        font-size: 14px;
+        height: auto;
+        -webkit-line-clamp: 2;
+    }
+
+    .wishlist-item .infor p {
+        font-size: 12px;
+    }
+
+    .wishlist-item button {
+        font-size: 13px;
+        padding: 6px 10px;
+    }
+}
