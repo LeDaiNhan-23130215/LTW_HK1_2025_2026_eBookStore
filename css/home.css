@@ -406,3 +406,59 @@
   line-height: 1.6;
 }
 
+/*responsive */
+@media (max-width: 768px) {
+  .home-image p.slogan {
+    font-size: 18px;
+    bottom: 5%;
+  }
+}
+
+@media (max-width: 600px) {
+  .danh-sach-danh-muc {
+    flex-direction: column;
+    gap: 12px;
+    align-items: center;
+  }
+  .danh-muc {
+    width: 70%;
+  }
+}
+
+@media (max-width: 768px) {
+  .slider {
+    display: grid;
+    grid-template-columns: repeat(20, 80%);
+    overflow-x: scroll;
+    scroll-behavior: smooth;
+  }
+
+  .slider-container button {
+    display: none; /* Ẩn nút ← → trên mobile */
+  }
+
+  .product-card {
+    width: 90%;
+    margin: auto;
+  }
+}
+/* Tablet */
+@media (max-width: 992px) {
+  .sp-noi-bat-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+/* Mobile lớn */
+@media (max-width: 768px) {
+  .sp-noi-bat-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+/* Mobile nhỏ */
+@media (max-width: 480px) {
+  .sp-noi-bat-grid {
+    grid-template-columns: 1fr;
+  }
+}

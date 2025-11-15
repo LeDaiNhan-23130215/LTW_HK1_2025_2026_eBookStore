@@ -94,3 +94,12 @@ body {
   flex: 0 0 200px;
   scroll-snap-align: start;
 }
+
+@media (max-width: 600px) {
+  .product-card p {
+    font-size: 14px;
+  }
+  .product-card span {
+    font-size: 14px;
+  }
+}
