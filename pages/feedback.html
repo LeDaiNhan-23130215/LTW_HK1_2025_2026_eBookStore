@@ -44,7 +44,9 @@
             <p>EBookStore</p>
           </div>
           <div class="categorymenu">
-            <a href="category.html"><i class="fa-solid fa-bars"></i> Danh mục</a>
+            <a href="category.html"
+              ><i class="fa-solid fa-bars"></i> Danh mục</a
+            >
           </div>
 
           <div class="searchBox">
@@ -76,107 +78,106 @@
     </header>
 
     <!-- Phần thẻ của feedback  -->
-<main class="feedback-container">
-        <h2>Biểu mẫu phản hồi</h2>
-        <p>
-            Chúng tôi rất mong nhận được suy nghĩ, đề xuất, mối quan tâm hoặc vấn đề của bạn về bất kỳ điều gì để chúng tôi có thể cải thiện!
-        </p>
+    <main class="feedback-container">
+      <h2>Biểu mẫu phản hồi</h2>
+      <p>
+        Chúng tôi rất mong nhận được suy nghĩ, đề xuất, mối quan tâm hoặc vấn đề
+        của bạn về bất kỳ điều gì để chúng tôi có thể cải thiện!
+      </p>
 
-        <form action="#" method="post">
-            <div class="form-group">
-                <label class="group-title">Loại phản hồi</label>
-                <div class="form-row radio-options">
-                    <div class="radio-option">
-                        <input type="radio" id="comments" name="feedback_type" value="comments" checked>
-                        <label for="comments">Bình luận</label>
-                    </div>
-                    <div class="radio-option">
-                        <input type="radio" id="suggestions" name="feedback_type" value="suggestions">
-                        <label for="suggestions">Gợi ý</label>
-                    </div>
-                    <div class="radio-option">
-                        <input type="radio" id="questions" name="feedback_type" value="questions">
-                        <label for="questions">Câu hỏi</label>
-                    </div>
-                </div>
+      <form action="#" method="post">
+        <div class="form-group">
+          <label class="group-title">Loại phản hồi</label>
+          <div class="form-row radio-options">
+            <div class="radio-option">
+              <input
+                type="radio"
+                id="comments"
+                name="feedback_type"
+                value="comments"
+                checked
+              />
+              <label for="comments">Bình luận</label>
             </div>
-
-            <div class="form-group">
-                <label for="feedback_description" class="group-title">
-                    Mô tả phản hồi của bạn: <span class="required-star">*</span>
-                </label>
-                <textarea
-                    id="feedback_description"
-                    name="feedback_description"
-                    class="textarea-field"
-                    required
-                ></textarea>
+            <div class="radio-option">
+              <input
+                type="radio"
+                id="suggestions"
+                name="feedback_type"
+                value="suggestions"
+              />
+              <label for="suggestions">Gợi ý</label>
             </div>
-
-            <div class="form-group">
-                <label class="group-title">Họ và tên <span class="required-star">*</span></label>
-                <div class="form-row name-fields">
-                    <div class="name-field">
-                        <input
-                            type="text"
-                            id="first_name"
-                            name="first_name"
-                            class="input-field"
-                            required
-                        />
-                        <span class="hint-text">Tên</span>
-                    </div>
-                    <div class="name-field">
-                        <input
-                            type="text"
-                            id="last_name"
-                            name="last_name"
-                            class="input-field"
-                            required
-                        />
-                        <span class="hint-text">Họ</span>
-                    </div>
-                </div>
+            <div class="radio-option">
+              <input
+                type="radio"
+                id="questions"
+                name="feedback_type"
+                value="questions"
+              />
+              <label for="questions">Câu hỏi</label>
             </div>
+          </div>
+        </div>
 
-            <div class="form-group email-group">
-                <label for="email" class="group-title">E-mail <span class="required-star">*</span></label>
-                <input
-                    type="email"
-                    id="email"
-                    name="email"
-                    class="input-field"
-                    placeholder="ex: myname@example.com"
-                    required
-                />
-                <span class="hint-text">example@example.com</span>
+        <div class="form-group">
+          <label for="feedback_description" class="group-title">
+            Mô tả phản hồi của bạn: <span class="required-star">*</span>
+          </label>
+          <textarea
+            id="feedback_description"
+            name="feedback_description"
+            class="textarea-field"
+            required
+          ></textarea>
+        </div>
+
+        <div class="form-group">
+          <label class="group-title"
+            >Họ và tên <span class="required-star">*</span></label
+          >
+          <div class="form-row name-fields">
+            <div class="name-field">
+              <input
+                type="text"
+                id="first_name"
+                name="first_name"
+                class="input-field"
+                required
+              />
+              <span class="hint-text">Tên</span>
             </div>
+            <div class="name-field">
+              <input
+                type="text"
+                id="last_name"
+                name="last_name"
+                class="input-field"
+                required
+              />
+              <span class="hint-text">Họ</span>
+            </div>
+          </div>
+        </div>
 
-            <button type="submit" class="submit-button">Submit</button>
-        </form>
+        <div class="form-group email-group">
+          <label for="email" class="group-title"
+            >E-mail <span class="required-star">*</span></label
+          >
+          <input
+            type="email"
+            id="email"
+            name="email"
+            class="input-field"
+            placeholder="ex: myname@example.com"
+            required
+          />
+          <span class="hint-text">example@example.com</span>
+        </div>
+
+        <button type="submit" class="submit-button">Submit</button>
+      </form>
     </main>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
     <footer id="siteFooter">
       <div class="topFooter">
@@ -221,8 +222,8 @@
             <span>EBookStore</span> là mô hình nhà sách dành cho thế hệ trẻ,
             tích hợp đa dạng sản phẩm các loại sách
           </p>
-          <a href="../pages/address.html">
-            <i class="fa-solid fa-location-dot"></i>Khu phố 33, Phường Linh
+          <a href="../pages/address.html" class="address">
+            <i class="fa-solid fa-location-dot"></i> Khu phố 33, Phường Linh
             Xuân, TP. Hồ Chí Minh, Việt Nam</a
           >
 
@@ -262,7 +263,15 @@
           <div class="kn-tt">
             <h3>GÓP Ý KHIẾU NẠI</h3>
             <a href="#">0354.30.09.05</a>
-            <p>Tất cả các ngoài trong tuần (Trừ thứ 7 - CN, các ngày lễ)</p>
+            <div class="footer-feedback">
+              <p>Gửi feedback của bạn tại đây:</p>
+              <a href="../pages/feedback.html" class="feedback-button">
+                Feedback</a
+              >
+            </div>
+
+            <p>Tất cả các ngoài trong tuần</p>
+            <p>(Trừ thứ 7 - CN, các ngày lễ)</p>
             <h3>THANH TOÁN</h3>
             <div class="payment-grid">
               <img src="../img/momo-logo.png" alt="momo" class="payment-logo" />

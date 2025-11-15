@@ -75,6 +75,7 @@ main .content .selected-filters {
   border-radius: 10px;
   overflow: hidden;
   margin-bottom: 10px;
+  width: 100%;
 }
 
 main .content .selected-filters .filter-show {
@@ -85,7 +86,7 @@ main .content .selected-filters .filter-show {
 main .content .selected-filters span {
   margin-top: 10px;
   margin-bottom: 10px;
-  margin-left: 5px;
+  margin-left: 20px;
   display: flex;
   color: #0396c7;
   font-weight: bold;
@@ -110,8 +111,8 @@ main .content strong {
   background-color: #0396c7;
   color: white;
   padding: 10px;
-  width: 120px;
-  text-align: right;
+  width: 100%;
+  text-align: center;
 }
 
 main .content .local-filters .local-filter-button-container {
