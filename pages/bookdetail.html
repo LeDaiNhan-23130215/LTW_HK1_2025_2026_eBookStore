@@ -12,8 +12,8 @@
     />
     <link rel="icon" type="image/png" href="../img/ebook-logo2.png" />
     <link rel="stylesheet" href="../css/home.css" />
-    <link rel="stylesheet" href="../css/news.css">
     <link rel="stylesheet" href="../css/bookdetail.css">
+    <link rel="stylesheet" href="../js/bookdetail.js">
   </head>
   <body>
     <header id="siteHeader">
@@ -76,89 +76,212 @@
       </div>
     </header>
 
-<main class="container">
-        <!-- Cột trái: hình ảnh sách -->
-        <div class="book-image">
-            <img src="../img/10439-lam-ra-lam-choi-ra-choi-1.jpg" alt="">
-        </div>
+<!-- Phần thẻ của trang chi tiết sách -->
+ <main class="book-detail-page">
+  <div class="container">
+    <div class="book-detail-layout">
+      <div class="main-content">
+        <section class="product-summary">
+          <div class="product-gallery">
+            <div class="main-image-container">
+              <img
+                src="../img/10439-lam-ra-lam-choi-ra-choi-1.jpg"
+                alt="Deep Work"
+                class="main-image"
+                id="mainBookImage"
+              />
+            </div>
+            <div class="thumbnail-list">
+              <img
+                src="../img/10439-lam-ra-lam-choi-ra-choi-1.jpg"
+                alt="Thumbnail 1"
+                class="thumbnail-item active"
+                onclick="changeMainImage(this.src)"
+              />
+              <img
+                src="../img/10439-lam-ra-lam-choi-ra-choi-1.jpg"
+                alt="Thumbnail 2"
+                class="thumbnail-item"
+                onclick="changeMainImage(this.src)"
+              />
+              <img
+                src="../img/10439-lam-ra-lam-choi-ra-choi-1.jpg"
+                alt="Thumbnail 3"
+                class="thumbnail-item"
+                onclick="changeMainImage(this.src)"
+              />
+            </div>
+          </div>
 
-        <!-- Cột phải: thông tin chi tiết -->
-        <div class="book-info">
-            <h2>Deep Work</h2>
-            <p class="status">Tình trạng: <strong>Còn hàng</strong></p>
-            <p class="type">Loại:<strong>Điện tử</strong></p>
-            <p class="author">Tác giả:<strong>Carl Newport</strong></p>
-            <p class="idbook">Mã sách:<strong>12345</strong></p>
+          <div class="product-info">
+            <h1 class="product-title">Deep Work - Carl Newport</h1>
+            <div class="product-meta">
+              <span>Thương hiệu: <a href="#">NXB Trẻ</a></span>
+              <span>Tác giả: <a href="#">Carl Newport</a></span>
+              <span>Loại: <a href="#">PDF</a></span>
+              <span>Tình trạng: <span class="stock-status">Còn hàng</span></span>
+              <span>Mã sản phẩm: 8934974190554</span>
+            </div>
 
-            <p class="price">
-                <span class="current">85.500 VNĐ</span>
-                <span class="old">95.000 VNĐ</span>
+            <div class="price-box">
+              <span class="current-price">85.500 VNĐ</span>
+            
+              
+            </div>
+
+            <div class="promo-timer">
+              <span>Kết thúc còn:</span>
+              <p>Chương trình đã kết thúc, hẹn gặp lại trong thời gian sớm nhất!</p>
+            </div>
+
+            <div class="sales-status-label">Đang mở bán</div>
+
+            <div class="quantity-section">
+              <label for="quantity">Số lượng:</label>
+              <div class="quantity-selector">
+                <button class="quantity-btn" id="decreaseQty">-</button>
+                <input type="text" id="quantity" value="1" min="1" />
+                <button class="quantity-btn" id="increaseQty">+</button>
+              </div>
+            </div>
+
+            <button class="add-to-cart-btn">THÊM VÀO GIỎ</button>
+            <p class="shipping-note">Giao hàng tận nơi miễn phí</p>
+
+            <div class="special-promo">
+              <p class="promo-title">
+                <i class="fa-solid fa-gift"></i> Khuyến mãi đặc biệt!!!
+              </p>
+              <ul>
+                <li>
+                  <i class="fa-solid fa-check"></i> Giảm giá 10% cho mỗi
+                  quyển sách trên hóa đơn.
+                </li>
+                <li>
+                  <i class="fa-solid fa-check"></i> FREESHIP khi hóa đơn
+                  trên 500k.
+                </li>
+              </ul>
+            </div>
+          </div>
+        </section>
+
+        <section class="product-description-tabs">
+          <div class="tab-headers">
+            <button class="tab-link active" data-tab="tab-1">
+              Mô tả sản phẩm
+            </button>
+            <button class="tab-link" data-tab="tab-2">
+              Hướng dẫn mua hàng
+            </button>
+          </div>
+
+          <div id="tab-1" class="tab-content active">
+            <h3>Mô tả sản phẩm</h3>
+            <h4>Deep Work - Carl Newport</h4>
+            <p>
+Cal Newport lập luận rằng trong thời đại ngập tràn thông tin và xao nhãng, khả năng “làm việc sâu” – 
+tập trung hoàn toàn vào một nhiệm vụ khó – là kỹ năng quý giá nhất. Ông đưa ra các chiến lược cụ thể để 
+rèn luyện sự tập trung, loại bỏ thói quen làm việc nông, và đạt hiệu suất vượt trội. Cuốn sách kết hợp nghiên 
+cứu khoa học, ví dụ thực tế và lời khuyên thực hành, giúp người đọc làm việc thông minh hơn, sáng tạo hơn và đạt thành tựu lớn mà vẫn duy trì cân bằng cuộc sống.
             </p>
+          </div>
 
-            <p class="save">Tiết kiệm: 9.500 VNĐ</p>
+          <div id="tab-2" class="tab-content">
+            <h3>Hướng dẫn mua hàng</h3>
+            <p>
+              <strong>Bước 1:</strong> Chọn số lượng sản phẩm và nhấn nút
+              "THÊM VÀO GIỎ".
+            </p>
+            <p>
+              <strong>Bước 2:</strong> Đi đến trang Giỏ hàng (icon ở góc
+              trên bên phải) để kiểm tra lại sản phẩm.
+            </p>
+            <p>
+              <strong>Bước 3:</strong> Nhấn "Tiến hành thanh toán", điền
+              đầy đủ thông tin và chọn phương thức thanh toán.
+            </p>
+            <p>
+              <strong>Bước 4:</strong> Xác nhận đơn hàng và chờ EBookStore
+              giao sách đến tận tay bạn!
+            </p>
+          </div>
+        </section>
+      </div>
 
-            <div class="quantity">
-                <label for="quantity">Số lượng:</label>
-                <input type="number" id="quantity" min="1" value="1">
-            </div>
-
-            <button class="add-btn">Thêm vào giỏ</button>
-            <button class="add-yeuthich">Thêm vào danh sách yêu thích</button>
-
-            <div class="promo">
-                <p>🎁 Giảm 10% cho mỗi quyển sách trên hóa đơn.</p>
-                <p>🚚 FREESHIP cho hóa đơn trên 500K.</p>
-            </div>
+      <aside class="sidebar-detail">
+        <div class="sidebar-widget">
+          <h3>Có thể bạn đang tìm</h3>
+          <ul class="related-products-list">
+            <li class="related-product-item">
+              <a href="#"
+                ><img
+                  src="https://m.media-amazon.com/images/I/51E2055ZGUL._SY522_.jpg"
+                  alt="The Pragmatic Programmer — Andrew Hunt & David Thomas"
+              /></a>
+              <div class="product-details">
+                <a href="#" class="related-title"
+                  >The Pragmatic Programmer — Andrew Hunt & David Thomas</a
+                >
+                <div class="related-price">
+                  <span class="current-price">495.000 VNĐ</span>
+                </div>
+              </div>
+            </li>
+            <li class="related-product-item">
+              <a href="#"
+                ><img
+                  src="https://m.media-amazon.com/images/I/51JYkEpbhzL.jpg"
+                  alt="Design Patterns: Elements of Reusable Object-Oriented Software — Gamma et al."
+              /></a>
+              <div class="product-details">
+                <a href="#" class="related-title"
+                  >Design Patterns: Elements of Reusable Object-Oriented Software — Gamma et al</a
+                >
+                <div class="related-price">
+                  <span class="current-price">211.500 VNĐ</span>
+                  <span class="old-price">235.000 VNĐ</span>
+                </div>
+              </div>
+            </li>
+            <li class="related-product-item">
+              <a href="#"
+                ><img
+                  src="https://m.media-amazon.com/images/I/814nAGmpAGL._AC_UF1000%2C1000_QL80_.jpg"
+                  alt="Continuous Delivery — Jez Humble & David Farley"
+              /></a>
+              <div class="product-details">
+                <a href="#" class="related-title"
+                  >Continuous Delivery — Jez Humble & David Farley</a
+                >
+                <div class="related-price">
+                  <span class="current-price">175.500 VNĐ</span>
+                  <span class="old-price">195.000 VNĐ</span>
+                </div>
+              </div>
+            </li>
+            <li class="related-product-item">
+              <a href="#"
+                ><img
+                  src="https://m.media-amazon.com/images/I/71CjT0N23ML.jpg"
+                  alt="Code Complete — Steve McConnell"
+              /></a>
+              <div class="product-details">
+                <a href="#" class="related-title"
+                  >Code Complete — Steve McConnell</a
+                >
+                <div class="related-price">
+                  <span class="current-price">342.000 VNĐ</span>
+                  <span class="old-price">380.000 VNĐ</span>
+                </div>
+              </div>
+            </li>
+          </ul>
         </div>
-    </main>
-
-    <!-- Mô tả sản phẩm -->
-    <section class="description">
-        <h3>Mô tả sản phẩm</h3>
-        <p>
-            Cal Newport lập luận rằng trong thời đại ngập tràn thông tin và xao nhãng, khả năng “làm việc sâu” – tập trung hoàn toàn vào một nhiệm vụ khó – là kỹ năng quý giá nhất. Ông đưa ra các chiến lược cụ thể để rèn luyện sự tập trung, loại bỏ thói quen làm việc nông, và đạt hiệu suất vượt trội. Cuốn sách kết hợp nghiên cứu khoa học, ví dụ thực tế và lời khuyên thực hành, giúp người đọc làm việc thông minh hơn, sáng tạo hơn và đạt thành tựu lớn mà vẫn duy trì cân bằng cuộc sống.
-        </p>
-    </section>
-
-    <!-- Gợi ý sách -->
-    <section class="suggest">
-        <h3>Có thể bạn đang tìm</h3>
-        <div class="suggest-list">
-            <div class="suggest-item">
-                <img src="../img/atomic-habits-dots.png" alt="">
-                <p>Atomic habits</p>
-                <span>495.000 VNĐ</span>
-            </div>
-           <div class="suggest-item">
-                <img src="../img/atomic-habits-dots.png" alt="">
-                <p>Atomic habits</p>
-                <span>495.000 VNĐ</span>
-            </div><div class="suggest-item">
-                <img src="../img/atomic-habits-dots.png" alt="">
-                <p>Atomic habits</p>
-                <span>495.000 VNĐ</span>
-            </div>
-            </div>
-            <div class="suggest-item">
-                <img src="../img/atomic-habits-dots.png" alt="">
-                <p>Atomic habits</p>
-                <span>495.000 VNĐ</span>
-            </div>
-            <div class="suggest-item">
-                <img src="../img/atomic-habits-dots.png" alt="">
-                <p>Atomic habits</p>
-                <span>495.000 VNĐ</span>
-            </div>
-            <div class="suggest-item">
-                <img src="../img/atomic-habits-dots.png" alt="">
-                <p>Atomic habits</p>
-                <span>495.000 VNĐ</span>
-            </div>
-        </div>
-    </section>
-      
-
-     
+      </aside>
+    </div>
+  </div>
+</main>
 
 
 
@@ -167,7 +290,16 @@
 
 
 
-   
+
+
+
+
+
+
+
+
+
+
 
 
     <footer id="siteFooter">
@@ -213,8 +345,8 @@
             <span>EBookStore</span> là mô hình nhà sách dành cho thế hệ trẻ,
             tích hợp đa dạng sản phẩm các loại sách
           </p>
-          <a href="../pages/address.html">
-            <i class="fa-solid fa-location-dot"></i>Khu phố 33, Phường Linh
+          <a href="../pages/address.html" class="address">
+            <i class="fa-solid fa-location-dot"></i> Khu phố 33, Phường Linh
             Xuân, TP. Hồ Chí Minh, Việt Nam</a
           >
 
@@ -244,16 +376,25 @@
             <h3>DANH MỤC</h3>
             <ul>
               <li><a href="../pages/home-Login.html">Trang chủ</a></li>
-              <li><a href="">Giới Thiệu</a></li>
+              <li><a href="../pages/about.html">Giới Thiệu</a></li>
               <li><a href="../pages/news.html">Tin tức</a></li>
-              <li><a href="">Liên hệ</a></li>
+              <li><a href="../pages/contact.html">Liên hệ</a></li>
+              <li><a href="../pages/faq.html">FAQ</a></li>
             </ul>
           </div>
 
           <div class="kn-tt">
             <h3>GÓP Ý KHIẾU NẠI</h3>
             <a href="#">0354.30.09.05</a>
-            <p>Tất cả các ngoài trong tuần (Trừ thứ 7 - CN, các ngày lễ)</p>
+            <div class="footer-feedback">
+              <p>Gửi feedback của bạn tại đây:</p>
+              <a href="../pages/feedback.html" class="feedback-button">
+                Feedback</a
+              >
+            </div>
+
+            <p>Tất cả các ngoài trong tuần</p>
+            <p>(Trừ thứ 7 - CN, các ngày lễ)</p>
             <h3>THANH TOÁN</h3>
             <div class="payment-grid">
               <img src="../img/momo-logo.png" alt="momo" class="payment-logo" />

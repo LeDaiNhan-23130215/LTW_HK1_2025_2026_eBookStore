@@ -7,7 +7,7 @@ textarea.addEventListener("input", function() {
 });
 
 document.getElementById("contactForm").addEventListener("submit", function(e) {
-    e.preventDefault(); // ngăn submit tạm thời
+    e.preventDefault(); 
 
     const textarea = document.getElementById("message").value.trim();
     const topic1 = document.getElementById("topic1").value.trim();

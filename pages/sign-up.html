@@ -14,15 +14,15 @@
     <link rel="icon" type="image/png" href="../img/ebook-logo2.png" />
   </head>
   <body>
-    <header id="siteHeader">
+     <header id="siteHeader">
       <div class="headerContainer">
         <div class="topBar">
           <div class="leftContainer">
             <p id="welcomeMessage">Chào mừng bạn đến với EBookStore</p>
           </div>
           <div class="rightContainer">
-            <a href="user-infor.html">Nguyễn Văn A</a>
-            <a href="home-notLogin.html">Đăng xuất</a>
+            <a href="login.html">Đăng nhập</a>
+            <a href="sign-up.html">Đăng ký</a>
             <p>
               Hotline:
               <span class="phoneNumber"
@@ -34,7 +34,7 @@
 
         <div class="headerMenu">
           <div class="logo">
-            <a href="home-Login.html"
+            <a href="home-notLogin.html"
               ><img
                 src="../img/ebook-logo2.png"
                 alt="EBookStore Logo"
@@ -43,7 +43,9 @@
             <p>EBookStore</p>
           </div>
           <div class="categorymenu">
-            <a href="category.html"><i class="fa-solid fa-bars"></i> Danh mục</a>
+            <a href="category.html"
+              ><i class="fa-solid fa-bars"></i> Danh mục</a
+            >
           </div>
 
           <div class="searchBox">
@@ -62,11 +64,8 @@
             </div>
 
             <div class="order">
-              <a href="cart.html"
-                ><button>
-                  <i class="fa-solid fa-cart-shopping"></i> Giỏ hàng
-                </button></a
-              >
+                  <div class="add-to-cart-btn">
+                    <i class="fa-solid fa-cart-plus"></i>
               <span class="notification-badge">0</span>
             </div>
           </div>
@@ -184,7 +183,7 @@
       <div class="footer-container">
         <div class="left">
           <div class="logo">
-            <a href="home.html"
+            <a href="home-Login.html"
               ><img
                 src="../img/ebook-logo2.png"
                 alt="EBookStore Logo"
@@ -200,8 +199,8 @@
             <span>EBookStore</span> là mô hình nhà sách dành cho thế hệ trẻ,
             tích hợp đa dạng sản phẩm các loại sách
           </p>
-          <a href="../pages/address.html">
-            <i class="fa-solid fa-location-dot"></i>Khu phố 33, Phường Linh
+          <a href="../pages/address.html" class="address">
+            <i class="fa-solid fa-location-dot"></i> Khu phố 33, Phường Linh
             Xuân, TP. Hồ Chí Minh, Việt Nam</a
           >
 
@@ -241,7 +240,15 @@
           <div class="kn-tt">
             <h3>GÓP Ý KHIẾU NẠI</h3>
             <a href="#">0354.30.09.05</a>
-            <p>Tất cả các ngoài trong tuần (Trừ thứ 7 - CN, các ngày lễ)</p>
+            <div class="footer-feedback">
+              <p>Gửi feedback của bạn tại đây:</p>
+              <a href="../pages/feedback.html" class="feedback-button">
+                Feedback</a
+              >
+            </div>
+
+            <p>Tất cả các ngoài trong tuần</p>
+            <p>(Trừ thứ 7 - CN, các ngày lễ)</p>
             <h3>THANH TOÁN</h3>
             <div class="payment-grid">
               <img src="../img/momo-logo.png" alt="momo" class="payment-logo" />
