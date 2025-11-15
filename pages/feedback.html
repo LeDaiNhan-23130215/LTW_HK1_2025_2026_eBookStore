@@ -78,38 +78,35 @@
     </header>
 
     <!-- Phần thẻ của feedback  -->
-<main class="feedback-container">
-        <h2>Biểu mẫu phản hồi</h2>
-        <p>
-            Chúng tôi rất mong nhận được suy nghĩ, đề xuất, mối quan tâm hoặc vấn đề của bạn về bất kỳ điều gì để chúng tôi có thể cải thiện!
-        </p>
+    <main class="feedback-container">
+      <h2>Biểu mẫu phản hồi</h2>
+      <p>
+        Chúng tôi rất mong nhận được suy nghĩ, đề xuất, mối quan tâm hoặc vấn đề
+        của bạn về bất kỳ điều gì để chúng tôi có thể cải thiện!
+      </p>
 
-        <form action="#" method="post">
-
-          <div class="form-group">
-                <label class="group-title">Họ và tên <span class="required-star">*</span></label>
-                <div class="form-row name-fields">
-                    <div class="name-field">
-                        <input
-                            type="text"
-                            id="first_name"
-                            name="first_name"
-                            class="input-field"
-                            required
-                        />
-                        <span class="hint-text">Tên</span>
-                    </div>
-                    <div class="name-field">
-                        <input
-                            type="text"
-                            id="last_name"
-                            name="last_name"
-                            class="input-field"
-                            required
-                        />
-                        <span class="hint-text">Họ</span>
-                    </div>
-                </div>
+      <form action="#" method="post">
+        <div class="form-group">
+          <label class="group-title">Loại phản hồi</label>
+          <div class="form-row radio-options">
+            <div class="radio-option">
+              <input
+                type="radio"
+                id="comments"
+                name="feedback_type"
+                value="comments"
+                checked
+              />
+              <label for="comments">Bình luận</label>
+            </div>
+            <div class="radio-option">
+              <input
+                type="radio"
+                id="suggestions"
+                name="feedback_type"
+                value="suggestions"
+              />
+              <label for="suggestions">Gợi ý</label>
             </div>
             <div class="form-group email-group">
           <label for="email" class="group-title"
@@ -127,22 +124,64 @@
         </div>
           </div>
         </div>
-            <div class="form-group">
-                <label for="feedback_description" class="group-title">
-                    Mô tả phản hồi của bạn: <span class="required-star">*</span>
-                </label>
-                <textarea
-                    id="feedback_description"
-                    name="feedback_description"
-                    class="textarea-field"
-                    required
-                ></textarea>
+
+        <div class="form-group">
+          <label for="feedback_description" class="group-title">
+            Mô tả phản hồi của bạn: <span class="required-star">*</span>
+          </label>
+          <textarea
+            id="feedback_description"
+            name="feedback_description"
+            class="textarea-field"
+            required
+          ></textarea>
+        </div>
+
+        <div class="form-group">
+          <label class="group-title"
+            >Họ và tên <span class="required-star">*</span></label
+          >
+          <div class="form-row name-fields">
+            <div class="name-field">
+              <input
+                type="text"
+                id="first_name"
+                name="first_name"
+                class="input-field"
+                required
+              />
+              <span class="hint-text">Tên</span>
             </div>
+            <div class="name-field">
+              <input
+                type="text"
+                id="last_name"
+                name="last_name"
+                class="input-field"
+                required
+              />
+              <span class="hint-text">Họ</span>
+            </div>
+          </div>
+        </div>
 
-  
+        <div class="form-group email-group">
+          <label for="email" class="group-title"
+            >E-mail <span class="required-star">*</span></label
+          >
+          <input
+            type="email"
+            id="email"
+            name="email"
+            class="input-field"
+            placeholder="ex: myname@example.com"
+            required
+          />
+          <span class="hint-text">example@example.com</span>
+        </div>
 
-            <button type="submit" class="submit-button">Submit</button>
-        </form>
+        <button type="submit" class="submit-button">Submit</button>
+      </form>
     </main>
 
     <footer id="siteFooter">
