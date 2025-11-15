@@ -1,5 +1,6 @@
 document.querySelectorAll('.add-to-cart-btn').forEach(btn => {
-  btn.addEventListener('click', () => {
+  btn.addEventListener('click', (event) => {
+    event.stopPropagation();
     window.location.href = 'cart.html';
   });
 });
