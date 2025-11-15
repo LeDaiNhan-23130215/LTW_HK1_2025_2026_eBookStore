@@ -35,7 +35,16 @@ body .checkout-container .checkout-left .image img{
     width: 150px;
     background-color: #0396c7;
     border-radius: 8px;
-    margin-bottom: 30px;
+    margin-bottom: 15px;
+}
+body .checkout-container .checkout-left .label-img {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 15px;
+    font-size: 1.5rem;
+    color: #0396c7;
+    font-weight: bold;
 }
 body .checkout-container .checkout-left .label-logout{
     display: flex;
