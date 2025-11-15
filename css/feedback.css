@@ -1,4 +1,3 @@
-/* Container chính giữa trang */
 .feedback-container {
     max-width: 900px; 
     margin: 40px auto; 
@@ -9,14 +8,12 @@
     font-family: Arial, sans-serif;
 }
 
-/* Tiêu đề Form */
 .feedback-container h2 {
     font-size: 28px;
     color: #333;
     margin-bottom: 5px;
 }
 
-/* Mô tả form */
 .feedback-container p:first-of-type {
     color: #666;
     margin-bottom: 25px;
@@ -25,7 +22,6 @@
     padding-bottom: 20px;
 }
 
-/* Nhóm các trường form */
 .form-group {
     margin-bottom: 20px;
 }
@@ -44,72 +40,7 @@
     margin-left: 2px;
 }
 
-/* Hàng chứa các lựa chọn (radio buttons) */
-.form-row.radio-options {
-    display: flex;
-    justify-content: flex-start;
-    gap: 40px; 
-    border-bottom: 1px solid #eee;
-    padding-bottom: 20px;
-    margin-bottom: 20px;
-}
 
-/* Lựa chọn radio */
-.radio-option {
-    display: flex;
-    align-items: center;
-}
-
-.radio-option input[type="radio"] {
-    appearance: none;
-    background-color: #fff;
-    margin: 0;
-    font: inherit;
-    color: #333;
-    width: 18px;
-    height: 18px;
-    border: 2px solid #ccc;
-    border-radius: 50%;
-    transform: translateY(-0.075em);
-    display: grid;
-    place-content: center;
-    cursor: pointer;
-    margin-right: 8px;
-}
-
-.radio-option input[type="radio"]::before {
-    content: "";
-    width: 10px;
-    height: 10px;
-    border-radius: 50%;
-    transform: scale(0);
-    transition: transform 0.1s ease-in-out;
-    box-shadow: inset 1em 1em #004aad; 
-}
-
-.radio-option input[type="radio"]:checked::before {
-    transform: scale(1);
-}
-
-.radio-option label {
-    cursor: pointer;
-    color: #333;
-}
-
-
-/* Input cho Tên */
-.form-row.name-fields {
-    display: flex;
-    gap: 20px;
-    margin-bottom: 20px;
-}
-
-.name-field {
-    flex: 1; /* Chia đều chiều rộng */
-}
-
-/* Style chung cho input text và textarea */
-.input-field,
 .textarea-field {
     width: 100%;
     padding: 10px 12px;
@@ -120,41 +51,16 @@
     transition: border-color 0.3s;
 }
 
-.input-field:focus,
 .textarea-field:focus {
     border-color: #004aad; /* Màu border khi focus */
     outline: none;
 }
 
-/* Textarea cho mô tả feedback */
 .textarea-field {
     min-height: 150px;
-    resize: vertical; 
+    resize: none; 
 }
 
-/* Text gợi ý dưới input Name và Email */
-.hint-text {
-    font-size: 12px;
-    color: #999;
-    margin-top: 5px;
-    display: block;
-}
-
-/* Input Email - tách biệt */
-.form-group.email-group {
-    border-bottom: 1px solid #eee;
-    padding-bottom: 25px;
-    margin-bottom: 25px;
-}
-
-/* Placeholder cho Email */
-.input-field::placeholder {
-    color: #aaa;
-    font-style: italic;
-}
-
-
-/* Nút Submit */
 .submit-button {
     width: 100%;
     padding: 12px;

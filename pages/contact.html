@@ -77,48 +77,27 @@
     </header>
 
     <main class="contact-container">
-      <section class="contact-banner">
-        <h1>Contact Us</h1>
-        <p>Gửi tin nhắn cho chúng tôi để nhận hỗ trợ.</p>
-      </section>
+      <h2>Liên hệ với chúng tôi!</h2>
+      <p>
+        Chúng tôi rất hân hạnh liên hệ với bạn, vui lòng điền vào biểu mẫu để
+        chúng tôi có thể liên hệ với bạn sớm nhất có thể!
+      </p>
 
-      <section class="contact-form-section">
-        <h2>Liên hệ</h2>
-        <form id="contactForm">
-          <label for="message">Nội dung chính:</label>
+      <form action="#" method="post">
+        <div class="form-group">
+          <label for="contact_description" class="group-title">
+            Mô tả: <span class="required-star">*</span>
+          </label>
           <textarea
-            id="message"
-            name="message"
-            placeholder="Nhập nội dung..."
+            id="contact_description"
+            name="contact_description"
+            class="textarea-field"
+            required
           ></textarea>
+        </div>
 
-          <label for="topic1">Chủ đề 1:</label>
-          <input
-            type="text"
-            id="topic1"
-            name="topic1"
-            placeholder="Ví dụ: Lỗi hiển thị"
-          />
-
-          <label for="topic2">Chủ đề 2:</label>
-          <input
-            type="text"
-            id="topic2"
-            name="topic2"
-            placeholder="Ví dụ: Thêm tính năng"
-          />
-
-          <label for="topic3">Chủ đề 3:</label>
-          <input
-            type="text"
-            id="topic3"
-            name="topic3"
-            placeholder="Ví dụ: Góp ý khác"
-          />
-
-          <button type="submit">Gửi</button>
-        </form>
-      </section>
+        <button type="submit" class="submit-button">Submit</button>
+      </form>
     </main>
 
     <footer id="siteFooter">
