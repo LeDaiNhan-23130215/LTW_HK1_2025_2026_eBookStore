@@ -78,51 +78,51 @@ body .main-content .topbar button:hover {
 body .main-content .dashboard{
     padding: 20px;
 }
-.filter-section {
+body .main-content .dashboard .filter-section {
     background: #fff;
     border-radius: 10px;
     padding: 20px;
     box-shadow: 0 1px 4px rgba(0, 0, 0, 0.1);
 }
 
-.filter-section h2 {
+body .main-content .dashboard .filter-section h2 {
     font-size: 1.2rem;
     margin-bottom: 15px;
     color: #333;
 }
 
-form#filterPaymentForm {
+body .main-content .dashboard form#filterPaymentForm {
     display: flex;
     flex-wrap: wrap;
     gap: 15px;
     align-items: center;
 }
 
-.form-row {
+body .main-content .dashboard .form-row {
     display: flex;
     align-items: center;
     gap: 8px;
     margin-bottom: 10px;
 }
 
-.form-row label {
+body .main-content .dashboard .form-row label {
     font-weight: 600;
 }
 
-select,
-input[type="date"] {
+body .main-content .dashboard select,
+body .main-content .dashboard input[type="date"] {
     padding: 6px 8px;
     border-radius: 6px;
     border: 1px solid #ccc;
     outline: none;
 }
 
-select:focus,
-input[type="date"]:focus {
+body .main-content .dashboard select:focus,
+body .main-content .dashboard input[type="date"]:focus {
     border-color: #1abc9c;
 }
 
-.btn-filter {
+body .main-content .dashboard .btn-filter {
     background: #2563eb;
     color: #fff;
     padding: 8px 15px;
@@ -132,7 +132,7 @@ input[type="date"]:focus {
     transition: 0.3s;
 }
 
-.btn-filter:hover {
+body .main-content .dashboard .btn-filter:hover {
     background: #1e40af;
 }
 
