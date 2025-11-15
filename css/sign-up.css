@@ -53,6 +53,9 @@ form{
     align-items: center;
     gap: 20px;
 }
+.container .input .top-input .input-div input{
+    width: 630px;
+}
 .container .input .input-div input{
     border: none;
     outline: none;
