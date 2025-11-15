@@ -2,17 +2,32 @@
   margin: 60px auto;
 }
 
+
+
+.main-content h2 {
+  text-align: center;
+  margin: 20px;
+  font-size: 2.0rem;
+}
+
 .filter-row {
   display: flex;
   gap: 12px;
   flex-wrap: wrap;
   margin-bottom: 20px;
+  border: 2px solid #004aad;
+  min-width: 800px;
 }
 
 .filter-group {
   display: flex;
   gap: 8px;
   flex-wrap: wrap;
+  align-items: center;
+}
+
+.filter-group h3{
+  color:  #004aad;;
 }
 
 .filter-option {
@@ -25,7 +40,7 @@
 }
 
 .filter-option.active {
-  background-color: #004aad;
+  background-color: #0396c7;
   color: white;
 }
 
