@@ -44,7 +44,6 @@
   cursor: default;
   margin-top: 10px;
   margin-bottom: 10px;
-
 }
 
 #welcomeMessage {
@@ -151,20 +150,18 @@
   cursor: pointer;
 }
 
-.headerMenu .categorymenu a{
+.headerMenu .categorymenu a {
   text-decoration: none;
   color: #004aad;
-
 }
 
 .headerMenu .categorymenu:hover {
   background-color: #004aad;
 }
 
-.headerMenu .categorymenu:hover a{
+.headerMenu .categorymenu:hover a {
   color: white;
 }
-
 
 .headerMenu .searchBox {
   display: flex;
@@ -411,8 +408,8 @@
   margin-top: 15px;
 }
 
-#siteFooter .footer-container .left a{  
-  display: inline-block; 
+#siteFooter .footer-container .left a {
+  display: inline-block;
   margin-top: 15px;
   font-size: 0.9rem;
   text-decoration: none;
@@ -498,3 +495,30 @@
   margin: 3px;
 }
 
+#siteFooter .footer-container .kn-tt .footer-feedback {
+  display: flex;
+  align-items: center;
+}
+
+#siteFooter .footer-container .kn-tt p{
+  min-width: 200px;
+  margin-top: 5px;
+}
+
+#siteFooter .footer-container .kn-tt .footer-feedback p{
+  margin: 0;
+}
+
+
+#siteFooter .footer-container .kn-tt .footer-feedback .feedback-button {
+  font-size: 1rem;
+  border: 2px solid #004aad;
+  padding: 5px;
+  border-radius: 10px;
+  transition: 0.3s;
+  }
+
+#siteFooter .footer-container .kn-tt .footer-feedback .feedback-button:hover {
+  color: white;
+  background-color: #004aad;
+}
