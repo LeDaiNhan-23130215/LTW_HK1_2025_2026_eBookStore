@@ -117,6 +117,58 @@ body .main-content .dashboard .chart-container{
     padding: 20px;
     box-shadow: 0 2px 4px rgba(0,0,0,0.05);
 }
+.search-wrapper {
+    margin: 20px;
+    margin-top: 25px;
+}
+.search-bar {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 12px 15px;
+    background: #ffffff;
+    border-radius: 10px;
+    box-shadow: 0 1px 4px rgba(0,0,0,0.08);
+}
+
+/* Input */
+.search-bar input {
+    flex: 1;
+    padding: 10px 14px;
+    border-radius: 8px;
+    border: 1px solid #d6d6d6;
+    background: #fafafa;
+    font-size: 15px;
+    transition: 0.25s ease;
+}
+
+.search-bar input:focus {
+    background: #fff;
+    border-color: #0396c7;
+    box-shadow: 0 0 0 3px rgba(3, 150, 199, 0.15);
+}
+
+/* Button */
+.search-bar button {
+    padding: 10px 16px;
+    border: none;
+    background: #0396c7;
+    color: #fff;
+    font-size: 15px;
+    border-radius: 8px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    transition: 0.25s ease;
+}
+
+.search-bar button:hover {
+    background: #027aa5;
+    transform: translateY(-1px);
+}
+.search-bar button:active {
+    transform: scale(0.97);
+}
 body .main-content .table-section {
     margin: 20px;
     background: white;
@@ -159,6 +211,9 @@ body.dark .topbar {
     background: #1e293b;
     color: #f9fafb;
 }
+body.dark .table-section {
+    background: #1e293b;
+}
 body.dark .table-section table {
     background: #1e293b;
     color: #f9fafb;
@@ -183,6 +238,30 @@ body.dark .topbar button {
 }
 body.dark .topbar button:hover {
     background: #475569;
+}
+body.dark .search-bar {
+    background: #273449;
+    color: #e5e7eb;
+    box-shadow: 0 1px 4px rgba(0,0,0,0.4);
+}
+
+body.dark .search-bar input {
+    background: #344256;
+    color: #e5e7eb;
+    border-color: #475569;
+}
+
+body.dark .search-bar input:focus {
+    border-color: #65cfff;
+    box-shadow: 0 0 0 3px rgba(101, 207, 255, 0.2);
+}
+
+body.dark .search-bar button {
+    background: #027aa5;
+}
+
+body.dark .search-bar button:hover {
+    background: #0396c7;
 }
 body,
 .sidebar,
@@ -211,6 +290,14 @@ body,
 
     .dashboard .cards {
         grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+    }
+    .search-bar {
+        flex-direction: column;
+        align-items: stretch;
+    }
+    .search-bar button {
+        width: 100%;
+        justify-content: center;
     }
 }
 
@@ -244,6 +331,14 @@ body,
 
     .topbar {
         padding: 10px 15px;
+    }
+    .search-bar {
+        flex-direction: column;
+        align-items: stretch;
+    }
+    .search-bar button {
+        width: 100%;
+        justify-content: center;
     }
 }
 
@@ -284,6 +379,14 @@ body,
     .dashboard .cards {
         grid-template-columns: 1fr;
     }
+    .search-bar {
+        flex-direction: column;
+        align-items: stretch;
+    }
+    .search-bar button {
+        width: 100%;
+        justify-content: center;
+    }
 }
 
 /* ========= Mobile nhỏ ≤ 430px ========= */
@@ -310,6 +413,14 @@ body,
     .table-section h2 {
         font-size: 1.1rem;
     }
+    .search-bar {
+        flex-direction: column;
+        align-items: stretch;
+    }
+    .search-bar button {
+        width: 100%;
+        justify-content: center;
+    }
 }
 
 /* ========= Điện thoại cực nhỏ ≤ 360px ========= */
@@ -330,5 +441,13 @@ body,
     .table-section td {
         padding: 8px;
         font-size: 0.8rem;
+    }
+    .search-bar {
+        flex-direction: column;
+        align-items: stretch;
+    }
+    .search-bar button {
+        width: 100%;
+        justify-content: center;
     }
 }

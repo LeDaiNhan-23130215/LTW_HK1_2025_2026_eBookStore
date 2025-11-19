@@ -131,9 +131,60 @@ body .main-content .dashboard .btn-filter {
     cursor: pointer;
     transition: 0.3s;
 }
-
 body .main-content .dashboard .btn-filter:hover {
     background: #1e40af;
+}
+.search-wrapper {
+    margin: 20px;
+    margin-top: 25px;
+}
+.search-bar {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 12px 15px;
+    background: #ffffff;
+    border-radius: 10px;
+    box-shadow: 0 1px 4px rgba(0,0,0,0.08);
+}
+
+/* Input */
+.search-bar input {
+    flex: 1;
+    padding: 10px 14px;
+    border-radius: 8px;
+    border: 1px solid #d6d6d6;
+    background: #fafafa;
+    font-size: 15px;
+    transition: 0.25s ease;
+}
+
+.search-bar input:focus {
+    background: #fff;
+    border-color: #0396c7;
+    box-shadow: 0 0 0 3px rgba(3, 150, 199, 0.15);
+}
+
+/* Button */
+.search-bar button {
+    padding: 10px 16px;
+    border: none;
+    background: #0396c7;
+    color: #fff;
+    font-size: 15px;
+    border-radius: 8px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    transition: 0.25s ease;
+}
+
+.search-bar button:hover {
+    background: #027aa5;
+    transform: translateY(-1px);
+}
+.search-bar button:active {
+    transform: scale(0.97);
 }
 
 /* ======== TABLE SECTION ======== */
@@ -230,16 +281,25 @@ body.dark .sidebar {
 }
 
 body.dark .topbar {
-    background-color: #2a2a3d;
+    background-color: #1e293b;
     box-shadow: none;
 }
-
-body.dark .filter-section,
-body.dark .table-section table {
-    background-color: #2f2f44;
+body.dark .table-section {
+    background: #1e293b;
+}
+body.dark .dashboard .filter-section {
+    background: #1e293b;
     color: #eee;
 }
-body.dark .filter-section h2{
+body.dark .table-section table {
+    background: #1e293b;
+    color: #f9fafb;
+}
+body.dark .table-section th {
+    background: #273449;
+    color: #e5e7eb;
+}
+body.dark .dashboard .filter-section h2{
     color: #eee;
 }
 body.dark table thead{
@@ -247,16 +307,39 @@ body.dark table thead{
     color: #eee;
 }
 body.dark table tbody tr:hover {
-    background-color: #3a3a55;
+    background: #2d3b52;
 }
 
 body.dark select,
 body.dark input[type="date"] {
-    background: #3a3a55;
+    background: #1e293b;
     color: #fff;
     border-color: #555;
 }
+body.dark .search-bar {
+    background: #273449;
+    color: #e5e7eb;
+    box-shadow: 0 1px 4px rgba(0,0,0,0.4);
+}
 
+body.dark .search-bar input {
+    background: #344256;
+    color: #e5e7eb;
+    border-color: #475569;
+}
+
+body.dark .search-bar input:focus {
+    border-color: #65cfff;
+    box-shadow: 0 0 0 3px rgba(101, 207, 255, 0.2);
+}
+
+body.dark .search-bar button {
+    background: #027aa5;
+}
+
+body.dark .search-bar button:hover {
+    background: #0396c7;
+}
 /* Transition mượt cho dark mode */
 body,
 .sidebar,
@@ -277,6 +360,14 @@ body,
     .filter-section {
         padding: 15px;
     }
+    .search-bar {
+        flex-direction: column;
+        align-items: stretch;
+    }
+    .search-bar button {
+        width: 100%;
+        justify-content: center;
+    }
 }
 
 /* ----------- Màn hình ≤ 1024px (Tablet ngang) ----------- */
@@ -292,6 +383,14 @@ body,
 
     .table-section table {
         min-width: 900px; /* bảng vẫn giữ rộng hơn container, scroll sẽ xuất hiện */
+    }
+    .search-bar {
+        flex-direction: column;
+        align-items: stretch;
+    }
+    .search-bar button {
+        width: 100%;
+        justify-content: center;
     }
 }
 
@@ -345,6 +444,14 @@ body,
 
     .table-section table {
         min-width: 750px;
+    }
+    .search-bar {
+        flex-direction: column;
+        align-items: stretch;
+    }
+    .search-bar button {
+        width: 100%;
+        justify-content: center;
     }
 }
 
@@ -405,6 +512,14 @@ body,
         padding: 5px 8px;
         font-size: 0.75rem;
     }
+    .search-bar {
+        flex-direction: column;
+        align-items: stretch;
+    }
+    .search-bar button {
+        width: 100%;
+        justify-content: center;
+    }
 }
 
 /* ----------- Màn hình ≤ 480px (Mobile) ----------- */
@@ -446,6 +561,14 @@ body,
         font-size: 0.75rem;
         padding: 3px 6px;
     }
+    .search-bar {
+        flex-direction: column;
+        align-items: stretch;
+    }
+    .search-bar button {
+        width: 100%;
+        justify-content: center;
+    }
 }
 
 /* ----------- Màn hình ≤ 360px (Mobile nhỏ) ----------- */
@@ -464,6 +587,14 @@ body,
     .btn-Del {
         padding: 4px 6px;
         font-size: 0.7rem;
+    }
+    .search-bar {
+        flex-direction: column;
+        align-items: stretch;
+    }
+    .search-bar button {
+        width: 100%;
+        justify-content: center;
     }
 }
 
