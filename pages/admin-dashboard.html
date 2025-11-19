@@ -5,6 +5,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Admin Dashboard</title>
     <link rel="stylesheet" href="../css/admin-dashboard.css" />
+      <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"
+    />
 </head>
 <body>
     <!--Side bar-->
@@ -38,6 +42,16 @@
                 <button id="toggle-theme">🌙 Dark Mode</button>
             </div>
         </header>
+
+         <!-- Search Bar -->
+        <div class="search-wrapper">
+            <div class="search-bar">
+                <input type="text" id="adminSearchInput" placeholder="Tìm kiếm...">
+                <button type="button" id="adminSearchBtn">
+                    <i class="fa-solid fa-magnifying-glass"></i>
+                </button>
+            </div>
+        </div>
 
         <!--Dashboard content-->
         <section class="dashboard">

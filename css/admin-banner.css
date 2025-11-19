@@ -142,6 +142,58 @@ body .main-content .btn-addBanner {
 body .main-content .btn-addBanner:hover {
     background: #1e40af;
 }
+.search-wrapper {
+    margin: 20px;
+    margin-top: 25px;
+}
+.search-bar {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 12px 15px;
+    background: #ffffff;
+    border-radius: 10px;
+    box-shadow: 0 1px 4px rgba(0,0,0,0.08);
+}
+
+/* Input */
+.search-bar input {
+    flex: 1;
+    padding: 10px 14px;
+    border-radius: 8px;
+    border: 1px solid #d6d6d6;
+    background: #fafafa;
+    font-size: 15px;
+    transition: 0.25s ease;
+}
+
+.search-bar input:focus {
+    background: #fff;
+    border-color: #0396c7;
+    box-shadow: 0 0 0 3px rgba(3, 150, 199, 0.15);
+}
+
+/* Button */
+.search-bar button {
+    padding: 10px 16px;
+    border: none;
+    background: #0396c7;
+    color: #fff;
+    font-size: 15px;
+    border-radius: 8px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    transition: 0.25s ease;
+}
+
+.search-bar button:hover {
+    background: #027aa5;
+    transform: translateY(-1px);
+}
+.search-bar button:active {
+    transform: scale(0.97);
+}
 body .main-content .table-section {
     margin: 20px;
     background: white;
@@ -241,6 +293,30 @@ body.dark .table-section td {
 body.dark .table-section tr:hover {
     background: #2d3b52;
 }
+body.dark .search-bar {
+    background: #273449;
+    color: #e5e7eb;
+    box-shadow: 0 1px 4px rgba(0,0,0,0.4);
+}
+
+body.dark .search-bar input {
+    background: #344256;
+    color: #e5e7eb;
+    border-color: #475569;
+}
+
+body.dark .search-bar input:focus {
+    border-color: #65cfff;
+    box-shadow: 0 0 0 3px rgba(101, 207, 255, 0.2);
+}
+
+body.dark .search-bar button {
+    background: #027aa5;
+}
+
+body.dark .search-bar button:hover {
+    background: #0396c7;
+}
 /* Transition mượt cho dark mode */
 body,
 .sidebar,
@@ -258,6 +334,14 @@ body,
     .table-section table {
         min-width: 700px;
     }
+    .search-bar {
+        flex-direction: column;
+        align-items: stretch;
+    }
+    .search-bar button {
+        width: 100%;
+        justify-content: center;
+    }
 }
 
 /* ---------- ≤ 992px (Tablet ngang) ---------- */
@@ -274,6 +358,14 @@ body,
 
     .topbar {
         padding: 10px 15px;
+    }
+    .search-bar {
+        flex-direction: column;
+        align-items: stretch;
+    }
+    .search-bar button {
+        width: 100%;
+        justify-content: center;
     }
 }
 
@@ -318,6 +410,14 @@ body,
     /* Form add/banner */
     .add-form .form-row {
         flex-direction: column;
+    }
+    .search-bar {
+        flex-direction: column;
+        align-items: stretch;
+    }
+    .search-bar button {
+        width: 100%;
+        justify-content: center;
     }
 }
 
@@ -372,6 +472,14 @@ body,
         padding: 5px 8px;
         font-size: 0.8rem;
     }
+    .search-bar {
+        flex-direction: column;
+        align-items: stretch;
+    }
+    .search-bar button {
+        width: 100%;
+        justify-content: center;
+    }
 }
 
 /* ---------- ≤ 480px (Mobile) ---------- */
@@ -406,6 +514,14 @@ body,
         font-size: 0.75rem;
         padding: 4px 6px;
     }
+    .search-bar {
+        flex-direction: column;
+        align-items: stretch;
+    }
+    .search-bar button {
+        width: 100%;
+        justify-content: center;
+    }
 }
 
 /* ---------- ≤ 360px (Mobile nhỏ) ---------- */
@@ -423,5 +539,13 @@ body,
     .btn-Edit, .btn-Del {
         padding: 3px 5px;
         font-size: 0.7rem;
+    }
+    .search-bar {
+        flex-direction: column;
+        align-items: stretch;
+    }
+    .search-bar button {
+        width: 100%;
+        justify-content: center;
     }
 }
