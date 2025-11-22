@@ -27,7 +27,7 @@
 
 /* Thẻ Thông tin Nhà Sách  */
 .infoCard--primary {
-    flex-shrink: 0; /* không cho co dãn */
+    /* Thêm các dòng dưới đây để đồng bộ */
     border-radius: 8px;
     overflow: hidden; /* Cắt góc vuông của thẻ h2 màu xanh bên trong */
     box-shadow: 0 2px 8px rgba(255, 255, 255, 0.1); /* Đồng bộ đổ bóng */
@@ -127,6 +127,17 @@
     display: grid;
     grid-template-columns: 1fr 1fr;
     gap: 10px 15px; 
+}
+/* Thêm vào address.css */
+.contactDescription a {
+    color: inherit; /* Hoặc color: #000; để lấy màu đen */
+    text-decoration: none; /* Bỏ gạch chân */
+}
+
+/* (Tùy chọn) Đổi màu khi di chuột vào để người dùng biết là bấm được */
+.contactDescription a:hover {
+    color: #0396c7; 
+    text-decoration: underline;
 }
 
 /* Media Query (Vẫn đảm bảo responsive) */
