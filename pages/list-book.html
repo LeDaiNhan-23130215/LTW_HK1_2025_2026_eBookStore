@@ -123,28 +123,36 @@
         </div>
 
         <div class="local-filters">
-          <strong>Xếp theo:</strong>
-
-          <div class="local-filter-button-container">
-            <button class="sort-button" data-order="asc" id="sortByName">
-              <i class="fa-solid fa-arrow-down-a-z"></i> A - Z
+          <div class="local-filter-menu">
+            <button class="hamburger-btn">
+              <i class="fa-solid fa-bars"></i> Bộ lọc
             </button>
 
-            <button class="sort-button" data-order="desc" id="sortByName">
-              <i class="fa-solid fa-arrow-up-a-z"></i> Z - A
-            </button>
+            <div class="local-filter-button-container">
+              <button class="sort-button" data-order="asc" id="sortByNameAsc">
+                <i class="fa-solid fa-arrow-down-a-z"></i> A - Z
+              </button>
 
-            <button class="sort-button" data-order="asc" id="sortByPrice">
-              <i class="fa-solid fa-arrow-up"></i> Giá tăng dần
-            </button>
+              <button class="sort-button" data-order="desc" id="sortByNameDesc">
+                <i class="fa-solid fa-arrow-up-a-z"></i> Z - A
+              </button>
 
-            <button class="sort-button" data-order="desc" id="sortByPrice">
-              <i class="fa-solid fa-arrow-down"></i> Giá giảm dần
-            </button>
+              <button class="sort-button" data-order="asc" id="sortByPriceAsc">
+                <i class="fa-solid fa-arrow-up"></i> Giá tăng dần
+              </button>
 
-            <button class="sort-button" data-order="desc" id="sortByDate">
-              <i class="fa-solid fa-calendar"></i> Sản phẩm mới
-            </button>
+              <button
+                class="sort-button"
+                data-order="desc"
+                id="sortByPriceDesc"
+              >
+                <i class="fa-solid fa-arrow-down"></i> Giá giảm dần
+              </button>
+
+              <button class="sort-button" data-order="desc" id="sortByDate">
+                <i class="fa-solid fa-calendar"></i> Sản phẩm mới
+              </button>
+            </div>
           </div>
         </div>
 
@@ -526,14 +534,14 @@
             </div>
           </div>
         </div>
-        
-          <div class="pagination">
-            <button class="page-btn active">1</button>
-            <button class="page-btn">2</button>
-            <button class="page-btn">3</button>
-            <button class="page-btn">4</button>
-            <button class="page-btn">5</button>
-          </div>
+
+        <div class="pagination">
+          <button class="page-btn active">1</button>
+          <button class="page-btn">2</button>
+          <button class="page-btn">3</button>
+          <button class="page-btn">4</button>
+          <button class="page-btn">5</button>
+        </div>
       </section>
     </main>
 
@@ -652,5 +660,22 @@
 
     <script src="../js/product-card.js"></script>
     <script src="../js/list-book-pagination.js"></script>
+    <script>
+      const hamburgerBtn = document.querySelector(".hamburger-btn");
+      const filterContainer = document.querySelector(
+        ".local-filter-button-container"
+      );
+
+      hamburgerBtn.addEventListener("click", () => {
+        filterContainer.classList.toggle("open");
+      });
+
+      // Click ra ngoài để đóng menu
+      document.addEventListener("click", (e) => {
+        if (!document.querySelector(".local-filter-menu").contains(e.target)) {
+          filterContainer.classList.remove("open");
+        }
+      });
+    </script>
   </body>
 </html>

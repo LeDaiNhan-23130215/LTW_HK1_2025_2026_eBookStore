@@ -98,10 +98,9 @@ main .content .selected-filters .filter-show span p {
 
 main .content .local-filters {
   display: flex;
-  margin-bottom: 20px;
   overflow: hidden;
   border-radius: 10px;
-    overflow: hidden;
+  overflow: hidden;
 }
 
 main .content strong {
@@ -115,18 +114,80 @@ main .content strong {
   text-align: center;
 }
 
-main .content .local-filters .local-filter-button-container {
+/* Container chính */
+.local-filter-menu {
+  position: relative;
+  width: fit-content;
+  margin-bottom: 10px;
+}
+
+/* Nút hamburger */
+.hamburger-btn {
+  background: #0396c7;
+  color: white;
+  border: none;
+  padding: 10px 16px;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 1rem;
   display: flex;
-  background-color: white;
+  gap: 8px;
+  align-items: center;
+  transition: 0.5s ease;
+}
+
+.hamburger-btn:hover {
+  background: #0277a3;
+}
+
+/* Danh sách filter */
+.local-filter-button-container {
+  display: flex;
+  gap: 4px;
+  margin-top: 10px;
+  overflow: hidden;
+  max-height: 0;
+  opacity: 0;
+  padding: 0;
+  transform-origin: top;
+  transition: max-height 0.3s ease, opacity 0.3s ease, transform 0.3s ease,
+    padding 0.3s ease;
+  flex-direction: row;
+  background: white;
+  border-radius: 8px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+/* trạng thái mở */
+.local-filter-button-container.open {
+  max-height: 500px;
+  opacity: 1;
+  padding: 12px; /* trả lại padding */
+  transform: scaleY(1);
+}
+
+.sort-button {
+  background: #f2f2f2;
+  border: 1px solid #ddd;
+  padding: 8px 12px;
+  border-radius: 6px;
+  cursor: pointer;
+  text-align: center;
+  font-size: 0.95rem;
+}
+
+.sort-button:hover {
+  background: #0396c7;
+  color: white;
 }
 
 main .content .local-filters .local-filter-button-container button {
   color: #0396c7;
   border: none;
-  width: 130px;
+  width: 162px;
   border: none;
   background-color: white;
-  margin: 5px 10px;
+  margin: 5px 5px;
   border-radius: 10px;
   border: 2px solid #0396c7;
   font-size: 0.9rem;
@@ -165,4 +226,43 @@ main .content .local-filters .local-filter-button-container button:hover {
 .page-btn.active {
   background-color: #004aad;
   color: white;
+}
+
+@media (max-width: 1024px) {
+}
+
+@media (max-width: 768px) {
+}
+
+@media (max-width: 600px) {
+  main {
+    display: flex;
+    flex-direction: column;
+  }
+  .hamburger-btn {
+    justify-content: center;
+    width: 500px;
+  }
+
+  .local-filters {
+    justify-content: center;
+    align-items: center;
+  }
+  .local-filter-button-container {
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+  }
+  .local-filter-button-container.open {
+    width: 500px;
+  }
+
+  .sort-button {
+    width: 100%;
+  }
+
+  main .content .product-grid {
+    grid-template-columns: repeat(2, 1fr);
+    grid-template-rows: repeat(3, 1fr);
+  }
 }
