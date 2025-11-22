@@ -604,9 +604,9 @@
     justify-content: center;
     gap: 20px;
   }
-.headerMenu .after-searchbox .notification-button a {
-  padding-left: 10px;
-}
+  .headerMenu .after-searchbox .notification-button a {
+    padding-left: 10px;
+  }
 
   #siteFooter .topFooter {
     flex-direction: column;
@@ -630,15 +630,15 @@
     flex-direction: column;
   }
 
- #siteFooter .footer-container .cs-hd-dm {
+  #siteFooter .footer-container .cs-hd-dm {
     flex-direction: column;
     gap: 30px;
     margin-top: 30px;
- }
+  }
 
- #siteFooter .footer-bottom p {
-  font-size: 1rem;
- }
+  #siteFooter .footer-bottom p {
+    font-size: 1rem;
+  }
 }
 
 .add-to-cart-btn.adding {

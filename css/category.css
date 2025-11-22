@@ -2,12 +2,10 @@
   margin: 60px auto;
 }
 
-
-
 .main-content h2 {
   text-align: center;
   margin: 20px;
-  font-size: 2.0rem;
+  font-size: 2rem;
 }
 
 .filter-row {
@@ -16,7 +14,6 @@
   flex-wrap: wrap;
   margin-bottom: 20px;
   border: 2px solid #004aad;
-  min-width: 800px;
 }
 
 .filter-group {
@@ -26,8 +23,8 @@
   align-items: center;
 }
 
-.filter-group h3{
-  color:  #004aad;;
+.filter-group h3 {
+  color: #004aad;
 }
 
 .filter-option {
@@ -99,4 +96,26 @@
   background-color: #f9faff;
   padding: 12px;
   border-radius: 8px;
+}
+
+@media (max-width: 1024px) {
+  .side-banner {
+    display: none;
+  }
+}
+
+@media (max-width: 768px) {
+  .side-banner {
+    display: none;
+  }
+}
+
+@media (max-width: 600px) {
+  .side-banner {
+    display: none;
+  }
+
+  .filter-row {
+    width: 40vh;
+  }
 }

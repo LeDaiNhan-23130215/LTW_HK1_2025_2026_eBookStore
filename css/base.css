@@ -16,7 +16,7 @@ body {
   box-shadow: 0 5px 5px #ececec;
   border: 1px solid lightblue;
   border-radius: 10px;
-  cursor: grab;
+  cursor: pointer;
   overflow: hidden;
   position: relative;
   transition: box-shadow 0.3s ease;
@@ -46,7 +46,8 @@ body {
   margin-top: 10px;
   margin-bottom: 12px;
   font-weight: bold;
-  height: 3em;
+  max-height: 3em;
+  overflow: hidden;
   text-align: left;
 }
 
