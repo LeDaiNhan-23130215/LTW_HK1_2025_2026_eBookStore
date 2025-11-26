@@ -300,10 +300,10 @@
   justify-content: center;
   align-items: center;
   cursor: pointer;
-  box-shadow: 0 4px 10px rgba(0,0,0,0.15);
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
   opacity: 0;
   visibility: hidden;
-  transition: all .3s ease;
+  transition: all 0.3s ease;
   z-index: 9999;
 }
 
@@ -406,7 +406,7 @@
 }
 
 #siteFooter .footer-container .left {
-  max-width: 265px;
+  min-width: 240px;
 }
 
 #siteFooter .footer-container .left .logo {
@@ -428,11 +428,13 @@
   font-weight: bold;
   font-size: 1.2rem;
   margin-top: 5px;
+  text-align: justify;
 }
 
 #siteFooter .footer-container .left h3 {
   font-size: 1.1rem;
   margin-top: 15px;
+  text-align: center;
 }
 
 #siteFooter .footer-container .left p {
@@ -484,6 +486,13 @@
 
 #siteFooter .footer-container .cs-hd-dm .option ul li a:hover {
   color: gray;
+}
+
+#siteFooter .footer-container .kn-tt .payment-grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  justify-content: first baseline;
 }
 
 #siteFooter .footer-container .kn-tt .payment-logo {
@@ -554,7 +563,7 @@
   background-color: #004aad;
 }
 
-@media (max-width: 900px) {
+@media (max-width: 600px) {
   #siteHeader {
     margin: 0;
   }
@@ -630,14 +639,35 @@
     flex-direction: column;
   }
 
+  #siteFooter .footer-container {
+    padding-top: 20px;
+    flex-direction: column;
+    align-items: center;
+    gap: 30px;
+  }
+
   #siteFooter .footer-container .cs-hd-dm {
     flex-direction: column;
     gap: 30px;
-    margin-top: 30px;
   }
 
   #siteFooter .footer-bottom p {
     font-size: 1rem;
+  }
+
+  #siteFooter .footer-container .kn-tt {
+    gap: 30px;
+  }
+  #siteFooter .footer-container .kn-tt h3{
+    margin-top: 30px;
+  }
+
+
+  #siteFooter .footer-container .kn-tt .payment-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 85px);
+    grid-template-rows: repeat(2, 85px);
+    justify-content: center;
   }
 }
 

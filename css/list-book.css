@@ -238,6 +238,7 @@ main .content .local-filters .local-filter-button-container button:hover {
   main {
     display: flex;
     flex-direction: column;
+    padding: 0 30px;
   }
   .hamburger-btn {
     justify-content: center;
@@ -263,6 +264,5 @@ main .content .local-filters .local-filter-button-container button:hover {
 
   main .content .product-grid {
     grid-template-columns: repeat(2, 1fr);
-    grid-template-rows: repeat(3, 1fr);
   }
 }
