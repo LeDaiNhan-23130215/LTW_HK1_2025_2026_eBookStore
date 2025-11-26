@@ -279,11 +279,10 @@
 
 .more {
   margin-top: 15px;
-
 }
 
 .more .all-product-button {
-  display:  flex;
+  display: flex;
   justify-content: center;
   align-items: center;
 }
@@ -336,6 +335,10 @@
   padding: 40px 60px;
   align-items: flex-start;
   border-radius: 12px;
+}
+
+.ebook-description p {
+    text-align: justify;
 }
 
 .ebook-image img {
@@ -460,6 +463,10 @@
   .why-list {
     grid-template-columns: 1fr;
   }
+
+  .ebook-image {
+    display: none;
+  }
 }
 
 @media (max-width: 600px) {
@@ -480,5 +487,54 @@
   h2,
   h3 {
     text-align: center;
+  }
+
+  .ebook-content h2{
+    font-size: 1.3rem;
+  }
+  .ebook-description {
+    padding: 40px 30px;
+  }
+  .why-choose h3{
+    font-size: 1.2rem;
+  }
+
+  .ebook-image {
+    display: none;
+  }
+
+  .container {
+    margin: 20px 15px;
+  }
+  .banner {
+    flex-direction: column;
+    align-items: center;
+  }
+  .banner img {
+    width: 100%;
+    max-width: 100%;
+  }
+  .sp-noi-bat-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  
+  .sp-content {
+    width: 40vh;
+  }
+
+  .sp-theo-danh-muc .sp-banner {
+    display: none;
+  }
+
+  .all-product-button {
+    margin: 0 auto;
+  }
+  .why-list {
+    grid-template-columns: 1fr;
+  }
+
+  .ebook-image {
+    display: none;
   }
 }
