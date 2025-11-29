@@ -83,12 +83,12 @@ body .main-content .add-form {
     padding: 20px;
     border-radius: 10px;
     box-shadow: 0 2px 5px rgba(0,0,0,0.05);
-    margin: 20px;
 }
 
 body .main-content .add-form h2 {
     color: #2563eb;
-    margin-bottom: 15px;
+    display: -webkit-box;
+   -webkit-user-select: none
 }
 
 body .main-content .add-form .form-row {
@@ -149,6 +149,29 @@ body .main-content .btn-addEbook {
 body .main-content .btn-addEbook:hover {
     background: #1e40af;
 }
+
+.add-form form {
+    margin-top: 10px;
+    display: none;
+    opacity: 0;
+    transform: translateY(-10px);
+    transition: 0.3s ease;
+}
+
+.add-form.open form {
+    display: block;
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.toggle-title i {
+    transition: 0.3s ease;
+}
+
+.add-form.open .toggle-title i {
+    transform: rotate(45deg);
+}
+
 body .main-content .table-section {
     margin: 20px;
     background: white;

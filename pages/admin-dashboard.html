@@ -9,6 +9,7 @@
       rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"
     />
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
 <body>
     <!--Side bar-->
@@ -75,40 +76,48 @@
             </div>
         </section>
 
-          <!-- Recent activity table -->
-    <section class="table-section">
-      <h2>Hoạt động gần đây</h2>
-      <table>
-        <thead>
-          <tr>
-            <th>Ngày</th>
-            <th>Người dùng</th>
-            <th>Hoạt động</th>
-            <th>Chi tiết</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td>21/10/2025</td>
-            <td>nguyenkhanh</td>
-            <td>Mua Ebook</td>
-            <td>"Clean Code"</td>
-          </tr>
-          <tr>
-            <td>20/10/2025</td>
-            <td>admin</td>
-            <td>Thêm banner mới</td>
-            <td>Black Friday Sale</td>
-          </tr>
-          <tr>
-            <td>19/10/2025</td>
-            <td>huynguyen</td>
-            <td>Đăng ký tài khoản</td>
-            <td>-</td>
-          </tr>
-        </tbody>
-      </table>
-    </section>
+        <!-- Chart -->
+        <section class="chart-section">
+            <h2>Biểu đồ doanh thu</h2>
+            <div class="chart-container">
+                <canvas id="revenueChart"></canvas>
+            </div>
+        </section>
+
+        <!-- Recent activity table -->
+        <section class="table-section">
+          <h2>Hoạt động gần đây</h2>
+          <table>
+            <thead>
+              <tr>
+                <th>Ngày</th>
+                <th>Người dùng</th>
+                <th>Hoạt động</th>
+                <th>Chi tiết</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>21/10/2025</td>
+                <td>nguyenkhanh</td>
+                <td>Mua Ebook</td>
+                <td>"Clean Code"</td>
+              </tr>
+              <tr>
+                <td>20/10/2025</td>
+                <td>admin</td>
+                <td>Thêm banner mới</td>
+                <td>Black Friday Sale</td>
+              </tr>
+              <tr>
+                <td>19/10/2025</td>
+                <td>huynguyen</td>
+                <td>Đăng ký tài khoản</td>
+                <td>-</td>
+              </tr>
+            </tbody>
+          </table>
+        </section>
     </div>
     <script src="../js/admin-darkmode.js"></script>
     <script src="../js/admin-dashboard.js"></script>
