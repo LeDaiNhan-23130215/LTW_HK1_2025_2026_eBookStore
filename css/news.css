@@ -167,7 +167,7 @@
 .category-title-separate {
     font-size: 18px;
     font-weight: bold;
-    color: #ffffff;
+    color: #000000;
     padding: 10px 15px;
     border-top: 1px solid #ddd;
     margin-top: 10px;
@@ -237,4 +237,109 @@
 .latest-news-date {
     font-size: 12px;
     color: #999;
+}
+@media screen and (max-width: 1024px) {
+    /* Mở rộng khung chứa chính để tận dụng không gian */
+    .main-news-container {
+        width: 95%;
+    }
+    
+    /* Thu nhỏ font chữ tiêu đề một chút */
+    .news-title {
+        font-size: 16px;
+    }
+}
+
+/* --- Mobile & Tablet nhỏ (Màn hình dưới 768px) --- */
+@media screen and (max-width: 768px) {
+    
+    /* 1. Xử lý khung chính: Chuyển từ ngang sang dọc */
+    .main-news-container {
+        flex-direction: column;
+        width: 100%;
+        padding: 0 15px; /* Thêm lề để không sát mép màn hình */
+        box-sizing: border-box;
+    }
+
+    /* 2. Phần nội dung tin tức */
+    .news-content {
+        padding-right: 0; /* Bỏ padding bên phải */
+        margin-bottom: 30px;
+    }
+
+    /* 3. Danh sách tin tức: Chuyển thành 1 cột dọc */
+    .news-list {
+        flex-direction: column;
+    }
+
+    .news-item-lg {
+        max-width: 100%; /* Cho phép tin tức chiếm hết chiều ngang */
+        min-width: 100%;
+    }
+
+    .news-item-lg .news-image {
+        height: auto; /* Ảnh tự điều chỉnh chiều cao theo tỷ lệ */
+        aspect-ratio: 16/9; /* Giữ tỷ lệ khung hình đẹp */
+    }
+
+    /* 4. Sidebar (Danh mục & Tin mới) */
+    .sidebar {
+        width: 100%;
+    }
+
+    /* 5. Header (Giả định dựa trên class HTML) */
+    .headerMenu {
+        flex-direction: column;
+        align-items: center;
+        gap: 15px;
+    }
+
+    .searchBox {
+        width: 100%;
+        display: flex;
+    }
+    
+    .searchBox input {
+        width: 100%; /* Thanh tìm kiếm dài ra */
+    }
+
+    .topBar {
+        display: none; /* Ẩn thanh top bar (welcome/hotline) trên mobile cho gọn */
+    }
+
+    /* 6. Footer (Giả định dựa trên class HTML) */
+    .footer-container {
+        flex-direction: column;
+    }
+    
+    .footer-container .left, 
+    .footer-container .cs-hd-dm {
+        width: 100%;
+        text-align: center; /* Căn giữa nội dung footer */
+    }
+
+    .cs-hd-dm {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .payment-grid {
+        justify-content: center;
+    }
+}
+
+/* --- Mobile nhỏ (Màn hình dưới 480px) --- */
+@media screen and (max-width: 480px) {
+    .section-title {
+        font-size: 20px; /* Giảm size chữ tiêu đề mục */
+    }
+
+    .news-title {
+        font-size: 15px;
+    }
+    
+    .latest-news-item {
+        align-items: flex-start; /* Căn tin mới nhất lên trên */
+    }
 }
