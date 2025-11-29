@@ -23,3 +23,7 @@ autoGreetingsChanger();
 
 setInterval(autoGreetingsChanger, 5000);
 
+const notyBtn = document.querySelector('.notification-button');
+  notyBtn.addEventListener('click', () => {
+    window.location.href = "../pages/news.html"
+  });

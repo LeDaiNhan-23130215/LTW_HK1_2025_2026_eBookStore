@@ -44,7 +44,6 @@
   cursor: default;
   margin-top: 10px;
   margin-bottom: 10px;
-
 }
 
 #welcomeMessage {
@@ -151,20 +150,18 @@
   cursor: pointer;
 }
 
-.headerMenu .categorymenu a{
+.headerMenu .categorymenu a {
   text-decoration: none;
   color: #004aad;
-
 }
 
 .headerMenu .categorymenu:hover {
   background-color: #004aad;
 }
 
-.headerMenu .categorymenu:hover a{
+.headerMenu .categorymenu:hover a {
   color: white;
 }
-
 
 .headerMenu .searchBox {
   display: flex;
@@ -288,6 +285,38 @@
   color: #004aad;
 }
 
+.back-to-top {
+  position: fixed;
+  bottom: 30px;
+  right: 30px;
+  width: 45px;
+  height: 45px;
+  border: none;
+  border-radius: 50%;
+  background: #0396c7;
+  color: white;
+  font-size: 18px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
+  opacity: 0;
+  visibility: hidden;
+  transition: all 0.3s ease;
+  z-index: 9999;
+}
+
+.back-to-top.show {
+  opacity: 1;
+  visibility: visible;
+  transform: translateY(0);
+}
+
+.back-to-top:hover {
+  background: #027aa1;
+}
+
 /* Footer */
 #siteFooter {
   margin: 0;
@@ -323,7 +352,7 @@
   transition: 0.3s;
 }
 
-.topFooter .left-container button {
+.topFooter .left-container a {
   background-color: #004aad;
   border: 2px solid #004aad;
   border-radius: 0 25px 25px 0;
@@ -338,10 +367,10 @@
 .topFooter .informationEmailBox input:focus {
   box-shadow: 0 0 10px white;
 }
-.footerContainer .informationEmailBox input:focus + button {
+.footerContainer .informationEmailBox input:focus + a {
   box-shadow: 2px 0 12px white;
 }
-.topFooter .informationEmailBox button:hover {
+.topFooter .informationEmailBox a:hover {
   background-color: #004bad7e;
   color: white;
 }
@@ -377,7 +406,7 @@
 }
 
 #siteFooter .footer-container .left {
-  max-width: 265px;
+  min-width: 240px;
 }
 
 #siteFooter .footer-container .left .logo {
@@ -399,11 +428,13 @@
   font-weight: bold;
   font-size: 1.2rem;
   margin-top: 5px;
+  text-align: justify;
 }
 
 #siteFooter .footer-container .left h3 {
   font-size: 1.1rem;
   margin-top: 15px;
+  text-align: center;
 }
 
 #siteFooter .footer-container .left p {
@@ -411,8 +442,8 @@
   margin-top: 15px;
 }
 
-#siteFooter .footer-container .left a{  
-  display: inline-block; 
+#siteFooter .footer-container .left a {
+  display: inline-block;
   margin-top: 15px;
   font-size: 0.9rem;
   text-decoration: none;
@@ -457,6 +488,13 @@
   color: gray;
 }
 
+#siteFooter .footer-container .kn-tt .payment-grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  justify-content: first baseline;
+}
+
 #siteFooter .footer-container .kn-tt .payment-logo {
   height: 85px;
   width: auto;
@@ -498,3 +536,162 @@
   margin: 3px;
 }
 
+#siteFooter .footer-container .kn-tt .footer-feedback {
+  display: flex;
+  align-items: center;
+}
+
+#siteFooter .footer-container .kn-tt p {
+  min-width: 200px;
+  margin-top: 5px;
+}
+
+#siteFooter .footer-container .kn-tt .footer-feedback p {
+  margin: 0;
+}
+
+#siteFooter .footer-container .kn-tt .footer-feedback .feedback-button {
+  font-size: 1rem;
+  border: 2px solid #004aad;
+  padding: 5px;
+  border-radius: 10px;
+  transition: 0.3s;
+}
+
+#siteFooter .footer-container .kn-tt .footer-feedback .feedback-button:hover {
+  color: white;
+  background-color: #004aad;
+}
+
+@media (max-width: 600px) {
+  #siteHeader {
+    margin: 0;
+  }
+
+  #siteHeader .headerContainer .topBar {
+    flex-direction: column;
+    gap: 5px;
+    text-align: center;
+  }
+
+  #siteHeader .headerContainer .topBar .rightContainer {
+    flex-direction: column;
+    gap: 15px;
+    align-items: start;
+  }
+
+  .headerMenu {
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 15px;
+    margin: 10px 20px;
+  }
+
+  .headerMenu .logo {
+    flex: 1 1 100%;
+    justify-content: center;
+    text-align: center;
+  }
+
+  .headerMenu .categorymenu {
+    order: 2;
+  }
+
+  .headerMenu .searchBox {
+    order: 3;
+    width: 100%;
+    justify-content: center;
+  }
+  .headerMenu .searchBox input {
+    width: 80%;
+  }
+
+  .headerMenu .after-searchbox {
+    order: 4;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+  }
+  .headerMenu .after-searchbox .notification-button a {
+    padding-left: 10px;
+  }
+
+  #siteFooter .topFooter {
+    flex-direction: column;
+    gap: 15px;
+    justify-content: center;
+  }
+
+  .topFooter .left-container a {
+    font-size: 0.5rem;
+  }
+
+  .topFooter .right-container p {
+    font-size: 0.8rem;
+  }
+
+  .footer-container {
+    flex-direction: column;
+  }
+
+  .footer-container .cs-hd-dm {
+    flex-direction: column;
+  }
+
+  #siteFooter .footer-container {
+    padding-top: 20px;
+    flex-direction: column;
+    align-items: center;
+    gap: 30px;
+  }
+
+  #siteFooter .footer-container .cs-hd-dm {
+    flex-direction: column;
+    gap: 30px;
+  }
+
+  #siteFooter .footer-bottom p {
+    font-size: 1rem;
+  }
+
+  #siteFooter .footer-container .kn-tt {
+    gap: 30px;
+  }
+  #siteFooter .footer-container .kn-tt h3{
+    margin-top: 30px;
+  }
+
+
+  #siteFooter .footer-container .kn-tt .payment-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 85px);
+    grid-template-rows: repeat(2, 85px);
+    justify-content: center;
+  }
+}
+
+.add-to-cart-btn.adding {
+  animation: cartEffect 0.7s ease;
+}
+
+@keyframes cartEffect {
+  0% {
+    transform: scale(1);
+  }
+  20% {
+    transform: scale(1.15);
+  }
+  40% {
+    transform: scale(0.9);
+  }
+  60% {
+    transform: scale(1.1);
+  }
+  80% {
+    transform: scale(0.95);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
