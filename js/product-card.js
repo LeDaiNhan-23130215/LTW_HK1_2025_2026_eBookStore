@@ -18,4 +18,3 @@ productCards.forEach(card => {
     window.location.href = "../pages/bookdetail.html"
   });
 });
-
