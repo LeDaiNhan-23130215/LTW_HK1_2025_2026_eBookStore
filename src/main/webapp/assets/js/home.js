@@ -25,6 +25,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
 document.querySelectorAll('.all-product-button').forEach(btn => {
   btn.addEventListener('click', () => {
-    window.location.href = 'list-book.html';
+    window.location.href = 'list-book.jsp';
   });
 });

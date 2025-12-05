@@ -1,19 +1,21 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+         pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html lang="vn">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>BookDetail</title>
-    <link rel="stylesheet" href="../css/base.css" />
-    <link rel="stylesheet" href="../css/components.css" />
+    <link rel="stylesheet" href="assets/css/base.css" />
+    <link rel="stylesheet" href="assets/css/components.css" />
     <link
       rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"
     />
-    <link rel="icon" type="image/png" href="../img/ebook-logo2.png" />
-    <link rel="stylesheet" href="../css/home.css" />
-    <link rel="stylesheet" href="../css/bookdetail.css">
-    <link rel="stylesheet" href="../js/bookdetail.js">
+    <link rel="icon" type="image/png" href="assets/img/ebook-logo2.png" />
+    <link rel="stylesheet" href="assets/css/home.css" />
+    <link rel="stylesheet" href="assets/css/bookdetail.css">
+    <link rel="stylesheet" href="assets/css/bookdetail.js">
   </head>
   <body>
     <header id="siteHeader">
@@ -36,9 +38,9 @@
 
         <div class="headerMenu">
           <div class="logo">
-            <a href="home-Login.html"
+            <a href="${pageContext.request.contextPath}/home"
               ><img
-                src="../img/ebook-logo2.png"
+                src="assets/img/ebook-logo2.png"
                 alt="EBookStore Logo"
                 class="logoImg"
             /></a>
@@ -85,7 +87,7 @@
           <div class="product-gallery">
             <div class="main-image-container">
               <img
-                src="../img/10439-lam-ra-lam-choi-ra-choi-1.jpg"
+                src="assets/img/10439-lam-ra-lam-choi-ra-choi-1.jpg"
                 alt="Deep Work"
                 class="main-image"
                 id="mainBookImage"
@@ -93,19 +95,19 @@
             </div>
             <div class="thumbnail-list">
               <img
-                src="../img/10439-lam-ra-lam-choi-ra-choi-1.jpg"
+                src="assets/img/10439-lam-ra-lam-choi-ra-choi-1.jpg"
                 alt="Thumbnail 1"
                 class="thumbnail-item active"
                 onclick="changeMainImage(this.src)"
               />
               <img
-                src="../img/10439-lam-ra-lam-choi-ra-choi-1.jpg"
+                src="assets/img/10439-lam-ra-lam-choi-ra-choi-1.jpg"
                 alt="Thumbnail 2"
                 class="thumbnail-item"
                 onclick="changeMainImage(this.src)"
               />
               <img
-                src="../img/10439-lam-ra-lam-choi-ra-choi-1.jpg"
+                src="assets/img/10439-lam-ra-lam-choi-ra-choi-1.jpg"
                 alt="Thumbnail 3"
                 class="thumbnail-item"
                 onclick="changeMainImage(this.src)"
@@ -287,9 +289,9 @@ cứu khoa học, ví dụ thực tế và lời khuyên thực hành, giúp ng�
 
         <div class="right-container">
           <p>Kết nối với chúng tôi:</p>
-          <img src="../img/zalo-logo.png" alt="zalo" class="zalo-logo" />
+          <img src="assets/img/zalo-logo.png" alt="zalo" class="zalo-logo" />
           <img
-            src="../img/facebook-logo.png"
+            src="assets/img/facebook-logo.png"
             alt="facebook"
             class="facebook-logo"
           />
@@ -301,7 +303,7 @@ cứu khoa học, ví dụ thực tế và lời khuyên thực hành, giúp ng�
           <div class="logo">
             <a href="home-Login.html"
               ><img
-                src="../img/ebook-logo2.png"
+                src="assets/img/ebook-logo2.png"
                 alt="EBookStore Logo"
                 class="logoImg"
             /></a>
@@ -367,14 +369,14 @@ cứu khoa học, ví dụ thực tế và lời khuyên thực hành, giúp ng�
             <p>(Trừ thứ 7 - CN, các ngày lễ)</p>
             <h3>THANH TOÁN</h3>
             <div class="payment-grid">
-              <img src="../img/momo-logo.png" alt="momo" class="payment-logo" />
-              <img src="../img/mb-logo.png" alt="mbbank" class="payment-logo" />
+              <img src="assets/img/momo-logo.png" alt="momo" class="payment-logo" />
+              <img src="assets/img/mb-logo.png" alt="mbbank" class="payment-logo" />
               <img
-                src="../img/zalo-pay.png"
+                src="assets/img/zalo-pay.png"
                 alt="zalopay"
                 class="payment-logo"
               />
-              <img src="../img/vnpay.png" alt="vnpay" class="payment-logo" />
+              <img src="assets/img/vnpay.png" alt="vnpay" class="payment-logo" />
             </div>
           </div>
         </div>
@@ -384,9 +386,11 @@ cứu khoa học, ví dụ thực tế và lời khuyên thực hành, giúp ng�
         <p>Chúc bạn tìm được eBook ưng ý!!!</p>
       </div>
     </footer>
-
-    <script src="../js/component.js"></script>
-    <script src="../js/home.js"></script>
+    <script>
+      const ctx = "${pageContext.request.contextPath}";
+    </script>
+    <script src="assets/js/bookdetail.js"></script>
+    <script src="assets/js/home.js"></script>
 
   </body>
 </html>
