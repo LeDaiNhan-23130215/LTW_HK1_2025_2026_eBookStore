@@ -1,4 +1,5 @@
 package controllers;
+import DAO.UserDAO;
 import jakarta.servlet.*;
 import jakarta.servlet.http.*;
 import jakarta.servlet.annotation.*;
@@ -6,6 +7,13 @@ import java.io.IOException;
 
 @WebServlet(name = "SignUpController", value = ("/sign-up"))
 public class SignUpController extends HttpServlet {
+    private UserDAO userDAO;
+
+    @Override
+    public void init() throws ServletException {
+        userDAO = new UserDAO();
+    }
+
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         req.getRequestDispatcher("/WEB-INF/views/sign-up.jsp").forward(req, resp);
@@ -61,7 +69,12 @@ public class SignUpController extends HttpServlet {
             return;
         }
 
-        req.setAttribute("success_msg", "Đăng ký thành công! Đang chuyển trang...");
-        req.getRequestDispatcher("/WEB-INF/views/sign-up.jsp").forward(req, resp);
+        boolean success = userDAO.signUp(username, email, phoneNumber, password);
+        if (success) {
+            resp.sendRedirect(req.getContextPath() + "/login");
+        } else {
+            req.setAttribute("error_msg", "Something went wrong!");
+            req.getRequestDispatcher("/WEB-INF/views/signup.jsp").forward(req, resp);
+        }
     }
 }
