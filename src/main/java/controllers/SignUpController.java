@@ -1,5 +1,6 @@
 package controllers;
 import DAO.UserDAO;
+import at.favre.lib.crypto.bcrypt.BCrypt;
 import jakarta.servlet.*;
 import jakarta.servlet.http.*;
 import jakarta.servlet.annotation.*;
@@ -69,7 +70,15 @@ public class SignUpController extends HttpServlet {
             return;
         }
 
-        boolean success = userDAO.signUp(username, email, phoneNumber, password);
+        if(userDAO.checkAvailableUserNameOrEmail(username) || userDAO.checkAvailableUserNameOrEmail(email)) {
+            req.setAttribute("error_msg", "Tên tài khoản hoặc email đã được sử dụng");
+            req.getRequestDispatcher("/WEB-INF/views/sign-up.jsp").forward(req, resp);
+            return;
+        }
+
+        String hashedPassword = BCrypt.withDefaults().hashToString(10, password.toCharArray());
+
+        boolean success = userDAO.signUp(username, email, phoneNumber, hashedPassword);
         if (success) {
             resp.sendRedirect(req.getContextPath() + "/login");
         } else {
