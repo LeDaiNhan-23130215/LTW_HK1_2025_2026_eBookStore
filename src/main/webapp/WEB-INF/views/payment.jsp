@@ -1,22 +1,24 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+         pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Thông tin</title>
-    <link rel="stylesheet" href="../css/base.css" />
-    <link rel="stylesheet" href="../css/components.css" />
+    <link rel="stylesheet" href="assets/css/base.css" />
+    <link rel="stylesheet" href="assets/css/components.css" />
     <link
       rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"
     />
-    <link rel="icon" type="image/png" href="../img/ebook-logo2.png" />
-    <link rel="stylesheet" href="../css/payment.css" />
+    <link rel="icon" type="image/png" href="assets/img/ebook-logo2.png" />
+    <link rel="stylesheet" href="assets/css/payment.css" />
 </head>
 <body>
     <div class="checkout-container">
         <div class="checkout-left">
-            <div class="image"><img src="../img/ebook-logo2.png" alt="logo"></div>
+            <div class="image"><img src="assets/img/ebook-logo2.png" alt="logo"></div>
             <div class="label-img">EBookStore</div>
             <div class="label-infor">
                 <p>Thông tin nhận hàng</p>
@@ -33,19 +35,19 @@
                     <div class="payment-option">
                         <input type="radio" id="momo" name="payment" value="momo" checked>
                         <label for="momo">
-                            <img src="../img/momo-logo.png" alt="Momo"> Momo
+                            <img src="assets/img/momo-logo.png" alt="Momo"> Momo
                         </label>
                     </div>
                     <div class="payment-option">
                         <input type="radio" id="vnpay" name="payment" value="vnpay">
                         <label for="vnpay">
-                            <img src="../img/vnpay.png" alt="VNPay"> VNPay
+                            <img src="assets/img/vnpay.png" alt="VNPay"> VNPay
                         </label>
                     </div>
                     <div class="payment-option">
                         <input type="radio" id="zalopay" name="payment" value="zalopay">
                         <label for="zalopay">
-                            <img src="../img/zalo-pay.png" alt="ZaloPay"> ZaloPay
+                            <img src="assets/img/zalo-pay.png" alt="ZaloPay"> ZaloPay
                         </label>
                     </div>
                     <div class="payment-option">
@@ -85,6 +87,6 @@
             </div>
         </div>
     </div>
-    <script src="../js/payment.js"></script>
+    <script src="assets/js/payment.js"></script>
 </body>
 </html>

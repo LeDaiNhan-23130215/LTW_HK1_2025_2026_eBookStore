@@ -39,7 +39,7 @@
           <div class="logo">
             <a href="home-Login.html"
               ><img
-                src="../img/ebook-logo2.png"
+                src="assets/img/ebook-logo2.png"
                 alt="EBookStore Logo"
                 class="logoImg"
             /></a>
@@ -179,9 +179,9 @@
 
         <div class="right-container">
           <p>Kết nối với chúng tôi:</p>
-          <img src="../img/zalo-logo.png" alt="zalo" class="zalo-logo" />
+          <img src="assets/img/zalo-logo.png" alt="zalo" class="zalo-logo" />
           <img
-            src="../img/facebook-logo.png"
+            src="assets/img/facebook-logo.png"
             alt="facebook"
             class="facebook-logo"
           />
@@ -193,7 +193,7 @@
           <div class="logo">
             <a href="home-Login.html"
               ><img
-                src="../img/ebook-logo2.png"
+                src="assets/img/ebook-logo2.png"
                 alt="EBookStore Logo"
                 class="logoImg"
             /></a>
@@ -207,7 +207,7 @@
             <span>EBookStore</span> là mô hình nhà sách dành cho thế hệ trẻ,
             tích hợp đa dạng sản phẩm các loại sách
           </p>
-          <a href="../pages/address.html" class="address">
+          <a href="assets/pages/address.html" class="address">
             <i class="fa-solid fa-location-dot"></i> Khu phố 33, Phường Linh
             Xuân, TP. Hồ Chí Minh, Việt Nam</a
           >
@@ -237,11 +237,11 @@
           <div class="option">
             <h3>DANH MỤC</h3>
             <ul>
-              <li><a href="../pages/home-Login.html">Trang chủ</a></li>
-              <li><a href="../pages/about.html">Giới Thiệu</a></li>
-              <li><a href="../pages/news.html">Tin tức</a></li>
-              <li><a href="../pages/contact.html">Liên hệ</a></li>
-              <li><a href="../pages/faq.html">FAQ</a></li>
+              <li><a href="assets/pages/home-Login.html">Trang chủ</a></li>
+              <li><a href="assets/pages/about.html">Giới Thiệu</a></li>
+              <li><a href="assets/pages/news.html">Tin tức</a></li>
+              <li><a href="assets/pages/contact.html">Liên hệ</a></li>
+              <li><a href="assets/pages/faq.html">FAQ</a></li>
             </ul>
           </div>
 
@@ -250,7 +250,7 @@
             <a href="#">0354.30.09.05</a>
             <div class="footer-feedback">
               <p>Gửi feedback của bạn tại đây:</p>
-              <a href="../pages/feedback.html" class="feedback-button">
+              <a href="assets/pages/feedback.html" class="feedback-button">
                 Feedback</a
               >
             </div>
@@ -259,14 +259,14 @@
             <p>(Trừ thứ 7 - CN, các ngày lễ)</p>
             <h3>THANH TOÁN</h3>
             <div class="payment-grid">
-              <img src="../img/momo-logo.png" alt="momo" class="payment-logo" />
-              <img src="../img/mb-logo.png" alt="mbbank" class="payment-logo" />
+              <img src="assets/img/momo-logo.png" alt="momo" class="payment-logo" />
+              <img src="assets/img/mb-logo.png" alt="mbbank" class="payment-logo" />
               <img
-                src="../img/zalo-pay.png"
+                src="assets/img/zalo-pay.png"
                 alt="zalopay"
                 class="payment-logo"
               />
-              <img src="../img/vnpay.png" alt="vnpay" class="payment-logo" />
+              <img src="assets/img/vnpay.png" alt="vnpay" class="payment-logo" />
             </div>
           </div>
         </div>
