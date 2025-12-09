@@ -1,10 +1,12 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+         pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Admin Dashboard</title>
-    <link rel="stylesheet" href="../css/admin-dashboard.css" />
+    <link rel="stylesheet" href="assets/css/admin-dashboard.css" />
       <link
       rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"
@@ -19,17 +21,17 @@
         </div>
 
         <nav class="sidebar-nav">
-            <a href="admin-dashboard.html" class="active">Dashboard</a>
-            <a href="admin-ebook.html">Ebook</a>
-            <a href="admin-category.html">Danh mục</a>
-            <a href="admin-user.html">Người dùng</a>
-            <a href="admin-payment.html">Thanh toán</a>
-            <a href="admin-banner.html">Banner</a>
-            <a href="admin-news.html">Tin tức</a>
-            <a href="admin-review.html">Review</a>
-            <a href="admin-feedback.html">Feedback</a>
+            <a href="${pageContext.request.contextPath}/admin-dashboard" class="active">Dashboard</a>
+            <a href="${pageContext.request.contextPath}/admin-ebook">Ebook</a>
+            <a href="${pageContext.request.contextPath}/admin-category">Danh mục</a>
+            <a href="${pageContext.request.contextPath}/admin-user">Người dùng</a>
+            <a href="${pageContext.request.contextPath}/admin-payment">Thanh toán</a>
+            <a href="${pageContext.request.contextPath}/admin-banner">Banner</a>
+            <a href="${pageContext.request.contextPath}/admin-news">Tin tức</a>
+            <a href="${pageContext.request.contextPath}/admin-review">Review</a>
+            <a href="${pageContext.request.contextPath}/admin-feedback">Feedback</a>
             <hr>
-            <a href="admin-login.html" class="logout">Đăng xuất</a>
+            <a href="${pageContext.request.contextPath}/admin-login" class="logout">Đăng xuất</a>
         </nav>
     </aside>
 
@@ -119,7 +121,7 @@
           </table>
         </section>
     </div>
-    <script src="../js/admin-darkmode.js"></script>
-    <script src="../js/admin-dashboard.js"></script>
+    <script src="assets/js/admin-darkmode.js"></script>
+    <script src="assets/js/admin-dashboard.js"></script>
 </body>
 </html>
