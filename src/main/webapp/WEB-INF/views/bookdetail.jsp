@@ -129,10 +129,10 @@
 
             
 
-            <button class="add-to-cart-btn"><a href="../pages/cart.html">THÊM VÀO GIỎ</a></button>
-            <button class="add-to-cart-btn"><a href="../pages/wishlist.html">THÊM VÀO DANH SÁCH YÊU THÍCH</a></button>
-            <button class="add-to-cart-btn"><a href="../pages/readbook.html">ĐỌC THỬ</a></button>
-            <button class="add-to-cart-btn"><a href="../pages/review.html">XEM ĐÁNH GIÁ</a></button>
+            <button class="add-to-cart-btn"><a href="assets/pages/cart.html">THÊM VÀO GIỎ</a></button>
+            <button class="add-to-cart-btn"><a href="assets/pages/wishlist.html">THÊM VÀO DANH SÁCH YÊU THÍCH</a></button>
+            <button class="add-to-cart-btn"><a href="assets/pages/readbook.html">ĐỌC THỬ</a></button>
+            <button class="add-to-cart-btn"><a href="assets/pages/review.html">XEM ĐÁNH GIÁ</a></button>
 
             
           </div>
@@ -317,7 +317,7 @@ cứu khoa học, ví dụ thực tế và lời khuyên thực hành, giúp ng�
             <span>EBookStore</span> là mô hình nhà sách dành cho thế hệ trẻ,
             tích hợp đa dạng sản phẩm các loại sách
           </p>
-          <a href="../pages/address.html" class="address">
+          <a href="assets/pages/address.html" class="address">
             <i class="fa-solid fa-location-dot"></i> Khu phố 33, Phường Linh
             Xuân, TP. Hồ Chí Minh, Việt Nam</a
           >
@@ -347,11 +347,11 @@ cứu khoa học, ví dụ thực tế và lời khuyên thực hành, giúp ng�
           <div class="option">
             <h3>DANH MỤC</h3>
             <ul>
-              <li><a href="../pages/home-Login.html">Trang chủ</a></li>
-              <li><a href="../pages/about.html">Giới Thiệu</a></li>
-              <li><a href="../pages/news.html">Tin tức</a></li>
-              <li><a href="../pages/contact.html">Liên hệ</a></li>
-              <li><a href="../pages/faq.html">FAQ</a></li>
+              <li><a href="assets/pages/home-Login.html">Trang chủ</a></li>
+              <li><a href="assets/pages/about.html">Giới Thiệu</a></li>
+              <li><a href="assets/pages/news.html">Tin tức</a></li>
+              <li><a href="assets/pages/contact.html">Liên hệ</a></li>
+              <li><a href="assets/pages/faq.html">FAQ</a></li>
             </ul>
           </div>
 
@@ -360,7 +360,7 @@ cứu khoa học, ví dụ thực tế và lời khuyên thực hành, giúp ng�
             <a href="#">0354.30.09.05</a>
             <div class="footer-feedback">
               <p>Gửi feedback của bạn tại đây:</p>
-              <a href="../pages/feedback.html" class="feedback-button">
+              <a href="assets/pages/feedback.html" class="feedback-button">
                 Feedback</a
               >
             </div>

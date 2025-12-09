@@ -129,4 +129,24 @@ public class UserDAO {
         }
         return false;
     }
+
+    public boolean checkAdminLogin(String usernameOrEmail, String password){
+        String sql = "select password from user where (userName=? OR email=?) and role = 'admin'";
+        try (Connection connection = DBConnection.getConnection();
+        PreparedStatement stm = connection.prepareStatement(sql)){
+            stm.setString(1, usernameOrEmail);
+            stm.setString(2, usernameOrEmail);
+
+            ResultSet rs = stm.executeQuery();
+
+            if(rs.next()){
+                String hashedPassword = rs.getString("password");
+                BCrypt.Result result = BCrypt.verifyer().verify(password.toCharArray(), hashedPassword);
+                return result.verified;
+            }
+        }catch (SQLException e){
+            e.printStackTrace();
+        }
+        return false;
+    }
 }
