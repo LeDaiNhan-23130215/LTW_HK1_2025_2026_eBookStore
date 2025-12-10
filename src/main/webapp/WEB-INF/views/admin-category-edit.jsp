@@ -1,46 +1,29 @@
-<%@ page import="models.Category" %>
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-         pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+
 <!DOCTYPE html>
 <html lang="vi">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Chỉnh sửa danh mục</title>
 
     <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/admin-category.css" />
-    <link
-            rel="stylesheet"
-            href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"
-    />
-    <!-- Bootstrap 5 -->
-    <link rel="stylesheet"
-          href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.3.0/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"/>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.3.0/css/bootstrap.min.css">
 
-    <link rel="icon" type="image/png"
-          href="${pageContext.request.contextPath}/assets/img/ebook-logo2.png" />
+    <link rel="icon" type="image/png" href="${pageContext.request.contextPath}/assets/img/ebook-logo2.png" />
 </head>
 
 <body>
 
-<%
-    Category c = (Category) request.getAttribute("category");
-    if (c == null) {
-%>
-<h2 style="color: red; text-align: center; margin-top: 30px;">
-    Không tìm thấy danh mục!
-</h2>
-<%
-        return;
-    }
-%>
+<c:if test="${empty category}">
+    <h2 style="color:red;text-align:center;margin-top:40px;">Không tìm thấy danh mục!</h2>
+    <c:redirect url="/admin-category"/>
+</c:if>
 
 <!-- Sidebar -->
 <aside class="sidebar">
-    <div class="sidebar-logo">
-        <h2>Ebook Admin</h2>
-    </div>
-
+    <div class="sidebar-logo"><h2>Ebook Admin</h2></div>
     <nav class="sidebar-nav">
         <a href="${pageContext.request.contextPath}/admin-dashboard">Dashboard</a>
         <a href="${pageContext.request.contextPath}/admin-ebook">Ebook</a>
@@ -56,7 +39,6 @@
     </nav>
 </aside>
 
-<!-- Main Content -->
 <div class="main-content">
 
     <header class="topbar">
@@ -73,26 +55,24 @@
 
             <form action="${pageContext.request.contextPath}/admin-category" method="post">
 
-                <input type="hidden" name="id" value="<%= c.getId() %>">
                 <input type="hidden" name="action" value="update">
+                <input type="hidden" name="id" value="${category.id}">
 
                 <div class="form-row">
                     <label for="catName">Tên danh mục:</label>
-                    <input type="text" id="catName" name="categoryName"
-                           value="<%= c.getName() %>"
-                           required>
+                    <input type="text" id="catName" name="categoryName" value="${category.name}" required>
                 </div>
 
                 <div class="form-row">
                     <label for="catDesc">Mô tả:</label>
-                    <textarea id="catDesc" name="description" rows="3"><%= c.getDescription() %></textarea>
+                    <textarea id="catDesc" name="description" rows="3">${category.description}</textarea>
                 </div>
 
-                <button type="submit" class="btn-addCategory" style="background: #28a745;">
+                <button type="submit" class="btn-addCategory" style="background:#28a745;">
                     Lưu thay đổi
                 </button>
 
-                <a href="${pageContext.request.contextPath}/admin-category" class="btn btn-secondary" style="margin-left: 10px;">
+                <a href="${pageContext.request.contextPath}/admin-category" class="btn btn-secondary" style="margin-left:10px;">
                     Quay lại
                 </a>
 
@@ -100,9 +80,11 @@
         </div>
 
     </section>
+
 </div>
 
-<script src="assets/js/admin-darkmode.js"></script>
-<script src="assets/js/showForm.js"></script>
+<script src="${pageContext.request.contextPath}/assets/js/admin-darkmode.js"></script>
+<script src="${pageContext.request.contextPath}/assets/js/showForm.js"></script>
+
 </body>
 </html>
