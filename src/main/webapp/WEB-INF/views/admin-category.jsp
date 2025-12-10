@@ -98,7 +98,7 @@
 
                     <div class="form-row">
                         <label for="catName">Tên danh mục:</label>
-                        <input type="text" id="catName" name="name"
+                        <input type="text" id="catName" name="categoryName"
                                placeholder="Nhập tên danh mục" required>
                     </div>
 
@@ -135,8 +135,13 @@
                     <td><%= c.getName() %></td>
                     <td><%= c.getDescription() %></td>
                     <td>
-                        <button class="btn-Edit"><i class="fa-solid fa-pen-to-square"></i> Sửa</button>
-                        <button class="btn-Del"><i class="fa-solid fa-trash"></i> Xóa</button>
+                        <a href="${pageContext.request.contextPath}/admin-category?action=edit&id=<%=c.getId()%>" class="btn-Edit">
+                            <i class="fa-solid fa-pen-to-square"></i> Sửa
+                        </a>
+                        <a href="${pageContext.request.contextPath}/admin-category?action=delete&id=<%=c.getId()%>" class="btn-Del"
+                        onclick="return confirm('Bạn có chắc muốn xóa danh mục này ?')">
+                            <i class="fa-solid fa-trash"></i> Xóa
+                        </a>
                     </td>
                 </tr>
                 <%

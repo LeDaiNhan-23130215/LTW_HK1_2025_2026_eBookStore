@@ -15,5 +15,5 @@ public class Ebook {
     private int categoryID;
     private List<File> file;
 
-    public Ebook(String ebookNum, String title, Author author, int price, List<EbookImage> images, String description, )
+    public Ebook(String ebookNum, String title, Author author, int price, List<EbookImage> images, String description){};
 }

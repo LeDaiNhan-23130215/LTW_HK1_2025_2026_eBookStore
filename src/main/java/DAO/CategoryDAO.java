@@ -5,20 +5,96 @@ import utils.DBConnection;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 
 public class CategoryDAO {
     public Category getCategoryById (int id) {
-        Category category = null;
+        String query = "SELECT id, categoryName, description FROM category WHERE id = ?";
 
-        String query = "SELECT categoryName, description FROM category WHERE id = ?";
-
-        try{
-            Connection connection = DBConnection.getConnection();
-            PreparedStatement ps = connection.prepareStatement(query);
+        try(Connection connection = DBConnection.getConnection();
+            PreparedStatement ps = connection.prepareStatement(query);){
             ps.setInt(1, id);
+            try (ResultSet rs = ps.executeQuery()) {
+                if (rs.next()) {
+                    return new Category(
+                            rs.getInt("id"),
+                            rs.getString("categoryName"),
+                            rs.getString("description")
+                    );
+                }
+            }
         } catch (Exception e) {
             e.printStackTrace();
         }
-        return category;
+        return null;
+    }
+
+    public List<Category> getAllCategory() {
+        List<Category> list = new ArrayList<Category>();
+        String sql = "SELECT * FROM category";
+
+        try (Connection connection = DBConnection.getConnection();
+             PreparedStatement stm = connection.prepareStatement(sql);
+             ResultSet rs = stm.executeQuery()) {
+
+            while (rs.next()) {
+                Category c = new Category(
+                        rs.getInt("id"),
+                        rs.getString("categoryName"),
+                        rs.getString("description")
+                );
+                list.add(c);
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return list;
+    }
+
+    public boolean addCategory(Category category){
+        String sql = "insert into category (categoryName, description) values (?, ?)";
+        try(Connection connection = DBConnection.getConnection();
+            PreparedStatement stm = connection.prepareStatement(sql)){
+            stm.setString(1, category.getName());
+            stm.setString(2, category.getDescription());
+            int rows = stm.executeUpdate();
+            return rows > 0;
+        } catch (SQLException e){
+            e.printStackTrace();
+        }
+        return false;
+    }
+
+    public boolean deleteCategory(int id){
+        String sql = "delete from category where id = ?";
+        try (Connection connection = DBConnection.getConnection();
+        PreparedStatement stm = connection.prepareStatement(sql)){
+            stm.setInt(1, id);
+            int rows = stm.executeUpdate();
+            return rows > 0;
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return false;
+    }
+
+    public boolean updateCategory(Category category){
+        String sql = "update category set categoryName = ?, description = ? where id = ?";
+        try (Connection connection = DBConnection.getConnection();
+        PreparedStatement stm = connection.prepareStatement(sql)){
+            stm.setString(1, category.getName());
+            stm.setString(2, category.getDescription());
+            stm.setInt(3, category.getId());
+            int rows = stm.executeUpdate();
+            return rows > 0;
+        } catch (SQLException e){
+            e.printStackTrace();
+        }
+        return false;
     }
 }
