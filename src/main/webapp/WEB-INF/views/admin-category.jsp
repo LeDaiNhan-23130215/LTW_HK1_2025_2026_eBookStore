@@ -1,3 +1,5 @@
+<%@ page import="models.Category" %>
+<%@ page import="java.util.List" %>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
          pageEncoding="UTF-8"%>
 <!DOCTYPE html>
@@ -92,15 +94,20 @@
         <section class="dashboard">
             <div class="add-form">
                 <h2 class="toggle-title"><i class="fa-solid fa-plus"></i> Thêm danh mục mới</h2>
-                <form action="" id="addCategoryForm">
+                <form action="${pageContext.request.contextPath}/admin-category" method="post">
+
                     <div class="form-row">
                         <label for="catName">Tên danh mục:</label>
-                        <input type="text" id="catName" placeholder="Nhập tên danh mục" required>
+                        <input type="text" id="catName" name="name"
+                               placeholder="Nhập tên danh mục" required>
                     </div>
+
                     <div class="form-row">
                         <label for="catDesc">Mô tả:</label>
-                        <textarea id="catDesc" rows="3" placeholder="Nhập mô tả ngắn về danh mục..."></textarea>
+                        <textarea id="catDesc" name="description" rows="3"
+                                  placeholder="Nhập mô tả ngắn..."></textarea>
                     </div>
+
                     <button type="submit" class="btn-addCategory">Thêm danh mục</button>
                 </form>
             </div>
@@ -118,24 +125,24 @@
                     </tr>
                 </thead>
                 <tbody id="categoryTableBody">
-                    <tr>
-                        <td>1</td>
-                        <td>Tiểu thuyết</td>
-                        <td>Các tác phẩm văn học nổi tiếng</td>
-                        <td>
-                            <button class="btn-Edit"><i class="fa-solid fa-pen-to-square"></i> Sửa</button>
-                            <button class="btn-Del"><i class="fa-solid fa-trash"></i> Xóa</button>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>2</td>
-                        <td>Kinh doanh</td>
-                        <td>Sách về đầu tư, tài chính và kỹ năng lãnh đạo</td>
-                        <td>
-                            <button class="btn-Edit"><i class="fa-solid fa-pen-to-square"></i> Sửa</button>
-                            <button class="btn-Del"><i class="fa-solid fa-trash"></i> Xóa</button>
-                        </td>
-                    </tr>
+                <%
+                    List<Category> categories = (List<Category>) request.getAttribute("categories");
+                    if (categories != null) {
+                        for (Category c : categories) {
+                %>
+                <tr>
+                    <td><%= c.getId() %></td>
+                    <td><%= c.getName() %></td>
+                    <td><%= c.getDescription() %></td>
+                    <td>
+                        <button class="btn-Edit"><i class="fa-solid fa-pen-to-square"></i> Sửa</button>
+                        <button class="btn-Del"><i class="fa-solid fa-trash"></i> Xóa</button>
+                    </td>
+                </tr>
+                <%
+                        }
+                    }
+                %>
                 </tbody>
             </table>
         </section>
