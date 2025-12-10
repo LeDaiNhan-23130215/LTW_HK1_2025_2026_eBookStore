@@ -31,7 +31,7 @@
               type="text"
               name="userAndEmail"
               id="userAndEmail"
-              placeholder="Email"
+              placeholder="Email hoặc Tên người dùng"
               value="${param.userAndEmail}"
             />
           </div>
