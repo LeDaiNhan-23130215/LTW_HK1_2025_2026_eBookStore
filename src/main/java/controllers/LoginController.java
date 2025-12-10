@@ -39,7 +39,7 @@ public class LoginController extends HttpServlet {
         }
 
         HttpSession session = req.getSession();
-        session.setAttribute("userName", userName);
+        session.setAttribute("userName", userDAO.getUserNameByEmail(userName));
         resp.sendRedirect(req.getContextPath()+"/home");
     }
 }
