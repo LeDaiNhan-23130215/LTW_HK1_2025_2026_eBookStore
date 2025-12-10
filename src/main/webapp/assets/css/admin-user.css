@@ -245,6 +245,8 @@ body .main-content .btn-Edit, body .main-content .btn-Del {
 body .main-content .btn-Edit {
     background: #facc15;
     color: #111827;
+    margin-right: 10px;
+    text-decoration: none;
 }
 body .main-content .btn-Edit:hover {
     background: #eab308;
@@ -252,6 +254,7 @@ body .main-content .btn-Edit:hover {
 body .main-content .btn-Del {
     background: #ef4444;
     color: white;
+    text-decoration: none;
 }
 body .main-content .btn-Del:hover {
     background: #dc2626;
