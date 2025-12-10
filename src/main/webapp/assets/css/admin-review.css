@@ -20,8 +20,7 @@ body .sidebar{
 }
 body .sidebar .sidebar-logo{
     text-align: center;
-    padding: 20px;
-    border-bottom: 1px solid #374151;
+    padding: 15px;
 }
 body .sidebar .sidebar-nav{
     display: flex;
@@ -227,10 +226,10 @@ body .main-content .dashboard .btn-filter:hover {
     transform: scale(0.97);
 }
 body .main-content .table-section {
-    margin: 20px;
-    background: white;
-    border-radius: 10px;
-    box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+    margin: 25px;
+    padding: 15px;
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.06);
     overflow-x: auto;
 }
 body .main-content .table-section table {
@@ -238,21 +237,19 @@ body .main-content .table-section table {
     border-collapse: collapse;
     min-width: 800px;
 }
-body .main-content .table-section h2{
-    padding: 20px;
-}
-body .main-content .table-section th, 
+body .main-content .table-section th,
 body .main-content .table-section td {
-    padding: 12px;
+    padding: 12px 18px;
     text-align: left;
     border-bottom: 1px solid #e5e7eb;
 }
 body .main-content .table-section th {
-    background: #f3f4f6;
+    background: #f8fafc;
+    font-weight: 600;
     color: #374151;
 }
 body .main-content .table-section tr:hover {
-    background: #f9fafb;
+    background: #f1f5f9;
 }
 body .main-content .btn-Del {
     border: none;
@@ -291,7 +288,7 @@ body.dark .table-section table {
 }
 body.dark .table-section h2{
     background: #1e293b;
-    color: f9fafb;
+    color: #f9fafb;
 }
 body.dark .dashboard .filter-section {
     background: #1e293b;

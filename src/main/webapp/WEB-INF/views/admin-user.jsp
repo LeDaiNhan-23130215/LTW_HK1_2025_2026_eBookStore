@@ -12,6 +12,41 @@
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"
     />
     <link rel="icon" type="image/png" href="assets/img/ebook-logo2.png" />
+      <!-- Bootstrap 5 -->
+      <link rel="stylesheet"
+            href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.3.0/css/bootstrap.min.css">
+
+      <!-- DataTables + Bootstrap 5 theme -->
+      <link rel="stylesheet"
+            href="https://cdn.datatables.net/1.13.6/css/dataTables.bootstrap5.min.css">
+
+      <script src="https://code.jquery.com/jquery-3.7.0.min.js"></script>
+
+      <script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
+      <script src="https://cdn.datatables.net/1.13.6/js/dataTables.bootstrap5.min.js"></script>
+
+      <script>
+          $(document).ready(function () {
+              $('#activityTable').DataTable({
+                  "pageLength": 5,
+                  "lengthMenu": [5, 10, 20, 50],
+                  "ordering": true,
+                  "searching": true,
+                  "language": {
+                      "lengthMenu": "Hiển thị _MENU_ dòng",
+                      "search": "Tìm kiếm:",
+                      "info": "Trang _PAGE_ / _PAGES_",
+                      "paginate": {
+                          "first": "Đầu",
+                          "last": "Cuối",
+                          "next": "Tiếp",
+                          "previous": "Trước"
+                      },
+                      "zeroRecords": "Không tìm thấy dữ liệu"
+                  }
+              });
+          });
+      </script>
 <body>
     <!--Side bar-->
     <aside class="sidebar">
@@ -38,7 +73,7 @@
     <div class="main-content">
         <!--Top bar-->
         <header class="topbar">
-            <h1>Quản lý người dùng</h1>
+            <div class="topbar-title">Quản lý người dùng</div>
             <button id="toggle-theme">🌙 Dark Mode</button>
         </header>
 
@@ -89,7 +124,7 @@
 
         <!-- Danh sách user-->
         <section class="table-section">
-            <table>
+            <table id="activityTable" class="table table-striped table-bordered">
                 <thead>
                     <tr>
                         <th>ID</th>
