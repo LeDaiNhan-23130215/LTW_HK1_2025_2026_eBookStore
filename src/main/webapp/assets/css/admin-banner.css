@@ -252,11 +252,13 @@ body .main-content .btn-Edit, body .main-content .btn-Del {
     border-radius: 5px;
     cursor: pointer;
     font-size: 0.9rem;
+    text-decoration: none;
 }
 
 body .main-content .btn-Edit {
     background: #facc15;
     color: #111827;
+    margin-right: 10px;
 }
 body .main-content .btn-Edit:hover {
     background: #eab308;
