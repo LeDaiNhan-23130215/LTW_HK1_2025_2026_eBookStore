@@ -1,6 +1,6 @@
 package controllers;
 
-import DAO.AdminDAO;
+import DAO.AdminServices;
 import jakarta.servlet.*;
 import jakarta.servlet.http.*;
 import jakarta.servlet.annotation.*;
@@ -9,19 +9,19 @@ import java.io.IOException;
 
 @WebServlet(name = "AdminDashboardController", value = "/admin-dashboard")
 public class AdminDashboardController extends HttpServlet {
-    private AdminDAO adminDAO;
+    private AdminServices adminServices;
 
     @Override
     public void init() throws ServletException {
-        adminDAO = new AdminDAO();
+        adminServices = new AdminServices();
     }
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        int totalEbooks = adminDAO.countTotalEBook();
-        int totalUsers = adminDAO.countTotalUser();
-        int totalOrders = adminDAO.countSuccessOrder();
-        double totalMonthlyRevenue = adminDAO.getMonthlyRevenue();
+        int totalEbooks = adminServices.getTotalEbooks();
+        int totalUsers = adminServices.getTotalUsers();
+        int totalOrders = adminServices.getTotalSuccessOrders();
+        double totalMonthlyRevenue = adminServices.getTotalMonthlyRevenue();
 
         req.setAttribute("totalEbooks", totalEbooks);
         req.setAttribute("totalUsers", totalUsers);
