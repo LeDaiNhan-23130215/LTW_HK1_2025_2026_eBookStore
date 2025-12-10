@@ -99,19 +99,19 @@
             <div class="cards">
                 <div class="card" id="totalEbooks">
                     <h3>Tổng số eBook</h3>
-                    <p id="total-books">200</p>
+                    <p id="totalEbooks">${totalEbooks}</p>
                 </div>
                 <div class="card" id="totalUsers">
                     <h3>Người dùng</h3>
-                    <p id="total-users">20</p>
+                    <p id="totalUsers">${totalUsers}</p>
                 </div>
                 <div class="card" id="totalOrders">
                     <h3>Đơn hàng</h3>
-                    <p id="total-orders">20</p>
+                    <p id="totalOrders">${totalOrders}</p>
                 </div>
                 <div class="card" id="totalRevenue">
                     <h3>Doanh thu tháng</h3>
-                    <p id="total-revenue">2.000.000 VND</p>
+                    <p id="totalRevenue">${totalMonthlyRevenue} VND</p>
                 </div>
             </div>
         </section>
