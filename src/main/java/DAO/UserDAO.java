@@ -34,22 +34,25 @@ public class UserDAO {
     }
 
     public boolean signUp(String userName, String email, String phoneNum, String password) {
-        String sql = "insert into user(userName, email, phoneNum, password) values(?, ?, ?, ?)";
+        String sql = "INSERT INTO user(userName, email, phoneNum, password, role) VALUES(?, ?, ?, ?, 'user')";
         try (Connection connection = DBConnection.getConnection();
              PreparedStatement stm = connection.prepareStatement(sql)) {
+
+            String hash = BCrypt.withDefaults().hashToString(10, password.toCharArray());
+
             stm.setString(1, userName);
             stm.setString(2, email);
             stm.setString(3, phoneNum);
-            stm.setString(4, password);
+            stm.setString(4, hash);
 
-            int rows = stm.executeUpdate();
-            return rows > 0;
+            return stm.executeUpdate() > 0;
 
         } catch (SQLException e) {
             e.printStackTrace();
         }
         return false;
     }
+
 
     public boolean checkAvailableUserNameOrEmail(String userNameOrEmail) {
         String sql = "select userName, email from user where userName = ? or email = ?";
@@ -86,37 +89,66 @@ public class UserDAO {
     }
 
     public List<User> getAllUsers() {
-        String sql = "select * from user";
-        try (Connection connection = DBConnection.getConnection()) {
-            ResultSet rs = connection.prepareStatement(sql).executeQuery();
-            List<User> list = new ArrayList<>();
-            if (rs.next()) {
-                list.add(new User(rs.getInt("id"),
+        String sql = "SELECT * FROM user";
+        List<User> list = new ArrayList<>();
+
+        try (Connection connection = DBConnection.getConnection();
+             PreparedStatement stm = connection.prepareStatement(sql)) {
+
+            ResultSet rs = stm.executeQuery();
+            while (rs.next()) {
+                list.add(new User(
+                        rs.getInt("id"),
                         rs.getString("userName"),
                         rs.getString("email"),
                         rs.getString("phoneNum"),
-                        rs.getString("password")));
+                        rs.getString("password"),
+                        rs.getString("role")
+                ));
             }
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        return null;
+        return list;
     }
 
-    public boolean updateUser(User user) {
-        String sql = "UPDATE user SET userName=?, email=?, phoneNum=? WHERE id=?";
+    public boolean addUser(User user) {
+        String sql = "INSERT INTO user(userName, email, phoneNum, password, role) VALUES(?, ?, ?, ?, ?)";
         try (Connection connection = DBConnection.getConnection();
              PreparedStatement stm = connection.prepareStatement(sql)) {
+
             stm.setString(1, user.getUsername());
             stm.setString(2, user.getEmail());
             stm.setString(3, user.getPhoneNum());
-            stm.setInt(4, user.getId());
+            stm.setString(4, BCrypt.withDefaults().hashToString(10, user.getPassword().toCharArray()));
+            stm.setString(5, user.getRole());
+
             return stm.executeUpdate() > 0;
         } catch (SQLException e) {
             e.printStackTrace();
         }
         return false;
     }
+
+    public boolean updateUser(User user) {
+        String sql = "UPDATE user SET userName=?, email=?, phoneNum=?, role=? WHERE id=?";
+        try (Connection connection = DBConnection.getConnection();
+             PreparedStatement stm = connection.prepareStatement(sql)) {
+
+            stm.setString(1, user.getUsername());
+            stm.setString(2, user.getEmail());
+            stm.setString(3, user.getPhoneNum());
+            stm.setString(4, user.getRole());
+            stm.setInt(5, user.getId());
+
+            return stm.executeUpdate() > 0;
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return false;
+    }
+
 
     public boolean deleteUser(int id) {
         String sql = "DELETE from user where id=?";

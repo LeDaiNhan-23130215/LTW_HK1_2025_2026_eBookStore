@@ -1,6 +1,7 @@
 package DAO;
 
 import models.Category;
+import models.User;
 
 import java.util.List;
 
@@ -17,6 +18,25 @@ public class AdminServices {
         return userDAO.countTotalUser();
     }
 
+    public List<User> getAllUsers(){
+        return userDAO.getAllUsers();
+    }
+
+    public boolean addUser(User user){
+        return userDAO.addUser(user);
+    }
+
+    public boolean deleteUser(int id){
+        return userDAO.deleteUser(id);
+    }
+
+    public boolean updateUser(User user){
+        return userDAO.updateUser(user);
+    }
+
+    public User getUserById(int id){
+        return userDAO.getUserByID(id);
+    }
     //Ebook
     public int getTotalEbooks(){
         return ebookDAO.countTotalEBook();
