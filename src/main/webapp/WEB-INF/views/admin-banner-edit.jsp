@@ -55,34 +55,54 @@
                 <i class="fa-solid fa-pen-to-square"></i> Sửa Banner
             </h2>
 
-            <form action="${pageContext.request.contextPath}/admin-banner" method="post" enctype="multipart/form-data">
+            <form action="${pageContext.request.contextPath}/admin-banner" method="post">
 
                 <input type="hidden" name="action" value="update">
                 <input type="hidden" name="id" value="${banner.id}">
-                <input type="hidden" name="oldImage" value="${banner.image}">
 
+                <!-- URL -->
                 <div class="form-row">
-                    <label for="title">Tiêu đề:</label>
-                    <input type="text" id="title" name="title" value="${banner.title}" required>
+                    <label for="url">Đường dẫn (URL):</label>
+                    <input type="text" id="url" name="url" value="${banner.url}" required>
                 </div>
 
+                <!-- Position -->
                 <div class="form-row">
-                    <label for="desc">Mô tả:</label>
-                    <textarea id="desc" name="description" rows="3">${banner.description}</textarea>
+                    <label for="position">Vị trí:</label>
+                    <select name="position" id="position" required>
+                        <option value="">--Chọn vị trí--</option>
+                        <option value="Home-1" ${banner.position == 'Home-1' ? 'selected' : ''}>Home-1</option>
+                        <option value="Home-2" ${banner.position == 'Home-2' ? 'selected' : ''}>Home-2</option>
+                        <option value="Home-3" ${banner.position == 'Home-3' ? 'selected' : ''}>Home-3</option>
+                        <option value="Home-4" ${banner.position == 'Home-4' ? 'selected' : ''}>Home-4</option>
+                        <option value="Home-5" ${banner.position == 'Home-5' ? 'selected' : ''}>Home-5</option>
+                        <option value="Home-6" ${banner.position == 'Home-6' ? 'selected' : ''}>Home-6</option>
+                        <option value="Home-7" ${banner.position == 'Home-7' ? 'selected' : ''}>Home-7</option>
+                    </select>
                 </div>
 
+                <!-- Start date -->
                 <div class="form-row">
-                    <label>Ảnh hiện tại:</label>
-                    <img src="${pageContext.request.contextPath}/uploads/${banner.image}"
-                         style="width: 300px; border-radius: 8px; border: 1px solid #ccc;">
+                    <label for="sDate">Ngày bắt đầu:</label>
+                    <input type="date" id="sDate" name="startDate" value="${banner.startDate}" required>
                 </div>
 
+                <!-- End date -->
                 <div class="form-row">
-                    <label for="image">Chọn ảnh mới (tuỳ chọn):</label>
-                    <input type="file" id="image" name="image" accept="image/*">
+                    <label for="eDate">Ngày kết thúc:</label>
+                    <input type="date" id="eDate" name="endDate" value="${banner.endDate}" required>
                 </div>
 
-                <button type="submit" class="btn-addCategory" style="background:#28a745;">Lưu thay đổi</button>
+                <!-- isActive -->
+                <div class="form-row">
+                    <label for="isActive">Trạng thái:</label>
+                    <select name="isActive" id="isActive" required>
+                        <option value="1" ${banner.isActive == 1 ? 'selected' : ''}>Hoạt động</option>
+                        <option value="0" ${banner.isActive == 0 ? 'selected' : ''}>Không hoạt động</option>
+                    </select>
+                </div>
+
+                <button type="submit" class="btn-addBanner" style="background:#28a745;">Lưu thay đổi</button>
 
                 <a href="${pageContext.request.contextPath}/admin-banner"
                    class="btn btn-secondary" style="margin-left:10px;">Quay lại</a>

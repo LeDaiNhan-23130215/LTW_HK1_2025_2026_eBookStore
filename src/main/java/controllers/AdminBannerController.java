@@ -1,20 +1,108 @@
 package controllers;
 
+import DAO.AdminServices;
 import jakarta.servlet.*;
 import jakarta.servlet.http.*;
 import jakarta.servlet.annotation.*;
+import models.Banner;
+import models.Category;
 
 import java.io.IOException;
+import java.util.List;
 
 @WebServlet(name = "AdminBannerController", value = "/admin-banner")
 public class AdminBannerController extends HttpServlet{
+    private AdminServices  adminServices;
+
+    @Override
+    public void init() throws ServletException {
+        adminServices = new AdminServices();
+    }
+
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        req.getRequestDispatcher("/WEB-INF/views/admin-banner.jsp").forward(req,resp);
+        String action = req.getParameter("action");
+
+        if (action == null) {
+            List<Banner> banners = adminServices.getListBanner();
+            req.setAttribute("banners", banners);
+
+            req.getRequestDispatcher("/WEB-INF/views/admin-banner.jsp")
+                    .forward(req, resp);
+            return;
+        }
+
+        if ("delete".equals(action)) {
+            int id = Integer.parseInt(req.getParameter("id"));
+            adminServices.deleteBanner(id);
+            resp.sendRedirect(req.getContextPath() + "/admin-banner");
+            return;
+        }
+
+        if ("edit".equals(action)) {
+            int id = Integer.parseInt(req.getParameter("id"));
+            Banner banner = adminServices.getBannerById(id);
+            req.setAttribute("banner", banner);
+
+            req.getRequestDispatcher("/WEB-INF/views/admin-banner-edit.jsp")
+                    .forward(req, resp);
+            return;
+        }
+
+        List<Banner> banners = adminServices.getListBanner();
+        req.setAttribute("banners", banners);
+
+        req.getRequestDispatcher("/WEB-INF/views/admin-banner.jsp")
+                .forward(req, resp);
     }
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        super.doPost(req, resp);
+        req.setCharacterEncoding("UTF-8");
+        String action = req.getParameter("action");
+        if(action==null){
+            req.getRequestDispatcher("/WEB-INF/views/admin-banner.jsp").forward(req,resp);
+            return;
+        }
+        if("update".equals(action)){
+            int id = Integer.parseInt(req.getParameter("id"));
+            String url = req.getParameter("url");
+            String position = req.getParameter("position");
+            String startDate = req.getParameter("startDate");
+            String endDate = req.getParameter("endDate");
+            int isActive = Integer.parseInt(req.getParameter("isActive"));
+
+            Banner banner = new Banner();
+
+            banner.setId(id);
+            banner.setUrl(url);
+            banner.setPosition(position);
+            banner.setStartDate(startDate);
+            banner.setEndDate(endDate);
+            banner.setIsActive(isActive);
+
+            adminServices.updateBanner(banner);
+            resp.sendRedirect(req.getContextPath()+"/admin-banner");
+            return;
+        }
+        else{
+            String url = req.getParameter("url");
+            String position = req.getParameter("position");
+            String startDate = req.getParameter("startDate");
+            String endDate = req.getParameter("endDate");
+            int isActive = Integer.parseInt(req.getParameter("isActive"));
+
+            Banner banner = new Banner();
+
+            banner.setUrl(url);
+            banner.setPosition(position);
+            banner.setStartDate(startDate);
+            banner.setEndDate(endDate);
+            banner.setIsActive(isActive);
+
+            adminServices.addBanner(banner);
+
+            resp.sendRedirect(req.getContextPath() + "/admin-banner");
+        }
     }
 }
