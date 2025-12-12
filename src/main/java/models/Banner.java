@@ -6,15 +6,18 @@ public class Banner {
     private String position;
     private String startDate;
     private String endDate;
-    private boolean isActive;
+    private int isActive;
 
-    public Banner(int id, String url, String position, String startDate, String endDate, boolean isActive) {
+    public Banner(int id, String url, String position, String startDate, String endDate, int isActive) {
         this.id = id;
         this.url = url;
         this.position = position;
         this.startDate = startDate;
         this.endDate = endDate;
         this.isActive = isActive;
+    }
+
+    public Banner() {
     }
 
     public String getStartDate() {
@@ -57,11 +60,11 @@ public class Banner {
         this.position = position;
     }
 
-    public boolean isActive() {
+    public int getIsActive() {
         return isActive;
     }
 
-    public void setActive(boolean active) {
-        isActive = active;
+    public void setIsActive(int isActive) {
+        this.isActive = isActive;
     }
 }

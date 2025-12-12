@@ -1,6 +1,8 @@
 package DAO;
 
+import models.Banner;
 import models.Category;
+import models.News;
 import models.User;
 
 import java.util.List;
@@ -10,6 +12,8 @@ public class AdminServices {
     CategoryDAO categoryDAO = new CategoryDAO();
     CheckoutDAO checkoutDAO = new CheckoutDAO();
     EbookDAO ebookDAO = new EbookDAO();
+    BannerDao bannerDAO = new BannerDao();
+    NewsDAO newsDAO = new NewsDAO();
 
     public AdminServices() {}
 
@@ -73,8 +77,44 @@ public class AdminServices {
     }
 
     //Banner
+    public List<Banner> getListBanner(){
+        return bannerDAO.getAllBanner();
+    }
+
+    public boolean addBanner(Banner banner){
+        return bannerDAO.addBanner(banner);
+    }
+
+    public boolean updateBanner(Banner banner){
+        return bannerDAO.updateBanner(banner);
+    }
+
+    public boolean deleteBanner(int id){
+        return bannerDAO.deleteBanner(id);
+    }
+
+    public Banner getBannerById(int id){
+        return bannerDAO.getBannerById(id);
+    }
 
     //News
+    public List<News> getListNews(){
+        return newsDAO.getAllNews();
+    }
+
+    public boolean addNews(News news){
+        return newsDAO.addNews(news);
+    }
+
+    public boolean updateNews(News news){
+        return newsDAO.updateNews(news);
+    }
+
+    public boolean deleteNews(int id){
+        return newsDAO.deleteNews(id);
+    }
+
+    public News getNewsById(int id){ return newsDAO.getNewsById(id); }
 
     //Review
 

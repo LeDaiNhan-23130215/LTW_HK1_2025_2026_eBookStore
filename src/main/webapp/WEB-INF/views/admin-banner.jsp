@@ -128,6 +128,15 @@
                     <input name="endDate" type="date" id="eDate" required>
                 </div>
 
+                <div class="form-row">
+                    <label for="isActive">Kích hoạt: </label>
+                    <select id="isActive" name="isActive" required>
+                        <option value="">--Chọn trạng thái--</option>
+                        <option value="1">Hoạt động</option>
+                        <option value="0">Không hoạt động</option>
+                    </select>
+                </div>
+
                 <button type="submit" class="btn-addBanner">Thêm banner</button>
             </form>
         </div>
@@ -143,18 +152,29 @@
                 <th>Vị trí</th>
                 <th>Ngày bắt đầu</th>
                 <th>Ngày kết thúc</th>
+                <th>Trạng thái</th>
                 <th>Thao tác</th>
             </tr>
             </thead>
 
             <tbody id="bannerTableBody">
-            <c:forEach var="b" items="${categories}">
+            <c:forEach var="b" items="${banners}">
                 <tr>
                     <td>${b.id}</td>
-                    <td>${b.name}</td>
+                    <td><img src="${b.url}" style="width:80px; height:auto;" alt=""></td>
                     <td>${b.position}</td>
                     <td>${b.startDate}</td>
                     <td>${b.endDate}</td>
+                    <td>
+                        <c:choose>
+                            <c:when test="${b.isActive == 1}">
+                                <span class="badge bg-success">Hoạt động</span>
+                            </c:when>
+                            <c:otherwise>
+                                <span class="badge bg-secondary">Không hoạt động</span>
+                            </c:otherwise>
+                        </c:choose>
+                    </td>
 
                     <td>
                         <a class="btn btn-warning btn-sm"

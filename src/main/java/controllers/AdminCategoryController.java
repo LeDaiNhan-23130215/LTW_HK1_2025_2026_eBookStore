@@ -64,7 +64,7 @@ public class AdminCategoryController extends HttpServlet{
         req.setCharacterEncoding("UTF-8");
         String action = req.getParameter("action");
         if(action==null){
-            req.getRequestDispatcher("/WEB-INF/views/admin-category.jsp");
+            req.getRequestDispatcher("/WEB-INF/views/admin-category.jsp").forward(req,resp);
             return;
         }
         if("update".equals(action)){
