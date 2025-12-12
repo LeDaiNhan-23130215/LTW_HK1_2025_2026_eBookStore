@@ -13,7 +13,7 @@
                 <% String userName = (String) session.getAttribute("userName"); %>
 
                 <% if (userName != null) {%>
-                    Xin chào, <p><%=userName%></p>
+                    <a href="userInformation">Xin chào, <p><%=userName%></p></a>
                     <a href="logout">Đăng xuất</a>
                 <%} else {%>
                     <a href="${pageContext.request.contextPath}/login">Đăng nhập</a>

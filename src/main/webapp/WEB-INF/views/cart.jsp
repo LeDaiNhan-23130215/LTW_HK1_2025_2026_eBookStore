@@ -75,7 +75,7 @@
     </div>
 
     <!-- #Footer -->
-    <jsp:include page="/WEB-INF/views/header.jsp"></jsp:include>
+    <jsp:include page="/WEB-INF/views/footer.jsp"></jsp:include>
     
     <script src="assets/js/component.js"></script>
 </body>
