@@ -1,9 +1,7 @@
 package DAO;
 
-import models.Banner;
-import models.Category;
-import models.News;
-import models.User;
+import models.*;
+import DTO.FeedbackAdminView;
 
 import java.util.List;
 
@@ -14,6 +12,7 @@ public class AdminServices {
     EbookDAO ebookDAO = new EbookDAO();
     BannerDao bannerDAO = new BannerDao();
     NewsDAO newsDAO = new NewsDAO();
+    FeedbackDAO feedbackDAO = new FeedbackDAO();
 
     public AdminServices() {}
 
@@ -119,4 +118,20 @@ public class AdminServices {
     //Review
 
     //Feedback
+    public List<FeedbackAdminView> getFeedbackWithUser() {
+        return feedbackDAO.getAllFeedbackWithUser();
+    }
+
+    public boolean deleteFeedback(int id){
+        return feedbackDAO.deleteFeedback(id);
+    }
+
+    public boolean markFeedbackAsRead(int id){
+        return feedbackDAO.markAsRead(id);
+    }
+
+    public FeedbackAdminView getFeedbackWithUserById(int id) {
+        return feedbackDAO.getFeedbackWithUserById(id);
+    }
+
 }

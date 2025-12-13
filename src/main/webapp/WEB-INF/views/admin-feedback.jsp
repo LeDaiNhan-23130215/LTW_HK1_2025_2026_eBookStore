@@ -1,3 +1,5 @@
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
          pageEncoding="UTF-8"%>
 <!DOCTYPE html>
@@ -69,42 +71,58 @@
             <button id="toggle-theme">🌙 Dark Mode</button>
         </header>
 
-        <!-- Search Bar -->
-        <div class="search-wrapper">
-            <div class="search-bar">
-                <input type="text" id="adminSearchInput" placeholder="Tìm kiếm...">
-                <button type="button" id="adminSearchBtn">
-                    <i class="fa-solid fa-magnifying-glass"></i>
-                </button>
-            </div>
-        </div>
-
         <section class="table-section">
             <table id="activityTable" class="table table-striped table-bordered">
             <thead>
             <tr>
                 <th>ID</th>
-                <th>Tên người gửi</th>
+                <th>Tên người dùng</th>
                 <th>Email</th>
                 <th>Nội dung</th>
-                <th>Ngày gửi</th>
                 <th>Trạng thái</th>
                 <th>Thao tác</th>
             </tr>
             </thead>
             <tbody id="feedbackTableBody">
-            <tr>
-                <td>1</td>
-                <td>Trần Minh</td>
-                <td>minhtran@example.com</td>
-                <td>Trang web rất tiện lợi, ...</td>
-                <td>2025-10-20</td>
-                <td>Chưa đọc</td>
-                <td>
-                <button class="btn-View"><i class="fa-solid fa-eye"></i> Xem</button>
-                <button class="btn-Del"><i class="fa-solid fa-trash"></i> Xóa</button>
-                </td>
-            </tr>
+            <c:forEach var="f" items="${feedbacks}">
+                <tr>
+                    <td>${f.id}</td>
+                    <td>${f.username}</td>
+                    <td>${f.email}</td>
+                    <td>
+                        <c:choose>
+                            <c:when test="${fn:length(f.message) > 50}">
+                                ${fn:substring(f.message, 0, 50)}...
+                            </c:when>
+                            <c:otherwise>
+                                ${f.message}
+                            </c:otherwise>
+                        </c:choose>
+                    </td>
+                    <td>
+                        <c:choose>
+                            <c:when test="${f.status == 0}">
+                                <span class="badge bg-warning text-dark">Chưa đọc</span>
+                            </c:when>
+                            <c:otherwise>
+                                <span class="badge bg-success">Đã đọc</span>
+                            </c:otherwise>
+                        </c:choose>
+                    </td>
+                    <td>
+                        <a class="btn btn-sm btn-primary"
+                           href="${pageContext.request.contextPath}/admin-feedback?action=view&id=${f.id}">
+                            <i class="fa-solid fa-eye"></i> Xem
+                        </a>
+
+                        <a class="btn btn-sm btn-danger"
+                           href="${pageContext.request.contextPath}/admin-feedback?action=delete&id=${f.id}"
+                           onclick="return confirm('Bạn có chắc muốn xóa feedback này?')">
+                            <i class="fa-solid fa-trash"></i> Xóa
+                        </a>
+                    </td>
+                </tr>
+            </c:forEach>
             </tbody>
         </table>
         </section>

@@ -29,9 +29,20 @@
         $(document).ready(function () {
             $('#newsTable').DataTable({
                 "pageLength": 5,
+                "lengthMenu": [5, 10, 20, 50],
+                "ordering": true,
+                "searching": true,
                 "language": {
+                    "lengthMenu": "Hiển thị _MENU_ dòng",
                     "search": "Tìm kiếm:",
-                    "lengthMenu": "Hiển thị _MENU_ dòng"
+                    "info": "Trang _PAGE_ / _PAGES_",
+                    "paginate": {
+                        "first": "Đầu",
+                        "last": "Cuối",
+                        "next": "Tiếp",
+                        "previous": "Trước"
+                    },
+                    "zeroRecords": "Không tìm thấy dữ liệu"
                 }
             });
 
