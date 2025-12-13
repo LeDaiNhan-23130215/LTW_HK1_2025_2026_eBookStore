@@ -1,7 +1,6 @@
 package controllers;
 
-import DAO.AdminServices;
-import DAO.NewsDAO;
+import services.AdminServices;
 import jakarta.servlet.*;
 import jakarta.servlet.http.*;
 import jakarta.servlet.annotation.*;
