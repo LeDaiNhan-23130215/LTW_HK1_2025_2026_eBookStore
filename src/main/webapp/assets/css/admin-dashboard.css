@@ -7,7 +7,7 @@
 body{
     margin: 0;
     display: flex;
-    background: #f5f6fa;
+    background: #fff;
 }
 body .sidebar{
     width: 240px;

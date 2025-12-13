@@ -1,5 +1,6 @@
 package controllers;
 
+import DAO.AdminServices;
 import DAO.NewsDAO;
 import jakarta.servlet.*;
 import jakarta.servlet.http.*;
@@ -12,11 +13,11 @@ import java.util.List;
 @WebServlet(name = "AdminNewsController", value = "/admin-news")
 public class AdminNewsController extends HttpServlet {
 
-    private NewsDAO newsDAO;
+    private AdminServices adminServices;
 
     @Override
     public void init() throws ServletException {
-        newsDAO = new NewsDAO();
+        adminServices = new AdminServices();
     }
 
     @Override
@@ -26,7 +27,7 @@ public class AdminNewsController extends HttpServlet {
         String action = req.getParameter("action");
 
         if (action == null) {
-            List<News> newsList = newsDAO.getAllNews();
+            List<News> newsList = adminServices.getListNews();
             req.setAttribute("newsList", newsList);
 
             req.getRequestDispatcher("/WEB-INF/views/admin-news.jsp")
@@ -37,7 +38,7 @@ public class AdminNewsController extends HttpServlet {
         // DELETE
         if (action.equals("delete")) {
             int id = Integer.parseInt(req.getParameter("id"));
-            newsDAO.deleteNews(id);
+            adminServices.deleteNews(id);
             resp.sendRedirect(req.getContextPath() + "/admin-news");
             return;
         }
@@ -45,7 +46,7 @@ public class AdminNewsController extends HttpServlet {
         // EDIT
         if (action.equals("edit")) {
             int id = Integer.parseInt(req.getParameter("id"));
-            News news = newsDAO.getNewsById(id);
+            News news = adminServices.getNewsById(id);
 
             req.setAttribute("news", news);
             req.getRequestDispatcher("/WEB-INF/views/admin-news-edit.jsp")
@@ -54,7 +55,7 @@ public class AdminNewsController extends HttpServlet {
         }
 
         // Default: list
-        List<News> newsList = newsDAO.getAllNews();
+        List<News> newsList = adminServices.getListNews();
         req.setAttribute("newsList", newsList);
         req.getRequestDispatcher("/WEB-INF/views/admin-news.jsp").forward(req, resp);
     }
@@ -88,7 +89,7 @@ public class AdminNewsController extends HttpServlet {
             news.setAuthor(author);
             news.setStatus(status);
 
-            newsDAO.updateNews(news);
+            adminServices.updateNews(news);
 
             resp.sendRedirect(req.getContextPath() + "/admin-news");
             return;
@@ -104,7 +105,7 @@ public class AdminNewsController extends HttpServlet {
             int status = Integer.parseInt(req.getParameter("status"));
 
             News news = new News(title, content, imgURL, author, status);
-            newsDAO.addNews(news);
+            adminServices.addNews(news);
 
             resp.sendRedirect(req.getContextPath() + "/admin-news");
         }

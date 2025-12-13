@@ -79,16 +79,6 @@
             <button id="toggle-theme">🌙 Dark Mode</button>
         </header>
 
-        <!-- Search Bar -->
-        <div class="search-wrapper">
-            <div class="search-bar">
-                <input type="text" id="adminSearchInput" placeholder="Tìm kiếm...">
-                <button type="button" id="adminSearchBtn">
-                    <i class="fa-solid fa-magnifying-glass"></i>
-                </button>
-            </div>
-        </div>
-
         <!--Dashboard-->
         <section class="dashboard">
             <div class="add-form">

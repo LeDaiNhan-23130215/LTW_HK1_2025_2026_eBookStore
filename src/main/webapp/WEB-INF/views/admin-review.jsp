@@ -69,54 +69,6 @@
             <button id="toggle-theme">🌙 Dark Mode</button>
         </header>
 
-        <!-- Search Bar -->
-        <div class="search-wrapper">
-            <div class="search-bar">
-                <input type="text" id="adminSearchInput" placeholder="Tìm kiếm...">
-                <button type="button" id="adminSearchBtn">
-                    <i class="fa-solid fa-magnifying-glass"></i>
-                </button>
-            </div>
-        </div>
-
-        <!-- Dashboard -->
-        <section class="dashboard">
-            <div class="filter-section">
-                <h2><i class="fa-solid fa-filter"></i> Bộ lọc Review</h2>
-                <form action="" id="fiterReviewForm">
-                    <div class="form-row">
-                        <label for="sortMethod">Lọc theo tên:</label>
-                        <select id="sortMethod">
-                            <option value="">--Tất cả--</option>
-                            <option value="momo">Người dùng</option>
-                            <option value="vnpay">Tên eBook</option>
-                        </select>
-                    </div>
-
-                    <div class="form-row">
-                        <label for="sortMethod">Lọc theo đánh giá:</label>
-                        <select id="sortMethod">
-                            <option value="">--Tất cả--</option>
-                            <option value="1Star">⭐</option>
-                            <option value="2Star">⭐⭐</option>
-                            <option value="3Star">⭐⭐⭐</option>
-                            <option value="4Star">⭐⭐⭐⭐</option>
-                            <option value="5Star">⭐⭐⭐⭐⭐</option>
-                        </select>
-                    </div>
-
-                    <div class="form-row">
-                        <label for="dateRange">Từ ngày:</label>
-                        <input type="date" id="startDate" placeholder="Ngày">
-                        <label for="endDate">Đến ngày:</label>
-                        <input type="date" id="endDate" placeholder="Ngày">
-                    </div>
-
-                    <button type="submit" class="btn-filter">Lọc kết quả</button>
-                </form>
-            </div>
-        </section>
-
         <section class="table-section">
             <table id="activityTable" class="table table-striped table-bordered">
                 <thead>
