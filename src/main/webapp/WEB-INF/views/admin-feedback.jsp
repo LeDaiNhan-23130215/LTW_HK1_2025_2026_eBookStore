@@ -9,6 +9,41 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="icon" href="assets/img/ebook-logo2.png" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+    <!-- Bootstrap 5 -->
+    <link rel="stylesheet"
+          href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.3.0/css/bootstrap.min.css">
+
+    <!-- DataTables + Bootstrap 5 theme -->
+    <link rel="stylesheet"
+          href="https://cdn.datatables.net/1.13.6/css/dataTables.bootstrap5.min.css">
+
+    <script src="https://code.jquery.com/jquery-3.7.0.min.js"></script>
+
+    <script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
+    <script src="https://cdn.datatables.net/1.13.6/js/dataTables.bootstrap5.min.js"></script>
+
+    <script>
+        $(document).ready(function () {
+            $('#activityTable').DataTable({
+                "pageLength": 5,
+                "lengthMenu": [5, 10, 20, 50],
+                "ordering": true,
+                "searching": true,
+                "language": {
+                    "lengthMenu": "Hiển thị _MENU_ dòng",
+                    "search": "Tìm kiếm:",
+                    "info": "Trang _PAGE_ / _PAGES_",
+                    "paginate": {
+                        "first": "Đầu",
+                        "last": "Cuối",
+                        "next": "Tiếp",
+                        "previous": "Trước"
+                    },
+                    "zeroRecords": "Không tìm thấy dữ liệu"
+                }
+            });
+        });
+    </script>
 </head>
 <body>
     <aside class="sidebar">
@@ -30,7 +65,7 @@
 
     <div class="main-content">
         <header class="topbar">
-            <h1>Quản lý Feedback người dùng</h1>
+            <div class="topbar-title">Quản lý Feedback</div>
             <button id="toggle-theme">🌙 Dark Mode</button>
         </header>
 
@@ -45,8 +80,7 @@
         </div>
 
         <section class="table-section">
-        <h2>Danh sách phản hồi</h2>
-        <table>
+            <table id="activityTable" class="table table-striped table-bordered">
             <thead>
             <tr>
                 <th>ID</th>
@@ -63,7 +97,7 @@
                 <td>1</td>
                 <td>Trần Minh</td>
                 <td>minhtran@example.com</td>
-                <td>Trang web rất tiện lợi, nhưng nên có thêm phần gợi ý sách.</td>
+                <td>Trang web rất tiện lợi, ...</td>
                 <td>2025-10-20</td>
                 <td>Chưa đọc</td>
                 <td>
