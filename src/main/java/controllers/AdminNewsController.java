@@ -81,8 +81,7 @@ public class AdminNewsController extends HttpServlet {
             String author = req.getParameter("author");
             int status = Integer.parseInt(req.getParameter("status"));
 
-            News news = new News();
-            news.setId(id);
+            News news = new News(id);
             news.setTitle(title);
             news.setContent(content);
             news.setImgURL(imgURL);
@@ -104,13 +103,7 @@ public class AdminNewsController extends HttpServlet {
             String author = req.getParameter("author");
             int status = Integer.parseInt(req.getParameter("status"));
 
-            News news = new News();
-            news.setTitle(title);
-            news.setContent(content);
-            news.setImgURL(imgURL);
-            news.setAuthor(author);
-            news.setStatus(status);
-
+            News news = new News(title, content, imgURL, author, status);
             newsDAO.addNews(news);
 
             resp.sendRedirect(req.getContextPath() + "/admin-news");

@@ -89,8 +89,7 @@ public class AdminUserController extends HttpServlet{
             String phoneNum = req.getParameter("phoneNum");
             String role = req.getParameter("role");
 
-            User user = new User();
-            user.setId(id);
+            User user = new User(id);
             user.setUsername(userName);
             user.setEmail(email);
             user.setPhoneNum(phoneNum);

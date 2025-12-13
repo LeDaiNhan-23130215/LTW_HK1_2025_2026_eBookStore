@@ -27,7 +27,7 @@ public class EbookImageDAO {
                 imgLink = rs.getString("imgLink");
                 imgStatus = rs.getString("imgStatus");
 
-                ebookImage = new EbookImage(name, imgLink, imgStatus);
+                ebookImage = new EbookImage(id, name, imgLink, imgStatus);
             }
         }catch (Exception e) {
             e.printStackTrace();

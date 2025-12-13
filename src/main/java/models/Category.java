@@ -1,17 +1,17 @@
 package models;
 
-public class Category {
-    private int id;
+public class Category extends Base {
     private String name;
     private String description;
 
     public Category(int id, String name, String description) {
-        this.id = id;
+        super(id);
         this.name = name;
         this.description = description;
     }
 
     public Category(String name, String description) {
+        super(-1);
         this.name = name;
         this.description = description;
     }

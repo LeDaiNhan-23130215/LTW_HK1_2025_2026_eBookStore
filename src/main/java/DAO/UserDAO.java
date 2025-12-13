@@ -76,11 +76,11 @@ public class UserDAO {
             ResultSet rs = stm.executeQuery();
 
             if (rs.next()) {
-                return new User(rs.getInt("id"),
-                        rs.getString("userName"),
+                return new User(rs.getString("userName"),
                         rs.getString("email"),
                         rs.getString("phoneNum"),
-                        rs.getString("password"));
+                        rs.getString("password"),
+                        rs.getString("role"));
             }
         } catch (SQLException e) {
             e.printStackTrace();

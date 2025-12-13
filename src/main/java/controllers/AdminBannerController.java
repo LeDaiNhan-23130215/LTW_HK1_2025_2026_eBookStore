@@ -72,9 +72,8 @@ public class AdminBannerController extends HttpServlet{
             String endDate = req.getParameter("endDate");
             int isActive = Integer.parseInt(req.getParameter("isActive"));
 
-            Banner banner = new Banner();
+            Banner banner = new Banner(id);
 
-            banner.setId(id);
             banner.setUrl(url);
             banner.setPosition(position);
             banner.setStartDate(startDate);
@@ -92,14 +91,7 @@ public class AdminBannerController extends HttpServlet{
             String endDate = req.getParameter("endDate");
             int isActive = Integer.parseInt(req.getParameter("isActive"));
 
-            Banner banner = new Banner();
-
-            banner.setUrl(url);
-            banner.setPosition(position);
-            banner.setStartDate(startDate);
-            banner.setEndDate(endDate);
-            banner.setIsActive(isActive);
-
+            Banner banner = new Banner(url, position, startDate, endDate, isActive);
             adminServices.addBanner(banner);
 
             resp.sendRedirect(req.getContextPath() + "/admin-banner");

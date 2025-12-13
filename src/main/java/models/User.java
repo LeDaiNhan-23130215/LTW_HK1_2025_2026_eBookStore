@@ -1,36 +1,42 @@
 package models;
 
-public class User {
-    private int id;
+public class User extends Base {
     private String username;
     private String email;
     private String phoneNum;
     private String password;
     private String role;
 
-    public User(int id, String username, String email, String phoneNum, String password) {
-        this.id = id;
-        this.username = username;
-        this.email = email;
-        this.phoneNum = phoneNum;
-        this.password = password;
-    }
-
     public User(int id, String username, String email, String phoneNum, String password, String role) {
-        this.id = id;
+        super(id);
         this.username = username;
         this.email = email;
         this.phoneNum = phoneNum;
         this.password = password;
         this.role = role;
+    }
+
+    public User(int id) {
+        super(id);
     }
 
     public User(String username, String email, String phoneNum, String password, String role) {
+        super(-1);
         this.username = username;
         this.email = email;
         this.phoneNum = phoneNum;
         this.password = password;
         this.role = role;
+    }
+
+    @Override
+    public int getId() {
+        return this.id;
+    }
+
+    @Override
+    public void setId(int id) {
+        this.id = id;
     }
 
     public String getRole() {
@@ -39,16 +45,6 @@ public class User {
 
     public void setRole(String role) {
         this.role = role;
-    }
-
-    public User() {}
-
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
     }
 
     public String getUsername() {

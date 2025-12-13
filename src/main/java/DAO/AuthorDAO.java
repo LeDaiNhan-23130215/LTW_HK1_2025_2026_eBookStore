@@ -23,7 +23,7 @@ public class AuthorDAO {
             while(rs.next()) {
                 authorName = rs.getString("authorName");
                 authorDetail = rs.getString("authorDetail");
-                author = new Author(authorName, authorDetail);
+                author = new Author(id, authorName, authorDetail);
             }
         } catch (Exception e){
             e.printStackTrace();

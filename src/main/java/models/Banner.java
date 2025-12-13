@@ -1,7 +1,6 @@
 package models;
 
-public class Banner {
-    private int id;
+public class Banner extends Base {
     private String url;
     private String position;
     private String startDate;
@@ -9,7 +8,7 @@ public class Banner {
     private int isActive;
 
     public Banner(int id, String url, String position, String startDate, String endDate, int isActive) {
-        this.id = id;
+        super(id);
         this.url = url;
         this.position = position;
         this.startDate = startDate;
@@ -17,8 +16,19 @@ public class Banner {
         this.isActive = isActive;
     }
 
-    public Banner() {
+    public Banner(int id) {
+        super(id);
     }
+
+    public Banner(String url, String position, String startDate, String endDate, int isActive) {
+        super(-1);
+        this.url = url;
+        this.position = position;
+        this.startDate = startDate;
+        this.endDate = endDate;
+        this.isActive = isActive;
+    }
+
 
     public String getStartDate() {
         return startDate;
