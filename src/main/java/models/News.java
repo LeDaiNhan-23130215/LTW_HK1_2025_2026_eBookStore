@@ -1,7 +1,6 @@
 package models;
 
-public class News {
-    private int id;
+public class News extends Base {
     private String title;
     private String content;
     private String imgURL;
@@ -10,17 +9,28 @@ public class News {
     private String createdAt;
     private int status;
 
-    public News() {}
+    public News(int id) {
+        super(id);
+    }
 
     public News(int id, String title, String content, String imgURL,
                 String author, String publishedAt, String createdAt, int status) {
-        this.id = id;
+        super(id);
         this.title = title;
         this.content = content;
         this.imgURL = imgURL;
         this.author = author;
         this.publishedAt = publishedAt;
         this.createdAt = createdAt;
+        this.status = status;
+    }
+
+    public News(String title, String content, String imgURL, String author, int status) {
+        super(-1);
+        this.title = title;
+        this.content = content;
+        this.imgURL = imgURL;
+        this.author = author;
         this.status = status;
     }
 
