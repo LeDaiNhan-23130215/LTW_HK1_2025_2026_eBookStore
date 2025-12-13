@@ -1,34 +1,184 @@
 package DAO;
 
+import models.Checkout;
 import utils.DBConnection;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.sql.*;
+import java.util.ArrayList;
+import java.util.List;
 
 public class CheckoutDAO {
+    // 1. Tạo checkout và trả về checkoutID
+    public int createCheckout(Connection con, Checkout checkout) throws SQLException {
+        String sql =
+                "INSERT INTO checkout (userID, pmID, totalAmount, checkoutDate, status) " +
+                        "VALUES (?, ?, ?, NOW(), ?)";
+
+        try (PreparedStatement ps =
+                     con.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
+
+            ps.setInt(1, checkout.getUserID());
+            ps.setInt(2, checkout.getPaymentMethodID());
+            ps.setDouble(3, checkout.getTotalAmount());
+            ps.setString(4, checkout.getStatus());
+
+            ps.executeUpdate();
+
+            ResultSet rs = ps.getGeneratedKeys();
+            if (rs.next()) return rs.getInt(1);
+        }
+        return -1;
+    }
+
+
+    // 2. Update trạng thái checkout
+    public boolean updateStatus(Connection conn,int checkoutID, int status) {
+        String sql = "UPDATE checkout SET status = ? WHERE id = ?";
+
+        try (PreparedStatement ps = conn.prepareStatement(sql)) {
+
+            ps.setInt(1, status);
+            ps.setInt(2, checkoutID);
+
+            return ps.executeUpdate() > 0;
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return false;
+    }
+
+    // 3. Lấy checkout theo ID
+    public Checkout getCheckoutById(int id) {
+        String sql = "SELECT * FROM checkout WHERE id = ?";
+
+        try (Connection con = DBConnection.getConnection();
+             PreparedStatement ps = con.prepareStatement(sql)) {
+
+            ps.setInt(1, id);
+            ResultSet rs = ps.executeQuery();
+
+            if (rs.next()) {
+                return new Checkout(
+                        rs.getInt("id"),
+                        rs.getInt("userID"),
+                        rs.getInt("pmID"),
+                        rs.getDouble("totalAmount"),
+                        rs.getTimestamp("checkoutDate"),
+                        rs.getString("status")
+                );
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+    // 4. Lấy danh sách checkout theo user
+    public List<Checkout> getCheckoutsByUser(int userID) {
+        List<Checkout> list = new ArrayList<>();
+        String sql =
+                "SELECT * FROM checkout WHERE userID = ? ORDER BY checkoutDate DESC";
+
+        try (Connection con = DBConnection.getConnection();
+             PreparedStatement ps = con.prepareStatement(sql)) {
+
+            ps.setInt(1, userID);
+            ResultSet rs = ps.executeQuery();
+
+            while (rs.next()) {
+                list.add(new Checkout(
+                        rs.getInt("id"),
+                        rs.getInt("userID"),
+                        rs.getInt("pmID"),
+                        rs.getDouble("totalAmount"),
+                        rs.getTimestamp("checkoutDate"),
+                        rs.getString("status")
+                ));
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return list;
+    }
+
+    public List<Checkout> getCheckouts() {
+        List<Checkout> list = new ArrayList<>();
+        String sql =
+                "SELECT * FROM checkout";
+
+        try (Connection con = DBConnection.getConnection();
+             PreparedStatement ps = con.prepareStatement(sql)) {
+
+            ResultSet rs = ps.executeQuery();
+
+            while (rs.next()) {
+                list.add(new Checkout(
+                        rs.getInt("id"),
+                        rs.getInt("userID"),
+                        rs.getInt("pmID"),
+                        rs.getDouble("totalAmount"),
+                        rs.getTimestamp("checkoutDate"),
+                        rs.getString("status")
+                ));
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return list;
+    }
+
     public double getMonthlyRevenue() {
         String sql =
                 "SELECT COALESCE(SUM(totalAmount), 0) " +
                         "FROM checkout " +
-                        "WHERE MONTH(checkoutDate) = MONTH(CURDATE()) " +
-                        "AND status = 'success'";
-        try (Connection connection = DBConnection.getConnection();
-             PreparedStatement stm = connection.prepareStatement(sql)) {
-            ResultSet rs = stm.executeQuery();
+                        "WHERE status = 'success' " +
+                        "AND MONTH(checkoutDate) = MONTH(CURDATE()) " +
+                        "AND YEAR(checkoutDate) = YEAR(CURDATE())";
+
+        try (Connection con = DBConnection.getConnection();
+             PreparedStatement ps = con.prepareStatement(sql)) {
+
+            ResultSet rs = ps.executeQuery();
             return rs.next() ? rs.getDouble(1) : 0;
-        } catch (SQLException e) { e.printStackTrace(); }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return 0;
+    }
+
+    public int countSuccessOrderThisMonth() {
+        String sql =
+                "SELECT COUNT(*) FROM checkout " +
+                        "WHERE status = 'success' " +
+                        "AND MONTH(checkoutDate) = MONTH(CURDATE()) " +
+                        "AND YEAR(checkoutDate) = YEAR(CURDATE())";
+
+        try (Connection con = DBConnection.getConnection();
+             PreparedStatement ps = con.prepareStatement(sql)) {
+
+            ResultSet rs = ps.executeQuery();
+            return rs.next() ? rs.getInt(1) : 0;
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
         return 0;
     }
 
     public int countSuccessOrder() {
         String sql = "SELECT COUNT(*) FROM checkout WHERE status = 'success'";
-        try (Connection connection = DBConnection.getConnection();
-             PreparedStatement stm = connection.prepareStatement(sql)) {
-            ResultSet rs = stm.executeQuery();
+
+        try (Connection con = DBConnection.getConnection();
+             PreparedStatement ps = con.prepareStatement(sql)) {
+
+            ResultSet rs = ps.executeQuery();
             return rs.next() ? rs.getInt(1) : 0;
-        } catch (SQLException e) { e.printStackTrace(); }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
         return 0;
     }
 }

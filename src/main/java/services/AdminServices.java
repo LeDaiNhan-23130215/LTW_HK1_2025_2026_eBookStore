@@ -1,18 +1,21 @@
-package DAO;
+package services;
 
+import DAO.*;
 import models.*;
 import DTO.FeedbackAdminView;
 
 import java.util.List;
 
 public class AdminServices {
-    UserDAO userDAO = new UserDAO();
-    CategoryDAO categoryDAO = new CategoryDAO();
-    CheckoutDAO checkoutDAO = new CheckoutDAO();
-    EbookDAO ebookDAO = new EbookDAO();
-    BannerDao bannerDAO = new BannerDao();
-    NewsDAO newsDAO = new NewsDAO();
-    FeedbackDAO feedbackDAO = new FeedbackDAO();
+    private UserDAO userDAO = new UserDAO();
+    private CheckoutDAO checkoutDAO = new CheckoutDAO();
+    private CheckoutDetailDAO checkoutDetailDAO = new CheckoutDetailDAO();
+    private PaymentMethodDAO paymentMethodDAO = new PaymentMethodDAO();
+    private CategoryDAO categoryDAO = new CategoryDAO();
+    private EbookDAO ebookDAO = new EbookDAO();
+    private BannerDao bannerDAO = new BannerDao();
+    private NewsDAO newsDAO = new NewsDAO();
+    private FeedbackDAO feedbackDAO = new FeedbackDAO();
 
     public AdminServices() {}
 
@@ -52,6 +55,48 @@ public class AdminServices {
 
     public double getTotalMonthlyRevenue(){
         return checkoutDAO.getMonthlyRevenue();
+    }
+
+    public List<Checkout> getAllCheckouts() {
+        return checkoutDAO.getCheckouts();
+    }
+
+    public List<Checkout> getCheckoutsByUser(int id){
+        return checkoutDAO.getCheckoutsByUser(id);
+    }
+
+    public int countSuccessOrdersInThisMonth(){
+        return checkoutDAO.countSuccessOrderThisMonth();
+    }
+
+    public Checkout getCheckoutById(int id) {
+        return checkoutDAO.getCheckoutById(id);
+    }
+
+    //CheckoutDetail
+    public List<CheckoutDetail> getCheckoutDetails(int checkoutID) {
+        return checkoutDetailDAO.getDetailsByCheckoutID(checkoutID);
+    }
+
+    //PaymentMethod
+    public List<PaymentMethod> getAllPaymentMethods() {
+        return paymentMethodDAO.getAllPMs();
+    }
+
+    public PaymentMethod getPMbyId(int id) {
+        return paymentMethodDAO.getPMById(id);
+    }
+
+    public boolean addPaymentMethod(PaymentMethod pm){
+        return  paymentMethodDAO.addPM(pm);
+    }
+
+    public boolean deletePaymentMethod(int id){
+        return paymentMethodDAO.deletePM(id);
+    }
+
+    public boolean updatePaymentMethod(PaymentMethod pm){
+        return paymentMethodDAO.updatePM(pm);
     }
 
     //Category

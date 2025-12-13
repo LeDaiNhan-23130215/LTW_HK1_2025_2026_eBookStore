@@ -1,7 +1,7 @@
 package controllers;
 
 import models.Category;
-import DAO.AdminServices;
+import services.AdminServices;
 import jakarta.servlet.*;
 import jakarta.servlet.http.*;
 import jakarta.servlet.annotation.*;

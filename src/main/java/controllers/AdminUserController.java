@@ -1,11 +1,10 @@
 package controllers;
 
-import DAO.AdminServices;
+import services.AdminServices;
 import at.favre.lib.crypto.bcrypt.BCrypt;
 import jakarta.servlet.*;
 import jakarta.servlet.http.*;
 import jakarta.servlet.annotation.*;
-import models.Category;
 import models.User;
 
 import java.io.IOException;
