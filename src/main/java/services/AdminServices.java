@@ -1,6 +1,7 @@
 package services;
 
 import DAO.*;
+import DTO.PaymentAdminView;
 import models.*;
 import DTO.FeedbackAdminView;
 
@@ -43,6 +44,7 @@ public class AdminServices {
     public User getUserById(int id){
         return userDAO.getUserByID(id);
     }
+
     //Ebook
     public int getTotalEbooks(){
         return ebookDAO.countTotalEBook();
@@ -72,6 +74,10 @@ public class AdminServices {
     public Checkout getCheckoutById(int id) {
         return checkoutDAO.getCheckoutById(id);
     }
+
+    public List<PaymentAdminView> getAllPayments() { return checkoutDAO.getAllPaymentWithUser(); }
+
+    public PaymentAdminView getPaymentByUserID(int id) { return checkoutDAO.getPaymentWithUserById(id); }
 
     //CheckoutDetail
     public List<CheckoutDetail> getCheckoutDetails(int checkoutID) {

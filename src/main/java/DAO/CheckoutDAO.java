@@ -1,5 +1,6 @@
 package DAO;
 
+import DTO.PaymentAdminView;
 import models.Checkout;
 import utils.DBConnection;
 
@@ -32,12 +33,12 @@ public class CheckoutDAO {
 
 
     // 2. Update trạng thái checkout
-    public boolean updateStatus(Connection conn,int checkoutID, int status) {
+    public boolean updateStatus(Connection conn,int checkoutID, String status) {
         String sql = "UPDATE checkout SET status = ? WHERE id = ?";
 
         try (PreparedStatement ps = conn.prepareStatement(sql)) {
 
-            ps.setInt(1, status);
+            ps.setString(1, status);
             ps.setInt(2, checkoutID);
 
             return ps.executeUpdate() > 0;
@@ -180,5 +181,83 @@ public class CheckoutDAO {
             e.printStackTrace();
         }
         return 0;
+    }
+
+    public PaymentAdminView getPaymentWithUserById(int id) {
+        String sql = """
+        SELECT 
+            c.id AS id,
+            u.username,
+            pm.name AS method,
+            c.totalAmount AS amount,
+            c.checkoutDate,
+            c.status
+        FROM checkout c
+        JOIN user u ON c.userID = u.id
+        JOIN paymentmethod pm ON c.pmID = pm.id
+        WHERE c.id = ?
+    """;
+
+        try (Connection con = DBConnection.getConnection();
+             PreparedStatement ps = con.prepareStatement(sql)) {
+
+            ps.setInt(1, id);
+            ResultSet rs = ps.executeQuery();
+
+            if (rs.next()) {
+                return new PaymentAdminView(
+                        rs.getInt("id"),
+                        rs.getString("username"),
+                        rs.getString("method"),
+                        rs.getDouble("amount"),
+                        rs.getTimestamp("checkoutDate"),
+                        rs.getString("status")
+                );
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+
+    public List<PaymentAdminView> getAllPaymentWithUser() {
+        List<PaymentAdminView> list = new ArrayList<>();
+
+        String sql = """
+        SELECT 
+            c.id AS id,
+            u.username,
+            pm.name AS method,
+            c.totalAmount AS amount,
+            c.checkoutDate,
+            c.status
+        FROM checkout c
+        JOIN user u ON c.userID = u.id
+        JOIN paymentmethod pm ON c.pmID = pm.id
+        ORDER BY c.checkoutDate DESC
+    """;
+
+        try (Connection con = DBConnection.getConnection();
+             PreparedStatement ps = con.prepareStatement(sql);
+             ResultSet rs = ps.executeQuery()) {
+
+            while (rs.next()) {
+                list.add(new PaymentAdminView(
+                        rs.getInt("id"),
+                        rs.getString("username"),
+                        rs.getString("method"),
+                        rs.getDouble("amount"),
+                        rs.getTimestamp("checkoutDate"),
+                        rs.getString("status")
+                ));
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return list;
     }
 }
