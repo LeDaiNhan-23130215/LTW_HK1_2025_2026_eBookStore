@@ -30,7 +30,7 @@ public class CheckoutService {
                 );
             }
 
-            checkoutDAO.updateStatus(con, checkoutID, 1);
+            checkoutDAO.updateStatus(con, checkoutID, "success");
             con.commit();
             return true;
 

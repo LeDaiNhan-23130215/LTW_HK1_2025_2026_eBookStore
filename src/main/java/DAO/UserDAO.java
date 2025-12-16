@@ -33,6 +33,40 @@ public class UserDAO {
         return false;
     }
 
+    public User login(String usernameOrEmail, String password) {
+        String sql = "SELECT * FROM user WHERE (userName = ? OR email = ?) LIMIT 1";
+
+        try (Connection con = DBConnection.getConnection();
+             PreparedStatement ps = con.prepareStatement(sql)) {
+
+            ps.setString(1, usernameOrEmail);
+            ps.setString(2, usernameOrEmail);
+
+            ResultSet rs = ps.executeQuery();
+
+            if (rs.next()) {
+                String hashed = rs.getString("password");
+
+                BCrypt.Result result = BCrypt.verifyer()
+                        .verify(password.toCharArray(), hashed);
+
+                if (result.verified) {
+                    return new User(
+                            rs.getInt("id"),
+                            rs.getString("userName"),
+                            rs.getString("email"),
+                            rs.getString("phoneNum"),
+                            hashed,
+                            rs.getString("role")
+                    );
+                }
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
     public boolean signUp(String userName, String email, String phoneNum, String password) {
         String sql = "INSERT INTO user(userName, email, phoneNum, password, role) VALUES(?, ?, ?, ?, 'user')";
         try (Connection connection = DBConnection.getConnection();
