@@ -26,4 +26,9 @@ public class ImageDAO {
 
         return result;
     }
+
+    public static void main(String[] args) {
+        ImageDAO imgDAO = new ImageDAO();
+        System.out.println(imgDAO.getImageById(1).getImgLink());
+    }
 }
