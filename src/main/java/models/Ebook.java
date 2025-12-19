@@ -31,6 +31,10 @@ public class Ebook extends Base {
         this.categoryID = categoryID;
     }
 
+    public Ebook(int id) {
+        super(id);
+    }
+
     @Override
     public int getId() {
         return this.id;
@@ -51,5 +55,73 @@ public class Ebook extends Base {
 
     public int getImageID() {
         return this.imageID;
+    }
+
+    public String getEbookNum() {
+        return ebookNum;
+    }
+
+    public void setEbookNum(String ebookNum) {
+        this.ebookNum = ebookNum;
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
+    }
+
+    public int getAuthorID() {
+        return authorID;
+    }
+
+    public void setAuthorID(int authorID) {
+        this.authorID = authorID;
+    }
+
+    public void setPrice(double price) {
+        this.price = price;
+    }
+
+    public void setImageID(int imageID) {
+        this.imageID = imageID;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public int getFullFileID() {
+        return fullFileID;
+    }
+
+    public void setFullFileID(int fullFileID) {
+        this.fullFileID = fullFileID;
+    }
+
+    public int getCategoryID() {
+        return categoryID;
+    }
+
+    public void setCategoryID(int categoryID) {
+        this.categoryID = categoryID;
+    }
+
+    public int getDemoFileID() {
+        return demoFileID;
+    }
+
+    public void setDemoFileID(int demoFileID) {
+        this.demoFileID = demoFileID;
+    }
+
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
     }
 }

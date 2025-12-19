@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
          pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -42,25 +43,29 @@
         <h5>TỦ SÁCH CỦA BẠN</h5>
         <p>Dưới đây là các cuốn sách bạn đã sở hữu:</p>
 
-        <div class="bookshelf">
-          <!-- Sách 1 -->
-          <div class="book">
-            <img
-              src="https://tse2.mm.bing.net/th/id/OIP.IUVt53fcwXP23-Snmv6SfAHaG1?pid=Api&P=0&h=180"
-              alt="Deep Work"
-            />
-            <h3>Deep Work</h3>
-          </div>
+          <div class="bookshelf">
 
-          <!-- Sách 2 -->
-          <div class="book">
-            <img
-              src="https://i.pinimg.com/originals/03/5f/87/035f871609ba334ee7bd3766ccdc3f62.jpg"
-              alt="Atomic Habits"
-            />
-            <h3>Atomic Habits</h3>
+              <c:if test="${empty books}">
+                  <p class="empty-bookshelf">
+                      📚 Bạn chưa có sách nào trong tủ
+                  </p>
+              </c:if>
+
+              <c:forEach var="book" items="${books}">
+                  <div class="book">
+                      <img
+                              src="${book.coverImage}"
+                              alt="${book.title}"
+                      />
+                      <h3>${book.title}</h3>
+
+                      <a href="${pageContext.request.contextPath}/read-book?id=${book.id}"
+                         class="btn-read">
+                          📖 Đọc sách
+                      </a>
+                  </div>
+              </c:forEach>
           </div>
-        </div>
       </section>
     </div>
 
