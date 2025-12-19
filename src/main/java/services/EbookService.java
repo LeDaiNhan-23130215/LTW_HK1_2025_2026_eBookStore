@@ -43,4 +43,8 @@ public class EbookService {
 
         return result;
     }
+
+    public static void main(String[] args) {
+
+    }
 }

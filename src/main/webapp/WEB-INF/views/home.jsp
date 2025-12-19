@@ -70,29 +70,35 @@
         </button>
 
         <div class="slider">
-          <c:forEach var ="eb" items = "${newEBooks}">
+          <c:forEach var="eb" items="${newEBooks}">
             <div class="product-card">
               <div class="img-wrapper">
-                <img
-                        src="${pageContext.request.contextPath}${eb.imageLink}"
-                        alt="Deep Work"
-                />
+                <img src="<c:url value='${eb.imageLink}' />"
+                     alt="${eb.title}" />
               </div>
-              <p>${eb.title}</p>
-              <div>
-                    <c:if test="${eb.price > 0}">
-                      <span><fmt:formatNumber value="${eb.price}" type="number" groupingUsed="true"/> VNĐ </span>
-                    </c:if>
 
-                    <c:if test="${eb.price == 0}">
-                        <span>Free</span>
-                    </c:if>
+              <p>${eb.title}</p>
+
+              <div>
+                <c:if test="${eb.price != null and eb.price gt 0}">
+                <span>
+                    <fmt:formatNumber value="${eb.price}"
+                                      type="number"
+                                      groupingUsed="true"/> VNĐ
+                </span>
+                </c:if>
+
+                <c:if test="${eb.price eq 0}">
+                  <span>Free!!!</span>
+                </c:if>
+
                 <div class="add-to-cart-btn">
                   <i class="fa-solid fa-cart-plus"></i>
                 </div>
               </div>
             </div>
           </c:forEach>
+
         <button class="next-btn">
           <i class="fa-solid fa-arrow-right"></i>
         </button>
