@@ -10,4 +10,5 @@ public abstract class Base {
     public abstract int getId();
 
     public abstract void setId(int id);
+
 }
