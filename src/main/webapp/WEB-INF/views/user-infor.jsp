@@ -50,6 +50,5 @@
 
   <jsp:include page="/WEB-INF/views/footer.jsp"></jsp:include>
     <script src="assets/js/component.js"></script>
-    <script src="assets/js/user-infor.js" defer></script>
   </body>
 </html>

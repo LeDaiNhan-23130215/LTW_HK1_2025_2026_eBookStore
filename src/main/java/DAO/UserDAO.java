@@ -242,4 +242,48 @@ public class UserDAO {
         } catch (SQLException e) { e.printStackTrace(); }
         return 0;
     }
+
+    public boolean verifyPassword(int userId, String oldPassword) {
+        String sql = "SELECT password FROM user WHERE id = ?";
+
+        try (Connection con = DBConnection.getConnection();
+             PreparedStatement ps = con.prepareStatement(sql)) {
+
+            ps.setInt(1, userId);
+            ResultSet rs = ps.executeQuery();
+
+            if (rs.next()) {
+                String hashedPassword = rs.getString("password");
+
+                BCrypt.Result result = BCrypt.verifyer()
+                        .verify(oldPassword.toCharArray(), hashedPassword);
+
+                return result.verified;
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return false;
+    }
+
+    public boolean updatePassword(int userId, String newPassword) {
+        String sql = "UPDATE user SET password = ? WHERE id = ?";
+
+        try (Connection con = DBConnection.getConnection();
+             PreparedStatement ps = con.prepareStatement(sql)) {
+
+            String hashed = BCrypt.withDefaults()
+                    .hashToString(10, newPassword.toCharArray());
+
+            ps.setString(1, hashed);
+            ps.setInt(2, userId);
+
+            return ps.executeUpdate() > 0;
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return false;
+    }
 }

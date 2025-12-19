@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
          pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -36,26 +37,44 @@
             <div class="box-right">
                 <div class="subTitle">
                     <h5>ĐỔI MẬT KHẨU</h5>
-                    <form class="changePass">
+                    <form class="changePass"
+                          action="${pageContext.request.contextPath}/change-password"
+                          method="post">
+                        <c:if test="${not empty error_msg}">
+                            <p style="color:red; margin-bottom: 10px">${error_msg}</p>
+                        </c:if>
                         <div class="input-div">
-                            <input type="password" name="password" id="password" placeholder="Mật khẩu cũ" autocomplete>
-                            <span class="error-msg"></span>
+                            <input type="password"
+                                   name="oldPassword"
+                                   id="password"
+                                   placeholder="Mật khẩu cũ"
+                                   autocomplete="current-password">
                         </div>
+
                         <div class="input-div">
-                            <input type="password" name="newPassword" id="newPassword" placeholder="Mật khẩu mới" autocomplete>
-                            <span class="error-msg"></span>
+                            <input type="password"
+                                   name="newPassword"
+                                   id="newPassword"
+                                   placeholder="Mật khẩu mới"
+                                   autocomplete="new-password">
                         </div>
+
                         <div class="input-div">
-                            <input type="password" name="confirmPassword" id="confirmPassword" placeholder="Xác nhận lại mật khẩu" autocomplete>
-                            <span class="error-msg"></span>
+                            <input type="password"
+                                   name="confirmPassword"
+                                   id="confirmPassword"
+                                   placeholder="Xác nhận lại mật khẩu"
+                                   autocomplete="new-password">
                         </div>
-                        <button type="button" class="changePass-btn">Đổi mật khẩu</button>
+
+                        <button type="submit" class="changePass-btn">
+                            Đổi mật khẩu
+                        </button>
                     </form>
                 </div>
             </div>
         </div>
     <jsp:include page="/WEB-INF/views/footer.jsp"></jsp:include>
     <script src = "assets/js/component.js"></script>
-    <script src="assets/js/user-infor.js" defer></script>
 </body>
 </html>
