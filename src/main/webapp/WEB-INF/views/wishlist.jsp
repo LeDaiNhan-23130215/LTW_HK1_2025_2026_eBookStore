@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
          pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -39,67 +40,56 @@
         </ul>
       </div>
       <div class="box-right">
-        <div class="subTitle">
-            <h5>Danh mục yêu thích của bạn</h5>
-            <div class="wishlist-container" id="wishListContainer">
-                
-                <div class="wishlist-item">
-                    <img src="https://tse1.mm.bing.net/th/id/OIP.fxy5-bUKrgCVIKa5hGTbZgHaG1?rs=1&pid=ImgDetMain&o=7&rm=3" alt="MachineLearning">
-                    <div class="infor">
-                        <h3>Machine Learning Yearning</h3>
-                        <p>Tác giả: Andrew Ng</p>
-                        <p><b>250.000VND</b></p>
-                    </div>
-                    <div class="actions">
-                        <button class="add-cart" type="button">
-                            <i class="fa-solid fa-cart-shopping"></i> Thêm vào giỏ
-                        </button>
-                        <button class="remove" type="button">
-                           <i class="fa-solid fa-trash"></i> Xóa
-                        </button>
-                    </div>
-                </div>
+          <div class="subTitle">
+              <h5>Danh mục yêu thích của bạn</h5>
 
-                <div class="wishlist-item">
-                    <img src="https://ebookvie.com/wp-content/uploads/2024/12/Thay-Me-Cha-Ganh-Vac-Son-Ha.jpg" alt="Thay-mẹ-cha-gánh-vác-sơn-hà">
-                    <div class="infor">
-                        <h3>Thay mẹ cha gánh vác sơn hà</h3>
-                        <p>Tác giả: Đoàn Công Lê Duy</p>
-                        <p><b>40.000VND</b></p>
-                    </div>
-                    <div class="actions">
-                        <button class="add-cart" type="button">
-                           <i class="fa-solid fa-cart-shopping"></i> Thêm vào giỏ
-                        </button>
-                        <button class="remove" type="button">
-                           <i class="fa-solid fa-trash"></i> Xóa
-                        </button>
-                    </div>
-                </div>
+              <div class="wishlist-container" id="wishListContainer">
 
-                <div class="wishlist-item">
-                    <img src="https://cdn1.fahasa.com/media/catalog/product/8/9/8935095620654.jpg" alt="Các-món-hè-Bánh-Truyền-Thống">
-                    <div class="infor">
-                        <h3>Các món hè & Bánh Truyền Thống</h3>
-                        <p>Tác giả: Kim Phượng</p>
-                        <p><b>25.000VND</b></p>
-                    </div>
-                    <div class="actions">
-                        <button class="add-cart" type="button">
-                           <i class="fa-solid fa-cart-shopping"></i> Thêm vào giỏ
-                        </button>
-                        <button class="remove" type="button">
-                           <i class="fa-solid fa-trash"></i> Xóa
-                        </button>
-                    </div>
-                </div>
-            </div>
-        </div>
+                  <c:if test="${empty wishlist}">
+                      <p>Bạn chưa có sách nào trong wishlist.</p>
+                  </c:if>
+
+                  <c:forEach var="book" items="${wishlist}">
+                      <div class="wishlist-item">
+
+                          <img src="${book.imageID}" alt="${book.title}">
+
+                          <div class="infor">
+                              <h3>${book.title}</h3>
+                              <p>Tác giả: ${book.authorID}</p>
+                              <p><b>${book.price} VND</b></p>
+                          </div>
+
+                          <div class="actions">
+
+                              <!-- Thêm vào giỏ -->
+                              <form action="${pageContext.request.contextPath}/cart" method="post">
+                                  <input type="hidden" name="action" value="add">
+                                  <input type="hidden" name="ebookId" value="${book.id}">
+                                  <button class="add-cart" type="submit">
+                                      <i class="fa-solid fa-cart-shopping"></i> Thêm vào giỏ
+                                  </button>
+                              </form>
+
+                              <!-- Xóa wishlist -->
+                              <form action="${pageContext.request.contextPath}/wishlist" method="post"
+                                    onsubmit="return confirm('Xóa khỏi wishlist?')">
+                                  <input type="hidden" name="action" value="remove">
+                                  <input type="hidden" name="ebookId" value="${book.id}">
+                                  <button class="remove" type="submit">
+                                      <i class="fa-solid fa-trash"></i> Xóa
+                                  </button>
+                              </form>
+
+                          </div>
+                      </div>
+                  </c:forEach>
+              </div>
+          </div>
       </div>
     </div>
 
   <jsp:include page="/WEB-INF/views/footer.jsp"></jsp:include>
     <script src="assets/js/component.js"></script>
-    <script src="assets/js/user-infor.js" defer></script>
   </body>
 </html>
