@@ -10,10 +10,10 @@
       rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"
     />
-    <link rel="icon" type="image/png" href="../img/ebook-logo2.png" />
-    <link rel="stylesheet" href="../css/home.css" />
-    <link rel="stylesheet" href="../css/bookdetail.css">
-    <link rel="stylesheet" href="../js/bookdetail.js">
+       <link rel="stylesheet" href="${pageContext.request.contextPath}/css/base.css" />
+       <link rel="stylesheet" href="${pageContext.request.contextPath}/css/components.css" />
+       <link rel="stylesheet" href="${pageContext.request.contextPath}/css/home.css" />
+       <link rel="stylesheet" href="${pageContext.request.contextPath}/css/bookdetail.css">
   </head>
   <body>
     <header id="siteHeader">
@@ -123,17 +123,23 @@
 
             <div class="price-box">
               <span class="current-price">85.500 VNĐ</span>
+            <div class="product-info">
+                <button class="add-to-cart-btn">
+                    <a href="${pageContext.request.contextPath}/jsp/cart.jsp">THÊM VÀO GIỎ</a>
+                </button>
+
+                <button class="add-to-cart-btn">
+                    <a href="${pageContext.request.contextPath}/jsp/wishlist.jsp">THÊM VÀO DANH SÁCH YÊU THÍCH</a>
+                </button>
+
+                <button class="add-to-cart-btn">
+                    <a href="${pageContext.request.contextPath}/jsp/readbook.jsp">ĐỌC THỬ</a>
+                </button>
+
+                <button class="add-to-cart-btn">
+                    <a href="${pageContext.request.contextPath}/jsp/review.jsp">XEM ĐÁNH GIÁ</a>
+                </button>
             </div>
-
-            
-
-            <button class="add-to-cart-btn"><a href="../pages/cart.html">THÊM VÀO GIỎ</a></button>
-            <button class="add-to-cart-btn"><a href="../pages/wishlist.html">THÊM VÀO DANH SÁCH YÊU THÍCH</a></button>
-            <button class="add-to-cart-btn"><a href="../pages/readbook.html">ĐỌC THỬ</a></button>
-            <button class="add-to-cart-btn"><a href="../pages/review.html">XEM ĐÁNH GIÁ</a></button>
-
-            
-          </div>
         </section>
 
         <section class="product-description-tabs">
