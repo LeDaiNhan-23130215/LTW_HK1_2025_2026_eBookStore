@@ -4,15 +4,12 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Address</title>
-    <link rel="stylesheet" href="../css/base.css" />
-    <link rel="stylesheet" href="../css/components.css" />
-    <link
-      rel="stylesheet"
-      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"
-    />
-    <link rel="icon" type="image/png" href="../img/ebook-logo2.png" />
-    <link rel="stylesheet" href="../css/home.css" />
-    <link rel="stylesheet" href="../css/address.css" />
+   <link rel="stylesheet" href="${pageContext.request.contextPath}/css/base.css" />
+       <link rel="stylesheet" href="${pageContext.request.contextPath}/css/components.css" />
+       <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+       <link rel="icon" type="image/png" href="${pageContext.request.contextPath}/img/ebook-logo2.png" />
+       <link rel="stylesheet" href="${pageContext.request.contextPath}/css/home.css" />
+       <link rel="stylesheet" href="${pageContext.request.contextPath}/css/address.css" />
   </head>
   <body>
     <header id="siteHeader">
