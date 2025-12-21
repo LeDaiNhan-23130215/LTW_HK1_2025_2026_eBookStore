@@ -22,9 +22,11 @@ public class SignUpController extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        String username = req.getParameter("fname");
-        String email = req.getParameter("userAndEmail");
-        String phoneNumber = req.getParameter("phoneNumber");
+        req.setCharacterEncoding("UTF-8");
+
+        String username = req.getParameter("fname").trim();
+        String email = req.getParameter("userAndEmail").trim();
+        String phoneNumber = req.getParameter("phoneNumber").trim();
         String password = req.getParameter("password");
         String confirmPassword = req.getParameter("confirmPassword");
 
@@ -76,9 +78,7 @@ public class SignUpController extends HttpServlet {
             return;
         }
 
-        String hashedPassword = BCrypt.withDefaults().hashToString(10, password.toCharArray());
-
-        boolean success = userDAO.signUp(username, email, phoneNumber, hashedPassword);
+        boolean success = userDAO.signUp(username, email, phoneNumber, password);
         if (success) {
             resp.sendRedirect(req.getContextPath() + "/login");
         } else {

@@ -9,30 +9,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class UserDAO {
-    public boolean checkLogin(String usernameOrEmail, String password) {
-        String sql = "SELECT password FROM user WHERE username = ? OR email = ? LIMIT 1";
-
-        try (Connection connection = DBConnection.getConnection();
-             PreparedStatement stm = connection.prepareStatement(sql)) {
-            stm.setString(1, usernameOrEmail);
-            stm.setString(2, usernameOrEmail);
-
-            ResultSet rs = stm.executeQuery();
-
-            if (rs.next()) {
-                String hashedPassword = rs.getString("password");
-
-                BCrypt.Result result = BCrypt.verifyer().verify(password.toCharArray(), hashedPassword);
-
-                return result.verified;
-            }
-
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        return false;
-    }
-
     public User login(String usernameOrEmail, String password) {
         String sql = "SELECT * FROM user WHERE (userName = ? OR email = ?) LIMIT 1";
 
