@@ -2,13 +2,16 @@ package models;
 
 import java.sql.Timestamp;
 
-public class PasswordReset {
-    private int id;
+public class PasswordReset extends Base {
     private int userID;
     private String tokenHash;
     private Timestamp createdAt;
     private Timestamp expiresAt;
     private boolean isUsed;
+
+    public PasswordReset(int id) {
+        super(id);
+    }
 
     // getter & setter
     public int getId() { return id; }

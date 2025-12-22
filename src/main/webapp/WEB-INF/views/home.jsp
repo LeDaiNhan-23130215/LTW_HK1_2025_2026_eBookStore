@@ -92,9 +92,14 @@
                   <span>Free!!!</span>
                 </c:if>
 
-                <div class="add-to-cart-btn">
-                  <i class="fa-solid fa-cart-plus"></i>
-                </div>
+                  <form action="cart" method="post" class="add-to-cart-form">
+                      <input type="hidden" name="action" value="add">
+                      <input type="hidden" name="bookId" value="${eb.id}">
+                      <input type="hidden" name="price" value="${eb.price}">
+                      <button type="submit" class="add-to-cart-btn">
+                          <i class="fa-solid fa-cart-plus"></i>
+                      </button>
+                  </form>
               </div>
             </div>
           </c:forEach>

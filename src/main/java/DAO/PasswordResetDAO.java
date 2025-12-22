@@ -41,8 +41,8 @@ public class PasswordResetDAO {
             ResultSet rs = ps.executeQuery();
 
             if (rs.next()) {
-                PasswordReset pr = new PasswordReset();
-                pr.setId(rs.getInt("id"));
+                int id = rs.getInt("id");
+                PasswordReset pr = new PasswordReset(id);
                 pr.setUserID(rs.getInt("userID"));
                 pr.setTokenHash(rs.getString("tokenHash"));
                 pr.setCreatedAt(rs.getTimestamp("createdAt"));
