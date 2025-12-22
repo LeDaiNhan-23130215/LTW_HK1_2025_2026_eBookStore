@@ -53,7 +53,7 @@
             <li><a href="#"></a><i class="fa-brands fa-google"></i></li>
           </ul>
         </div>
-        <p class="signUp">Đăng ký</p>
+          <a href="${pageContext.request.contextPath}/sign-up"><p class="signUp">Đăng ký</p></a>
       </div>
     </form>
 
