@@ -18,16 +18,15 @@
   </head>
   <body>
   <jsp:include page="/WEB-INF/views/header.jsp"></jsp:include>
-  <% String userName = (String) session.getAttribute("userName"); %>
     <div class="container">
       <div class="box-left">
         <div class="subTitle">
           <h5>TRANG TÀI KHOẢN</h5>
           <p>
             <b>Xin chào, </b>
-            <b style="color: hsl(0, 100%, 60%); font-weight: 550"
-              ><%=userName%></b
-            >
+              <b style="color: hsl(0, 100%, 60%); font-weight: 550">
+                  ${sessionScope.userName}
+              </b>
             !
           </p>
         </div>
@@ -56,7 +55,17 @@
 
                           <div class="infor">
                               <h3>${book.title}</h3>
-                              <p>Tác giả: ${book.authorID}</p>
+                              <p>
+                                  Tác giả:
+                                  <c:choose>
+                                      <c:when test="${authorMap[book.authorID] != null}">
+                                          ${authorMap[book.authorID].name}
+                                      </c:when>
+                                      <c:otherwise>
+                                          Đang cập nhật
+                                      </c:otherwise>
+                                  </c:choose>
+                              </p>
                               <p><b>${book.price} VND</b></p>
                           </div>
 

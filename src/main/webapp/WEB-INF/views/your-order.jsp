@@ -40,16 +40,15 @@
   </head>
   <body>
   <jsp:include page="/WEB-INF/views/header.jsp"></jsp:include>
-  <% String userName = (String) session.getAttribute("userName"); %>
     <div class="container">
       <div class="box-left">
         <div class="subTitle">
           <h5>TRANG TÀI KHOẢN</h5>
           <p>
             <b>Xin chào, </b>
-            <b style="color: hsl(0, 100%, 60%); font-weight: 550"
-              ><%=userName%></b
-            >
+              <b style="color: hsl(0, 100%, 60%); font-weight: 550">
+                  ${sessionScope.userName}
+              </b>
             !
           </p>
         </div>
