@@ -10,6 +10,10 @@ public class Author extends Base {
         this.authorDetail = authorDetail;
     }
 
+    public Author(int id) {
+        super(id);
+    }
+
     @Override
     public int getId() {
         return id;
@@ -18,5 +22,21 @@ public class Author extends Base {
     @Override
     public void setId(int id) {
         this.id = id;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getAuthorDetail() {
+        return authorDetail;
+    }
+
+    public void setAuthorDetail(String authorDetail) {
+        this.authorDetail = authorDetail;
     }
 }
