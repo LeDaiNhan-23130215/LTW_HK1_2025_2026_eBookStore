@@ -262,4 +262,26 @@ public class UserDAO {
         }
         return false;
     }
+
+    public User findUserByEmail(String email) {
+        String sql = "SELECT * FROM user WHERE email = ?";
+        try(Connection con = DBConnection.getConnection();
+        PreparedStatement ps = con.prepareStatement(sql)){
+            ps.setString(1, email);
+            ResultSet rs = ps.executeQuery();
+            if (rs.next()) {
+                int id = rs.getInt("id");
+                User user = new User(id);
+                user.setUsername(rs.getString("username"));
+                user.setEmail(rs.getString("email"));
+                user.setPhoneNum(rs.getString("phoneNum"));
+                user.setPassword(rs.getString("password"));
+                user.setRole(rs.getString("role"));
+                return user;
+            }
+        } catch (SQLException e){
+            e.printStackTrace();
+        }
+        return null;
+    }
 }
