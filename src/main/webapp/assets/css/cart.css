@@ -85,14 +85,27 @@ body .container .cart-container .cart-inner .cart-name .product_name {
     font-weight: 500;
     color: #333;
     text-decoration: none;
-    font-weight: 600;
 }
 
 body .container .cart-container .cart-inner .cart-name .remove-item-cart {
+    background: none;          /* bỏ nền button */
+    border: none;              /* bỏ viền */
+    padding: 0;
+    margin-left: 10px;
+
     color: #0396c7;
     font-size: 14px;
-    cursor: pointer;
     font-weight: 500;
+
+    cursor: pointer;
+    text-decoration: none;
+
+    transition: color 0.2s ease;
+}
+
+/* Hover nhẹ cho UX */
+body .container .cart-container .cart-inner .cart-name .remove-item-cart:hover {
+    color: #e63946;             /* đỏ nhạt khi hover */
     text-decoration: none;
 }
 
