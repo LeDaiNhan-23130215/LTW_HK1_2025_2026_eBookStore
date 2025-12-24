@@ -1,9 +1,10 @@
 package controllers;
 import DAO.UserDAO;
-import at.favre.lib.crypto.bcrypt.BCrypt;
 import jakarta.servlet.*;
 import jakarta.servlet.http.*;
 import jakarta.servlet.annotation.*;
+import utils.MailUtil;
+
 import java.io.IOException;
 
 @WebServlet(name = "SignUpController", value = ("/sign-up"))
@@ -24,9 +25,12 @@ public class SignUpController extends HttpServlet {
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         req.setCharacterEncoding("UTF-8");
 
-        String username = req.getParameter("fname").trim();
-        String email = req.getParameter("userAndEmail").trim();
-        String phoneNumber = req.getParameter("phoneNumber").trim();
+        String username = req.getParameter("fname");
+        if (username != null) username = username.trim();
+        String email = req.getParameter("userAndEmail");
+        if (email != null) email = email.trim();
+        String phoneNumber = req.getParameter("phoneNumber");
+        if (phoneNumber != null) phoneNumber = phoneNumber.trim();
         String password = req.getParameter("password");
         String confirmPassword = req.getParameter("confirmPassword");
 
@@ -59,9 +63,10 @@ public class SignUpController extends HttpServlet {
             req.getRequestDispatcher("/WEB-INF/views/sign-up.jsp").forward(req, resp);
             return;
         }
-
-        if(password.length() < 6) {
-            req.setAttribute("error_msg", "Mật khẩu phải có ít nhất 6 ký tự.");
+        String passwordRegex =
+                "^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)(?=.*[!@#$%^&*])[A-Za-z\\d!@#$%^&*]{8,}$";
+        if(!password.matches(passwordRegex)) {
+            req.setAttribute("error_msg", "Mật khẩu phải có ít nhất 8 ký tự, có chữ hoa chữ thường và kí tự đặc biệt");
             req.getRequestDispatcher("/WEB-INF/views/sign-up.jsp").forward(req, resp);
             return;
         }
@@ -78,12 +83,18 @@ public class SignUpController extends HttpServlet {
             return;
         }
 
-        boolean success = userDAO.signUp(username, email, phoneNumber, password);
-        if (success) {
-            resp.sendRedirect(req.getContextPath() + "/login");
-        } else {
-            req.setAttribute("error_msg", "Something went wrong!");
-            req.getRequestDispatcher("/WEB-INF/views/signup.jsp").forward(req, resp);
-        }
+        String otp = String.valueOf((int)(Math.random() * 900000) + 100000);
+
+        HttpSession session = req.getSession();
+        session.setAttribute("signup_username", username);
+        session.setAttribute("signup_email", email);
+        session.setAttribute("signup_phoneNumber", phoneNumber);
+        session.setAttribute("signup_password", password);
+        session.setAttribute("otp", otp);
+        session.setAttribute("otp_expire", System.currentTimeMillis() + 120000);
+
+        MailUtil.sendOtp(email, otp);
+
+        resp.sendRedirect(req.getContextPath() + "/verify-otp");
     }
 }

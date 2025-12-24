@@ -42,9 +42,10 @@
                 name="fname"
                 id="fname"
                 placeholder="Tên người dùng"
-                value="${param.fname}"
+                value="${not empty fname ? fname : param.fname}"
                 required
               />
+                <span class="error-msg"></span>
             </div>
           </div>
           <div class="mid-input">
@@ -54,9 +55,10 @@
                 name="userAndEmail"
                 id="userAndEmail"
                 placeholder="Email"
-                value="${param.userAndEmail}"
+                value="${not empty userAndEmail ? userAndEmail : param.userAndEmail}"
                 required
               />
+                <span class="error-msg"></span>
             </div>
             <div class="input-div">
               <input
@@ -64,10 +66,11 @@
                 name="phoneNumber"
                 id="phoneNumber"
                 placeholder="Số điện thoại"
-                value="${param.phoneNumber}"
+                value="${not empty phoneNumber ? phoneNumber : param.phoneNumber}"
                 pattern="[0-9]{10,11}"
                 required
               />
+                <span class="error-msg"></span>
             </div>
           </div>
           <div class="bottom-input">
@@ -80,6 +83,7 @@
                 autocomplete="new-password"
                 required
               />
+                <span class="error-msg"></span>
             </div>
             <div class="input-div">
               <input
@@ -90,6 +94,7 @@
                 autocomplete="new-password"
                 required
               />
+                <span class="error-msg"></span>
             </div>
           </div>
           <button type="submit" class="signUp-btn">Đăng ký</button>
@@ -105,6 +110,7 @@
     </form>
 
   <jsp:include page="footer.jsp"></jsp:include>
-    <script src="assets/js/component.js"></script>
+    <script src="${pageContext.request.contextPath}/assets/js/component.js"></script>
+    <script src="${pageContext.request.contextPath}/assets/js/sign-up.js"></script>
   </body>
 </html>
