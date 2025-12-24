@@ -109,4 +109,21 @@ public class FeedbackDAO {
         }
         return false;
     }
+
+    public boolean insertFeedback(int userID, String message) {
+        String sql = "INSERT INTO feedback (userID, message) VALUES (?, ?);";
+
+        try (Connection connection = DBConnection.getConnection();
+             PreparedStatement ps = connection.prepareStatement(sql);) {
+
+            ps.setInt(1,userID);
+            ps.setString(2, message);
+            ps.executeUpdate();
+            return true;
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return false;
+    }
 }

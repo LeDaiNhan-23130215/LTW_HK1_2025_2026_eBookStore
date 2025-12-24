@@ -1,5 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
          pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -14,19 +16,39 @@
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"
     />
     <link rel="icon" type="image/png" href="assets/img/ebook-logo2.png" />
+
+      <script>
+          $(document).ready(function () {
+              $('#orderTable').DataTable({
+                  "pageLength": 5,
+                  "lengthMenu": [5, 10, 20, 50],
+                  "ordering": true,
+                  "searching": true,
+                  "language": {
+                      "lengthMenu": "Hiển thị _MENU_ đơn hàng",
+                      "search": "Tìm kiếm:",
+                      "info": "Trang _PAGE_ / _PAGES_",
+                      "paginate": {
+                          "next": "Tiếp",
+                          "previous": "Trước"
+                      },
+                      "zeroRecords": "Không tìm thấy đơn hàng"
+                  }
+              });
+          });
+      </script>
   </head>
   <body>
   <jsp:include page="/WEB-INF/views/header.jsp"></jsp:include>
-  <% String userName = (String) session.getAttribute("userName"); %>
     <div class="container">
       <div class="box-left">
         <div class="subTitle">
           <h5>TRANG TÀI KHOẢN</h5>
           <p>
             <b>Xin chào, </b>
-            <b style="color: hsl(0, 100%, 60%); font-weight: 550"
-              ><%=userName%></b
-            >
+              <b style="color: hsl(0, 100%, 60%); font-weight: 550">
+                  ${sessionScope.userName}
+              </b>
             !
           </p>
         </div>
@@ -42,21 +64,58 @@
         <div class="subTitle">
           <h5>ĐƠN HÀNG CỦA BẠN</h5>
         </div>
-        <table>
-          <thead>
-            <tr>
-              <th>Đơn hàng</th>
-              <th>Ngày</th>
-              <th>Giá trị đơn hàng</th>
-              <th>TT thanh toán</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <td colspan="6">Không có đơn hàng nào.</td>
-            </tr>
-          </tbody>
-        </table>
+          <table id="orderTable" class="table table-striped table-bordered">
+              <thead>
+              <tr>
+                  <th>Mã đơn</th>
+                  <th>Ngày</th>
+                  <th>Giá trị</th>
+                  <th>Trạng thái</th>
+              </tr>
+              </thead>
+
+              <tbody>
+              <c:choose>
+                  <c:when test="${empty orders}">
+                      <tr>
+                          <td colspan="4">Không có đơn hàng nào.</td>
+                      </tr>
+                  </c:when>
+                  <c:otherwise>
+                      <c:forEach var="o" items="${orders}">
+                          <tr>
+                              <td>#${o.id}</td>
+
+                              <td>
+                                  <fmt:formatDate value="${o.checkoutDate}"
+                                                  pattern="dd/MM/yyyy HH:mm"/>
+                              </td>
+
+                              <td>
+                                  <fmt:formatNumber value="${o.totalAmount}"
+                                                    type="currency"
+                                                    currencySymbol="₫"/>
+                              </td>
+
+                              <td>
+                                  <c:choose>
+                                      <c:when test="${o.status eq 'success'}">
+                                          <span class="badge bg-success">Thành công</span>
+                                      </c:when>
+                                      <c:when test="${o.status eq 'pending'}">
+                                          <span class="badge bg-warning text-dark">Chờ xử lý</span>
+                                      </c:when>
+                                      <c:otherwise>
+                                          <span class="badge bg-danger">Thất bại</span>
+                                      </c:otherwise>
+                                  </c:choose>
+                              </td>
+                          </tr>
+                      </c:forEach>
+                  </c:otherwise>
+              </c:choose>
+              </tbody>
+          </table>
       </div>
     </div>
 

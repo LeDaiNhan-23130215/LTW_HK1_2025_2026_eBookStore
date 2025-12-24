@@ -17,17 +17,15 @@
   </head>
   <body>
   <jsp:include page="/WEB-INF/views/header.jsp"></jsp:include>
-  <% String userName = (String) session.getAttribute("userName"); %>
-  <% String email = (String) session.getAttribute("email"); %>
     <div class="container">
       <div class="box-left">
         <div class="subTitle">
           <h5>TRANG TÀI KHOẢN</h5>
           <p>
             <b>Xin chào, </b>
-            <b style="color: hsl(0, 100%, 60%); font-weight: 550"
-              ><%=userName%></b
-            >
+              <b style="color: hsl(0, 100%, 60%); font-weight: 550">
+                  ${sessionScope.userName}
+              </b>
             !
           </p>
         </div>
@@ -43,13 +41,12 @@
         <div class="subTitle">
           <h5>THÔNG TIN TÀI KHOẢN</h5>
         </div>
-        <p><b>Họ tên: </b><%=userName%></p>
-        <p><b>Email: </b><%=email%></p>
+        <p><b>Họ tên: </b>${sessionScope.userName}</p>
+        <p><b>Email: </b>${sessionScope.email}</p>
       </div>
     </div>
 
   <jsp:include page="/WEB-INF/views/footer.jsp"></jsp:include>
     <script src="assets/js/component.js"></script>
-    <script src="assets/js/user-infor.js" defer></script>
   </body>
 </html>

@@ -1,5 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
          pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 
 <!DOCTYPE html>
 <html lang="vi">
@@ -24,7 +26,7 @@
 <button id="backToTopBtn" class="back-to-top">
   <i class="fa-solid fa-arrow-up"></i>
 </button>
-<jsp:include page="/WEB-INF/views/header.jsp"></jsp:include>
+  <jsp:include page="/WEB-INF/views/header.jsp"></jsp:include>
 <div class="home-image">
   <img
           src="https://images.squarespace-cdn.com/content/v1/62ab7b824526d0409e7d65f4/6f19b9a3-f4b5-4471-8630-2dd6aeedeadd/AdobeStock_566655293.jpeg"
@@ -68,251 +70,39 @@
         </button>
 
         <div class="slider">
-          <div class="product-card">
-            <div class="img-wrapper">
-              <img
-                      src="https://tse2.mm.bing.net/th/id/OIP.IUVt53fcwXP23-Snmv6SfAHaG1?pid=Api&P=0&h=180"
-                      alt="Deep Work"
-              />
-            </div>
-            <p>Deep Work – Cal Newport</p>
-            <div>
-              <span>280.000 VNĐ</span>
-              <div class="add-to-cart-btn">
-                <i class="fa-solid fa-cart-plus"></i>
+          <c:forEach var="eb" items="${newEBooks}">
+            <div class="product-card">
+              <div class="img-wrapper">
+                <img src="<c:url value='${eb.imageLink}' />"
+                     alt="${eb.title}" />
               </div>
-            </div>
-          </div>
 
-          <div class="product-card">
-            <div class="img-wrapper">
-              <img
-                      src="https://m.media-amazon.com/images/I/71fqxXDY2ZL._AC_UF1000,1000_QL80_.jpg"
-                      alt="Machine Learning: A Probabilistic Perspective — Kevin P. Murphy"
-              />
-            </div>
-            <p>
-              Machine Learning: A Probabilistic Perspective — Kevin P.
-              Murphy
-            </p>
-            <div>
-              <span>3.288.000 VNĐ</span>
-              <div class="add-to-cart-btn">
-                <i class="fa-solid fa-cart-plus"></i>
-              </div>
-            </div>
-          </div>
+              <p>${eb.title}</p>
 
-          <div class="product-card">
-            <div class="img-wrapper">
-              <img
-                      src="https://nhasachmienphi.com/images/thumbnail/nhasachmienphi-ranh-gioi.jpg"
-                      alt="Ranh giới"
-              />
-            </div>
-            <p>Ranh Giới</p>
-            <div>
-              <span>79.000 VNĐ</span>
-              <div class="add-to-cart-btn">
-                <i class="fa-solid fa-cart-plus"></i>
-              </div>
-            </div>
-          </div>
+              <div>
+                <c:if test="${eb.price != null and eb.price gt 0}">
+                <span>
+                    <fmt:formatNumber value="${eb.price}"
+                                      type="number"
+                                      groupingUsed="true"/> VNĐ
+                </span>
+                </c:if>
 
-          <div class="product-card">
-            <div class="img-wrapper">
-              <img
-                      src="https://images.openai.com/static-rsc-1/UKOZBe1niJXMPnqBsmcOK9GaTn-10svkJnhO91TQE0Cfns8VTUGkXNVc-o7Hj2lyDLlpvLMiXfE2BcwWiVkEl4k2p1DRp8OH-R5Ho_DSWEaXJjMzgb6KYR05MsiXkyuoE2lDK2YbjOe0_RydthXDBt-RfbM2KTk5SpdjtmCEqBtvqGW4TyqRYyJYNaDuL4D_jMIdbW0DLXJvfbCGzXtwL_3dTkZjdpVKujQe6rxsgayMOavxsZLoJ0REjI-_Apxg"
-                      alt="Life Skills by Julia Laflin"
-              />
-            </div>
-            <p>Life Skills by Julia Laflin</p>
-            <div>
-              <span>136.000 VNĐ</span>
-              <div class="add-to-cart-btn">
-                <i class="fa-solid fa-cart-plus"></i>
-              </div>
-            </div>
-          </div>
+                <c:if test="${eb.price eq 0}">
+                  <span>Free!!!</span>
+                </c:if>
 
-          <div class="product-card">
-            <div class="img-wrapper">
-              <img
-                      src="https://nhasachmienphi.com/images/thumbnail/nhasachmienphi-dem-hoi-long-tri.jpg"
-                      alt="Đêm Hội Long Trì"
-              />
-            </div>
-            <p>Đêm Hội Long Trì</p>
-            <div>
-              <span>100.000 VNĐ</span>
-              <div class="add-to-cart-btn">
-                <i class="fa-solid fa-cart-plus"></i>
+                  <form action="cart" method="post" class="add-to-cart-form">
+                      <input type="hidden" name="action" value="add">
+                      <input type="hidden" name="bookId" value="${eb.id}">
+                      <input type="hidden" name="price" value="${eb.price}">
+                      <button type="submit" class="add-to-cart-btn">
+                          <i class="fa-solid fa-cart-plus"></i>
+                      </button>
+                  </form>
               </div>
             </div>
-          </div>
-
-          <div class="product-card">
-            <div class="img-wrapper">
-              <img
-                      src="https://nhasachmienphi.com/images/thumbnail/nhasachmienphi-an-may-di-vang.jpg"
-                      alt="Ăn Mày Dĩ Vãng"
-              />
-            </div>
-            <p>Ăn Mày Dĩ Vãng</p>
-            <div>
-              <span>34.000 VNĐ</span>
-              <div class="add-to-cart-btn">
-                <i class="fa-solid fa-cart-plus"></i>
-              </div>
-            </div>
-          </div>
-
-          <div class="product-card">
-            <div class="img-wrapper">
-              <img
-                      src="https://nhasachmienphi.com/images/thumbnail/nhasachmienphi-mot-chu-nhat-khac.jpg"
-                      alt="Một Chủ Nhật Khác"
-              />
-            </div>
-            <p>Một Chủ Nhật Khác</p>
-            <div>
-              <span>69.000 VNĐ</span>
-              <div class="add-to-cart-btn">
-                <i class="fa-solid fa-cart-plus"></i>
-              </div>
-            </div>
-          </div>
-
-          <div class="product-card">
-            <div class="img-wrapper">
-              <img
-                      src="https://images.openai.com/static-rsc-1/uv2mkcawi4hHcOSCzxAJg4x5ypciL-z92U6ZfJzonI0Z-W8m3s0hFm_l5_AOKF5Z-6Ey6RL8RLgwYINnoG7aYC6zcmWY0xP7mCyKIaeOfWHlKw5qoS2Ggne7KIEvXD1MvkqTh9uuuw8nM1d85yyrDCHlzC8hezCOe9SW8bPZhOloo4rxNCwkFzS7l1t8qPY00RklS_coXkXrZwYx4DduU7F-E13T1eCJihU4WBr9RPGbBM7Yg9fRIJ5wLqvCcSW_I5LdEx6QNwr92NBEbKjAJg"
-                      alt="The Power of Now"
-              />
-            </div>
-            <p>The Power of Now</p>
-            <div>
-              <span>250.000 VNĐ</span>
-              <div class="add-to-cart-btn">
-                <i class="fa-solid fa-cart-plus"></i>
-              </div>
-            </div>
-          </div>
-
-          <div class="product-card">
-            <div class="img-wrapper">
-              <img
-                      src="https://images.openai.com/static-rsc-1/ZtHzCxNPOSldGnQ8CE6MI0l5yahrsdtvFHrsyBOQFfT8xlPL7RBqngnqyBynDpNj5V5UKoeP2fdRO5C4_DfqZHRkOqYcT1UKaEhDctiNnLEzTmeGCyykNcz3QTzdyTvyhbKe3UfXmEBpwl5RI8oWgHHNRmWZvaF6pyMEnoLgn19yvxnhk4k6DbcAqV83a8NQwwlVbcVQvrZtI8FkakCW8Zp4rrlJCodZRhOTaq9CWGEMRlCcZzVCRXUpnbGsbH9q"
-                      alt="Collins Vietnamese Dictionary Essential Edition"
-              />
-            </div>
-            <p>Collins Vietnamese Dictionary Essential Edition</p>
-            <div>
-              <span>480.000 VNĐ</span>
-              <div class="add-to-cart-btn">
-                <i class="fa-solid fa-cart-plus"></i>
-              </div>
-            </div>
-          </div>
-
-          <div class="product-card">
-            <div class="img-wrapper">
-              <img
-                      src="https://tse3.mm.bing.net/th/id/OIP.vg_jWjn6hEIOjIBAwk_IygHaHa?pid=Api&P=0&h=180"
-                      alt="Bí Mật Của May Mắn – Alex Rovira & Fernando Trías de Bes"
-              />
-            </div>
-            <p>Bí Mật Của May Mắn – Alex Rovira & Fernando Trías de Besr</p>
-            <div>
-              <span>115.000 VNĐ</span>
-              <div class="add-to-cart-btn">
-                <i class="fa-solid fa-cart-plus"></i>
-              </div>
-            </div>
-          </div>
-
-          <div class="product-card">
-            <div class="img-wrapper">
-              <img
-                      src="https://nxbphunu.com.vn/wp-content/uploads/2018/09/120-mon-sup-bo-duong.jpg"
-                      alt="120 Món Súp Bổ Dưỡng Cho Trẻ Em Và Người Bệnh (Mỹ Hạnh)"
-              />
-            </div>
-            <p>120 Món Súp Bổ Dưỡng Cho Trẻ Em Và Người Bệnh (Mỹ Hạnh)</p>
-            <div>
-              <span>78.000 VNĐ</span>
-              <div class="add-to-cart-btn">
-                <i class="fa-solid fa-cart-plus"></i>
-              </div>
-            </div>
-          </div>
-
-          <div class="product-card">
-            <div class="img-wrapper">
-              <img
-                      src="https://nhasachmienphi.com/images/thumbnail/nhasachmienphi-nhieu-cach-song.jpg"
-                      alt="Atomic Habits"
-              />
-            </div>
-            <p>Nhiều Cách Sống</p>
-            <div>
-              <span>78.000 VNĐ</span>
-              <div class="add-to-cart-btn">
-                <i class="fa-solid fa-cart-plus"></i>
-              </div>
-            </div>
-          </div>
-
-          <div class="product-card">
-            <div class="img-wrapper">
-              <img
-                      src="https://m.media-amazon.com/images/I/71NMJeBW1AL._AC_UF1000%2C1000_QL80_.jpg"
-                      alt="The Phoenix Project — Gene Kim, Kevin Behr, George Spafford"
-              />
-            </div>
-            <p>
-              The Phoenix Project — Gene Kim, Kevin Behr, George Spafford
-            </p>
-            <div>
-              <span>630.000 VNĐ</span>
-              <div class="add-to-cart-btn">
-                <i class="fa-solid fa-cart-plus"></i>
-              </div>
-            </div>
-          </div>
-
-          <div class="product-card">
-            <div class="img-wrapper">
-              <img
-                      src="https://m.media-amazon.com/images/I/61JmBUeCaNL._AC_UF1000%2C1000_QL80_.jpg"
-                      alt="Computer Networks — Andrew S. Tanenbaum / Kurose & Ross"
-              />
-            </div>
-            <p>Computer Networks — Andrew S. Tanenbaum / Kurose & Ross</p>
-            <div>
-              <span>250.000 VNĐ</span>
-              <div class="add-to-cart-btn">
-                <i class="fa-solid fa-cart-plus"></i>
-              </div>
-            </div>
-          </div>
-
-          <div class="product-card">
-            <div class="img-wrapper">
-              <img
-                      src="https://m.media-amazon.com/images/I/51hobElGJaL._AC_UF1000%2C1000_QL80_.jpg"
-                      alt="TCP/IP Illustrated (Vol 1) — W. Richard Stevens"
-              />
-            </div>
-            <p>TCP/IP Illustrated (Vol 1) — W. Richard Stevens</p>
-            <div>
-              <span>250.000 VNĐ</span>
-              <div class="add-to-cart-btn">
-                <i class="fa-solid fa-cart-plus"></i>
-              </div>
-            </div>
-          </div>
-        </div>
+          </c:forEach>
 
         <button class="next-btn">
           <i class="fa-solid fa-arrow-right"></i>
@@ -894,8 +684,9 @@
     </div>
   </div>
 </div>
-
-<jsp:include page="/WEB-INF/views/footer.jsp"></jsp:include>
+</div>
+  <jsp:include page="/WEB-INF/views/footer.jsp"></jsp:include>
+</body>
 <script>
   const ctx = "${pageContext.request.contextPath}";
 </script>

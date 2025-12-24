@@ -9,28 +9,38 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class UserDAO {
-    public boolean checkLogin(String usernameOrEmail, String password) {
-        String sql = "SELECT password FROM user WHERE username = ? OR email = ? LIMIT 1";
+    public User login(String usernameOrEmail, String password) {
+        String sql = "SELECT * FROM user WHERE (userName = ? OR email = ?) LIMIT 1";
 
-        try (Connection connection = DBConnection.getConnection();
-             PreparedStatement stm = connection.prepareStatement(sql)) {
-            stm.setString(1, usernameOrEmail);
-            stm.setString(2, usernameOrEmail);
+        try (Connection con = DBConnection.getConnection();
+             PreparedStatement ps = con.prepareStatement(sql)) {
 
-            ResultSet rs = stm.executeQuery();
+            ps.setString(1, usernameOrEmail);
+            ps.setString(2, usernameOrEmail);
+
+            ResultSet rs = ps.executeQuery();
 
             if (rs.next()) {
-                String hashedPassword = rs.getString("password");
+                String hashed = rs.getString("password");
 
-                BCrypt.Result result = BCrypt.verifyer().verify(password.toCharArray(), hashedPassword);
+                BCrypt.Result result = BCrypt.verifyer()
+                        .verify(password.toCharArray(), hashed);
 
-                return result.verified;
+                if (result.verified) {
+                    return new User(
+                            rs.getInt("id"),
+                            rs.getString("userName"),
+                            rs.getString("email"),
+                            rs.getString("phoneNum"),
+                            hashed,
+                            rs.getString("role")
+                    );
+                }
             }
-
         } catch (Exception e) {
             e.printStackTrace();
         }
-        return false;
+        return null;
     }
 
     public boolean signUp(String userName, String email, String phoneNum, String password) {
@@ -207,5 +217,71 @@ public class UserDAO {
             return rs.next() ? rs.getInt(1) : 0;
         } catch (SQLException e) { e.printStackTrace(); }
         return 0;
+    }
+
+    public boolean verifyPassword(int userId, String oldPassword) {
+        String sql = "SELECT password FROM user WHERE id = ?";
+
+        try (Connection con = DBConnection.getConnection();
+             PreparedStatement ps = con.prepareStatement(sql)) {
+
+            ps.setInt(1, userId);
+            ResultSet rs = ps.executeQuery();
+
+            if (rs.next()) {
+                String hashedPassword = rs.getString("password");
+
+                BCrypt.Result result = BCrypt.verifyer()
+                        .verify(oldPassword.toCharArray(), hashedPassword);
+
+                return result.verified;
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return false;
+    }
+
+    public boolean updatePassword(int userId, String newPassword) {
+        String sql = "UPDATE user SET password = ? WHERE id = ?";
+
+        try (Connection con = DBConnection.getConnection();
+             PreparedStatement ps = con.prepareStatement(sql)) {
+
+            String hashed = BCrypt.withDefaults()
+                    .hashToString(10, newPassword.toCharArray());
+
+            ps.setString(1, hashed);
+            ps.setInt(2, userId);
+
+            return ps.executeUpdate() > 0;
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return false;
+    }
+
+    public User findUserByEmail(String email) {
+        String sql = "SELECT * FROM user WHERE email = ?";
+        try(Connection con = DBConnection.getConnection();
+        PreparedStatement ps = con.prepareStatement(sql)){
+            ps.setString(1, email);
+            ResultSet rs = ps.executeQuery();
+            if (rs.next()) {
+                int id = rs.getInt("id");
+                User user = new User(id);
+                user.setUsername(rs.getString("username"));
+                user.setEmail(rs.getString("email"));
+                user.setPhoneNum(rs.getString("phoneNum"));
+                user.setPassword(rs.getString("password"));
+                user.setRole(rs.getString("role"));
+                return user;
+            }
+        } catch (SQLException e){
+            e.printStackTrace();
+        }
+        return null;
     }
 }

@@ -3,6 +3,8 @@ import DAO.UserDAO;
 import jakarta.servlet.*;
 import jakarta.servlet.http.*;
 import jakarta.servlet.annotation.*;
+import models.User;
+
 import java.io.IOException;
 
 @WebServlet(name = "LoginController", value = "/login")
@@ -21,25 +23,32 @@ public class LoginController extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        String userName = req.getParameter("userAndEmail");
+        String input = req.getParameter("userAndEmail");
         String password = req.getParameter("password");
 
-        if(userName == null || userName.isEmpty()
-                || password == null || password.isEmpty()){
+        if (input == null || input.isEmpty() ||
+                password == null || password.isEmpty()) {
+
             req.setAttribute("error_msg", "Please enter username and password");
-            req.getRequestDispatcher("/WEB-INF/views/login.jsp").forward(req,resp);
+            req.getRequestDispatcher("/WEB-INF/views/login.jsp").forward(req, resp);
             return;
         }
 
-        boolean isValid = userDAO.checkLogin(userName, password);
-        if(!isValid){
+        User user = userDAO.login(input, password);
+
+        if (user == null) {
             req.setAttribute("error_msg", "Invalid username or password");
-            req.getRequestDispatcher("/WEB-INF/views/login.jsp").forward(req,resp);
+            req.getRequestDispatcher("/WEB-INF/views/login.jsp").forward(req, resp);
             return;
         }
 
         HttpSession session = req.getSession();
-        session.setAttribute("userName", userDAO.getUserNameByEmail(userName));
-        resp.sendRedirect(req.getContextPath()+"/home");
+        session.setAttribute("user", user);
+        session.setAttribute("userID", user.getId());
+        session.setAttribute("userName", user.getUsername());
+        session.setAttribute("email", user.getEmail());
+        session.setAttribute("role", user.getRole());
+
+        resp.sendRedirect(req.getContextPath() + "/home");
     }
 }
