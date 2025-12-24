@@ -1,10 +1,10 @@
 package controllers;
 
+import DTO.CartItem;
 import jakarta.servlet.*;
 import jakarta.servlet.http.*;
 import jakarta.servlet.annotation.*;
 import models.Cart;
-import models.CartDetail;
 import models.User;
 import services.CartService;
 
@@ -38,15 +38,14 @@ public class CartController extends HttpServlet {
             cart = cartService.getCartByUserID(userId);
         }
 
-        List<CartDetail> cartDetails = cartService.getCartDetailByCartID(cart.getId());
-
+        List<CartItem> cartItems = cartService.getCartItemsByCartID(cart.getId());
         double totalPrice = 0;
-        for (CartDetail cd : cartDetails) {
-            totalPrice += cd.getPrice();
+        for (CartItem ci : cartItems) {
+            totalPrice += ci.getPriceAtADD();
         }
 
         request.setAttribute("cart", cart);
-        request.setAttribute("cartDetails", cartDetails);
+        request.setAttribute("cartItems", cartItems);
         request.setAttribute("totalPrice", totalPrice);
 
         request.getRequestDispatcher("/WEB-INF/views/cart.jsp")
@@ -89,6 +88,9 @@ public class CartController extends HttpServlet {
 
             cartService.updatePrice(cart.getId(), bookId, price);
         }
+
+        int totalCartDetails = cartService.getTotalCartDetails(cart.getId());
+        session.setAttribute("totalCartDetails", totalCartDetails);
 
         response.sendRedirect("cart");
     }

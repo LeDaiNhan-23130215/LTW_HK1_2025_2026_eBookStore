@@ -31,30 +31,29 @@
                 </div>
                 <div class="cart-inner">
 
-                    <c:if test="${empty cartDetails}">
+                    <c:if test="${empty cartItems}">
                         <div class="cart-row">
                             <p>Giỏ hàng của bạn đang trống.</p>
                         </div>
                     </c:if>
 
-                    <c:forEach var="item" items="${cartDetails}">
+                    <c:forEach var="item" items="${cartItems}">
                         <div class="cart-row">
 
-                            <!-- Cột 1: Sản phẩm -->
                             <div class="cart-product">
                                 <a href="#" class="cart-img">
-                                    <img src="assets/img/default-book.png" alt="Book">
+                                    <img src="${item.image.imgLink}" alt="${item.image.imgName}">
                                 </a>
 
                                 <div class="cart-infor">
                                     <div class="cart-name">
                                         <a href="#" class="product_name">
-                                            Sách ID: ${item.bookID}
+                                            ${item.ebook.title}
                                         </a>
 
                                         <form action="cart" method="post" style="display:inline;">
                                             <input type="hidden" name="action" value="remove">
-                                            <input type="hidden" name="bookId" value="${item.bookID}">
+                                            <input type="hidden" name="bookId" value="${item.ebook.id}">
                                             <button type="submit" class="remove-item-cart">
                                                 Xóa
                                             </button>
@@ -63,18 +62,12 @@
                                 </div>
                             </div>
 
-                            <!-- Cột 2: Đơn giá -->
                             <div class="cart-price">
-                                <span>
-                                    <fmt:formatNumber value="${item.price}" type="number"/> VND
-                                </span>
+                                <fmt:formatNumber value="${item.priceAtADD}" type="number"/> VND
                             </div>
 
-                            <!-- Cột 3: Thành tiền -->
                             <div class="cart-price">
-                                <span>
-                                    <fmt:formatNumber value="${item.price}" type="number"/> VND
-                                </span>
+                                <fmt:formatNumber value="${item.priceAtADD}" type="number"/> VND
                             </div>
 
                         </div>
@@ -84,12 +77,12 @@
                 <div class="cart-footer">
                     <div class="footer-row">
                         <div class="footer-container">
-                            <div>
+                            <div class="total-price">
                                 <strong>Tổng tiền: </strong>
                                 <fmt:formatNumber value="${totalPrice}" type="number"/> VND
                             </div>
                             <div class="cart-btn">
-                                <c:if test="${not empty cartDetails}">
+                                <c:if test="${not empty cartItems}">
                                     <a href="checkout">
                                         <button type="button">Thanh toán</button>
                                     </a>
