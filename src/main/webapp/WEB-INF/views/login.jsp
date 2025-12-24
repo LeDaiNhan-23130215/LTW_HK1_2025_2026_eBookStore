@@ -34,6 +34,7 @@
               placeholder="Email hoặc Tên người dùng"
               value="${param.userAndEmail}"
             />
+              <span class="error-msg"></span>
           </div>
           <div class="input-div">
             <input
@@ -42,6 +43,7 @@
               id="password"
               placeholder="Mật khẩu"
             />
+              <span class="error-msg"></span>
           </div>
           <button type="submit" class="signIn-btn">Đăng nhập</button>
         </div>
@@ -59,7 +61,7 @@
 
   <jsp:include page="/WEB-INF/views/footer.jsp"></jsp:include>
     
-    <script src="assets/js/component.js"></script>
-<%--    <script src="assets/js/login.js" defer></script>--%>
+    <script src="${pageContext.request.contextPath}/assets/js/component.js"></script>
+    <script src="${pageContext.request.contextPath}/assets/js/login.js" defer></script>
   </body>
 </html>
