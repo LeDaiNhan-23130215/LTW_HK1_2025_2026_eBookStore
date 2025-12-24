@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
          pageEncoding="UTF-8"%>
-
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
 <header id="siteHeader">
@@ -65,7 +65,9 @@
                         <i class="fa-solid fa-cart-shopping"></i> Giỏ hàng
                     </button></a
                     >
-                    <span class="notification-badge">0</span>
+                    <span class="notification-badge">
+                        ${sessionScope.totalCartDetails != null ? sessionScope.totalCartDetails : 0}
+                    </span>
                 </div>
             </div>
         </div>

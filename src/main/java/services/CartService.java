@@ -2,14 +2,22 @@ package services;
 
 import DAO.CartDAO;
 import DAO.CartDetailDAO;
+import DAO.EbookDAO;
+import DAO.ImageDAO;
+import DTO.CartItem;
 import models.Cart;
 import models.CartDetail;
+import models.Ebook;
+import models.Image;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class CartService {
     private CartDAO cartDAO = new CartDAO();
     private CartDetailDAO cartDetailDAO = new CartDetailDAO();
+    private EbookDAO ebookDAO = new EbookDAO();
+    private ImageDAO imageDAO = new ImageDAO();
 
     public Cart getCartByUserID(int userID) {
         return cartDAO.getCartByUserId(userID);
@@ -38,5 +46,33 @@ public class CartService {
 
     public List<CartDetail> getCartDetailByCartID(int cartID) {
         return cartDetailDAO.getCartDetailsByCartID(cartID);
+    }
+
+    public List<CartItem> getCartItemsByCartID(int cartID) {
+
+        List<CartItem> items = new ArrayList<>();
+        List<CartDetail> details = cartDetailDAO.getCartDetailsByCartID(cartID);
+
+        for (CartDetail cd : details) {
+
+            Ebook ebook = ebookDAO.getEbookByID(cd.getBookID());
+
+            if (ebook != null) {
+                Image image = imageDAO.getImageById(ebook.getImageID());
+
+                CartItem item = new CartItem(
+                        cd.getId(),
+                        ebook,
+                        image,
+                        cd.getPrice()
+                );
+                items.add(item);
+            }
+        }
+        return items;
+    }
+
+    public int getTotalCartDetails(int cartId) {
+        return cartDetailDAO.getCartDetailsByCartID(cartId).size();
     }
 }

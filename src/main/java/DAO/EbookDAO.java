@@ -12,8 +12,33 @@ import java.util.List;
 
 public class EbookDAO {
     public Ebook getEbookByID(int id) {
-        Ebook ebook = null;
-        return ebook;
+        String sql = "SELECT * FROM ebook WHERE id = ?";
+
+        try (Connection connection = DBConnection.getConnection();
+             PreparedStatement ps = connection.prepareStatement(sql)) {
+
+            ps.setInt(1, id);
+            ResultSet rs = ps.executeQuery();
+
+            if (rs.next()) {
+                return new Ebook(
+                        rs.getInt("id"),
+                        rs.getString("title"),
+                        rs.getInt("authorID"),
+                        rs.getDouble("price"),
+                        rs.getInt("imageID"),
+                        rs.getString("description"),
+                        rs.getInt("categoryID"),
+                        rs.getInt("fullFileID"),
+                        rs.getInt("demoFileID"),
+                        rs.getString("status")
+                );
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return null;
     }
     public int countTotalEBook() {
         String sql = "SELECT COUNT(*) FROM ebook";
