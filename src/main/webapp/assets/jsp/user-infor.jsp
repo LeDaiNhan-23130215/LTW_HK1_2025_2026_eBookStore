@@ -1,17 +1,21 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="vn">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Thông tin người dùng</title>
+    <title>Home</title>
     <link rel="stylesheet" href="../css/base.css" />
     <link rel="stylesheet" href="../css/components.css" />
-    <link rel="stylesheet" href="../css/user-infor.css" />
     <link
       rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"
     />
     <link rel="icon" type="image/png" href="../img/ebook-logo2.png" />
+    <link rel="stylesheet" href="../css/home.css" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Pacifico&display=swap"
+      rel="stylesheet"
+    />
   </head>
   <body>
     <header id="siteHeader">
@@ -21,8 +25,8 @@
             <p id="welcomeMessage">Chào mừng bạn đến với EBookStore</p>
           </div>
           <div class="rightContainer">
-            <a href="user-infor.html">Nguyễn Văn A</a>
-            <a href="home-notLogin.html">Đăng xuất</a>
+            <a href="login.html">Đăng nhập</a>
+            <a href="sign-up.html">Đăng ký</a>
             <p>
               Hotline:
               <span class="phoneNumber"
@@ -34,7 +38,7 @@
 
         <div class="headerMenu">
           <div class="logo">
-            <a href="home-Login.html"
+            <a href="home.html"
               ><img
                 src="../img/ebook-logo2.png"
                 alt="EBookStore Logo"
@@ -43,7 +47,7 @@
             <p>EBookStore</p>
           </div>
           <div class="categorymenu">
-            <a href="category.html"><i class="fa-solid fa-bars"></i> Danh mục</a>
+            <i class="fa-solid fa-bars"></i> Danh mục
           </div>
 
           <div class="searchBox">
@@ -64,7 +68,7 @@
             <div class="order">
               <a href="cart.html"
                 ><button>
-                  <i class="fa-solid fa-cart-shopping"></i> Giỏ hàng
+                  <i class="fa-solid fa-cart-shopping"></i> Đơn hàng
                 </button></a
               >
               <span class="notification-badge">0</span>
@@ -73,32 +77,54 @@
         </div>
       </div>
     </header>
+    <div class="home-image">
+      <img
+        src="https://images.squarespace-cdn.com/content/v1/62ab7b824526d0409e7d65f4/6f19b9a3-f4b5-4471-8630-2dd6aeedeadd/AdobeStock_566655293.jpeg"
+        alt=""
+      />
+      <p class="slogan">Digital books, infinite stories.</p>
+    </div>
+
     <div class="container">
-      <div class="box-left">
-        <div class="subTitle">
-          <h5>TRANG TÀI KHOẢN</h5>
-          <p>
-            <b>Xin chào, </b>
-            <b style="color: hsl(0, 100%, 60%); font-weight: 550"
-              >Nguyễn Văn A</b
-            >
-            !
-          </p>
+      <div class="danh-muc-noi-bat">
+        <h5>Danh mục nổi bật:</h5>
+        <div class="danh-sach-danh-muc">
+          
+          <a href="">
+            <div class="danh-muc">
+              <i class="fa-solid fa-microchip"></i>
+              <p>Tech</p>
+            </div>
+          </a>
+
+          <a href="">
+            <div class="danh-muc">
+              <i class="fa-solid fa-brain"></i>
+              <p>AI</p>
+            </div></a
+          >
+
+          <a href="">
+            <div class="danh-muc">
+              <i class="fa-solid fa-language"></i>
+              <p>Tiếng Anh</p>
+            </div></a
+          >
+
         </div>
-        <ul class="option-list">
-          <li class="selected"><a href="#">Thông tin tài khoản</a></li>
-          <li><a href="your-order.html">Đơn hàng của bạn</a></li>
-          <li><a href="book-shelf.html">Tủ sách của bạn</a></li>
-          <li><a href="wishlist.html">Danh mục yêu thích</a></li>
-          <li><a href="change-password.html">Đổi mật khẩu</a></li>
-        </ul>
-      </div>
-      <div class="box-right">
-        <div class="subTitle">
-          <h5>THÔNG TIN TÀI KHOẢN</h5>
+
+        <div class="san-pham-moi">
+          <h5>Sản phẩm mới: </h5>
+
+          <div class="product-card">
+            <img src="https://tse2.mm.bing.net/th/id/OIP.IUVt53fcwXP23-Snmv6SfAHaG1?pid=Api&P=0&h=180" alt="Deep Work – Cal Newport">
+            <p class="book-title">Deep Work – Cal Newport</p>
+            <div>
+              <span>280000 VNĐ</span>
+              <a href=""><i class="fa-solid fa-cart-plus"></i></a>
+            </div>
+          </div>
         </div>
-        <p><b>Họ tên: </b>Nguyễn Văn A</p>
-        <p><b>Email: </b>nguyenvana@gmail.com</p>
       </div>
     </div>
 
@@ -111,7 +137,7 @@
               placeholder="Nhập email để nhận thông tin mới nhất!"
               id="email-input"
             />
-            <a>ĐĂNG KÝ</a>
+            <button>ĐĂNG KÝ</button>
           </div>
         </div>
 
@@ -129,7 +155,7 @@
       <div class="footer-container">
         <div class="left">
           <div class="logo">
-            <a href="home-Login.html"
+            <a href="home.html"
               ><img
                 src="../img/ebook-logo2.png"
                 alt="EBookStore Logo"
@@ -145,11 +171,9 @@
             <span>EBookStore</span> là mô hình nhà sách dành cho thế hệ trẻ,
             tích hợp đa dạng sản phẩm các loại sách
           </p>
-          <a href="../pages/address.html" class="address">
-            <i class="fa-solid fa-location-dot"></i> Khu phố 33, Phường Linh
-            Xuân, TP. Hồ Chí Minh, Việt Nam</a
-          >
-
+          <p>
+            <i class="fa-solid fa-location-dot"></i><a href="../pages/address.html">Khu phố 33, Phường Linh Xuân, TP. Hồ Chí Minh, Việt Nam</a>
+          </p>
           <p><i class="fa-solid fa-phone phoneIcon"></i> 0354.30.09.05</p>
           <p><i class="fa-solid fa-envelope"></i> ebookstore@gmail.com</p>
         </div>
@@ -175,26 +199,17 @@
           <div class="option">
             <h3>DANH MỤC</h3>
             <ul>
-              <li><a href="../pages/home-Login.html">Trang chủ</a></li>
-              <li><a href="../pages/about.html">Giới Thiệu</a></li>
+              <li><a href="../pages/home.html">Trang chủ</a></li>
+              <li><a href="">Giới Thiệu</a></li>
               <li><a href="../pages/news.html">Tin tức</a></li>
-              <li><a href="../pages/contact.html">Liên hệ</a></li>
-              <li><a href="../pages/faq.html">FAQ</a></li>
+              <li><a href="">Liên hệ</a></li>
             </ul>
           </div>
 
           <div class="kn-tt">
             <h3>GÓP Ý KHIẾU NẠI</h3>
             <a href="#">0354.30.09.05</a>
-            <div class="footer-feedback">
-              <p>Gửi feedback của bạn tại đây:</p>
-              <a href="../pages/feedback.html" class="feedback-button">
-                Feedback</a
-              >
-            </div>
-
-            <p>Tất cả các ngoài trong tuần</p>
-            <p>(Trừ thứ 7 - CN, các ngày lễ)</p>
+            <p>Tất cả các ngoài trong tuần (Trừ thứ 7 - CN, các ngày lễ)</p>
             <h3>THANH TOÁN</h3>
             <div class="payment-grid">
               <img src="../img/momo-logo.png" alt="momo" class="payment-logo" />
@@ -214,7 +229,7 @@
         <p>Chúc bạn tìm được eBook ưng ý!!!</p>
       </div>
     </footer>
+
     <script src="../js/component.js"></script>
-    <script src="../js/user-infor.js" defer></script>
   </body>
 </html>

@@ -1,5 +1,7 @@
 package DAO;
 
+import DTO.EbookFilterView;
+import DTO.EbookProductCardView;
 import models.Ebook;
 import utils.DBConnection;
 
@@ -11,6 +13,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class EbookDAO {
+
     public Ebook getEbookByID(int id) {
         String sql = "SELECT * FROM ebook WHERE id = ?";
 
@@ -40,49 +43,216 @@ public class EbookDAO {
         }
         return null;
     }
+
     public int countTotalEBook() {
         String sql = "SELECT COUNT(*) FROM ebook";
         try (Connection connection = DBConnection.getConnection();
              PreparedStatement stm = connection.prepareStatement(sql)) {
             ResultSet rs = stm.executeQuery();
             return rs.next() ? rs.getInt(1) : 0;
-        } catch (SQLException e) { e.printStackTrace(); }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
         return 0;
     }
 
     public List<Ebook> getNewBook() {
-        List<Ebook> ebooks = new ArrayList<Ebook>();
+        List<Ebook> ebooks = new ArrayList<>();
         String sql = "SELECT id, title, authorID, price, imageID, description, categoryID, fullFileID, demoFileID, status " +
-                     "FROM ebook " +
-                     "WHERE status = 'ACTIVE'" +
-                     "ORDER BY id DESC " +
-                     "LIMIT 15;";
+                "FROM ebook " +
+                "WHERE status = 'ACTIVE' " +  // FIXED: Added space before ORDER BY
+                "ORDER BY id DESC " +
+                "LIMIT 15";
         try (Connection connection = DBConnection.getConnection();
-             PreparedStatement stm = connection.prepareStatement(sql);
-        ) {
+             PreparedStatement stm = connection.prepareStatement(sql)) {
+
             ResultSet rs = stm.executeQuery();
             while(rs.next()) {
-                ebooks.add(new Ebook(rs.getInt("id"), rs.getString("title"), rs.getInt("authorID"), rs.getDouble("price"), rs.getInt("imageID"), rs.getString("description"), rs.getInt("categoryID"), rs.getInt("fullFileID"),rs.getInt("demoFileID"), rs.getString("status")));
+                ebooks.add(new Ebook(
+                        rs.getInt("id"),
+                        rs.getString("title"),
+                        rs.getInt("authorID"),
+                        rs.getDouble("price"),
+                        rs.getInt("imageID"),
+                        rs.getString("description"),
+                        rs.getInt("categoryID"),
+                        rs.getInt("fullFileID"),
+                        rs.getInt("demoFileID"),
+                        rs.getString("status")
+                ));
             }
-        }catch (SQLException e) {
+        } catch (SQLException e) {
             throw new RuntimeException(e);
         }
         return ebooks;
     }
 
     public List<Ebook> findAll() {
-        List<Ebook> result = new ArrayList<Ebook>();
+        List<Ebook> result = new ArrayList<>();
         String sql = "SELECT * FROM ebook";
         try (Connection connection = DBConnection.getConnection();
-        PreparedStatement ps = connection.prepareStatement(sql);
-        ){
+             PreparedStatement ps = connection.prepareStatement(sql)) {
+
             ResultSet rs = ps.executeQuery();
             while(rs.next()) {
-                result.add(new Ebook(rs.getInt("id"), rs.getString("title"), rs.getInt("authorID"), rs.getDouble("price"), rs.getInt("imageID"), rs.getString("description"), rs.getInt("categoryID"), rs.getInt("fullFileID"), rs.getInt("demoFileID"), rs.getString("status")));
+                result.add(new Ebook(
+                        rs.getInt("id"),
+                        rs.getString("title"),
+                        rs.getInt("authorID"),
+                        rs.getDouble("price"),
+                        rs.getInt("imageID"),
+                        rs.getString("description"),
+                        rs.getInt("categoryID"),
+                        rs.getInt("fullFileID"),
+                        rs.getInt("demoFileID"),
+                        rs.getString("status")
+                ));
             }
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
         return result;
+    }
+
+    public List<EbookProductCardView> findProductCards(
+            int page, int pageSize, EbookFilterView filter) {
+
+        List<EbookProductCardView> result = new ArrayList<>();
+
+        StringBuilder sql = new StringBuilder("""
+        SELECT 
+            e.id,
+            e.title,
+            e.price,
+            i.imgLink
+        FROM ebook e
+        JOIN image i ON e.imageID = i.id
+        WHERE e.status = 'ACTIVE'
+        """);
+
+        List<Object> params = new ArrayList<>();
+        applyFilter(sql, params, filter);
+
+        // ===== SORTING (ALWAYS APPLY) =====
+        sql.append(" ORDER BY ");
+
+        String sortBy = filter.getSortBy();
+        String sortDir = filter.getSortDir();
+
+        // Default values if not specified
+        if (sortBy == null || sortBy.isEmpty()) {
+            sortBy = "created_at";
+        }
+        if (sortDir == null || sortDir.isEmpty()) {
+            sortDir = "desc";
+        }
+
+        // Apply sort field
+        switch (sortBy.toLowerCase()) {
+            case "title":
+                sql.append("e.title");
+                break;
+            case "price":
+                sql.append("e.price");
+                break;
+            case "created_at":
+                sql.append("e.id"); // Using id as proxy for created_at
+                break;
+            default:
+                sql.append("e.id"); // Default sort by ID (newest first)
+        }
+
+        // Apply sort direction
+        sql.append(" ");
+        sql.append("desc".equalsIgnoreCase(sortDir) ? "DESC" : "ASC");
+
+        // ===== PAGINATION =====
+        sql.append(" LIMIT ? OFFSET ?");
+        params.add(pageSize);
+        params.add((page - 1) * pageSize);
+
+        try (Connection con = DBConnection.getConnection();
+             PreparedStatement ps = con.prepareStatement(sql.toString())) {
+
+            bindParams(ps, params);
+            ResultSet rs = ps.executeQuery();
+
+            while (rs.next()) {
+                result.add(new EbookProductCardView(
+                        rs.getInt("id"),
+                        rs.getString("title"),
+                        rs.getDouble("price"),
+                        rs.getString("imgLink")
+                ));
+            }
+
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+
+        return result;
+    }
+
+    public int countProductCards(EbookFilterView filter) {
+
+        StringBuilder sql = new StringBuilder("""
+        SELECT COUNT(e.id)
+        FROM ebook e
+        WHERE e.status = 'ACTIVE'
+        """);
+
+        List<Object> params = new ArrayList<>();
+        applyFilter(sql, params, filter);
+
+        try (Connection con = DBConnection.getConnection();
+             PreparedStatement ps = con.prepareStatement(sql.toString())) {
+
+            bindParams(ps, params);
+            ResultSet rs = ps.executeQuery();
+            return rs.next() ? rs.getInt(1) : 0;
+
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    private void applyFilter(StringBuilder sql,
+                             List<Object> params,
+                             EbookFilterView f) {
+
+        // ===== FREE/PAID FILTER =====
+        if (f.getFree() != null) {
+            sql.append(f.getFree() ? " AND e.price = 0 " : " AND e.price > 0 ");
+        }
+
+        // ===== CATEGORY FILTER =====
+        if (f.getCategoryId() != null && !f.getCategoryId().isEmpty()) {
+            sql.append(" AND e.categoryID IN (");
+            sql.append("?,".repeat(f.getCategoryId().size() - 1)).append("?)");
+            params.addAll(f.getCategoryId());
+        }
+
+        // ===== FORMAT FILTER (NEW) =====
+        if (f.getFormats() != null && !f.getFormats().isEmpty()) {
+            sql.append(" AND e.format IN (");
+            for (int i = 0; i < f.getFormats().size(); i++) {
+                sql.append("?");
+                if (i < f.getFormats().size() - 1) {
+                    sql.append(",");
+                }
+            }
+            sql.append(")");
+            params.addAll(f.getFormats());
+        }
+    }
+
+    public void bindParams(PreparedStatement ps, List<Object> params) throws SQLException {
+        for(int i = 0; i < params.size(); i++){
+            ps.setObject(i + 1, params.get(i));
+        }
+    }
+
+    public static void main(String[] args) {
+        // Test code here
     }
 }

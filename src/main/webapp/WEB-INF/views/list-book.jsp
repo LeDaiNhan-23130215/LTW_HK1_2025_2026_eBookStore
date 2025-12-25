@@ -1,526 +1,208 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-         pageEncoding="UTF-8"%>
+<%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="jakarta.tags.fmt" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
+
+<fmt:setLocale value="vi_VN"/>
+<fmt:setTimeZone value="Asia/Ho_Chi_Minh"/>
+
 <!DOCTYPE html>
-<html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>EBook</title>
-    <link rel="stylesheet" href="assets/css/base.css" />
-    <link rel="stylesheet" href="assets/css/components.css" />
-    <link rel="stylesheet" href="assets/css/list-book.css" />
-    <link
-      rel="stylesheet"
-      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"
-    />
-    <link rel="icon" type="image/png" href="assets/img/ebook-logo2.png" />
-  </head>
-  <body>
-    <button id="backToTopBtn" class="back-to-top">
-      <i class="fa-solid fa-arrow-up"></i>
-    </button>
-    <jsp:include page="/WEB-INF/views/header.jsp"></jsp:include>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <title>EBook Store</title>
 
-    <main>
-      <aside class="sidebar">
-        <div class="filter">
-          <h3>Thể loại</h3>
-          <label><input type="checkbox" /> Tech</label>
-          <label><input type="checkbox" /> Tham khảo</label>
-          <label><input type="checkbox" /> Tiếng Anh</label>
-          <label><input type="checkbox" /> Văn học Việt Nam</label>
-          <a href="category.html"
-            ><i class="fa-solid fa-book"></i> Tất cả danh mục</a
-          >
-        </div>
+  <link rel="stylesheet" href="assets/css/base.css"/>
+  <link rel="stylesheet" href="assets/css/components.css"/>
+  <link rel="stylesheet" href="assets/css/list-book.css"/>
 
-        <div class="filter">
-          <h3>Giá</h3>
-          <label><input type="checkbox" /> Miễn phí</label>
-          <label><input type="checkbox" /> Có phí</label>
-        </div>
+  <link rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"/>
 
-        <div class="filter">
-          <h3>Loại file</h3>
-          <label><input type="checkbox" /> PDF</label>
-          <label><input type="checkbox" /> EPUB</label>
-          <label><input type="checkbox" /> MOBI</label>
-        </div>
-      </aside>
+  <link rel="icon" href="../../assets/img/ebook-logo2.png"/>
+</head>
 
-      <section class="content">
-        <div class="selected-filters">
-          <strong>Đang chọn:</strong>
-          <div class="filter-show">
-            <span
-              >Thể loại:
-              <p></p
-            ></span>
-            <span
-              >Giá:
-              <p></p
-            ></span>
-            <span
-              >File:
-              <p></p
-            ></span>
+<body>
+
+<jsp:include page="/WEB-INF/views/header.jsp"/>
+
+<main class="container">
+
+  <!-- ================= FILTER SIDEBAR ================= -->
+  <aside class="sidebar">
+    <form method="get" action="list-book">
+
+      <!-- Hidden inputs to preserve sorting when filtering -->
+      <input type="hidden" name="sortBy" value="${filter.sortBy}">
+      <input type="hidden" name="sortDir" value="${filter.sortDir}">
+
+      <!-- ===== CATEGORY ===== -->
+      <div class="filter">
+        <h3>Thể loại</h3>
+
+        <label>
+          <input type="checkbox" name="category" value="1"
+                 <c:if test="${filter.hasCategory(1)}">checked</c:if>>
+          Tech
+        </label>
+
+        <label>
+          <input type="checkbox" name="category" value="2"
+                 <c:if test="${filter.hasCategory(2)}">checked</c:if>>
+          Tham khảo
+        </label>
+
+        <label>
+          <input type="checkbox" name="category" value="3"
+                 <c:if test="${filter.hasCategory(3)}">checked</c:if>>
+          Tiếng Anh
+        </label>
+      </div>
+
+      <!-- ===== PRICE ===== -->
+      <div class="filter">
+        <h3>Giá</h3>
+
+        <label>
+          <input type="radio" name="free" value="true"
+                 <c:if test="${filter.free == true}">checked</c:if>>
+          Miễn phí
+        </label>
+
+        <label>
+          <input type="radio" name="free" value="false"
+                 <c:if test="${filter.free == false}">checked</c:if>>
+          Có phí
+        </label>
+
+        <label>
+          <input type="radio" name="free" value=""
+                 <c:if test="${filter.free == null}">checked</c:if>>
+          Tất cả
+        </label>
+      </div>
+
+      <!-- ===== FORMAT ===== -->
+      <div class="filter">
+        <h3>Loại file</h3>
+
+        <label>
+          <input type="checkbox" name="format" value="PDF"
+                 <c:if test="${filter.hasFormat('PDF')}">checked</c:if>>
+          PDF
+        </label>
+
+        <label>
+          <input type="checkbox" name="format" value="EPUB"
+                 <c:if test="${filter.hasFormat('EPUB')}">checked</c:if>>
+          EPUB
+        </label>
+      </div>
+
+      <button type="submit" class="btn-filter">Lọc</button>
+    </form>
+  </aside>
+
+  <!-- ================= MAIN CONTENT ================= -->
+  <section class="content">
+
+    <!-- ===== SORT BAR ===== -->
+    <div class="sort-bar">
+
+      <a href="list-book?sortBy=title&sortDir=asc<c:if test='${not empty queryStringForSort}'>&${queryStringForSort}</c:if>"
+         class="sort-btn ${filter.sortBy == 'title' && filter.sortDir == 'asc' ? 'active' : ''}">
+        <i class="fa-solid fa-arrow-down-a-z"></i> A - Z
+      </a>
+
+      <a href="list-book?sortBy=title&sortDir=desc<c:if test='${not empty queryStringForSort}'>&${queryStringForSort}</c:if>"
+         class="sort-btn ${filter.sortBy == 'title' && filter.sortDir == 'desc' ? 'active' : ''}">
+        <i class="fa-solid fa-arrow-up-a-z"></i> Z - A
+      </a>
+
+      <a href="list-book?sortBy=price&sortDir=asc<c:if test='${not empty queryStringForSort}'>&${queryStringForSort}</c:if>"
+         class="sort-btn ${filter.sortBy == 'price' && filter.sortDir == 'asc' ? 'active' : ''}">
+        <i class="fa-solid fa-arrow-up"></i> Giá ↑
+      </a>
+
+      <a href="list-book?sortBy=price&sortDir=desc<c:if test='${not empty queryStringForSort}'>&${queryStringForSort}</c:if>"
+         class="sort-btn ${filter.sortBy == 'price' && filter.sortDir == 'desc' ? 'active' : ''}">
+        <i class="fa-solid fa-arrow-down"></i> Giá ↓
+      </a>
+
+      <a href="list-book?sortBy=created_at&sortDir=desc<c:if test='${not empty queryStringForSort}'>&${queryStringForSort}</c:if>"
+         class="sort-btn ${filter.sortBy == 'created_at' && filter.sortDir == 'desc' ? 'active' : ''}">
+        <i class="fa-solid fa-calendar"></i> Mới nhất
+      </a>
+
+    </div>
+
+    <!-- ===== PRODUCT GRID ===== -->
+    <div class="product-grid">
+
+      <c:forEach var="eb" items="${ebooks}">
+        <div class="product-card">
+
+          <div class="img-wrapper">
+            <img src="<c:url value='${eb.imageLink}'/>"
+                 alt="${eb.title}">
           </div>
-        </div>
 
-        <div class="local-filters">
-          <div class="local-filter-menu">
-            <button class="hamburger-btn">
-              <i class="fa-solid fa-bars"></i> Bộ lọc
+          <p class="title">${eb.title}</p>
+
+          <div class="price-box">
+            <c:choose>
+              <c:when test="${eb.price > 0}">
+                <span class="price">
+                  <fmt:formatNumber value="${eb.price}" type="currency"/>
+                </span>
+              </c:when>
+              <c:otherwise>
+                <span class="free">Free</span>
+              </c:otherwise>
+            </c:choose>
+
+            <button class="add-to-cart">
+              <i class="fa-solid fa-cart-plus"></i>
             </button>
-
-            <div class="local-filter-button-container">
-              <button class="sort-button" data-order="asc" id="sortByNameAsc">
-                <i class="fa-solid fa-arrow-down-a-z"></i> A - Z
-              </button>
-
-              <button class="sort-button" data-order="desc" id="sortByNameDesc">
-                <i class="fa-solid fa-arrow-up-a-z"></i> Z - A
-              </button>
-
-              <button class="sort-button" data-order="asc" id="sortByPriceAsc">
-                <i class="fa-solid fa-arrow-up"></i> Giá tăng dần
-              </button>
-
-              <button
-                class="sort-button"
-                data-order="desc"
-                id="sortByPriceDesc"
-              >
-                <i class="fa-solid fa-arrow-down"></i> Giá giảm dần
-              </button>
-
-              <button class="sort-button" data-order="desc" id="sortByDate">
-                <i class="fa-solid fa-calendar"></i> Sản phẩm mới
-              </button>
-            </div>
           </div>
         </div>
+      </c:forEach>
 
-        <div class="product-grid">
-          <div class="product-card">
-            <div class="img-wrapper">
-              <img
-                src="https://tse2.mm.bing.net/th/id/OIP.IUVt53fcwXP23-Snmv6SfAHaG1?pid=Api&P=0&h=180"
-                alt="Deep Work"
-              />
-            </div>
-            <p>Deep Work – Cal Newport</p>
-            <div>
-              <span>280.000 VNĐ</span>
-              <div class="add-to-cart-btn">
-                <i class="fa-solid fa-cart-plus"></i>
-              </div>
-            </div>
-          </div>
+    </div>
 
-          <div class="product-card">
-            <div class="img-wrapper">
-              <img
-                src="https://m.media-amazon.com/images/I/71fqxXDY2ZL._AC_UF1000,1000_QL80_.jpg"
-                alt="Machine Learning: A Probabilistic Perspective — Kevin P. Murphy"
-              />
-            </div>
-            <p>
-              Machine Learning: A Probabilistic Perspective — Kevin P. Murphy
-            </p>
-            <div>
-              <span>3.288.000 VNĐ</span>
-              <div class="add-to-cart-btn">
-                <i class="fa-solid fa-cart-plus"></i>
-              </div>
-            </div>
-          </div>
+    <!-- ===== PAGINATION ===== -->
+    <div class="pagination">
 
-          <div class="product-card">
-            <div class="img-wrapper">
-              <img
-                src="https://nhasachmienphi.com/images/thumbnail/nhasachmienphi-ranh-gioi.jpg"
-                alt="Ranh giới"
-              />
-            </div>
-            <p>Ranh Giới</p>
-            <div>
-              <span>79.000 VNĐ</span>
-              <div class="add-to-cart-btn">
-                <i class="fa-solid fa-cart-plus"></i>
-              </div>
-            </div>
-          </div>
+      <c:if test="${currentPage > 1}">
+        <a class="nav-btn"
+           href="list-book?page=${currentPage - 1}<c:if test='${not empty queryString}'>&${queryString}</c:if>">
+          «
+        </a>
+      </c:if>
 
-          <div class="product-card">
-            <div class="img-wrapper">
-              <img
-                src="https://images.openai.com/static-rsc-1/UKOZBe1niJXMPnqBsmcOK9GaTn-10svkJnhO91TQE0Cfns8VTUGkXNVc-o7Hj2lyDLlpvLMiXfE2BcwWiVkEl4k2p1DRp8OH-R5Ho_DSWEaXJjMzgb6KYR05MsiXkyuoE2lDK2YbjOe0_RydthXDBt-RfbM2KTk5SpdjtmCEqBtvqGW4TyqRYyJYNaDuL4D_jMIdbW0DLXJvfbCGzXtwL_3dTkZjdpVKujQe6rxsgayMOavxsZLoJ0REjI-_Apxg"
-                alt="Life Skills by Julia Laflin"
-              />
-            </div>
-            <p>Life Skills by Julia Laflin</p>
-            <div>
-              <span>136.000 VNĐ</span>
-              <div class="add-to-cart-btn">
-                <i class="fa-solid fa-cart-plus"></i>
-              </div>
-            </div>
-          </div>
+      <c:forEach begin="1" end="${totalPages}" var="i">
+        <a class="page-btn ${i == currentPage ? 'active' : ''}"
+           href="list-book?page=${i}<c:if test='${not empty queryString}'>&${queryString}</c:if>">
+            ${i}
+        </a>
+      </c:forEach>
 
-          <div class="product-card">
-            <div class="img-wrapper">
-              <img
-                src="https://nhasachmienphi.com/images/thumbnail/nhasachmienphi-dem-hoi-long-tri.jpg"
-                alt="Đêm Hội Long Trì"
-              />
-            </div>
-            <p>Đêm Hội Long Trì</p>
-            <div>
-              <span>100.000 VNĐ</span>
-              <div class="add-to-cart-btn">
-                <i class="fa-solid fa-cart-plus"></i>
-              </div>
-            </div>
-          </div>
+      <c:if test="${currentPage < totalPages}">
+        <a class="nav-btn"
+           href="list-book?page=${currentPage + 1}<c:if test='${not empty queryString}'>&${queryString}</c:if>">
+          »
+        </a>
+      </c:if>
 
-          <div class="product-card">
-            <div class="img-wrapper">
-              <img
-                src="https://nhasachmienphi.com/images/thumbnail/nhasachmienphi-an-may-di-vang.jpg"
-                alt="Ăn Mày Dĩ Vãng"
-              />
-            </div>
-            <p>Ăn Mày Dĩ Vãng</p>
-            <div>
-              <span>34.000 VNĐ</span>
-              <div class="add-to-cart-btn">
-                <i class="fa-solid fa-cart-plus"></i>
-              </div>
-            </div>
-          </div>
+    </div>
 
-          <div class="product-card">
-            <div class="img-wrapper">
-              <img
-                src="https://nhasachmienphi.com/images/thumbnail/nhasachmienphi-mot-chu-nhat-khac.jpg"
-                alt="Một Chủ Nhật Khác"
-              />
-            </div>
-            <p>Một Chủ Nhật Khác</p>
-            <div>
-              <span>69.000 VNĐ</span>
-              <div class="add-to-cart-btn">
-                <i class="fa-solid fa-cart-plus"></i>
-              </div>
-            </div>
-          </div>
+  </section>
 
-          <div class="product-card">
-            <div class="img-wrapper">
-              <img
-                src="https://images.openai.com/static-rsc-1/uv2mkcawi4hHcOSCzxAJg4x5ypciL-z92U6ZfJzonI0Z-W8m3s0hFm_l5_AOKF5Z-6Ey6RL8RLgwYINnoG7aYC6zcmWY0xP7mCyKIaeOfWHlKw5qoS2Ggne7KIEvXD1MvkqTh9uuuw8nM1d85yyrDCHlzC8hezCOe9SW8bPZhOloo4rxNCwkFzS7l1t8qPY00RklS_coXkXrZwYx4DduU7F-E13T1eCJihU4WBr9RPGbBM7Yg9fRIJ5wLqvCcSW_I5LdEx6QNwr92NBEbKjAJg"
-                alt="The Power of Now"
-              />
-            </div>
-            <p>The Power of Now</p>
-            <div>
-              <span>250.000 VNĐ</span>
-              <div class="add-to-cart-btn">
-                <i class="fa-solid fa-cart-plus"></i>
-              </div>
-            </div>
-          </div>
+</main>
 
-          <div class="product-card">
-            <div class="img-wrapper">
-              <img
-                src="https://images.openai.com/static-rsc-1/ZtHzCxNPOSldGnQ8CE6MI0l5yahrsdtvFHrsyBOQFfT8xlPL7RBqngnqyBynDpNj5V5UKoeP2fdRO5C4_DfqZHRkOqYcT1UKaEhDctiNnLEzTmeGCyykNcz3QTzdyTvyhbKe3UfXmEBpwl5RI8oWgHHNRmWZvaF6pyMEnoLgn19yvxnhk4k6DbcAqV83a8NQwwlVbcVQvrZtI8FkakCW8Zp4rrlJCodZRhOTaq9CWGEMRlCcZzVCRXUpnbGsbH9q"
-                alt="Collins Vietnamese Dictionary Essential Edition"
-              />
-            </div>
-            <p>Collins Vietnamese Dictionary Essential Edition</p>
-            <div>
-              <span>480.000 VNĐ</span>
-              <div class="add-to-cart-btn">
-                <i class="fa-solid fa-cart-plus"></i>
-              </div>
-            </div>
-          </div>
+<jsp:include page="/WEB-INF/views/footer.jsp"/>
 
-          <div class="product-card">
-            <div class="img-wrapper">
-              <img
-                src="https://tse3.mm.bing.net/th/id/OIP.vg_jWjn6hEIOjIBAwk_IygHaHa?pid=Api&P=0&h=180"
-                alt="Bí Mật Của May Mắn – Alex Rovira & Fernando Trías de Bes"
-              />
-            </div>
-            <p>Bí Mật Của May Mắn – Alex Rovira & Fernando Trías de Besr</p>
-            <div>
-              <span>115.000 VNĐ</span>
-              <div class="add-to-cart-btn">
-                <i class="fa-solid fa-cart-plus"></i>
-              </div>
-            </div>
-          </div>
+<script src="assets/js/backToTopBtn.js"></script>
 
-          <div class="product-card">
-            <div class="img-wrapper">
-              <img
-                src="https://nxbphunu.com.vn/wp-content/uploads/2018/09/120-mon-sup-bo-duong.jpg"
-                alt="120 Món Súp Bổ Dưỡng Cho Trẻ Em Và Người Bệnh (Mỹ Hạnh)"
-              />
-            </div>
-            <p>120 Món Súp Bổ Dưỡng Cho Trẻ Em Và Người Bệnh (Mỹ Hạnh)</p>
-            <div>
-              <span>78.000 VNĐ</span>
-              <div class="add-to-cart-btn">
-                <i class="fa-solid fa-cart-plus"></i>
-              </div>
-            </div>
-          </div>
-
-          <div class="product-card">
-            <div class="img-wrapper">
-              <img
-                src="https://nhasachmienphi.com/images/thumbnail/nhasachmienphi-nhieu-cach-song.jpg"
-                alt="Atomic Habits"
-              />
-            </div>
-            <p>Nhiều Cách Sống</p>
-            <div>
-              <span>78.000 VNĐ</span>
-              <div class="add-to-cart-btn">
-                <i class="fa-solid fa-cart-plus"></i>
-              </div>
-            </div>
-          </div>
-
-          <div class="product-card">
-            <div class="img-wrapper">
-              <img
-                src="https://m.media-amazon.com/images/I/71NMJeBW1AL._AC_UF1000%2C1000_QL80_.jpg"
-                alt="The Phoenix Project — Gene Kim, Kevin Behr, George Spafford"
-              />
-            </div>
-            <p>The Phoenix Project — Gene Kim, Kevin Behr, George Spafford</p>
-            <div>
-              <span>630.000 VNĐ</span>
-              <div class="add-to-cart-btn">
-                <i class="fa-solid fa-cart-plus"></i>
-              </div>
-            </div>
-          </div>
-
-          <div class="product-card">
-            <div class="img-wrapper">
-              <img
-                src="https://m.media-amazon.com/images/I/61JmBUeCaNL._AC_UF1000%2C1000_QL80_.jpg"
-                alt="Computer Networks — Andrew S. Tanenbaum / Kurose & Ross"
-              />
-            </div>
-            <p>Computer Networks — Andrew S. Tanenbaum / Kurose & Ross</p>
-            <div>
-              <span>250.000 VNĐ</span>
-              <div class="add-to-cart-btn">
-                <i class="fa-solid fa-cart-plus"></i>
-              </div>
-            </div>
-          </div>
-
-          <div class="product-card">
-            <div class="img-wrapper">
-              <img
-                src="https://m.media-amazon.com/images/I/71kj6C0TNdL._AC_UF1000%2C1000_QL80_.jpg"
-                alt="The Linux Programming Interface — Michael Kerrisk"
-              />
-            </div>
-            <p>The Linux Programming Interface — Michael Kerrisk</p>
-            <div>
-              <span>1.841.000 VNĐ</span>
-              <div class="add-to-cart-btn">
-                <i class="fa-solid fa-cart-plus"></i>
-              </div>
-            </div>
-          </div>
-
-          <div class="product-card">
-            <div class="img-wrapper">
-              <img
-                src="https://m.media-amazon.com/images/I/7167aaVxs3L._AC_UF1000%2C1000_QL80_.jpg"
-                alt="Effective Java — Joshua Bloch"
-              />
-            </div>
-            <p>Effective Java — Joshua Bloch</p>
-            <div>
-              <span>1.395.000 VNĐ</span>
-              <div class="add-to-cart-btn">
-                <i class="fa-solid fa-cart-plus"></i>
-              </div>
-            </div>
-          </div>
-
-          <div class="product-card">
-            <div class="img-wrapper">
-              <img
-                src="https://images-na.ssl-images-amazon.com/images/S/compressed.photo.goodreads.com/books/1347590276i/5941151.jpg"
-                alt="Physical Biology of the Cell — Rob Phillips et al."
-              />
-            </div>
-            <p>Physical Biology of the Cell — Rob Phillips et al.</p>
-            <div>
-              <span>1.600.000 VNĐ</span>
-              <div class="add-to-cart-btn">
-                <i class="fa-solid fa-cart-plus"></i>
-              </div>
-            </div>
-          </div>
-
-          <div class="product-card">
-            <div class="img-wrapper">
-              <img
-                src="https://tse2.mm.bing.net/th/id/OIP.nXPR4zK0BI3FwnCI_NiXDAAAAA?rs=1&pid=ImgDetMain&o=7&rm=3"
-                alt="General Relativity: The Theoretical Minimum"
-              />
-            </div>
-            <p>General Relativity: The Theoretical Minimum</p>
-            <div>
-              <span>1.200.000 VNĐ</span>
-              <div class="add-to-cart-btn">
-                <i class="fa-solid fa-cart-plus"></i>
-              </div>
-            </div>
-          </div>
-
-          <div class="product-card">
-            <div class="img-wrapper">
-              <img
-                src="https://m.media-amazon.com/images/I/61-6TTTBZeL._SL1000_.jpg"
-                alt="Artificial Intelligence: A Modern Approach — Russell & Norvig"
-              />
-            </div>
-            <p>Artificial Intelligence: A Modern Approach — Russell & Norvig</p>
-            <div>
-              <span>1.500.000 VNĐ</span>
-              <div class="add-to-cart-btn">
-                <i class="fa-solid fa-cart-plus"></i>
-              </div>
-            </div>
-          </div>
-
-          <div class="product-card">
-            <div class="img-wrapper">
-              <img
-                src="https://indianbookstore.co.in/wp-content/uploads/2024/04/Thinking-Fast-and-Slow-by-Daniel-Kahneman.webp"
-                alt="Thinking, Fast and Slow – Daniel Kahneman"
-              />
-            </div>
-            <p>Thinking, Fast and Slow – Daniel Kahneman</p>
-            <div>
-              <span>600.000 VNĐ</span>
-              <div class="add-to-cart-btn">
-                <i class="fa-solid fa-cart-plus"></i>
-              </div>
-            </div>
-          </div>
-
-          <div class="product-card">
-            <div class="img-wrapper">
-              <img
-                src="https://bizweb.dktcdn.net/100/351/397/products/21067451420617153-ship-or-sheep-an-intermediate-pronunciation-course-jpeg.jpg?v=1553845949583"
-                alt="Ship or Sheep? — Minimal Pairs Practice for Pronunciation"
-              />
-            </div>
-            <p>Ship or Sheep? — Minimal Pairs Practice for Pronunciation</p>
-            <div>
-              <span>200.000 VNĐ</span>
-              <div class="add-to-cart-btn">
-                <i class="fa-solid fa-cart-plus"></i>
-              </div>
-            </div>
-          </div>
-
-          <div class="product-card">
-            <div class="img-wrapper">
-              <img
-                src="https://dokumen.pub/img/200x200/nau-mon-an-han-quoc-that-de.jpg"
-                alt="Nấu Món Ăn Hàn Quốc Thật Dễ (Tổng cục du lịch Hàn Quốc)"
-              />
-            </div>
-            <p>Nấu Món Ăn Hàn Quốc Thật Dễ (Tổng cục du lịch Hàn Quốc)</p>
-            <div>
-              <span>50.000 VNĐ</span>
-              <div class="add-to-cart-btn">
-                <i class="fa-solid fa-cart-plus"></i>
-              </div>
-            </div>
-          </div>
-
-          <div class="product-card">
-            <div class="img-wrapper">
-              <img
-                src="https://ebookvie.com/wp-content/uploads/2024/12/lo-bo-chua-te-vung-carompo.jpg"
-                alt="Lô Bô Chúa tể vùng Ca Răm Pô (Lobo Chúa Tể Currumpaw)"
-              />
-            </div>
-            <p>Lô Bô Chúa tể vùng Ca Răm Pô (Lobo Chúa Tể Currumpaw)</p>
-            <div>
-              <span>80.000 VNĐ</span>
-              <div class="add-to-cart-btn">
-                <i class="fa-solid fa-cart-plus"></i>
-              </div>
-            </div>
-          </div>
-
-          <div class="product-card">
-            <div class="img-wrapper">
-              <img
-                src="https://nhasachmienphi.com/images/thumbnail/nhasachmienphi-quan-khu-nam-dong.jpg"
-                alt="Quân Khu Nam Đồng"
-              />
-            </div>
-            <p>Quân Khu Nam Đồng</p>
-            <div>
-              <span>78.000 VNĐ</span>
-              <div class="add-to-cart-btn">
-                <i class="fa-solid fa-cart-plus"></i>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <div class="pagination">
-          <button class="page-btn active">1</button>
-          <button class="page-btn">2</button>
-          <button class="page-btn">3</button>
-          <button class="page-btn">4</button>
-          <button class="page-btn">5</button>
-        </div>
-      </section>
-    </main>
-
-    <jsp:include page="/WEB-INF/views/footer.jsp"></jsp:include>
-
-    <script src="assets/js/product-card.js"></script>
-    <script src="assets/js/list-book-pagination.js"></script>
-    <script>
-      const hamburgerBtn = document.querySelector(".hamburger-btn");
-      const filterContainer = document.querySelector(
-        ".local-filter-button-container"
-      );
-
-      hamburgerBtn.addEventListener("click", () => {
-        filterContainer.classList.toggle("open");
-      });
-
-      // Click ra ngoài để đóng menu
-      document.addEventListener("click", (e) => {
-        if (!document.querySelector(".local-filter-menu").contains(e.target)) {
-          filterContainer.classList.remove("open");
-        }
-      });
-    </script>
-    <script src="assets/js/component.js"></script>
-    <script src="assets/js/backToTopBtn.js"></script>
-  </body>
+</body>
 </html>

@@ -125,19 +125,19 @@
               <span class="current-price">85.500 VNĐ</span>
             <div class="product-info">
                 <button class="add-to-cart-btn">
-                    <a href="${pageContext.request.contextPath}/jsp/cart.jsp">THÊM VÀO GIỎ</a>
+                    <a href="${pageContext.request.contextPath}/jsp_mau/cart.jsp">THÊM VÀO GIỎ</a>
                 </button>
 
                 <button class="add-to-cart-btn">
-                    <a href="${pageContext.request.contextPath}/jsp/wishlist.jsp">THÊM VÀO DANH SÁCH YÊU THÍCH</a>
+                    <a href="${pageContext.request.contextPath}/jsp_mau/wishlist.jsp">THÊM VÀO DANH SÁCH YÊU THÍCH</a>
                 </button>
 
                 <button class="add-to-cart-btn">
-                    <a href="${pageContext.request.contextPath}/jsp/readbook.jsp">ĐỌC THỬ</a>
+                    <a href="${pageContext.request.contextPath}/jsp_mau/readbook.jsp">ĐỌC THỬ</a>
                 </button>
 
                 <button class="add-to-cart-btn">
-                    <a href="${pageContext.request.contextPath}/jsp/review.jsp">XEM ĐÁNH GIÁ</a>
+                    <a href="${pageContext.request.contextPath}/jsp_mau/review.jsp">XEM ĐÁNH GIÁ</a>
                 </button>
             </div>
         </section>
