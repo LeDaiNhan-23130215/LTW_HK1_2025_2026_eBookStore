@@ -2,13 +2,14 @@
          pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
+<fmt:setLocale value="vi_VN"/>
 
 <!DOCTYPE html>
 <html lang="vi">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Home</title>
+  <title>Ebook Store</title>
   <link rel="stylesheet" href="assets/css/base.css" />
   <link rel="stylesheet" href="assets/css/components.css" />
   <link
@@ -70,6 +71,7 @@
         </button>
 
         <div class="slider">
+          <jsp:useBean id="newEBooks" scope="request" type="java.util.List"/>
           <c:forEach var="eb" items="${newEBooks}">
             <div class="product-card">
               <div class="img-wrapper">
@@ -81,10 +83,10 @@
 
               <div>
                 <c:if test="${eb.price != null and eb.price gt 0}">
-                <span>
+                <span class = "price">
                     <fmt:formatNumber value="${eb.price}"
-                                      type="number"
-                                      groupingUsed="true"/> VNĐ
+                                      type="currency"
+                                      groupingUsed="true"/>
                 </span>
                 </c:if>
 
@@ -238,7 +240,7 @@
           </div>
         </div>
 
-        <a href="WEB-INF/views/list-book.jsp">Xem tất cả</a>
+        <a href="list-book">Xem tất cả</a>
       </div>
     </div>
 

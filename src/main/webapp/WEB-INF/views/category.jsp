@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
          pageEncoding="UTF-8"%>
 <!DOCTYPE html>
-<html lang="en">
+<html lang="vi">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -16,7 +16,7 @@
     <link rel="icon" type="image/png" href="assets/img/ebook-logo2.png" />
   </head>
   <body>
-  <jsp:include page="/WEB-INF/views/header.jsp"></jsp:include>
+    <jsp:include page="/WEB-INF/views/header.jsp"/>
     
     <main class="main-filters">
       <div class="main-container">
@@ -54,7 +54,7 @@
             </div>
           </div>
 
-          <a href="list-book.html" class="btn-filter">Lọc sách</a>
+          <a href="list-book" class="btn-filter">Lọc sách</a>
         </div>
 
         <!-- Banner bên phải -->
@@ -67,7 +67,7 @@
       </div>
     </main>
 
-  <jsp:include page="/WEB-INF/views/footer.jsp"></jsp:include>
+    <jsp:include page="/WEB-INF/views/footer.jsp"/>
 
     <script src="assets/js/category.js"></script>
     <script src="assets/js/component.js"></script>
