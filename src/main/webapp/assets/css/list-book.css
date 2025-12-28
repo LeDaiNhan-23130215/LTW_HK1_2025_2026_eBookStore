@@ -166,6 +166,8 @@ main .content strong {
 }
 
 .sort-button {
+  text-decoration: black;
+  color: #0396c7;
   background: #f2f2f2;
   border: 1px solid #ddd;
   padding: 8px 12px;

@@ -90,14 +90,26 @@ public class ListbookController extends HttpServlet {
 
         // ===== SET ATTRIBUTES =====
         request.setAttribute("pageView", pageView);
-        request.setAttribute("ebooks", pageView.getItems());
+        request.setAttribute("newEBooks", pageView.getItems());
         request.setAttribute("filter", filter);
         request.setAttribute("currentPage", page);
         request.setAttribute("totalPages", pageView.getTotalPages());
 
-        // ===== FORWARD =====
-        request.getRequestDispatcher("/WEB-INF/views/list-book.jsp")
-                .forward(request, response);
+
+        // ==== AJAX ====
+        boolean isAjax = "XMLHttpRequest".equals(
+                request.getHeader("X-Requested-With")
+        );
+
+        if (isAjax) {
+            request.getRequestDispatcher(
+                    "/WEB-INF/views/list-book-grid.jsp"
+            ).forward(request, response);
+        } else {
+            request.getRequestDispatcher(
+                    "/WEB-INF/views/list-book.jsp"
+            ).forward(request, response);
+        }
     }
 
     /**
