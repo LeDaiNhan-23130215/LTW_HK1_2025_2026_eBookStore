@@ -90,7 +90,7 @@ public class ListbookController extends HttpServlet {
 
         // ===== SET ATTRIBUTES =====
         request.setAttribute("pageView", pageView);
-        request.setAttribute("ebooks", pageView.getItems());
+        request.setAttribute("newEBooks", pageView.getItems());
         request.setAttribute("filter", filter);
         request.setAttribute("currentPage", page);
         request.setAttribute("totalPages", pageView.getTotalPages());

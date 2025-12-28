@@ -12,24 +12,26 @@
   <meta charset="UTF-8">
   <title>EBook Store</title>
 
-  <link rel="stylesheet" href="assets/css/base.css"/>
-  <link rel="stylesheet" href="assets/css/components.css"/>
-  <link rel="stylesheet" href="assets/css/list-book.css"/>
+  <link rel="stylesheet" href="<c:url value='/assets/css/base.css' />">
+  <link rel="stylesheet" href="<c:url value='/assets/css/components.css' />">
+  <link rel="stylesheet" href="<c:url value='/assets/css/list-book.css' />">
 
-  <link rel="stylesheet"
-        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"/>
+    <link rel="stylesheet"
+          href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"/>
 
-  <link rel="icon" href="../../assets/img/ebook-logo2.png"/>
+  <link rel="icon" type="image/png"
+        href="<c:url value='/assets/img/ebook-logo2.png' />">
 </head>
 
 <body>
 
+<button id="backToTopBtn" class="back-to-top">
+  <i class="fa-solid fa-arrow-up"></i>
+</button>
+
 <jsp:include page="/WEB-INF/views/header.jsp"/>
 
 <main class="container">
-  <button id="backToTopBtn" class="back-to-top">
-    <i class="fa-solid fa-arrow-up"></i>
-  </button>
   <!-- ================= FILTER SIDEBAR ================= -->
   <aside class="sidebar">
     <form method="get" action="list-book">
@@ -109,63 +111,73 @@
   <section class="content">
 
     <!-- ===== SORT BAR ===== -->
-    <div class="sort-bar">
+    <div class="local-filters">
+      <div class="local-filter-menu">
+        <button class="hamburger-btn">
+          <i class="fa-solid fa-bars"></i> Bộ lọc
+        </button>
 
-      <a href="list-book?sortBy=title&sortDir=asc<c:if test='${not empty queryStringForSort}'>&${queryStringForSort}</c:if>"
-         class="sort-btn ${filter.sortBy == 'title' && filter.sortDir == 'asc' ? 'active' : ''}">
-        <i class="fa-solid fa-arrow-down-a-z"></i> A - Z
-      </a>
+        <div class="local-filter-button-container">
+          <a href="list-book?sortBy=title&sortDir=asc<c:if test='${not empty queryStringForSort}'>&${queryStringForSort}</c:if>"
+             class="sort-button ${filter.sortBy == 'title' && filter.sortDir == 'asc' ? 'active' : ''}">
+            <i class="fa-solid fa-arrow-down-a-z"></i> A - Z
+          </a>
 
-      <a href="list-book?sortBy=title&sortDir=desc<c:if test='${not empty queryStringForSort}'>&${queryStringForSort}</c:if>"
-         class="sort-btn ${filter.sortBy == 'title' && filter.sortDir == 'desc' ? 'active' : ''}">
-        <i class="fa-solid fa-arrow-up-a-z"></i> Z - A
-      </a>
+          <a href="list-book?sortBy=title&sortDir=desc<c:if test='${not empty queryStringForSort}'>&${queryStringForSort}</c:if>"
+             class="sort-button ${filter.sortBy == 'title' && filter.sortDir == 'desc' ? 'active' : ''}">
+            <i class="fa-solid fa-arrow-up-a-z"></i> Z - A
+          </a>
 
-      <a href="list-book?sortBy=price&sortDir=asc<c:if test='${not empty queryStringForSort}'>&${queryStringForSort}</c:if>"
-         class="sort-btn ${filter.sortBy == 'price' && filter.sortDir == 'asc' ? 'active' : ''}">
-        <i class="fa-solid fa-arrow-up"></i> Giá ↑
-      </a>
+          <a href="list-book?sortBy=price&sortDir=asc<c:if test='${not empty queryStringForSort}'>&${queryStringForSort}</c:if>"
+             class="sort-button ${filter.sortBy == 'price' && filter.sortDir == 'asc' ? 'active' : ''}">
+            <i class="fa-solid fa-arrow-up"></i> Giá ↑
+          </a>
 
-      <a href="list-book?sortBy=price&sortDir=desc<c:if test='${not empty queryStringForSort}'>&${queryStringForSort}</c:if>"
-         class="sort-btn ${filter.sortBy == 'price' && filter.sortDir == 'desc' ? 'active' : ''}">
-        <i class="fa-solid fa-arrow-down"></i> Giá ↓
-      </a>
+          <a href="list-book?sortBy=price&sortDir=desc<c:if test='${not empty queryStringForSort}'>&${queryStringForSort}</c:if>"
+             class="sort-button ${filter.sortBy == 'price' && filter.sortDir == 'desc' ? 'active' : ''}">
+            <i class="fa-solid fa-arrow-down"></i> Giá ↓
+          </a>
 
-      <a href="list-book?sortBy=created_at&sortDir=desc<c:if test='${not empty queryStringForSort}'>&${queryStringForSort}</c:if>"
-         class="sort-btn ${filter.sortBy == 'created_at' && filter.sortDir == 'desc' ? 'active' : ''}">
-        <i class="fa-solid fa-calendar"></i> Mới nhất
-      </a>
-
+          <a href="list-book?sortBy=created_at&sortDir=desc<c:if test='${not empty queryStringForSort}'>&${queryStringForSort}</c:if>"
+             class="sort-button ${filter.sortBy == 'created_at' && filter.sortDir == 'desc' ? 'active' : ''}">
+            <i class="fa-solid fa-calendar"></i> Mới nhất
+          </a>
+        </div>
+      </div>
     </div>
 
     <!-- ===== PRODUCT GRID ===== -->
     <div class="product-grid">
-
-      <c:forEach var="eb" items="${ebooks}">
+      <c:forEach var="eb" items="${newEBooks}">
         <div class="product-card">
-
           <div class="img-wrapper">
             <img src="<c:url value='${eb.imageLink}'/>"
                  alt="${eb.title}">
           </div>
 
-          <p class="title">${eb.title}</p>
+          <p>${eb.title}</p>
 
-          <div class="price-box">
-            <c:choose>
-              <c:when test="${eb.price > 0}">
-                <span class="price">
-                  <fmt:formatNumber value="${eb.price}" type="currency"/>
+          <div>
+            <c:if test="${eb.price != null and eb.price gt 0}">
+                <span class = "price">
+                    <fmt:formatNumber value="${eb.price}"
+                                      type="currency"
+                                      groupingUsed="true"/>
                 </span>
-              </c:when>
-              <c:otherwise>
-                <span class="free">Free</span>
-              </c:otherwise>
-            </c:choose>
+            </c:if>
 
-            <button class="add-to-cart">
-              <i class="fa-solid fa-cart-plus"></i>
-            </button>
+            <c:if test="${eb.price eq 0}">
+              <span>Free!!!</span>
+            </c:if>
+
+            <form action="cart" method="post" class="add-to-cart-form">
+              <input type="hidden" name="action" value="add">
+              <input type="hidden" name="bookId" value="${eb.id}">
+              <input type="hidden" name="price" value="${eb.price}">
+              <button type="submit" class="add-to-cart-btn">
+                <i class="fa-solid fa-cart-plus"></i>
+              </button>
+            </form>
           </div>
         </div>
       </c:forEach>
@@ -204,7 +216,29 @@
 
 <jsp:include page="/WEB-INF/views/footer.jsp"/>
 
-<script src="assets/js/backToTopBtn.js"></script>
+
+<script src="<c:url value='/assets/js/backToTopBtn.js' />"></script>
+<script src="<c:url value='/assets/js/component.js' />"></script>
+<script>
+  document.addEventListener("DOMContentLoaded", () => {
+    const hamburgerBtn = document.querySelector(".hamburger-btn");
+    const filterContainer = document.querySelector(".local-filter-button-container");
+    const filterMenu = document.querySelector(".local-filter-menu");
+
+    if (!hamburgerBtn || !filterContainer || !filterMenu) return;
+
+    hamburgerBtn.addEventListener("click", (e) => {
+      e.stopPropagation();
+      filterContainer.classList.toggle("open");
+    });
+
+    document.addEventListener("click", (e) => {
+      if (!filterMenu.contains(e.target)) {
+        filterContainer.classList.remove("open");
+      }
+    });
+  });
+</script>
 
 </body>
 </html>
