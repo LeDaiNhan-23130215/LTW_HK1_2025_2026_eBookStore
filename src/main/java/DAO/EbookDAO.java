@@ -234,7 +234,7 @@ public class EbookDAO {
 
         // ===== FORMAT FILTER (NEW) =====
         if (f.getFormats() != null && !f.getFormats().isEmpty()) {
-            sql.append(" AND e.format IN (");
+            sql.append(" AND e.fat ormIN (");
             for (int i = 0; i < f.getFormats().size(); i++) {
                 sql.append("?");
                 if (i < f.getFormats().size() - 1) {

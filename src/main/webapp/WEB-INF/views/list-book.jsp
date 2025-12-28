@@ -34,7 +34,7 @@
 <main class="container">
   <!-- ================= FILTER SIDEBAR ================= -->
   <aside class="sidebar">
-    <form method="get" action="list-book">
+    <form id="filterForm" method="get" action="list-book">
 
       <!-- Hidden inputs to preserve sorting when filtering -->
       <input type="hidden" name="sortBy" value="${filter.sortBy}">
@@ -146,68 +146,8 @@
       </div>
     </div>
 
-    <!-- ===== PRODUCT GRID ===== -->
-    <div class="product-grid">
-      <c:forEach var="eb" items="${newEBooks}">
-        <div class="product-card">
-          <div class="img-wrapper">
-            <img src="<c:url value='${eb.imageLink}'/>"
-                 alt="${eb.title}">
-          </div>
-
-          <p>${eb.title}</p>
-
-          <div>
-            <c:if test="${eb.price != null and eb.price gt 0}">
-                <span class = "price">
-                    <fmt:formatNumber value="${eb.price}"
-                                      type="currency"
-                                      groupingUsed="true"/>
-                </span>
-            </c:if>
-
-            <c:if test="${eb.price eq 0}">
-              <span>Free!!!</span>
-            </c:if>
-
-            <form action="cart" method="post" class="add-to-cart-form">
-              <input type="hidden" name="action" value="add">
-              <input type="hidden" name="bookId" value="${eb.id}">
-              <input type="hidden" name="price" value="${eb.price}">
-              <button type="submit" class="add-to-cart-btn">
-                <i class="fa-solid fa-cart-plus"></i>
-              </button>
-            </form>
-          </div>
-        </div>
-      </c:forEach>
-
-    </div>
-
-    <!-- ===== PAGINATION ===== -->
-    <div class="pagination">
-
-      <c:if test="${currentPage > 1}">
-        <a class="nav-btn"
-           href="list-book?page=${currentPage - 1}<c:if test='${not empty queryString}'>&${queryString}</c:if>">
-          «
-        </a>
-      </c:if>
-
-      <c:forEach begin="1" end="${totalPages}" var="i">
-        <a class="page-btn ${i == currentPage ? 'active' : ''}"
-           href="list-book?page=${i}<c:if test='${not empty queryString}'>&${queryString}</c:if>">
-            ${i}
-        </a>
-      </c:forEach>
-
-      <c:if test="${currentPage < totalPages}">
-        <a class="nav-btn"
-           href="list-book?page=${currentPage + 1}<c:if test='${not empty queryString}'>&${queryString}</c:if>">
-          »
-        </a>
-      </c:if>
-
+    <div id="grid-container">
+      <jsp:include page="/WEB-INF/views/list-book-grid.jsp"/>
     </div>
 
   </section>
@@ -237,6 +177,39 @@
         filterContainer.classList.remove("open");
       }
     });
+  });
+</script>
+<script>
+  document.getElementById("filterForm").addEventListener("submit", function (e) {
+    e.preventDefault();
+
+    const params = new URLSearchParams(new FormData(this));
+
+    fetch("list-book?" + params.toString(), {
+      headers: {
+        "X-Requested-With": "XMLHttpRequest"
+      }
+    })
+            .then(res => res.text())
+            .then(html => {
+              document.getElementById("grid-container").innerHTML = html;
+            });
+  });
+</script>
+<script>
+  document.addEventListener("click", function (e) {
+    const link = e.target.closest(".pagination a, .sort-button");
+    if (!link) return;
+
+    e.preventDefault();
+
+    fetch(link.href, {
+      headers: { "X-Requested-With": "XMLHttpRequest" }
+    })
+            .then(res => res.text())
+            .then(html => {
+              document.getElementById("grid-container").innerHTML = html;
+            });
   });
 </script>
 
