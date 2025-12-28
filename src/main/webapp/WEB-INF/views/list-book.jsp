@@ -27,7 +27,9 @@
 <jsp:include page="/WEB-INF/views/header.jsp"/>
 
 <main class="container">
-
+  <button id="backToTopBtn" class="back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>
+  </button>
   <!-- ================= FILTER SIDEBAR ================= -->
   <aside class="sidebar">
     <form method="get" action="list-book">
