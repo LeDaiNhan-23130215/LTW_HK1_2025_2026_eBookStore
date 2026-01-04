@@ -66,7 +66,7 @@
                     </button></a
                     >
                     <span class="notification-badge">
-                        ${sessionScope.totalCartDetails != null ? sessionScope.totalCartDetails : 0}
+                        ${(totalCartDetails != null && totalCartDetails > 0) ? totalCartDetails : 0}
                     </span>
                 </div>
             </div>
