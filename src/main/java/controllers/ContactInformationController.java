@@ -1,5 +1,6 @@
 package controllers;
 
+import DAO.UserDAO;
 import DTO.CartItem;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
@@ -17,10 +18,12 @@ import java.util.List;
 @WebServlet(name = "ContactInformationController", value = "/contact-information")
 public class ContactInformationController extends HttpServlet {
     private CartService cartService;
+    private UserDAO userDAO;
 
     @Override
     public void init() throws ServletException {
         cartService = new CartService();
+        userDAO = new UserDAO();
     }
 
     @Override
@@ -64,10 +67,24 @@ public class ContactInformationController extends HttpServlet {
         String note = req.getParameter("note");
 
         HttpSession session = req.getSession();
+        User user = (User) session.getAttribute("user");
+
+        if (user != null) {
+            user.setUsername(name);
+            user.setEmail(email);
+            user.setPhoneNum(phone);
+
+            boolean updated = userDAO.updateUserInfo(user);
+
+            if (updated) {
+                session.setAttribute("user", user);
+            }
+        }
+
+
         session.setAttribute("checkoutEmail", email);
         session.setAttribute("checkoutName", name);
         session.setAttribute("checkoutPhone", phone);
-        session.setAttribute("checkoutNote", note);
 
         resp.sendRedirect(req.getContextPath() + "/checkout");
     }
