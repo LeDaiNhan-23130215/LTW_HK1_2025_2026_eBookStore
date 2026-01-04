@@ -1,34 +1,93 @@
-document.querySelector(".selected-filters").style.display = "none";
+document.addEventListener("DOMContentLoaded", () => {
+  const form = document.getElementById("filterForm");
+  const grid = document.getElementById("grid-container");
+  const container = document.getElementById("active-filters");
 
-const filterGroups = [
-  { selector: ".filter:nth-child(1) input[type='checkbox']", target: ".filter-show span:nth-child(1) p" }, // Thể loại
-  { selector: ".filter:nth-child(2) input[type='checkbox']", target: ".filter-show span:nth-child(2) p" }, // Giá
-  { selector: ".filter:nth-child(3) input[type='checkbox']", target: ".filter-show span:nth-child(3) p" }  // File
-];
+  if (!form || !grid || !container) return;
 
-filterGroups.forEach(group => {
-  document.querySelectorAll(group.selector).forEach(checkbox => {
-    checkbox.addEventListener("change", () => {
-      updateFilters();
-    });
-  });
-});
-
-function updateFilters() {
-  let anyChecked = false;
-
-  filterGroups.forEach(group => {
-    const checkedLabels = Array.from(document.querySelectorAll(group.selector + ":checked"))
-      .map(cb => cb.closest("label").textContent.trim());
-    
-    const targetP = document.querySelector(group.target);
-    if (checkedLabels.length > 0) {
-      targetP.textContent = checkedLabels.join(", ");
-      anyChecked = true;
-    } else {
-      targetP.textContent = "";
+  const labels = {
+    category: {
+      1: "Tech",
+      2: "Tham khảo",
+      3: "Tiếng Anh"
+    },
+    format: {
+      PDF: "PDF",
+      EPUB: "EPUB"
+    },
+    free: {
+      true: "Miễn phí",
+      false: "Có phí"
     }
+  };
+
+  function fetchData() {
+    const params = new URLSearchParams(new FormData(form));
+
+    fetch("list-book?" + params.toString(), {
+      headers: { "X-Requested-With": "XMLHttpRequest" }
+    })
+        .then(res => res.text())
+        .then(html => {
+          grid.innerHTML = html;
+          renderActiveFilters();
+        });
+  }
+
+  function renderActiveFilters() {
+    container.innerHTML = "";
+
+    const formData = new FormData(form);
+    const activeFilters = [];
+
+    for (let [name, value] of formData.entries()) {
+      if (!value || name === "sortBy" || name === "sortDir") continue;
+      activeFilters.push({ name, value });
+    }
+
+    if (activeFilters.length === 0) {
+      container.style.display = "none";
+      return;
+    }
+
+    container.style.display = "flex";
+
+    const title = document.createElement("p");
+    title.className = "active-filter-title";
+    title.textContent = "Đã lọc:";
+    container.appendChild(title);
+
+    activeFilters.forEach(({ name, value }) => {
+      const label = labels[name]?.[value] || value;
+
+      const tag = document.createElement("div");
+      tag.className = "filter-tag";
+      tag.innerHTML = `
+        <span>${label}</span>
+        <button type="button">&times;</button>
+      `;
+
+      tag.querySelector("button").addEventListener("click", () => {
+        [...form.querySelectorAll(`[name="${name}"]`)].forEach(input => {
+          if (input.value === value) input.checked = false;
+        });
+
+        if (name === "free") {
+          form.querySelector(`[name="free"][value=""]`).checked = true;
+        }
+
+        fetchData();
+      });
+
+      container.appendChild(tag);
+    });
+  }
+
+  // Auto filter on change
+  form.querySelectorAll("input").forEach(input => {
+    input.addEventListener("change", fetchData);
   });
 
-  document.querySelector(".selected-filters").style.display = anyChecked ? "flex" : "none";
-}
+  // Initial render
+  renderActiveFilters();
+});
