@@ -73,7 +73,12 @@
         <div class="slider">
           <jsp:useBean id="newEBooks" scope="request" type="java.util.List"/>
           <c:forEach var="eb" items="${newEBooks}">
-            <div class="product-card">
+            <div class="product-card" title=${eb.title}>
+
+              <button class="favorite-btn" title="Add to wishlist">
+                <i class="fa-solid fa-heart"></i>
+              </button>
+
               <div class="img-wrapper">
                 <img src="<c:url value='${eb.imageLink}' />"
                      alt="${eb.title}" />
@@ -83,27 +88,28 @@
 
               <div>
                 <c:if test="${eb.price != null and eb.price gt 0}">
-                <span class = "price">
-                    <fmt:formatNumber value="${eb.price}"
-                                      type="currency"
-                                      groupingUsed="true"/>
-                </span>
+            <span class="price">
+                <fmt:formatNumber value="${eb.price}"
+                                  type="currency"
+                                  groupingUsed="true"/>
+            </span>
                 </c:if>
 
                 <c:if test="${eb.price eq 0}">
                   <span>Free!!!</span>
                 </c:if>
 
-                  <form action="cart" method="post" class="add-to-cart-form">
-                      <input type="hidden" name="action" value="add">
-                      <input type="hidden" name="bookId" value="${eb.id}">
-                      <input type="hidden" name="price" value="${eb.price}">
-                      <button type="submit" class="add-to-cart-btn">
-                          <i class="fa-solid fa-cart-plus"></i>
-                      </button>
-                  </form>
+                <form action="cart" method="post" class="add-to-cart-form">
+                  <input type="hidden" name="action" value="add">
+                  <input type="hidden" name="bookId" value="${eb.id}">
+                  <input type="hidden" name="price" value="${eb.price}">
+                  <button type="submit" class="add-to-cart-btn">
+                    <i class="fa-solid fa-cart-plus"></i>
+                  </button>
+                </form>
               </div>
             </div>
+
           </c:forEach>
 
         <button class="next-btn">

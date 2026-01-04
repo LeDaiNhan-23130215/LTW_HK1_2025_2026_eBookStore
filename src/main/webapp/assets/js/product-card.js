@@ -18,3 +18,12 @@ productCards.forEach(card => {
     window.location.href = ctx + "/bookdetail";
   });
 });
+
+document.querySelectorAll('.favorite-btn').forEach(btn => {
+  btn.addEventListener('click', e => {
+    e.preventDefault();
+    e.stopPropagation();
+    btn.classList.toggle('active');
+  });
+});
+
