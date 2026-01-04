@@ -1,6 +1,6 @@
 const checkoutBtn = document.querySelector('.checkout-btn');
 const qrContainer = document.querySelector('.qr-container');
-const paymentRadios = document.querySelectorAll('input[name="payment"]');
+const paymentRadios = document.querySelectorAll('input[name="paymentMethod"]');
 
 // Ẩn/hiện QR khi người dùng chọn phương thức
 paymentRadios.forEach(radio => {
@@ -23,25 +23,4 @@ function startLoading() {
 
 checkoutBtn.addEventListener('click', () => {
   const selectedPayment = document.querySelector('input[name="payment"]:checked')?.value;
-
-  if (!selectedPayment) {
-    alert("Vui lòng chọn phương thức thanh toán!");
-    return;
-  }
-
-  if (selectedPayment === 'momo') {
-    startLoading();
-    setTimeout(() => window.location.href = 'https://momo.vn', 2000);
-  } 
-  else if (selectedPayment === 'vnpay') {
-    startLoading();
-    setTimeout(() => window.location.href = 'https://vnpay.vn', 2000);
-  } 
-  else if (selectedPayment === 'zalopay') {
-    startLoading();
-    setTimeout(() => window.location.href = 'https://zalopay.vn', 2000);
-  } 
-  else if (selectedPayment === 'qrcode') {
-    alert("Vui lòng quét mã QR để hoàn tất thanh toán.");
-  }
 });

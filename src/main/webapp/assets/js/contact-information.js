@@ -38,7 +38,6 @@ continueBtn.addEventListener('click', (e) => {
         }
     }
     if(hasError) return;
-    window.location.href = "../pages/payment.html"
 });
 
 function showError(inputId, message) {
