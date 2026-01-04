@@ -3,17 +3,21 @@ import DAO.UserDAO;
 import jakarta.servlet.*;
 import jakarta.servlet.http.*;
 import jakarta.servlet.annotation.*;
+import models.Cart;
 import models.User;
+import services.CartService;
 
 import java.io.IOException;
 
 @WebServlet(name = "LoginController", value = "/login")
 public class LoginController extends HttpServlet {
     private UserDAO userDAO;
+    private CartService cartService;
 
     @Override
     public void init() throws ServletException {
         userDAO = new UserDAO();
+        cartService = new CartService();
     }
 
     @Override
@@ -49,6 +53,14 @@ public class LoginController extends HttpServlet {
         session.setAttribute("email", user.getEmail());
         session.setAttribute("phoneNum", user.getPhoneNum());
         session.setAttribute("role", user.getRole());
+
+        Cart cart = cartService.getCartByUserID(user.getId());
+        int totalCartDetails = 0;
+        if (cart != null) {
+            totalCartDetails = cartService.getTotalCartDetails(cart.getId());
+        }
+        session.setAttribute("totalCartDetails", totalCartDetails);
+
 
         resp.sendRedirect(req.getContextPath() + "/home");
     }
