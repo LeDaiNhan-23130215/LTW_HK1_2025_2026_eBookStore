@@ -37,9 +37,9 @@
 
         <!-- USER INFO -->
         <div class="user-information">
-            <p>${userName}</p>
-            <p>${email}</p>
-            <p>${phoneNum}</p>
+            <p>${user.username}</p>
+            <p>${user.email}</p>
+            <p>${user.phoneNum}</p>
         </div>
 
         <!-- PAYMENT FORM -->

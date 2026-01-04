@@ -38,23 +38,20 @@
         </div>
 
         <div class="form-container">
-            <form action="${pageContext.request.contextPath}/checkout" method="post">
+            <form action="${pageContext.request.contextPath}/contact-information" method="post">
 
                 <div class="input">
-                    <input type="email" name="userAndEmail"
-                           value="${not empty email ? email : param.email}" required>
+                    <input type="email" name="userAndEmail" value="${user.email}" required>
                     <label>Email</label>
                 </div>
 
                 <div class="input">
-                    <input type="text" name="fname"
-                           value="${not empty userName ? userName : param.userName}" required>
+                    <input type="text" name="fname" value="${user.username}" required>
                     <label>Họ và tên</label>
                 </div>
 
                 <div class="input">
-                    <input type="text" name="phoneNumber"
-                           value="${not empty phoneNum ? phoneNum : param.phoneNum}" required>
+                    <input type="text" name="phoneNumber" value="${user.phoneNum}" required>
                     <label>Số điện thoại</label>
                 </div>
 
