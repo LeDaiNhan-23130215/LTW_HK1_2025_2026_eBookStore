@@ -83,7 +83,7 @@
                             </div>
                             <div class="cart-btn">
                                 <c:if test="${not empty cartItems}">
-                                    <a href="checkout">
+                                    <a href="contact-information">
                                         <button type="button">Thanh toán</button>
                                     </a>
                                 </c:if>
