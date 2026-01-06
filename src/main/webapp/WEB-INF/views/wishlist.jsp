@@ -51,7 +51,7 @@
                   <c:forEach var="book" items="${wishlist}">
                       <div class="wishlist-item">
 
-                          <img src="${book.imageID}" alt="${book.title}">
+                          <img src="<c:url value='${imageMap[book.imageID].imgLink}' />" alt="${book.title}"/>
 
                           <div class="infor">
                               <h3>${book.title}</h3>

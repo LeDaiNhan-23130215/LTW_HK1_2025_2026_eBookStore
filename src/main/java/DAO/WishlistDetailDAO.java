@@ -85,4 +85,32 @@ public class WishlistDetailDAO {
         }
         return list;
     }
+    public List<Ebook> getBooksByWishlistId(int wishlistId) {
+        List<Ebook> list = new ArrayList<>();
+        String sql = """
+            SELECT e.*
+            FROM wishlistdetail wd
+            JOIN ebook e ON wd.bookID = e.id
+            WHERE wd.wishlistID = ?
+        """;
+        try (Connection con = DBConnection.getConnection();
+             PreparedStatement ps = con.prepareStatement(sql)) {
+            ps.setInt(1, wishlistId);
+            ResultSet rs = ps.executeQuery();
+
+            while (rs.next()) {
+                int id = rs.getInt("id");
+                Ebook e = new Ebook(id);
+                e.setTitle(rs.getString("title"));
+                e.setAuthorID(Integer.parseInt(rs.getString("authorID")));
+                e.setPrice(rs.getDouble("price"));
+                e.setImageID(Integer.parseInt(rs.getString("imageID")));
+                list.add(e);
+            }
+        }
+        catch (Exception e) {
+            e.printStackTrace();
+        }
+        return list;
+    }
 }

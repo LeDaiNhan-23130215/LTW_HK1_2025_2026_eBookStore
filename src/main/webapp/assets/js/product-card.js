@@ -19,11 +19,3 @@ productCards.forEach(card => {
   });
 });
 
-document.querySelectorAll('.favorite-btn').forEach(btn => {
-  btn.addEventListener('click', e => {
-    e.preventDefault();
-    e.stopPropagation();
-    btn.classList.toggle('active');
-  });
-});
-
