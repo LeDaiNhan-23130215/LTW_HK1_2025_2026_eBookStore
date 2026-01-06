@@ -24,6 +24,12 @@ public class WishlistService {
     }
 
     public List<Ebook> getWishlist(int userId) {
-        return wishlistDetailDAO.getBooksByUser(userId);
+        int wishlistId = wishlistDAO.getOrCreate(userId);
+        return wishlistDetailDAO.getBooksByWishlistId(wishlistId);
+    }
+
+    public boolean isInWishlist(int userId, int bookId) {
+        int wishlistId = wishlistDAO.getOrCreate(userId);
+        return wishlistDetailDAO.exists(wishlistId, bookId);
     }
 }

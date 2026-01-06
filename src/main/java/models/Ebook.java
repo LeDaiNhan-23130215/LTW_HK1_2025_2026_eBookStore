@@ -124,4 +124,18 @@ public class Ebook extends Base {
     public void setStatus(String status) {
         this.status = status;
     }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof Ebook)) return false;
+        Ebook ebook = (Ebook) o;
+        return this.id == ebook.id;
+    }
+
+    @Override
+    public int hashCode() {
+        return Integer.hashCode(id);
+    }
+
 }
