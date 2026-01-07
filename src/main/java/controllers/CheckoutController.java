@@ -94,7 +94,8 @@ public class CheckoutController extends HttpServlet {
             for (CartItem item : cartItems) {
                 bookshelfService.addBookToBookshelf(userId, item.getEbook().getId());
             }
-
+            cartService.clearCart(cart.getId());
+            session.removeAttribute("totalCartDetails");
             req.setAttribute("checkout", checkout);
             req.setAttribute("paymentMethod", pmMap.get(paymentMethodID));
             req.getRequestDispatcher("/WEB-INF/views/payment-success.jsp").forward(req, resp);

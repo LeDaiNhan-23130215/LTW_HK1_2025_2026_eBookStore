@@ -75,4 +75,8 @@ public class CartService {
     public int getTotalCartDetails(int cartId) {
         return cartDetailDAO.getCartDetailsByCartID(cartId).size();
     }
+
+    public void clearCart(int cartId) {
+        cartDetailDAO.removeAllItems(cartId);
+    }
 }
