@@ -1,0 +1,77 @@
+
+.payment-container {
+    max-width: 600px;
+    margin: 80px auto;
+    text-align: center;
+    padding: 40px;
+    border-radius: 10px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+}
+
+.payment-icon {
+    font-size: 60px;
+    margin-bottom: 20px;
+}
+
+.payment-container h1 {
+    margin-bottom: 10px;
+}
+
+.payment-container p {
+    color: #555;
+    margin-bottom: 20px;
+}
+
+.order-info {
+    text-align: left;
+    margin: 20px auto;
+    padding: 15px;
+    background: #fff;
+    border-radius: 8px;
+    border: 1px solid #ddd;
+}
+
+.btn {
+    display: inline-block;
+    margin: 10px;
+    padding: 12px 20px;
+    border-radius: 6px;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+.btn-primary {
+    background: #28a745;
+    color: #fff;
+}
+
+.btn-secondary {
+    background: #007bff;
+    color: #fff;
+}
+
+/* ==== Phần riêng cho success ==== */
+.success-container {
+    background: #f9f9f9;
+}
+
+.success-icon {
+    color: #28a745;
+}
+
+.success-container h1 {
+    color: #333;
+}
+
+/* ==== Phần riêng cho fail ==== */
+.fail-container {
+    background: #fff5f5;
+}
+
+.fail-icon {
+    color: #dc3545;
+}
+
+.fail-container h1 {
+    color: #dc3545;
+}

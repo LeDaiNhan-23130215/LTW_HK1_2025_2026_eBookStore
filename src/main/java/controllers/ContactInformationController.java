@@ -60,11 +60,9 @@ public class ContactInformationController extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        // Xử lý form thông tin nhận hàng (email, tên, số điện thoại, ghi chú)
         String email = req.getParameter("userAndEmail");
         String name = req.getParameter("fname");
         String phone = req.getParameter("phoneNumber");
-        String note = req.getParameter("note");
 
         HttpSession session = req.getSession();
         User user = (User) session.getAttribute("user");

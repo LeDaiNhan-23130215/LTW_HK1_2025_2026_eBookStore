@@ -7,7 +7,9 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class PaymentMethodDAO {
     public PaymentMethod getPMById(int id) {
@@ -109,5 +111,38 @@ public class PaymentMethodDAO {
         }
 
         return false;
+    }
+
+    public int getPaymentMethodIdByName(String name) {
+        String sql = "SELECT id FROM paymentmethod WHERE name = ?";
+        try (Connection connection = DBConnection.getConnection();
+        PreparedStatement ps = connection.prepareStatement(sql)) {
+            ps.setString(1, name);
+            ResultSet rs = ps.executeQuery();
+            if (rs.next()) {
+                return rs.getInt("id");
+            }
+        } catch (Exception e){
+            e.printStackTrace();
+        }
+        return -1;
+    }
+
+    public Map<Integer, PaymentMethod> getPMMap() {
+        Map<Integer, PaymentMethod> list = new HashMap<>();
+        String sql = "SELECT * FROM paymentmethod";
+        try(Connection con = DBConnection.getConnection();
+        PreparedStatement ps = con.prepareStatement(sql);){
+            ResultSet rs = ps.executeQuery();
+            while(rs.next()){
+                int id = rs.getInt("id");
+                PaymentMethod pm = new PaymentMethod(id, rs.getString("name"), rs.getString("type"), rs.getString("description"), rs.getInt("isActive"));
+                list.put(id, pm);
+            }
+            return list;
+        } catch (Exception e){
+            e.printStackTrace();
+        }
+        return null;
     }
 }

@@ -8,19 +8,26 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 import models.Cart;
+import models.Checkout;
+import models.PaymentMethod;
 import models.User;
+import services.BookshelfService;
 import services.CartService;
+import services.CheckoutService;
 
 import java.io.IOException;
 import java.util.List;
+import java.util.Map;
 
 @WebServlet(name = "CheckoutController", value = "/checkout")
 public class CheckoutController extends HttpServlet {
+    private CheckoutService checkoutService;
     private CartService cartService;
 
     @Override
     public void init() throws ServletException {
         cartService = new CartService();
+        checkoutService = new CheckoutService();
     }
 
     @Override
@@ -65,19 +72,36 @@ public class CheckoutController extends HttpServlet {
             return;
         }
 
-        // Lấy phương thức thanh toán từ form
-        String paymentMethod = req.getParameter("paymentMethod");
+        int paymentMethodID = checkoutService.getPMIDByName(req.getParameter("paymentMethod"));
+        int userId = user.getId();
+        Cart cart = cartService.getCartByUserID(userId);
+        if (cart == null) {
+            cartService.createCart(userId);
+            cart = cartService.getCartByUserID(userId);
+        }
 
-        // Lấy thông tin nhận hàng từ session
-        String email = (String) session.getAttribute("checkoutEmail");
-        String name = (String) session.getAttribute("checkoutName");
-        String phone = (String) session.getAttribute("checkoutPhone");
-        String note = (String) session.getAttribute("checkoutNote");
+        List<CartItem> cartItems = cartService.getCartItemsByCartID(cart.getId());
+        double totalPrice = 0;
+        for (CartItem ci : cartItems) {
+            totalPrice += ci.getPriceAtADD();
+        }
 
-        // TODO: Tạo đơn hàng từ giỏ hàng + thông tin nhận hàng + phương thức thanh toán
-        // orderService.createOrder(user, cartItems, totalPrice, paymentMethod, ...);
+        Checkout checkout = new Checkout(userId, paymentMethodID, totalPrice, "Pending");
+        boolean result = checkoutService.checkout(checkout, cartItems);
+        Map<Integer, PaymentMethod> pmMap = checkoutService.getAllPMs();
+        if (result) {
+            BookshelfService bookshelfService = new BookshelfService();
+            for (CartItem item : cartItems) {
+                bookshelfService.addBookToBookshelf(userId, item.getEbook().getId());
+            }
 
-        // Sau khi tạo đơn hàng, chuyển hướng sang trang xác nhận
-        resp.sendRedirect(req.getContextPath() + "/checkout");
+            req.setAttribute("checkout", checkout);
+            req.setAttribute("paymentMethod", pmMap.get(paymentMethodID));
+            req.getRequestDispatcher("/WEB-INF/views/payment-success.jsp").forward(req, resp);
+        } else {
+            req.setAttribute("checkout", checkout);
+            req.setAttribute("paymentMethod", pmMap.get(paymentMethodID));
+            req.getRequestDispatcher("/WEB-INF/views/payment-fail.jsp").forward(req, resp);
+        }
     }
 }

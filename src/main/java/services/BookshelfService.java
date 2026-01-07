@@ -4,8 +4,10 @@ import DAO.BookshelfDAO;
 import DAO.BookshelfDetailDAO;
 import models.Bookshelf;
 import models.Ebook;
+import models.Image;
 
 import java.util.List;
+import java.util.Map;
 
 public class BookshelfService {
 
@@ -18,27 +20,20 @@ public class BookshelfService {
     }
 
     public Bookshelf getOrCreateBookshelf(int userId) {
-        Bookshelf bookshelf = bookshelfDAO.getByUserId(userId);
-
-        if (bookshelf == null) {
-            bookshelfDAO.create(userId);
-            bookshelf = bookshelfDAO.getByUserId(userId);
-        }
-
-        return bookshelf;
+        return bookshelfDAO.getOrCreateBookShelf(userId);
     }
 
     public void addBookToBookshelf(int userId, int ebookId) {
         Bookshelf bookshelf = getOrCreateBookshelf(userId);
 
-        boolean exists = bookshelfDetailDAO.exists(
-                bookshelf.getId(), ebookId
-        );
+        if (bookshelf == null) {
+            throw new IllegalStateException("Không thể tạo bookshelf cho userId=" + userId);
+        }
+
+        boolean exists = bookshelfDetailDAO.exists(bookshelf.getId(), ebookId);
 
         if (!exists) {
-            bookshelfDetailDAO.addBook(
-                    bookshelf.getId(), ebookId
-            );
+            bookshelfDetailDAO.addBook(bookshelf.getId(), ebookId);
         }
     }
 
@@ -50,8 +45,6 @@ public class BookshelfService {
         Bookshelf bookshelf = bookshelfDAO.getByUserId(userId);
         if (bookshelf == null) return false;
 
-        return bookshelfDetailDAO.exists(
-                bookshelf.getId(), ebookId
-        );
+        return bookshelfDetailDAO.exists(bookshelf.getId(), ebookId);
     }
 }
