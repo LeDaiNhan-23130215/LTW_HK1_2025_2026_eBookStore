@@ -2,6 +2,7 @@
          pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="jakarta.tags.fmt" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 
 <!DOCTYPE html>
 <html lang="vi">
@@ -100,7 +101,7 @@
     <!-- RIGHT -->
     <div class="checkout-right">
         <div class="label-right">
-            Đơn hàng (${cartItems.size()} sản phẩm)
+            Đơn hàng (${fn:length(cartItems)} sản phẩm)
         </div>
 
         <c:forEach var="item" items="${cartItems}">

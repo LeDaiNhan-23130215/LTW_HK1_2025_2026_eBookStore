@@ -53,7 +53,7 @@
               <c:forEach var="book" items="${books}">
                   <div class="book">
                       <img
-                              src="${book.coverImage}"
+                              src="${imageMap[book.imageID].imgLink}"
                               alt="${book.title}"
                       />
                       <h3>${book.title}</h3>

@@ -23,4 +23,5 @@ function startLoading() {
 
 checkoutBtn.addEventListener('click', () => {
   const selectedPayment = document.querySelector('input[name="payment"]:checked')?.value;
+  startLoading()
 });

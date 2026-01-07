@@ -21,7 +21,7 @@ public class BookshelfDAO {
 
 
     public Bookshelf getByUserId(int userId) {
-        String sql = "SELECT id, userID, createdAt FROM bookshelf WHERE userID = ?";
+        String sql = "SELECT id, userID, addedAt FROM bookshelf WHERE userID = ?";
 
         try (Connection conn = DBConnection.getConnection();
              PreparedStatement ps = conn.prepareStatement(sql)) {
@@ -33,7 +33,7 @@ public class BookshelfDAO {
                 Bookshelf bs = new Bookshelf();
                 bs.setId(rs.getInt("id"));
                 bs.setUserId(rs.getInt("userID"));
-                bs.setAddedAt(rs.getTimestamp("createdAt"));
+                bs.setAddedAt(rs.getTimestamp("addedAt"));
                 return bs;
             }
 
@@ -46,7 +46,7 @@ public class BookshelfDAO {
 
     public List<Bookshelf> getAllBookshelf() {
         List<Bookshelf> bookshelves = new ArrayList<>();
-        String sql = "SELECT id, userID, createdAt FROM bookshelf";
+        String sql = "SELECT id, userID, addedAt FROM bookshelf";
 
         try (Connection conn = DBConnection.getConnection();
              PreparedStatement ps = conn.prepareStatement(sql);
@@ -56,7 +56,7 @@ public class BookshelfDAO {
                 Bookshelf bs = new Bookshelf();
                 bs.setId(rs.getInt("id"));
                 bs.setUserId(rs.getInt("userID"));
-                bs.setAddedAt(rs.getTimestamp("createdAt"));
+                bs.setAddedAt(rs.getTimestamp("addedAt"));
                 bookshelves.add(bs);
             }
 
@@ -101,7 +101,7 @@ public class BookshelfDAO {
     }
 
     public int create(int userId) {
-        String sql = "INSERT INTO bookshelf(userID, createdAt) VALUES (?, CURRENT_TIMESTAMP)";
+        String sql = "INSERT INTO bookshelf(userID, addedAt) VALUES (?, CURRENT_TIMESTAMP)";
 
         try (Connection conn = DBConnection.getConnection();
              PreparedStatement ps = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
