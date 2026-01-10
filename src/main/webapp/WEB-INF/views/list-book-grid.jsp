@@ -1,24 +1,43 @@
 <%@ page contentType="text/html; charset=UTF-8" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="jakarta.tags.fmt" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
+
 <fmt:setLocale value="vi_VN"/>
 
 <div class="product-grid">
+    <jsp:useBean id="newEBooks" scope="request" type="java.util.List"/>
     <c:forEach var="eb" items="${newEBooks}">
-        <div class="product-card">
+        <div class="product-card" title="${eb.title}">
+
+            <form action="${pageContext.request.contextPath}/wishlist" method="post">
+                <input type="hidden" name="ebookId" value="${eb.id}"/>
+                <c:choose>
+                    <c:when test="${fn:contains(wishlistIds, eb.id)}">
+                        <input type="hidden" name="action" value="remove"/>
+                        <button type="submit" class="favorite-btn active" title="Remove from wishlist">
+                            <i class="fa-solid fa-heart"></i>
+                        </button>
+                    </c:when>
+                    <c:otherwise>
+                        <input type="hidden" name="action" value="add"/>
+                        <button type="submit" class="favorite-btn" title="Add to wishlist">
+                            <i class="fa-solid fa-heart"></i>
+                        </button>
+                    </c:otherwise>
+                </c:choose>
+            </form>
+
             <div class="img-wrapper">
-                <img src="<c:url value='${eb.imageLink}'/>"
-                     alt="${eb.title}">
+                <img src="<c:url value='${eb.imageLink}' />" alt="${eb.title}"/>
             </div>
 
             <p>${eb.title}</p>
 
             <div>
                 <c:if test="${eb.price != null and eb.price gt 0}">
-                <span class = "price">
-                    <fmt:formatNumber value="${eb.price}"
-                                      type="currency"
-                                      groupingUsed="true"/>
+                <span class="price">
+                    <fmt:formatNumber value="${eb.price}" type="currency" groupingUsed="true"/>
                 </span>
                 </c:if>
 
@@ -27,9 +46,9 @@
                 </c:if>
 
                 <form action="cart" method="post" class="add-to-cart-form">
-                    <input type="hidden" name="action" value="add">
-                    <input type="hidden" name="bookId" value="${eb.id}">
-                    <input type="hidden" name="price" value="${eb.price}">
+                    <input type="hidden" name="action" value="add"/>
+                    <input type="hidden" name="bookId" value="${eb.id}"/>
+                    <input type="hidden" name="price" value="${eb.price}"/>
                     <button type="submit" class="add-to-cart-btn">
                         <i class="fa-solid fa-cart-plus"></i>
                     </button>
@@ -37,6 +56,7 @@
             </div>
         </div>
     </c:forEach>
+
 </div>
 
 <div class="pagination">

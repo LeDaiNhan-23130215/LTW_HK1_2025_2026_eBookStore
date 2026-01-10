@@ -155,7 +155,11 @@
 </main>
 
 <jsp:include page="/WEB-INF/views/footer.jsp"/>
+<script src="<c:url value='/assets/js/product-card.js' />"></script>
 
+<script>
+    const ctx = "${pageContext.request.contextPath}";
+</script>
 
 <script src="<c:url value='/assets/js/backToTopBtn.js' />"></script>
 <script src="<c:url value='/assets/js/component.js' />"></script>
