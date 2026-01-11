@@ -1,5 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
          pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <!DOCTYPE html>
 <html lang="vi">
   <head>
@@ -29,33 +31,29 @@
         </div>
 
         <!-- Nội dung chính -->
-        <div class="main-content">
-          <h2>Danh mục</h2>
-          <div class="filter-row">
-            <div class="filter-group">
-              <h3>Thể loại:</h3>
-              <div class="filter-option">Tiểu thuyết</div>
-              <div class="filter-option">Khoa học</div>
-              <div class="filter-option">Kinh doanh</div>
-              <div class="filter-option">Thiếu nhi</div>
-            </div>
+        <form method="get" action="list-book" class="main-contentx">
 
-            <div class="filter-group">
-              <h3>Định dạng:</h3>
-              <div class="filter-option">PDF</div>
-              <div class="filter-option">EPUB</div>
-              <div class="filter-option">MOBI</div>
-            </div>
+          <h3>Thể loại</h3>
 
-            <div class="filter-group">
-              <h3>Giá:</h3>
-              <div class="filter-option">Miễn phí</div>
-              <div class="filter-option">Trả phí</div>
-            </div>
-          </div>
+          <c:set var="selectedCategories" value="${paramValues.category}" />
 
-          <a href="list-book" class="btn-filter">Lọc sách</a>
-        </div>
+          <c:forEach var="cat" items="${categories}">
+            <label class="filter-option">
+              <input type="checkbox"
+                     name="category"
+                     value="${cat.id}"
+              <c:if test="${fn:contains(selectedCategories, cat.id.toString())}">
+                     checked
+              </c:if>
+              >
+                ${cat.name}
+            </label>
+          </c:forEach>
+
+          <button type="submit" class="btn-filter">
+            Lọc sách
+          </button>
+        </form>
 
         <!-- Banner bên phải -->
         <div class="side-banner">

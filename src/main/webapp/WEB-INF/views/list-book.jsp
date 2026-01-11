@@ -47,7 +47,7 @@
         <label>
           <input type="checkbox" name="category" value="1"
                  <c:if test="${filter.hasCategory(1)}">checked</c:if>>
-          Tech
+          AI
         </label>
 
         <label>
@@ -61,6 +61,11 @@
                  <c:if test="${filter.hasCategory(3)}">checked</c:if>>
           Tiếng Anh
         </label>
+
+        <a href="category">
+            <i class="fa-solid fa-bars"></i> Tất cả danh mục
+        </a>
+
       </div>
 
       <!-- ===== PRICE ===== -->
