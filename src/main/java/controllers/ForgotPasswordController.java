@@ -68,17 +68,18 @@ public class ForgotPasswordController extends HttpServlet {
             resp.sendRedirect(req.getContextPath() + "/forgot-password?error=emailNotFound");
             return;
         }
+
         passwordResetDAO.deleteByUser(user.getId());
 
-        String token = UUID.randomUUID().toString();
-        String tokenHash = HashUtil.sha256(token);
+        String otp = generateOtp();
+        String otpHash = HashUtil.sha256(otp);
 
         Timestamp expiresAt =
                 Timestamp.from(Instant.now().plus(15, ChronoUnit.MINUTES));
 
-        passwordResetDAO.createToken(user.getId(), tokenHash, expiresAt);
+        passwordResetDAO.createToken(user.getId(), otpHash, expiresAt);
 
-        MailUtil.send(email, "Reset Password","Token: " + token);
+        MailUtil.sendOtp(email, otp);
 
         HttpSession session = req.getSession();
         session.setAttribute("resetEmail", email);
@@ -125,5 +126,10 @@ public class ForgotPasswordController extends HttpServlet {
         passwordResetDAO.markTokenUsed(tokenId);
         session.invalidate();
         resp.sendRedirect(req.getContextPath() + "/login?reset=success");
+    }
+
+    private String generateOtp() {
+        int otp = (int) (Math.random() * 900000) + 100000;
+        return String.valueOf(otp);
     }
 }
