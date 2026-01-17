@@ -85,6 +85,8 @@
             <version>2.0.1</version>
         </dependency>
 
+
+        <!--Đây là dêpen của ckfinder -->
         <!--https://mvnrepository.com/artifact/commons-fileupload/commons-fileupload-->
         <dependency>
             <groupId>commons-fileupload</groupId>
@@ -97,6 +99,27 @@
             <artifactId>commons-io</artifactId>
             <version>2.13.0</version>
         </dependency>
+
+
+
+            <dependency>
+                <groupId>com.cksource</groupId>
+                <artifactId>ckfinder3</artifactId>
+                <version>3.5.2</version>
+            </dependency>
+
+            <dependency>
+                <groupId>com.fasterxml.jackson.core</groupId>
+                <artifactId>jackson-databind</artifactId>
+                <version>2.13.0</version>
+            </dependency>
+            <dependency>
+                <groupId>javax.servlet</groupId>
+                <artifactId>javax.servlet-api</artifactId>
+                <version>4.0.1</version>
+                <scope>provided</scope>
+            </dependency>
+
     </dependencies>
 
     <build>
