@@ -5,9 +5,11 @@ import java.sql.DriverManager;
 import java.sql.SQLException;
 
 public class DBConnection {
+
     public static Connection getConnection() {
         try{
-            return ConnectionPool.getInstance().getConnection();
+            Connection connection = ConnectionPool.getInstance().getConnection();
+            return connection;
         } catch (SQLException e) {
             throw new RuntimeException("Cannot get database connection from pool", e);
         }

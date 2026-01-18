@@ -7,7 +7,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
   const labels = {
     category: {
-      1: "Tech",
+      1: "AI",
       2: "Tham khảo",
       3: "Tiếng Anh"
     },

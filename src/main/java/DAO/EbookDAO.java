@@ -127,6 +127,7 @@ public class EbookDAO {
             i.imgLink
         FROM ebook e
         JOIN image i ON e.imageID = i.id
+        JOIN author a ON e.authorID = a.id
         WHERE e.status = 'ACTIVE'
         """);
 
@@ -198,6 +199,7 @@ public class EbookDAO {
         StringBuilder sql = new StringBuilder("""
         SELECT COUNT(e.id)
         FROM ebook e
+        JOIN author a ON e.authorID = a.id
         WHERE e.status = 'ACTIVE'
         """);
 
@@ -208,6 +210,7 @@ public class EbookDAO {
              PreparedStatement ps = con.prepareStatement(sql.toString())) {
 
             bindParams(ps, params);
+
             ResultSet rs = ps.executeQuery();
             return rs.next() ? rs.getInt(1) : 0;
 
@@ -243,6 +246,12 @@ public class EbookDAO {
             }
             sql.append(")");
             params.addAll(f.getFormats());
+        }
+
+        if (f.getKeywords() != null && !f.getKeywords().isEmpty()) {
+            sql.append(" AND (e.title LIKE ? OR a.authorName LIKE ?)");
+            params.add("%" + f.getKeywords() + "%");
+            params.add("%" + f.getKeywords() + "%");
         }
     }
 

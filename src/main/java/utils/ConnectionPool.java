@@ -25,6 +25,8 @@ public class ConnectionPool {
     private final String USER = "root";
     private final String PASS = "";
 
+    private volatile boolean closed = false;
+
     private ConnectionPool() throws SQLException {
         for (int i = 0; i < INITIAL_POOL_SIZE; i++) {
             availables.add(createConnection());
@@ -62,7 +64,29 @@ public class ConnectionPool {
     }
 
     protected synchronized void release(Connection conn) {
+        System.out.println("Release: " + conn);
         inUses.remove(conn);
         availables.add(conn);
     }
+
+    public boolean isClosed() {
+        return this.closed;
+    }
+
+    public synchronized void shutdown() {
+        closed = true;
+
+        System.out.println("Close pool");
+
+        for(Connection conn : availables) {
+            try {conn.close();} catch (Exception ignored){}
+        }
+        for(Connection conn : inUses) {
+            try {conn.close();} catch (Exception ignored){}
+        }
+
+        availables.clear();
+        inUses.clear();
+    }
+
 }
