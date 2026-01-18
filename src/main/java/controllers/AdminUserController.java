@@ -55,30 +55,38 @@ public class AdminUserController extends HttpServlet{
         req.setCharacterEncoding("UTF-8");
 
         String action = req.getParameter("action");
-
+        String mode = req.getParameter("mode");
         if ("add".equals(action)) {
+            if("manual".equals(mode)) {
+                String userName = req.getParameter("userName");
+                String email = req.getParameter("email");
+                String phoneNum = req.getParameter("phoneNum");
+                String role = req.getParameter("role");
+                String password = req.getParameter("password");
 
-            String userName = req.getParameter("userName");
-            String email = req.getParameter("email");
-            String phoneNum = req.getParameter("phoneNum");
-            String role = req.getParameter("role");
-            String password = req.getParameter("password");
+                // Bắt buộc có password
+                if (password == null || password.isEmpty()) {
+                    req.getRequestDispatcher("/WEB-INF/views/admin-user.jsp").forward(req, resp);
+                    return;
+                }
 
-            // Bắt buộc có password
-            if (password == null || password.isEmpty()) {
-                req.getRequestDispatcher("/WEB-INF/views/admin-user.jsp").forward(req, resp);
+                User user = new User(userName, email, phoneNum, password, role);
+
+                adminServices.addUser(user);
+
+                resp.sendRedirect(req.getContextPath() + "/admin-user");
                 return;
             }
+            else if ("import".equals(mode)) {
+                Part filePart = req.getPart("file");
 
-            // Hash password
-            String hashedPassword = BCrypt.withDefaults().hashToString(10, password.toCharArray());
+                if (filePart != null && filePart.getSize() > 0) {
+                    adminServices.importUserFile(filePart);
+                }
 
-            User user = new User(userName, email, phoneNum, hashedPassword, role);
-
-            adminServices.addUser(user);
-
-            resp.sendRedirect(req.getContextPath() + "/admin-user");
-            return;
+                resp.sendRedirect(req.getContextPath() + "/admin-user");
+                return;
+            }
         }
 
         if ("update".equals(action)) {

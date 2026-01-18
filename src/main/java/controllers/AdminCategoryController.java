@@ -10,11 +10,16 @@ import java.io.IOException;
 import java.util.List;
 
 @WebServlet(name = "AdminCategoryController", value = "/admin-category")
-public class AdminCategoryController extends HttpServlet{
+@MultipartConfig(
+        fileSizeThreshold = 1024 * 1024,
+        maxFileSize = 5 * 1024 * 1024
+)
+public class AdminCategoryController extends HttpServlet {
+
     private AdminServices adminServices;
 
     @Override
-    public void init() throws ServletException {
+    public void init() {
         adminServices = new AdminServices();
     }
 
@@ -25,36 +30,28 @@ public class AdminCategoryController extends HttpServlet{
         String action = req.getParameter("action");
 
         if (action == null) {
-            List<Category> categories = adminServices.getListCategory();
-            req.setAttribute("categories", categories);
-
-            req.getRequestDispatcher("/WEB-INF/views/admin-category.jsp")
-                    .forward(req, resp);
+            loadCategoryPage(req, resp);
             return;
         }
 
-        if ("delete".equals(action)) {
-            int id = Integer.parseInt(req.getParameter("id"));
-            adminServices.deleteCategory(id);
-            resp.sendRedirect(req.getContextPath() + "/admin-category");
-            return;
+        switch (action) {
+            case "delete":
+                int idDel = Integer.parseInt(req.getParameter("id"));
+                adminServices.deleteCategory(idDel);
+                resp.sendRedirect(req.getContextPath() + "/admin-category");
+                break;
+
+            case "edit":
+                int idEdit = Integer.parseInt(req.getParameter("id"));
+                Category category = adminServices.getCategoryById(idEdit);
+                req.setAttribute("category", category);
+                req.getRequestDispatcher("/WEB-INF/views/admin-category-edit.jsp")
+                        .forward(req, resp);
+                break;
+
+            default:
+                loadCategoryPage(req, resp);
         }
-
-        if ("edit".equals(action)) {
-            int id = Integer.parseInt(req.getParameter("id"));
-            Category category = adminServices.getCategoryById(id);
-            req.setAttribute("category", category);
-
-            req.getRequestDispatcher("/WEB-INF/views/admin-category-edit.jsp")
-                    .forward(req, resp);
-            return;
-        }
-
-        List<Category> categories = adminServices.getListCategory();
-        req.setAttribute("categories", categories);
-
-        req.getRequestDispatcher("/WEB-INF/views/admin-category.jsp")
-                .forward(req, resp);
     }
 
     @Override
@@ -63,27 +60,54 @@ public class AdminCategoryController extends HttpServlet{
 
         req.setCharacterEncoding("UTF-8");
         String action = req.getParameter("action");
-        if(action==null){
-            req.getRequestDispatcher("/WEB-INF/views/admin-category.jsp").forward(req,resp);
-            return;
-        }
-        if("update".equals(action)){
+        String mode = req.getParameter("mode"); // manual | import
+
+        if ("update".equals(action)) {
             int id = Integer.parseInt(req.getParameter("id"));
             String name = req.getParameter("categoryName");
             String desc = req.getParameter("description");
-            Category category = new Category(id, name, desc);
-            adminServices.updateCategory(category);
-            resp.sendRedirect(req.getContextPath()+"/admin-category");
+
+            adminServices.updateCategory(new Category(id, name, desc));
+            resp.sendRedirect(req.getContextPath() + "/admin-category");
             return;
         }
-        else{
-            String name = req.getParameter("categoryName");
-            String desc = req.getParameter("description");
 
-            Category category = new Category(name, desc);
-            adminServices.addCategory(category);
+        if ("add".equals(action)) {
 
-            resp.sendRedirect(req.getContextPath() + "/admin-category");
+            if ("manual".equals(mode)) {
+                String name = req.getParameter("categoryName");
+                String desc = req.getParameter("description");
+
+                if (name != null && !name.trim().isEmpty()) {
+                    adminServices.addCategory(new Category(name.trim(), desc));
+                }
+
+                resp.sendRedirect(req.getContextPath() + "/admin-category");
+                return;
+            }
+
+            if ("import".equals(mode)) {
+                Part filePart = req.getPart("file");
+
+                if (filePart != null && filePart.getSize() > 0) {
+                    adminServices.importCategoryFile(filePart);
+                }
+
+                resp.sendRedirect(req.getContextPath() + "/admin-category");
+                return;
+            }
         }
+
+        loadCategoryPage(req, resp);
+    }
+
+    private void loadCategoryPage(HttpServletRequest req, HttpServletResponse resp)
+            throws ServletException, IOException {
+
+        List<Category> categories = adminServices.getListCategory();
+        req.setAttribute("categories", categories);
+
+        req.getRequestDispatcher("/WEB-INF/views/admin-category.jsp")
+                .forward(req, resp);
     }
 }

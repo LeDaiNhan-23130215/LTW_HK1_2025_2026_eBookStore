@@ -97,4 +97,17 @@ public class CategoryDAO {
         }
         return false;
     }
+
+    public boolean hasCategoryName(String name) {
+        String sql = "select * from category where categoryName = ?";
+        try(Connection connection = DBConnection.getConnection();
+            PreparedStatement stm = connection.prepareStatement(sql)) {
+            stm.setString(1, name);
+            ResultSet rs = stm.executeQuery();
+            return rs.next();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return false;
+    }
 }

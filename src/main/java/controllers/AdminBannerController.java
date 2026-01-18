@@ -59,6 +59,7 @@ public class AdminBannerController extends HttpServlet{
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         req.setCharacterEncoding("UTF-8");
         String action = req.getParameter("action");
+        String mode = req.getParameter("mode");
         if(action==null){
             req.getRequestDispatcher("/WEB-INF/views/admin-banner.jsp").forward(req,resp);
             return;
@@ -83,17 +84,28 @@ public class AdminBannerController extends HttpServlet{
             resp.sendRedirect(req.getContextPath()+"/admin-banner");
             return;
         }
-        else{
-            String url = req.getParameter("url");
-            String position = req.getParameter("position");
-            String startDate = req.getParameter("startDate");
-            String endDate = req.getParameter("endDate");
-            int isActive = Integer.parseInt(req.getParameter("isActive"));
+        if ("add".equals(action)) {
+            if ("manual".equals(mode)) {
+                String url = req.getParameter("url");
+                String position = req.getParameter("position");
+                String startDate = req.getParameter("startDate");
+                String endDate = req.getParameter("endDate");
+                int isActive = Integer.parseInt(req.getParameter("isActive"));
 
-            Banner banner = new Banner(url, position, startDate, endDate, isActive);
-            adminServices.addBanner(banner);
+                Banner banner = new Banner(url, position, startDate, endDate, isActive);
+                adminServices.addBanner(banner);
 
-            resp.sendRedirect(req.getContextPath() + "/admin-banner");
+                resp.sendRedirect(req.getContextPath() + "/admin-banner");
+            }
+            else if ("import".equals(mode)) {
+                Part filePart = req.getPart("file");
+
+                if (filePart != null && filePart.getSize() > 0) {
+                    adminServices.importBannerFile(filePart);
+                }
+
+                resp.sendRedirect(req.getContextPath() + "/admin-banner");
+            }
         }
     }
 }
