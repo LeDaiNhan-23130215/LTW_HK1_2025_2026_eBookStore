@@ -327,13 +327,13 @@ body.dark .search-bar button {
 }
 
 body.dark .search-bar button:hover {
-    bac
-body,
-.sidebar,
-.topbar,
-.table-section table,
-.add-form {
-    transition: background-color 0.3s ease, color 0.3s ease;
+    body,
+    .sidebar,
+    .topbar,
+    .table-section table,
+    .add-form {
+        transition: background-color 0.3s ease, color 0.3s ease;
+    }
 }
 /* ========================================================= */
 /*                      RESPONSIVE DESIGN                    */
@@ -567,5 +567,4 @@ body,
         width: 100%;
         justify-content: center;
     }
-}
 }

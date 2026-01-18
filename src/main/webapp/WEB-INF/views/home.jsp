@@ -76,22 +76,20 @@
             <c:forEach var="eb" items="${newEBooks}">
                 <div class="product-card" title="${eb.title}">
 
-                    <form action="${pageContext.request.contextPath}/wishlist" method="post">
+                    <form action="${pageContext.request.contextPath}/wishlist" method="post" class="wishlist-form">
                         <input type="hidden" name="ebookId" value="${eb.id}"/>
-                        <c:choose>
-                            <c:when test="${fn:contains(wishlistIds, eb.id)}">
-                                <input type="hidden" name="action" value="remove"/>
-                                <button type="submit" class="favorite-btn active" title="Remove from wishlist">
-                                    <i class="fa-solid fa-heart"></i>
-                                </button>
-                            </c:when>
-                            <c:otherwise>
-                                <input type="hidden" name="action" value="add"/>
-                                <button type="submit" class="favorite-btn" title="Add to wishlist">
-                                    <i class="fa-solid fa-heart"></i>
-                                </button>
-                            </c:otherwise>
-                        </c:choose>
+                        <c:if test="${wishlistIds != null && wishlistIds.contains(eb.id)}">
+                            <input type="hidden" name="action" value="remove"/>
+                            <button type="submit" class="favorite-btn active" title="Remove from wishlist">
+                                <i class="fa-solid fa-heart"></i>
+                            </button>
+                        </c:if>
+                        <c:if test="${wishlistIds == null || !wishlistIds.contains(eb.id)}">
+                            <input type="hidden" name="action" value="add"/>
+                            <button type="submit" class="favorite-btn" title="Add to wishlist">
+                                <i class="fa-solid fa-heart"></i>
+                            </button>
+                        </c:if>
                     </form>
 
                     <div class="img-wrapper">
