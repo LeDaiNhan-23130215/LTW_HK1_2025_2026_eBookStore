@@ -46,7 +46,7 @@
 
             <div class="searchBox">
                 <form action="list-book" method="get">
-                    <input type="text" id="searchBox" name="keyword" placeholder="Tìm ebook..." />
+                    <input type="text" id="searchBox" name="keyword" placeholder="Tìm ebook..." value="${param.keyword}"/>
                     <button type="submit"><i class="fa fa-search"></i></button>
                 </form>
 

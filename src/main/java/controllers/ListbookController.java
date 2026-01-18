@@ -17,6 +17,7 @@ public class ListbookController extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        request.setAttribute("categories", ebookService.getAllCategories());
 
         // ===== PAGE =====
         int page = 1;
@@ -69,7 +70,6 @@ public class ListbookController extends HttpServlet {
         if (keyword != null && !keyword.isEmpty()) {
             filter.setKeywords(keyword);
         }
-
 
         if (sortBy != null && !sortBy.isEmpty()) {
             filter.setSortBy(sortBy);
