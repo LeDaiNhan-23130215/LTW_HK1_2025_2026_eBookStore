@@ -113,6 +113,11 @@
             <version>2.13.0</version>
         </dependency>
 
+<!--            <dependency>-->
+<!--                <groupId>com.cksource</groupId>-->
+<!--                <artifactId>ckfinder3</artifactId>-->
+<!--                <version>3.5.2</version>-->
+<!--            </dependency>-->
         <dependency>
             <groupId>javax.servlet</groupId>
             <artifactId>javax.servlet-api</artifactId>
@@ -139,6 +144,14 @@
             <groupId>org.apache.xmlbeans</groupId>
             <artifactId>xmlbeans</artifactId>
             <version>3.0.0</version>
+        </dependency>
+
+
+        <!-- Đây là dependency của apache PDFbox -->
+        <dependency>
+            <groupId>org.apache.pdfbox</groupId>
+            <artifactId>pdfbox</artifactId>
+            <version>3.0.3</version>
         </dependency>
 
     </dependencies>
