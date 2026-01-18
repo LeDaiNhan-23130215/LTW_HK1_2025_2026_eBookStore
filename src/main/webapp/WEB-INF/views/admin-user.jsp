@@ -8,7 +8,8 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Admin User Manager</title>
-    <link rel="stylesheet" href="assets/css/admin-user.css" />
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/admin-user.css" />
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/admin-form.css">
     <link
       rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"
@@ -82,35 +83,78 @@
         <!--Dashboard-->
         <section class="dashboard">
             <div class="add-form">
-                <h2 class="toggle-title"><i class="fa-solid fa-plus"></i> Thêm người dùng mới</h2>
-                <form action="${pageContext.request.contextPath}/admin-user" method="post" id="addUserForm">
+                <h2 class="toggle-title">
+                    <i class="fa-solid fa-plus"></i> Thêm người dùng
+                </h2>
+
+                <form action="${pageContext.request.contextPath}/admin-user"
+                      method="post"
+                      enctype="multipart/form-data">
+
                     <input type="hidden" name="action" value="add">
-                    <div class="form-row">
-                        <label for="userName">Tên người dùng: </label>
-                        <input type="text" id="userName" name="userName" placeholder="Tên người dùng" required>
-                    </div>
-                    <div class="form-row">
-                        <label for="email">Email: </label>
-                        <input type="text" id="email" name="email" placeholder="Email" required>
-                    </div>
-                    <div class="form-row">
-                        <label for="phoneNum">Số điện thoại: </label>
-                        <input type="text" id="phoneNum" name="phoneNum" placeholder="Số điện thoại" required>
-                    </div>
-                    <div class="form-row">
-                        <label for="password">Mật khẩu: </label>
-                        <input type="password" id="password" name="password" placeholder="Mật khẩu" required>
-                    </div>
-                    <div class="form-row">
-                        <label for="role">Vai trò: </label>
-                        <select name="role" id="role" required>
-                            <option value="">--Chọn vai trò--</option>
-                            <option value="admin">Admin</option>
-                            <option value="user">Người dùng</option>
-                        </select>
+
+                    <!-- MODE SELECT -->
+                    <div class="mode-select">
+                        <label>
+                            <input type="radio" name="mode" value="manual" checked>
+                            Nhập thủ công
+                        </label>
+                        <label>
+                            <input type="radio" name="mode" value="import">
+                            Import từ CSV
+                        </label>
                     </div>
 
-                    <button type="submit" class="btn-addUser">Thêm người dùng</button>
+                    <!-- MANUAL FORM -->
+                    <div id="manualForm">
+
+                        <div class="form-row">
+                            <label>Tên người dùng:</label>
+                            <input type="text" name="userName">
+                        </div>
+
+                        <div class="form-row">
+                            <label>Email:</label>
+                            <input type="text" name="email">
+                        </div>
+
+                        <div class="form-row">
+                            <label>Số điện thoại:</label>
+                            <input type="text" name="phoneNum">
+                        </div>
+
+                        <div class="form-row">
+                            <label>Mật khẩu:</label>
+                            <input type="password" name="password">
+                        </div>
+
+                        <div class="form-row">
+                            <label>Vai trò:</label>
+                            <select name="role">
+                                <option value="">--Chọn vai trò--</option>
+                                <option value="admin">Admin</option>
+                                <option value="user">Người dùng</option>
+                            </select>
+                        </div>
+
+                    </div>
+
+                    <!-- IMPORT FORM -->
+                    <div id="importForm" style="display:none">
+
+                        <div class="form-row">
+                            <label>File CSV:</label>
+                            <input type="file" name="file" accept=".csv">
+                        </div>
+
+                        <small>
+                            CSV gồm các cột: username,email,phone,password,role
+                        </small>
+                    </div>
+
+                    <button type="submit" class="btn-addUser">
+                        Thực hiện
+                    </button>
                 </form>
             </div>
         </section>

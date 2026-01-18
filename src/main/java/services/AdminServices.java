@@ -2,9 +2,13 @@ package services;
 
 import DAO.*;
 import DTO.PaymentAdminView;
+import jakarta.servlet.http.Part;
+import mappers.*;
 import models.*;
 import DTO.FeedbackAdminView;
+import utils.CSVUtil;
 
+import java.io.InputStream;
 import java.util.List;
 
 public class AdminServices {
@@ -14,7 +18,7 @@ public class AdminServices {
     private PaymentMethodDAO paymentMethodDAO = new PaymentMethodDAO();
     private CategoryDAO categoryDAO = new CategoryDAO();
     private EbookDAO ebookDAO = new EbookDAO();
-    private BannerDao bannerDAO = new BannerDao();
+    private BannerDAO bannerDAO = new BannerDAO();
     private NewsDAO newsDAO = new NewsDAO();
     private FeedbackDAO feedbackDAO = new FeedbackDAO();
 
@@ -43,6 +47,28 @@ public class AdminServices {
 
     public User getUserById(int id){
         return userDAO.getUserByID(id);
+    }
+
+    public void importUserFile(Part filePart) {
+
+        try {
+            InputStream is = filePart.getInputStream();
+
+            List<String[]> rows = CSVUtil.read(is);
+
+            CSVMapper<User> mapper = new UserCSVMapper();
+
+            for (String[] row : rows) {
+                User u = mapper.map(row);
+                if (u != null && !userDAO.checkAvailableUserNameOrEmail(u.getUsername())) {
+                    userDAO.addUser(u);
+                }
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            throw new RuntimeException("Import user thất bại");
+        }
     }
 
     //Ebook
@@ -126,6 +152,28 @@ public class AdminServices {
         return categoryDAO.getCategoryById(id);
     }
 
+    public void importCategoryFile(Part filePart) {
+
+        try {
+            InputStream is = filePart.getInputStream();
+
+            List<String[]> rows = CSVUtil.read(is);
+
+            CSVMapper<Category> mapper = new CategoryCSVMapper();
+
+            for (String[] row : rows) {
+                Category c = mapper.map(row);
+                if (c != null && !categoryDAO.hasCategoryName(c.getName())) {
+                    categoryDAO.addCategory(c);
+                }
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            throw new RuntimeException("Import category thất bại");
+        }
+    }
+
     //Banner
     public List<Banner> getListBanner(){
         return bannerDAO.getAllBanner();
@@ -147,6 +195,28 @@ public class AdminServices {
         return bannerDAO.getBannerById(id);
     }
 
+    public void importBannerFile(Part filePart) {
+
+        try {
+            InputStream is = filePart.getInputStream();
+
+            List<String[]> rows = CSVUtil.read(is);
+
+            CSVMapper<Banner> mapper = new BannerCSVMapper();
+
+            for (String[] row : rows) {
+                Banner b = mapper.map(row);
+                if (b != null) {
+                    bannerDAO.addBanner(b);
+                }
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            throw new RuntimeException("Import category thất bại");
+        }
+    }
+
     //News
     public List<News> getListNews(){
         return newsDAO.getAllNews();
@@ -165,6 +235,28 @@ public class AdminServices {
     }
 
     public News getNewsById(int id){ return newsDAO.getNewsById(id); }
+
+    public void importNewsFile(Part filePart) {
+
+        try {
+            InputStream is = filePart.getInputStream();
+
+            List<String[]> rows = CSVUtil.read(is);
+
+            CSVMapper<News> mapper = new NewsCSVMapper();
+
+            for (String[] row : rows) {
+                News n = mapper.map(row);
+                if (n != null) {
+                    newsDAO.addNews(n);
+                }
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            throw new RuntimeException("Import category thất bại");
+        }
+    }
 
     //Review
 
