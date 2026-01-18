@@ -87,19 +87,19 @@
         <!--Dashboard content-->
         <section class="dashboard">
             <div class="cards">
-                <div class="card" id="totalEbooks">
+                <div class="card">
                     <h3>Tổng số eBook</h3>
                     <p id="totalEbooks">${totalEbooks}</p>
                 </div>
-                <div class="card" id="totalUsers">
+                <div class="card">
                     <h3>Người dùng</h3>
                     <p id="totalUsers">${totalUsers}</p>
                 </div>
-                <div class="card" id="totalOrders">
+                <div class="card">
                     <h3>Đơn hàng</h3>
                     <p id="totalOrders">${totalOrders}</p>
                 </div>
-                <div class="card" id="totalRevenue">
+                <div class="card">
                     <h3>Doanh thu tháng</h3>
                     <p id="totalRevenue">${totalMonthlyRevenue} VND</p>
                 </div>
