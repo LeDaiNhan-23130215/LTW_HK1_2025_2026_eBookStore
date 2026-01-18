@@ -7,9 +7,9 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Thông tin người dùng</title>
-    <link rel="stylesheet" href="assets/css/base.css" />
-    <link rel="stylesheet" href="assets/css/components.css" />
-    <link rel="stylesheet" href="assets/css/user-infor.css" />
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/base.css" />
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/components.css" />
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/user-infor.css" />
     <link
       rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"
@@ -53,7 +53,7 @@
               <c:forEach var="book" items="${books}">
                   <div class="book">
                       <img
-                              src="${book.coverImage}"
+                              src="${imageMap[book.imageID].imgLink}"
                               alt="${book.title}"
                       />
                       <h3>${book.title}</h3>

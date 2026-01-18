@@ -51,10 +51,12 @@
                   <c:forEach var="book" items="${wishlist}">
                       <div class="wishlist-item">
 
-                          <img src="${book.imageID}" alt="${book.title}">
+                          <img src="<c:url value='${imageMap[book.imageID].imgLink}' />" alt="${book.title}"/>
 
                           <div class="infor">
                               <h3>${book.title}</h3>
+                              <p>ID: ${book.id}</p>
+
                               <p>
                                   Tác giả:
                                   <c:choose>
@@ -74,7 +76,8 @@
                               <!-- Thêm vào giỏ -->
                               <form action="${pageContext.request.contextPath}/cart" method="post">
                                   <input type="hidden" name="action" value="add">
-                                  <input type="hidden" name="ebookId" value="${book.id}">
+                                  <input type="hidden" name="bookId" value="${book.id}">
+                                  <input type="hidden" name="price" value="${book.price}">
                                   <button class="add-cart" type="submit">
                                       <i class="fa-solid fa-cart-shopping"></i> Thêm vào giỏ
                                   </button>

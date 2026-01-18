@@ -94,4 +94,16 @@ public class CartDetailDAO {
         }
         return false;
     }
+
+    public boolean removeAllItems(int cartId) {
+        String sql = "DELETE FROM cartdetail WHERE cartID = ?";
+        try (Connection conn = DBConnection.getConnection();
+             PreparedStatement ps = conn.prepareStatement(sql)) {
+            ps.setInt(1, cartId);
+            return ps.executeUpdate() > 0;
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return false;
+    }
 }

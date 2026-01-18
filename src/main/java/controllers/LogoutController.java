@@ -9,11 +9,16 @@ import java.io.IOException;
 //@WebServlet(name = "logoutController", value = "/logout ")
 @WebServlet("/logout")
 
-public class logoutController extends HttpServlet {
+public class LogoutController extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        request.getSession().invalidate();  // xóa session
+        HttpSession session = request.getSession(false);
+        if (session != null) {
+            session.removeAttribute("cart");
+            session.removeAttribute("totalCartDetails");
+            session.invalidate(); // xóa session
+        }
         response.sendRedirect("login");
     }
 

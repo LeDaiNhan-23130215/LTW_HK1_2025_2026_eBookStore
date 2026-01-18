@@ -10,7 +10,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-public class BannerDao {
+public class BannerDAO {
     public Banner getBannerById (int id) {
         String query = "SELECT * FROM banner WHERE id = ?";
 

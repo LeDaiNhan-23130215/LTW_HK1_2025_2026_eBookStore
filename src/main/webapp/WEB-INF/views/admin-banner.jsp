@@ -12,6 +12,7 @@
     <title>Admin Banner Manager</title>
 
     <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/admin-banner.css" />
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/admin-form.css">
     <link rel="stylesheet"
           href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
     <link rel="icon" type="image/png" href="${pageContext.request.contextPath}/assets/img/ebook-logo2.png" />
@@ -86,48 +87,84 @@
         <div class="add-form">
             <h2 class="toggle-title"><i class="fa-solid fa-plus"></i> Thêm banner mới</h2>
 
-            <form action="${pageContext.request.contextPath}/admin-banner" method="post" id="addBannerForm">
+            <form action="${pageContext.request.contextPath}/admin-banner"
+                  method="post"
+                  enctype="multipart/form-data">
+
                 <input type="hidden" name="action" value="add">
 
-                <div class="form-row">
-                    <label for="url">Đường dẫn (URL): </label>
-                    <input name="url" type="text" id="url" required>
+                <!-- MODE SELECT -->
+                <div class="mode-select">
+                    <label>
+                        <input type="radio" name="mode" value="manual" checked>
+                        Nhập thủ công
+                    </label>
+                    <label>
+                        <input type="radio" name="mode" value="import">
+                        Import từ CSV
+                    </label>
                 </div>
 
-                <div class="form-row">
-                    <label for="category">Vị trí: </label>
-                    <select name="position" id="category" required>
-                        <option value="">--Chọn vị trí của banner--</option>
-                        <option>Home-1</option>
-                        <option>Home-2</option>
-                        <option>Home-3</option>
-                        <option>Home-4</option>
-                        <option>Home-5</option>
-                        <option>Home-6</option>
-                        <option>Home-7</option>
-                    </select>
+                <!-- MANUAL FORM -->
+                <div id="manualForm">
+
+                    <div class="form-row">
+                        <label>Đường dẫn (URL):</label>
+                        <input name="url" type="text">
+                    </div>
+
+                    <div class="form-row">
+                        <label>Vị trí:</label>
+                        <select name="position">
+                            <option value="">--Chọn vị trí--</option>
+                            <option>Home-1</option>
+                            <option>Home-2</option>
+                            <option>Home-3</option>
+                            <option>Home-4</option>
+                            <option>Home-5</option>
+                            <option>Home-6</option>
+                            <option>Home-7</option>
+                        </select>
+                    </div>
+
+                    <div class="form-row">
+                        <label>Ngày bắt đầu:</label>
+                        <input name="startDate" type="date">
+                    </div>
+
+                    <div class="form-row">
+                        <label>Ngày kết thúc:</label>
+                        <input name="endDate" type="date">
+                    </div>
+
+                    <div class="form-row">
+                        <label>Kích hoạt:</label>
+                        <select name="isActive">
+                            <option value="">--Chọn trạng thái--</option>
+                            <option value="1">Hoạt động</option>
+                            <option value="0">Không hoạt động</option>
+                        </select>
+                    </div>
+
                 </div>
 
-                <div class="form-row">
-                    <label for="sDate">Ngày bắt đầu: </label>
-                    <input name="startDate" type="date" id="sDate" required>
+                <!-- IMPORT FORM -->
+                <div id="importForm" style="display:none">
+
+                    <div class="form-row">
+                        <label>File CSV:</label>
+                        <input type="file" name="file" accept=".csv">
+                    </div>
+
+                    <small>
+                        CSV gồm các cột:<br>
+                        <b>url,position,startDate,endDate,isActive</b>
+                    </small>
                 </div>
 
-                <div class="form-row">
-                    <label for="eDate">Ngày kết thúc: </label>
-                    <input name="endDate" type="date" id="eDate" required>
-                </div>
-
-                <div class="form-row">
-                    <label for="isActive">Kích hoạt: </label>
-                    <select id="isActive" name="isActive" required>
-                        <option value="">--Chọn trạng thái--</option>
-                        <option value="1">Hoạt động</option>
-                        <option value="0">Không hoạt động</option>
-                    </select>
-                </div>
-
-                <button type="submit" class="btn-addBanner">Thêm banner</button>
+                <button type="submit" class="btn-addBanner">
+                    Thực hiện
+                </button>
             </form>
         </div>
     </section>

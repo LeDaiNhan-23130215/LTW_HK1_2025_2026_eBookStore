@@ -103,7 +103,7 @@
         </label>
       </div>
 
-      <button type="submit" class="btn-filter">Lọc</button>
+<%--      <button type="submit" class="btn-filter">Lọc</button>--%>
     </form>
   </aside>
 
@@ -145,7 +145,7 @@
         </div>
       </div>
     </div>
-
+    <div id="active-filters" class="active-filters"></div>
     <div id="grid-container">
       <jsp:include page="/WEB-INF/views/list-book-grid.jsp"/>
     </div>
@@ -159,59 +159,10 @@
 
 <script src="<c:url value='/assets/js/backToTopBtn.js' />"></script>
 <script src="<c:url value='/assets/js/component.js' />"></script>
-<script>
-  document.addEventListener("DOMContentLoaded", () => {
-    const hamburgerBtn = document.querySelector(".hamburger-btn");
-    const filterContainer = document.querySelector(".local-filter-button-container");
-    const filterMenu = document.querySelector(".local-filter-menu");
+<script src="<c:url value='/assets/js/hamburger-button.js' />"></script>
 
-    if (!hamburgerBtn || !filterContainer || !filterMenu) return;
+<script src="<c:url value='/assets/js/list-book-pagination.js' />"></script>
 
-    hamburgerBtn.addEventListener("click", (e) => {
-      e.stopPropagation();
-      filterContainer.classList.toggle("open");
-    });
-
-    document.addEventListener("click", (e) => {
-      if (!filterMenu.contains(e.target)) {
-        filterContainer.classList.remove("open");
-      }
-    });
-  });
-</script>
-<script>
-  document.getElementById("filterForm").addEventListener("submit", function (e) {
-    e.preventDefault();
-
-    const params = new URLSearchParams(new FormData(this));
-
-    fetch("list-book?" + params.toString(), {
-      headers: {
-        "X-Requested-With": "XMLHttpRequest"
-      }
-    })
-            .then(res => res.text())
-            .then(html => {
-              document.getElementById("grid-container").innerHTML = html;
-            });
-  });
-</script>
-<script>
-  document.addEventListener("click", function (e) {
-    const link = e.target.closest(".pagination a, .sort-button");
-    if (!link) return;
-
-    e.preventDefault();
-
-    fetch(link.href, {
-      headers: { "X-Requested-With": "XMLHttpRequest" }
-    })
-            .then(res => res.text())
-            .then(html => {
-              document.getElementById("grid-container").innerHTML = html;
-            });
-  });
-</script>
-
+<script src="<c:url value='/assets/js/list-book-filter.js' />"></script>
 </body>
 </html>

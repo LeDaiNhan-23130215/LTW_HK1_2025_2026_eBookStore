@@ -8,6 +8,7 @@
     <title>Admin - Quản lý Tin tức</title>
 
     <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/admin-news.css" />
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/admin-form.css">
     <link rel="icon" href="${pageContext.request.contextPath}/assets/img/ebook-logo2.png"/>
     <link rel="stylesheet"
           href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
@@ -92,42 +93,83 @@
         <div class="add-form">
             <h2 class="toggle-title"><i class="fa-solid fa-plus"></i> Thêm bài viết mới</h2>
 
-            <form action="${pageContext.request.contextPath}/admin-news" method="post">
+            <form action="${pageContext.request.contextPath}/admin-news"
+                  method="post"
+                  enctype="multipart/form-data">
+
                 <input type="hidden" name="action" value="add">
 
-                <div class="form-row">
-                    <label>Tiêu đề:</label>
-                    <input type="text" name="title" required>
+                <!-- MODE SELECT -->
+                <div class="mode-select">
+                    <label>
+                        <input type="radio" name="mode" value="manual" checked>
+                        Nhập thủ công
+                    </label>
+
+                    <label>
+                        <input type="radio" name="mode" value="import">
+                        Import từ CSV
+                    </label>
                 </div>
 
-                <div class="form-row">
-                    <label>Ảnh minh họa (URL):</label>
-                    <input type="text" id="imageUrl" name="imgURL" placeholder="Nhập đường dẫn ảnh...">
+                <!-- MANUAL FORM -->
+                <div id="manualForm">
+
+                    <div class="form-row">
+                        <label>Tiêu đề:</label>
+                        <input type="text" name="title">
+                    </div>
+
+                    <div class="form-row">
+                        <label>Ảnh minh họa (URL):</label>
+                        <input type="text" id="imageUrl" name="imgURL"
+                               placeholder="Nhập đường dẫn ảnh...">
+                    </div>
+
+                    <div class="banner-preview">
+                        <img id="previewImg"
+                             src=""
+                             style="display:none; width:300px; border-radius:6px;">
+                    </div>
+
+                    <div class="form-row">
+                        <label>Tác giả:</label>
+                        <input type="text" name="author">
+                    </div>
+
+                    <div class="form-row">
+                        <label>Nội dung:</label>
+                        <textarea name="content" rows="4"></textarea>
+                    </div>
+
+                    <div class="form-row">
+                        <label>Trạng thái:</label>
+                        <select name="status">
+                            <option value="1">Hiển thị</option>
+                            <option value="0">Ẩn</option>
+                        </select>
+                    </div>
+
                 </div>
 
-                <div class="banner-preview">
-                    <img id="previewImg" src="" style="display:none; width:300px; border-radius:6px;">
+                <!-- IMPORT FORM -->
+                <div id="importForm" style="display:none">
+
+                    <div class="form-row">
+                        <label>File CSV:</label>
+                        <input type="file" name="file" accept=".csv">
+                    </div>
+
+                    <small>
+                        CSV gồm các cột:<br>
+                        <b>title,imgURL,author,content,status</b>
+                    </small>
+
                 </div>
 
-                <div class="form-row">
-                    <label>Tác giả:</label>
-                    <input type="text" name="author">
-                </div>
-
-                <div class="form-row">
-                    <label>Nội dung:</label>
-                    <textarea name="content" rows="4"></textarea>
-                </div>
-
-                <div class="form-row">
-                    <label>Trạng thái:</label>
-                    <select name="status">
-                        <option value="1">Hiển thị</option>
-                        <option value="0">Ẩn</option>
-                    </select>
-                </div>
-
-                <button type="submit" class="btn-add">Thêm bài viết</button>
+                <button type="submit" class="btn-add">
+                    Thực hiện
+                </button>
             </form>
         </div>
     </section>

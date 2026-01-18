@@ -9,6 +9,7 @@
     <title>Admin Category Manager</title>
 
     <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/admin-category.css" />
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/admin-form.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"/>
     <link rel="icon" type="image/png" href="${pageContext.request.contextPath}/assets/img/ebook-logo2.png"/>
 
@@ -69,22 +70,56 @@
     <!-- Form thêm -->
     <section class="dashboard">
         <div class="add-form">
-            <h2 class="toggle-title"><i class="fa-solid fa-plus"></i> Thêm danh mục mới</h2>
 
-            <form action="${pageContext.request.contextPath}/admin-category" method="post">
+            <h2><i class="fa-solid fa-plus"></i> Thêm danh mục</h2>
+
+            <form action="${pageContext.request.contextPath}/admin-category"
+                  method="post"
+                  enctype="multipart/form-data">
+
                 <input type="hidden" name="action" value="add">
 
-                <div class="form-row">
-                    <label for="catName">Tên danh mục:</label>
-                    <input type="text" id="catName" name="categoryName" required>
+                <!-- Chọn mode -->
+                <div class="mode-select">
+                    <label>
+                        <input type="radio" name="mode" value="manual" checked>
+                        Nhập thủ công
+                    </label>
+
+                    <label>
+                        <input type="radio" name="mode" value="import">
+                        Import từ file
+                    </label>
                 </div>
 
-                <div class="form-row">
-                    <label for="catDesc">Mô tả:</label>
-                    <textarea id="catDesc" name="description" rows="3"></textarea>
+                <!-- Manual -->
+                <div id="manualForm">
+
+                    <div class="form-row">
+                        <label>Tên danh mục:</label>
+                        <input type="text" name="categoryName">
+                    </div>
+
+                    <div class="form-row">
+                        <label>Mô tả:</label>
+                        <textarea name="description"></textarea>
+                    </div>
+
                 </div>
 
-                <button type="submit" class="btn-addCategory">Thêm danh mục</button>
+                <!-- Import -->
+                <div id="importForm" style="display:none">
+
+                    <div class="form-row">
+                        <label>File CSV / Excel:</label>
+                        <input type="file" name="file" accept=".csv,.xlsx">
+                    </div>
+
+                </div>
+
+                <button type="submit" class="btn-addCategory">
+                    Thực hiện
+                </button>
             </form>
         </div>
     </section>
@@ -131,6 +166,5 @@
 
 <script src="${pageContext.request.contextPath}/assets/js/admin-darkmode.js"></script>
 <script src="${pageContext.request.contextPath}/assets/js/showForm.js"></script>
-
 </body>
 </html>

@@ -66,7 +66,8 @@ public class AdminNewsController extends HttpServlet {
 
         req.setCharacterEncoding("UTF-8");
         String action = req.getParameter("action");
-
+        String mode = req.getParameter("mode");
+        
         if (action == null) {
             resp.sendRedirect(req.getContextPath() + "/admin-news");
             return;
@@ -96,17 +97,27 @@ public class AdminNewsController extends HttpServlet {
 
         // ADD
         if (action.equals("add")) {
+            if("manual".equals(mode)){
+                String title = req.getParameter("title");
+                String content = req.getParameter("content");
+                String imgURL = req.getParameter("imgURL");
+                String author = req.getParameter("author");
+                int status = Integer.parseInt(req.getParameter("status"));
 
-            String title = req.getParameter("title");
-            String content = req.getParameter("content");
-            String imgURL = req.getParameter("imgURL");
-            String author = req.getParameter("author");
-            int status = Integer.parseInt(req.getParameter("status"));
+                News news = new News(title, content, imgURL, author, status);
+                adminServices.addNews(news);
 
-            News news = new News(title, content, imgURL, author, status);
-            adminServices.addNews(news);
+                resp.sendRedirect(req.getContextPath() + "/admin-news");
+                return;
+            } else if ("import".equals(mode)) {
+                Part filePart = req.getPart("file");
 
-            resp.sendRedirect(req.getContextPath() + "/admin-news");
+                if (filePart != null && filePart.getSize() > 0) {
+                    adminServices.importNewsFile(filePart);
+                }
+
+                resp.sendRedirect(req.getContextPath() + "/admin-news");
+            }
         }
     }
 }
