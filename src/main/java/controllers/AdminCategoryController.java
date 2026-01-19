@@ -45,6 +45,7 @@ public class AdminCategoryController extends HttpServlet {
                 int idEdit = Integer.parseInt(req.getParameter("id"));
                 Category category = adminServices.getCategoryById(idEdit);
                 req.setAttribute("category", category);
+                req.setAttribute("iconList", getIconList());
                 req.getRequestDispatcher("/WEB-INF/views/admin-category-edit.jsp")
                         .forward(req, resp);
                 break;
@@ -66,8 +67,12 @@ public class AdminCategoryController extends HttpServlet {
             int id = Integer.parseInt(req.getParameter("id"));
             String name = req.getParameter("categoryName");
             String desc = req.getParameter("description");
+            String icon = req.getParameter("icon");
+            if (icon == null || icon.isBlank()) {
+                icon = "fa-solid fa-folder";
+            }
 
-            adminServices.updateCategory(new Category(id, name, desc));
+            adminServices.updateCategory(new Category(id, name, desc, icon));
             resp.sendRedirect(req.getContextPath() + "/admin-category");
             return;
         }
@@ -77,10 +82,13 @@ public class AdminCategoryController extends HttpServlet {
             if ("manual".equals(mode)) {
                 String name = req.getParameter("categoryName");
                 String desc = req.getParameter("description");
+                String icon = req.getParameter("icon");
 
-                if (name != null && !name.trim().isEmpty()) {
-                    adminServices.addCategory(new Category(name.trim(), desc));
+                if (icon == null || icon.isBlank()) {
+                    icon = "fa-solid fa-folder";
                 }
+
+                adminServices.addCategory(new Category(name.trim(), desc, icon));
 
                 resp.sendRedirect(req.getContextPath() + "/admin-category");
                 return;
@@ -106,8 +114,29 @@ public class AdminCategoryController extends HttpServlet {
 
         List<Category> categories = adminServices.getListCategory();
         req.setAttribute("categories", categories);
+        req.setAttribute("iconList", getIconList());
 
         req.getRequestDispatcher("/WEB-INF/views/admin-category.jsp")
                 .forward(req, resp);
+    }
+
+    private List<String> getIconList() {
+        return List.of(
+                "fa-solid fa-book",
+                "fa-solid fa-book-open",
+                "fa-solid fa-robot",
+                "fa-solid fa-brain",
+                "fa-solid fa-code",
+                "fa-solid fa-database",
+                "fa-solid fa-laptop",
+                "fa-solid fa-graduation-cap",
+                "fa-solid fa-chart-line",
+                "fa-solid fa-globe",
+                "fa-solid fa-layer-group",
+                "fa-solid fa-lightbulb",
+                "fa-solid fa-flask",
+                "fa-solid fa-pen",
+                "fa-solid fa-folder"
+        );
     }
 }

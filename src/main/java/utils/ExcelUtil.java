@@ -25,9 +25,11 @@ public class ExcelUtil {
             String description = row.getCell(1) != null
                     ? row.getCell(1).getStringCellValue().trim()
                     : "";
-
+            String icon = row.getCell(1) != null
+                    ? row.getCell(1).getStringCellValue().trim()
+                    : "fa-solid fa-folder";
             if(!name.isEmpty()){
-                categories.add(new Category(name, description));
+                categories.add(new Category(name, description, icon));
             }
         }
         workbook.close();

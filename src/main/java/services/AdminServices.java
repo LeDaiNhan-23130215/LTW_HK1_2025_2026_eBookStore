@@ -21,6 +21,7 @@ public class AdminServices {
     private BannerDAO bannerDAO = new BannerDAO();
     private NewsDAO newsDAO = new NewsDAO();
     private FeedbackDAO feedbackDAO = new FeedbackDAO();
+    private AuthorDAO authorDAO = new AuthorDAO();
 
     public AdminServices() {}
 
@@ -277,4 +278,46 @@ public class AdminServices {
         return feedbackDAO.getFeedbackWithUserById(id);
     }
 
+    //Author
+    public List<Author> getListAuthors(){
+        return authorDAO.getAllAuthors();
+    }
+
+    public boolean addAuthor(Author author){
+        return authorDAO.addAuthor(author);
+    }
+
+    public boolean updateAuthor(Author author){
+        return authorDAO.updateAuthor(author);
+    }
+
+    public boolean deleteAuthor(int id){
+        return authorDAO.deleteAuthor(id);
+    }
+
+    public Author getAuthorById(int id){
+        return authorDAO.getAuthorByID(id);
+    }
+
+    public void importAuthorFile(Part filePart) {
+
+        try {
+            InputStream is = filePart.getInputStream();
+
+            List<String[]> rows = CSVUtil.read(is);
+
+            CSVMapper<Author> mapper = new AuthorCSVMapper();
+
+            for (String[] row : rows) {
+                Author a = mapper.map(row);
+                if (a != null) {
+                    authorDAO.addAuthor(a);
+                }
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            throw new RuntimeException("Import category thất bại");
+        }
+    }
 }
