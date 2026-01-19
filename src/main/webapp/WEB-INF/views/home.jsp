@@ -76,21 +76,25 @@
             <c:forEach var="eb" items="${newEBooks}">
                 <div class="product-card" title="${eb.title}">
 
-                    <form action="${pageContext.request.contextPath}/wishlist" method="post" class="wishlist-form">
-                        <input type="hidden" name="ebookId" value="${eb.id}"/>
-                        <c:if test="${wishlistIds != null && wishlistIds.contains(eb.id)}">
-                            <input type="hidden" name="action" value="remove"/>
-                            <button type="submit" class="favorite-btn active" title="Remove from wishlist">
-                                <i class="fa-solid fa-heart"></i>
+                    <c:choose>
+                        <c:when test="${not empty sessionScope.userID}">
+                            <form action="${pageContext.request.contextPath}/wishlist" method="post">
+                                <input type="hidden" name="ebookId" value="${eb.id}">
+                                <button type="submit"
+                                        class="favorite-btn ${wishlistIds != null && wishlistIds.contains(eb.id) ? 'active' : ''}">
+                                    <i class="fa-solid fa-heart"></i>
+                                </button>
+                            </form>
+                        </c:when>
+
+                        <c:otherwise>
+                            <button type="button"
+                                    class="favorite-btn"
+                                    onclick="alert('Vui lòng đăng nhập để sử dụng chức năng này')">
+                                <i class="fa-regular fa-heart"></i>
                             </button>
-                        </c:if>
-                        <c:if test="${wishlistIds == null || !wishlistIds.contains(eb.id)}">
-                            <input type="hidden" name="action" value="add"/>
-                            <button type="submit" class="favorite-btn" title="Add to wishlist">
-                                <i class="fa-solid fa-heart"></i>
-                            </button>
-                        </c:if>
-                    </form>
+                        </c:otherwise>
+                    </c:choose>
 
                     <div class="img-wrapper">
                         <img src="<c:url value='${eb.imageLink}' />" alt="${eb.title}"/>

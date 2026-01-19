@@ -27,11 +27,12 @@ public class HomeController extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 
+        HttpSession session = request.getSession(false);
+
         List<EbookProductCardView> newEBooks = ebookService.getNewEbookProductCards();
         request.setAttribute("newEBooks", newEBooks);
 
-        // Lấy wishlistIds nếu user đã đăng nhập
-        HttpSession session = request.getSession(false);
+        // Chỉ lấy wishlist nếu đã login
         if (session != null && session.getAttribute("userID") != null) {
             int userID = (Integer) session.getAttribute("userID");
             List<Integer> wishlistIds = wishlistService.getWishlist(userID)
