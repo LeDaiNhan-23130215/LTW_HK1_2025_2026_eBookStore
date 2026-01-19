@@ -10,6 +10,10 @@ import java.io.IOException;
 import java.util.List;
 
 @WebServlet(name = "AdminBannerController", value = "/admin-banner")
+@MultipartConfig(
+        fileSizeThreshold = 1024 * 1024,
+        maxFileSize = 5 * 1024 * 1024
+)
 public class AdminBannerController extends HttpServlet{
     private AdminServices  adminServices;
 

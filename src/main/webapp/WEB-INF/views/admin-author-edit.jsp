@@ -5,7 +5,7 @@
 <html lang="vi">
 <head>
     <meta charset="UTF-8">
-    <title>Chỉnh sửa danh mục</title>
+    <title>Chỉnh sửa tác giả</title>
 
     <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/admin-category.css" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"/>
@@ -16,9 +16,9 @@
 
 <body>
 
-<c:if test="${empty category}">
-    <h2 style="color:red;text-align:center;margin-top:40px;">Không tìm thấy danh mục!</h2>
-    <c:redirect url="/admin-category"/>
+<c:if test="${empty author}">
+    <h2 style="color:red;text-align:center;margin-top:40px;">Không tìm thấy tác giả!</h2>
+    <c:redirect url="/admin-author"/>
 </c:if>
 
 <!-- Sidebar -->
@@ -27,7 +27,8 @@
     <nav class="sidebar-nav">
         <a href="${pageContext.request.contextPath}/admin-dashboard">Dashboard</a>
         <a href="${pageContext.request.contextPath}/admin-ebook">Ebook</a>
-        <a href="${pageContext.request.contextPath}/admin-category" class="active">Danh mục</a>
+        <a href="${pageContext.request.contextPath}/admin-category">Danh mục</a>
+        <a href="${pageContext.request.contextPath}/admin-author" class="active">Tác giả</a>
         <a href="${pageContext.request.contextPath}/admin-user">Người dùng</a>
         <a href="${pageContext.request.contextPath}/admin-payment">Thanh toán</a>
         <a href="${pageContext.request.contextPath}/admin-banner">Banner</a>
@@ -42,7 +43,7 @@
 <div class="main-content">
 
     <header class="topbar">
-        <div class="topbar-title">Chỉnh sửa danh mục</div>
+        <div class="topbar-title">Chỉnh sửa tác giả</div>
         <button id="toggle-theme">🌙 Dark Mode</button>
     </header>
 
@@ -50,34 +51,50 @@
 
         <div class="add-form">
             <h2 class="toggle-title">
-                <i class="fa-solid fa-pen-to-square"></i> Sửa danh mục
+                <i class="fa-solid fa-pen-to-square"></i> Sửa tác giả
             </h2>
 
-            <form action="${pageContext.request.contextPath}/admin-category" method="post">
+            <form action="${pageContext.request.contextPath}/admin-author" method="post">
 
                 <input type="hidden" name="action" value="update">
-                <input type="hidden" name="id" value="${category.id}">
+                <input type="hidden" name="id" value="${author.id}">
 
                 <div class="form-row">
-                    <label for="catName">Tên danh mục:</label>
-                    <input type="text" id="catName" name="categoryName" value="${category.name}" required>
+                    <label>Tên tác giả:</label>
+                    <input type="text" name="authorName" value="${author.authorName}" required>
                 </div>
 
                 <div class="form-row">
-                    <label for="catDesc">Mô tả:</label>
-                    <textarea id="catDesc" name="description" rows="3">${category.description}</textarea>
+                    <label>Tiểu sử:</label>
+                    <textarea name="authorDetail" rows="4">${author.authorDetail}</textarea>
                 </div>
 
                 <div class="form-row">
-                    <label for="catDesc">Icon</label>
-                    <textarea id="catDesc" name="icon" rows="4">${category.icon}</textarea>
+                    <label>Năm sinh:</label>
+                    <input type="number" name="birthYear" value="${author.birthYear}" required>
+                </div>
+
+                <div class="form-row">
+                    <label>Quốc tịch:</label>
+                    <input type="text" name="nationality" value="${author.nationality}">
+                </div>
+
+                <div class="form-row">
+                    <label>Số lượng sách:</label>
+                    <input type="number" name="numberOfBooks" value="${author.numberOfBooks}">
+                </div>
+
+                <div class="form-row">
+                    <label>Giải thưởng:</label>
+                    <textarea name="awards" rows="3">${author.awards}</textarea>
                 </div>
 
                 <button type="submit" class="btn-addCategory" style="background:#28a745;">
                     Lưu thay đổi
                 </button>
 
-                <a href="${pageContext.request.contextPath}/admin-category" class="btn btn-secondary" style="margin-left:10px;">
+                <a href="${pageContext.request.contextPath}/admin-author"
+                   class="btn btn-secondary" style="margin-left:10px;">
                     Quay lại
                 </a>
 

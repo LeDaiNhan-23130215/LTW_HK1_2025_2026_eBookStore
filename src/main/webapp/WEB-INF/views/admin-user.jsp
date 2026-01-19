@@ -60,6 +60,7 @@
         <nav class="sidebar-nav">
             <a href="${pageContext.request.contextPath}/admin-dashboard">Dashboard</a>
             <a href="${pageContext.request.contextPath}/admin-ebook">Ebook</a>
+            <a href="${pageContext.request.contextPath}/admin-author">Tác giả</a>
             <a href="${pageContext.request.contextPath}/admin-category">Danh mục</a>
             <a href="${pageContext.request.contextPath}/admin-user" class="active">Người dùng</a>
             <a href="${pageContext.request.contextPath}/admin-payment">Thanh toán</a>

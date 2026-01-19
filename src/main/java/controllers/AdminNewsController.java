@@ -10,6 +10,10 @@ import java.io.IOException;
 import java.util.List;
 
 @WebServlet(name = "AdminNewsController", value = "/admin-news")
+@MultipartConfig(
+        fileSizeThreshold = 1024 * 1024,
+        maxFileSize = 5 * 1024 * 1024
+)
 public class AdminNewsController extends HttpServlet {
 
     private AdminServices adminServices;

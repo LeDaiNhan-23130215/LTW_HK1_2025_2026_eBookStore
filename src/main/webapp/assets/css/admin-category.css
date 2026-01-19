@@ -151,6 +151,36 @@ body .main-content .btn-addCategory:hover {
     transform: rotate(45deg);
 }
 
+.icon-select-wrapper {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.icon-select {
+    width: 260px;
+    padding: 8px 12px;
+    border-radius: 8px;
+    border: 1px solid #ccc;
+    font-size: 14px;
+}
+
+.icon-preview {
+    width: 44px;
+    height: 44px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: #f8f9fa;
+}
+
+.icon-preview i {
+    font-size: 20px;
+    color: #0d6efd;
+}
+
 .search-wrapper {
     margin: 20px;
     margin-top: 25px;

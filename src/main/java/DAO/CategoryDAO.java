@@ -12,7 +12,7 @@ import java.util.List;
 
 public class CategoryDAO {
     public Category getCategoryById (int id) {
-        String query = "SELECT id, categoryName, description FROM category WHERE id = ?";
+        String query = "SELECT id, categoryName, description, icon FROM category WHERE id = ?";
 
         try(Connection connection = DBConnection.getConnection();
             PreparedStatement ps = connection.prepareStatement(query);){
@@ -22,7 +22,8 @@ public class CategoryDAO {
                     return new Category(
                             rs.getInt("id"),
                             rs.getString("categoryName"),
-                            rs.getString("description")
+                            rs.getString("description"),
+                            rs.getString("icon")
                     );
                 }
             }
@@ -44,7 +45,8 @@ public class CategoryDAO {
                 Category c = new Category(
                         rs.getInt("id"),
                         rs.getString("categoryName"),
-                        rs.getString("description")
+                        rs.getString("description"),
+                        rs.getString("icon")
                 );
                 list.add(c);
             }
@@ -57,11 +59,12 @@ public class CategoryDAO {
     }
 
     public boolean addCategory(Category category){
-        String sql = "insert into category (categoryName, description) values (?, ?)";
+        String sql = "insert into category (categoryName, description, icon) values (?, ?, ?)";
         try(Connection connection = DBConnection.getConnection();
             PreparedStatement stm = connection.prepareStatement(sql)){
             stm.setString(1, category.getName());
             stm.setString(2, category.getDescription());
+            stm.setString(3, category.getIcon());
             int rows = stm.executeUpdate();
             return rows > 0;
         } catch (SQLException e){
@@ -84,12 +87,13 @@ public class CategoryDAO {
     }
 
     public boolean updateCategory(Category category){
-        String sql = "update category set categoryName = ?, description = ? where id = ?";
+        String sql = "update category set categoryName = ?, description = ?, icon = ? where id = ?";
         try (Connection connection = DBConnection.getConnection();
         PreparedStatement stm = connection.prepareStatement(sql)){
             stm.setString(1, category.getName());
             stm.setString(2, category.getDescription());
-            stm.setInt(3, category.getId());
+            stm.setString(3, category.getIcon());
+            stm.setInt(4, category.getId());
             int rows = stm.executeUpdate();
             return rows > 0;
         } catch (SQLException e){
