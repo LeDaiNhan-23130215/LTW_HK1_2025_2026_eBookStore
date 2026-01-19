@@ -76,6 +76,7 @@ public class WishlistController extends HttpServlet {
             wishlistService.removeFromWishlist(userID, bookID);
         }
 
-        resp.sendRedirect(req.getContextPath() + "/wishlist");
+        String referer = req.getHeader("Referer");
+        resp.sendRedirect(referer != null ? referer : req.getContextPath() + "/home");
     }
 }
