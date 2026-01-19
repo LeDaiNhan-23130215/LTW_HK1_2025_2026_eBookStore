@@ -17,6 +17,7 @@ public class ListbookController extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        request.setAttribute("categories", ebookService.getAllCategories());
 
         // ===== PAGE =====
         int page = 1;
@@ -64,6 +65,12 @@ public class ListbookController extends HttpServlet {
         String sortBy = request.getParameter("sortBy");
         String sortDir = request.getParameter("sortDir");
 
+        // ===== SEARCH =====
+        String keyword = request.getParameter("keyword");
+        if (keyword != null && !keyword.isEmpty()) {
+            filter.setKeywords(keyword);
+        }
+
         if (sortBy != null && !sortBy.isEmpty()) {
             filter.setSortBy(sortBy);
         } else {
@@ -84,6 +91,7 @@ public class ListbookController extends HttpServlet {
         // For sort buttons (excludes page, sortBy, sortDir)
         String queryStringForSort = buildQueryString(request, false, false);
         request.setAttribute("queryStringForSort", queryStringForSort);
+
 
         // ===== GET DATA =====
         PageView<EbookProductCardView> pageView = ebookService.getBooks(page, filter);
@@ -158,6 +166,13 @@ public class ListbookController extends HttpServlet {
                 sb.append("sortDir=").append(sortDir).append("&");
             }
         }
+
+        // Search keyword
+        String keyword = request.getParameter("keyword");
+        if (keyword != null && !keyword.isEmpty()) {
+            sb.append("keyword=").append(keyword).append("&");
+        }
+
 
         // Remove trailing &
         if (sb.length() > 0 && sb.charAt(sb.length() - 1) == '&') {

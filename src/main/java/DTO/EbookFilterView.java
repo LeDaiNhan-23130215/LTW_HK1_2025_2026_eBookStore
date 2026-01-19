@@ -14,6 +14,7 @@ public class EbookFilterView {
     private int page;
     private int pageSize;
 
+    private String keywords;
     // ===== GETTERS =====
     public Boolean getFree() {
         return free;
@@ -43,6 +44,7 @@ public class EbookFilterView {
         return pageSize;
     }
 
+    public String getKeywords() {return keywords;}
     // ===== SETTERS =====
     public void setFree(Boolean free) {
         this.free = free;
@@ -99,5 +101,9 @@ public class EbookFilterView {
     public String getFormatString() {
         if (formats == null || formats.isEmpty()) return "";
         return String.join(",", formats);
+    }
+
+    public void setKeywords(String keyword) {
+        this.keywords = keyword;
     }
 }

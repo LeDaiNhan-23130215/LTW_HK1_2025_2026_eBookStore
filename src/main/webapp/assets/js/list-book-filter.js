@@ -5,24 +5,15 @@ document.addEventListener("DOMContentLoaded", () => {
 
   if (!form || !grid || !container) return;
 
-  const labels = {
-    category: {
-      1: "Tech",
-      2: "Tham khảo",
-      3: "Tiếng Anh"
-    },
-    format: {
-      PDF: "PDF",
-      EPUB: "EPUB"
-    },
-    free: {
-      true: "Miễn phí",
-      false: "Có phí"
-    }
-  };
-
   function fetchData() {
     const params = new URLSearchParams(new FormData(form));
+
+    const urlParams = new URLSearchParams(window.location.search);
+    const keyword = urlParams.get("keyword");
+
+    if (keyword && keyword.trim() !== "") {
+      params.set("keyword", keyword.trim());
+    }
 
     fetch("list-book?" + params.toString(), {
       headers: { "X-Requested-With": "XMLHttpRequest" }
@@ -34,15 +25,41 @@ document.addEventListener("DOMContentLoaded", () => {
         });
   }
 
+  function getLabelForInput(input) {
+    if (input.type === "checkbox" || input.type === "radio") {
+      return input.parentElement.textContent.trim();
+    }
+    return input.value;
+  }
+
   function renderActiveFilters() {
     container.innerHTML = "";
 
-    const formData = new FormData(form);
     const activeFilters = [];
 
-    for (let [name, value] of formData.entries()) {
-      if (!value || name === "sortBy" || name === "sortDir") continue;
-      activeFilters.push({ name, value });
+    // ===== LẤY FILTER TỪ FORM =====
+    [...form.elements].forEach(input => {
+      if (!input.name || !input.value) return;
+      if (input.name === "sortBy" || input.name === "sortDir") return;
+
+      if ((input.type === "checkbox" || input.type === "radio") && input.checked) {
+        activeFilters.push({ input, label: getLabelForInput(input) });
+      }
+
+      if (input.type === "text" && input.value.trim() !== "") {
+        activeFilters.push({ input, label: "🔍 " + input.value.trim() });
+      }
+    });
+
+    // ===== LẤY SEARCH TỪ HEADER (keyword trên URL) =====
+    const urlParams = new URLSearchParams(window.location.search);
+    const keyword = urlParams.get("keyword");
+
+    if (keyword && keyword.trim() !== "") {
+      activeFilters.push({
+        input: { name: "keyword", type: "text", value: keyword },
+        label: "🔍 " + keyword.trim()
+      });
     }
 
     if (activeFilters.length === 0) {
@@ -57,9 +74,7 @@ document.addEventListener("DOMContentLoaded", () => {
     title.textContent = "Đã lọc:";
     container.appendChild(title);
 
-    activeFilters.forEach(({ name, value }) => {
-      const label = labels[name]?.[value] || value;
-
+    activeFilters.forEach(({ input, label }) => {
       const tag = document.createElement("div");
       tag.className = "filter-tag";
       tag.innerHTML = `
@@ -68,11 +83,23 @@ document.addEventListener("DOMContentLoaded", () => {
       `;
 
       tag.querySelector("button").addEventListener("click", () => {
-        [...form.querySelectorAll(`[name="${name}"]`)].forEach(input => {
-          if (input.value === value) input.checked = false;
-        });
+        const urlParams = new URLSearchParams(window.location.search);
 
-        if (name === "free") {
+        // ===== XÓA SEARCH =====
+        if (input.name === "keyword") {
+          urlParams.delete("keyword");
+          window.location.search = urlParams.toString();
+          return;
+        }
+
+        // ===== XÓA FILTER =====
+        if (input.type === "checkbox" || input.type === "radio") {
+          [...form.querySelectorAll(`[name="${input.name}"]`)].forEach(i => {
+            if (i.value === input.value) i.checked = false;
+          });
+        }
+
+        if (input.name === "free") {
           form.querySelector(`[name="free"][value=""]`).checked = true;
         }
 
@@ -83,11 +110,13 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   }
 
-  // Auto filter on change
+  // ===== BẮT SỰ KIỆN FILTER =====
   form.querySelectorAll("input").forEach(input => {
     input.addEventListener("change", fetchData);
+    if (input.type === "text") {
+      input.addEventListener("input", fetchData);
+    }
   });
 
-  // Initial render
   renderActiveFilters();
 });

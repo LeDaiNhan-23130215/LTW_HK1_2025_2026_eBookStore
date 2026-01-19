@@ -45,17 +45,16 @@
             </div>
 
             <div class="searchBox">
-                <input
-                        type="text"
-                        placeholder="Tìm sách của bạn ở đây"
-                        id="searchBox"
-                />
-                <button><i class="fa fa-search"></i></button>
+                <form action="list-book" method="get">
+                    <input type="text" id="searchBox" name="keyword" placeholder="Tìm ebook..." value="${param.keyword}"/>
+                    <button type="submit"><i class="fa fa-search"></i></button>
+                </form>
+
             </div>
 
             <div class="after-searchbox">
                 <div class="notification-button">
-                    <a><i class="fa-regular fa-bell"></i></a>
+                    <a href="news"><i class="fa-regular fa-bell"></i></a>
                     <span class="notification-badge">3</span>
                 </div>
 

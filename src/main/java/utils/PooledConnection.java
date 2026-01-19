@@ -59,7 +59,12 @@ public class PooledConnection implements Connection{
     public void close() throws SQLException {
         if(!isClose) {
             isClose = true;
+
+            if(connectionPool.isClosed()) {
+                realConnection.close();
+            } else {
             connectionPool.release(realConnection);
+            }
         }
     }
 

@@ -1,10 +1,12 @@
 package services;
 
+import DAO.CategoryDAO;
 import DAO.EbookDAO;
 import DAO.ImageDAO;
 import DTO.EbookFilterView;
 import DTO.EbookProductCardView;
 import DTO.PageView;
+import models.Category;
 import models.Ebook;
 import models.Image;
 
@@ -14,7 +16,7 @@ import java.util.List;
 public class EbookService {
     private EbookDAO ebookDAO = new EbookDAO();
     private ImageDAO imageDAO = new ImageDAO();
-
+    private CategoryDAO categoryDAO = new CategoryDAO();
     public List<EbookProductCardView> getProductCards() {
         List<Ebook> ebooks = ebookDAO.findAll();
         List<EbookProductCardView> result = new ArrayList<EbookProductCardView>();
@@ -69,8 +71,8 @@ public class EbookService {
         return result;
     }
 
-    public static void main(String[] args) {
-        EbookService ebookService = new EbookService();
-
+    public List<Category> getAllCategories() {
+        return categoryDAO.getAllCategory();
     }
+
 }

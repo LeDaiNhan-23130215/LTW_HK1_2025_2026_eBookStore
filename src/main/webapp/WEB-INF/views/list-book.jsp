@@ -44,24 +44,19 @@
       <div class="filter">
         <h3>Thể loại</h3>
 
-        <label>
-          <input type="checkbox" name="category" value="1"
-                 <c:if test="${filter.hasCategory(1)}">checked</c:if>>
-          Tech
-        </label>
+        <c:forEach var="cat" items="${categories}">
+          <label>
+            <input type="checkbox" name="category" value="${cat.id}"
+                   <c:if test="${filter.hasCategory(cat.id)}">checked</c:if>>
+              ${cat.name}
+          </label>
+        </c:forEach>
 
-        <label>
-          <input type="checkbox" name="category" value="2"
-                 <c:if test="${filter.hasCategory(2)}">checked</c:if>>
-          Tham khảo
-        </label>
-
-        <label>
-          <input type="checkbox" name="category" value="3"
-                 <c:if test="${filter.hasCategory(3)}">checked</c:if>>
-          Tiếng Anh
-        </label>
+        <a href="category">
+          <i class="fa-solid fa-bars"></i> Tất cả danh mục
+        </a>
       </div>
+
 
       <!-- ===== PRICE ===== -->
       <div class="filter">
@@ -102,8 +97,6 @@
           EPUB
         </label>
       </div>
-
-<%--      <button type="submit" class="btn-filter">Lọc</button>--%>
     </form>
   </aside>
 
@@ -155,7 +148,11 @@
 </main>
 
 <jsp:include page="/WEB-INF/views/footer.jsp"/>
+<script src="<c:url value='/assets/js/product-card.js' />"></script>
 
+<script>
+    const ctx = "${pageContext.request.contextPath}";
+</script>
 
 <script src="<c:url value='/assets/js/backToTopBtn.js' />"></script>
 <script src="<c:url value='/assets/js/component.js' />"></script>
