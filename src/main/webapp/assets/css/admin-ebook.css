@@ -262,20 +262,31 @@ body .main-content .btn-Edit, body .main-content .btn-Del {
     font-size: 0.9rem;
 }
 
+#btn-place {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+}
+
 body .main-content .btn-Edit {
     background: #facc15;
     color: #111827;
+    text-decoration: none;
 }
 body .main-content .btn-Edit:hover {
     background: #eab308;
+    text-decoration: none;
 }
 
 body .main-content .btn-Del {
     background: #ef4444;
     color: white;
+    text-decoration: none;
 }
 body .main-content .btn-Del:hover {
     background: #dc2626;
+    text-decoration: none;
 }
 body.dark {
     background: #111827;

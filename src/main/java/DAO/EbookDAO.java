@@ -1,5 +1,6 @@
 package DAO;
 
+import DTO.AdminEbookView;
 import DTO.EbookFilterView;
 import DTO.EbookProductCardView;
 import models.Ebook;
@@ -213,6 +214,154 @@ public class EbookDAO {
 
             ResultSet rs = ps.executeQuery();
             return rs.next() ? rs.getInt(1) : 0;
+
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    public List<AdminEbookView> findAllForAdmin() {
+
+        List<AdminEbookView> list = new ArrayList<>();
+
+        String sql = """
+        SELECT 
+            e.id,
+            e.title,
+            a.authorName,
+            c.categoryName,
+            e.price
+        FROM ebook e
+        JOIN author a ON e.authorID = a.id
+        JOIN category c ON e.categoryID = c.id
+        ORDER BY e.id DESC
+    """;
+
+        try (Connection con = DBConnection.getConnection();
+             PreparedStatement ps = con.prepareStatement(sql);
+             ResultSet rs = ps.executeQuery()) {
+
+            while (rs.next()) {
+                list.add(new AdminEbookView(
+                        rs.getInt("id"),
+                        rs.getString("title"),
+                        rs.getString("authorName"),
+                        rs.getString("categoryName"),
+                        rs.getDouble("price")
+                ));
+            }
+
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+
+        return list;
+    }
+
+    public boolean insert(Ebook e) {
+
+        String sql = """
+        INSERT INTO ebook
+        (title, authorID, price, imageID, description,
+         categoryID, fullFileID, demoFileID, status)
+        VALUES (?, ?, ?, ?, ?, ?, ?, ?, 'ACTIVE')
+    """;
+
+        try (Connection con = DBConnection.getConnection();
+             PreparedStatement ps = con.prepareStatement(sql)) {
+
+            ps.setString(1, e.getTitle());
+            ps.setInt(2, e.getAuthorID());
+            ps.setDouble(3, e.getPrice());
+            ps.setInt(4, e.getImageID());
+            ps.setString(5, e.getDescription());
+            ps.setInt(6, e.getCategoryID());
+            ps.setInt(7, e.getFullFileID());
+            ps.setInt(8, e.getDemoFileID());
+
+            return ps.executeUpdate() > 0;
+
+        } catch (SQLException ex) {
+            throw new RuntimeException(ex);
+        }
+    }
+
+    public Ebook getByIdForAdmin(int id) {
+
+        String sql = "SELECT * FROM ebook WHERE id = ?";
+
+        try (Connection con = DBConnection.getConnection();
+             PreparedStatement ps = con.prepareStatement(sql)) {
+
+            ps.setInt(1, id);
+            ResultSet rs = ps.executeQuery();
+
+            if (rs.next()) {
+                return new Ebook(
+                        rs.getInt("id"),
+                        rs.getString("title"),
+                        rs.getInt("authorID"),
+                        rs.getDouble("price"),
+                        rs.getInt("imageID"),
+                        rs.getString("description"),
+                        rs.getInt("categoryID"),
+                        rs.getInt("fullFileID"),
+                        rs.getInt("demoFileID"),
+                        rs.getString("status")
+                );
+            }
+
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+
+        return null;
+    }
+
+    public boolean update(Ebook e) {
+
+        String sql = """
+        UPDATE ebook
+        SET title = ?,
+            authorID = ?,
+            price = ?,
+            imageID = ?,
+            description = ?,
+            categoryID = ?,
+            fullFileID = ?,
+            demoFileID = ?
+        WHERE id = ?
+    """;
+
+        try (Connection con = DBConnection.getConnection();
+             PreparedStatement ps = con.prepareStatement(sql)) {
+
+            ps.setString(1, e.getTitle());
+            ps.setInt(2, e.getAuthorID());
+            ps.setDouble(3, e.getPrice());
+            ps.setInt(4, e.getImageID());
+            ps.setString(5, e.getDescription());
+            ps.setInt(6, e.getCategoryID());
+            ps.setInt(7, e.getFullFileID());
+            ps.setInt(8, e.getDemoFileID());
+            ps.setInt(9, e.getId());
+
+            return ps.executeUpdate() > 0;
+
+        } catch (SQLException ex) {
+            throw new RuntimeException(ex);
+        }
+    }
+
+    public boolean delete(int id) {
+
+        String sql = "UPDATE ebook SET status = 'INACTIVE' WHERE id = ?";
+
+        try (Connection con = DBConnection.getConnection();
+             PreparedStatement ps = con.prepareStatement(sql)) {
+
+            ps.setInt(1, id);
+            return ps.executeUpdate() > 0;
 
         } catch (SQLException e) {
             throw new RuntimeException(e);
