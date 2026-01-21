@@ -1,6 +1,7 @@
 package services;
 
 import DAO.*;
+import DTO.AdminEbookView;
 import DTO.PaymentAdminView;
 import jakarta.servlet.http.Part;
 import mappers.*;
@@ -10,6 +11,7 @@ import utils.CSVUtil;
 
 import java.io.InputStream;
 import java.util.List;
+import java.util.Map;
 
 public class AdminServices {
     private UserDAO userDAO = new UserDAO();
@@ -76,6 +78,12 @@ public class AdminServices {
     public int getTotalEbooks(){
         return ebookDAO.countTotalEBook();
     }
+    public boolean addEbook(Ebook ebook){ return ebookDAO.insert(ebook); }
+    public boolean updateEbook(Ebook ebook){ return ebookDAO.update(ebook); }
+    public boolean deleteEbook(int id){ return ebookDAO.delete(id); }
+    public List<AdminEbookView> getAllEbooks(){ return ebookDAO.findAllForAdmin(); }
+    public Ebook getEbookByID(int id){ return ebookDAO.getEbookByID(id); }
+    public List<Ebook> findAll() { return ebookDAO.findAll(); }
 
     //Checkout
     public int getTotalSuccessOrders(){
@@ -105,6 +113,14 @@ public class AdminServices {
     public List<PaymentAdminView> getAllPayments() { return checkoutDAO.getAllPaymentWithUser(); }
 
     public PaymentAdminView getPaymentByUserID(int id) { return checkoutDAO.getPaymentWithUserById(id); }
+
+    public Map<Integer, Double> monthlyRevenueData(int year) { return checkoutDAO.getMonthlyRevenue(year); }
+
+    public Map<Integer, Integer> getCheckoutPerMonth() { return checkoutDAO.checkoutPerMonth(); }
+
+    public Map<String, Double> getRevenuePerCategory() {return checkoutDAO.revenueByCategory(); }
+
+    public Map<String, Double> getTop5Ebook() { return checkoutDAO.top5Ebook(); }
 
     //CheckoutDetail
     public List<CheckoutDetail> getCheckoutDetails(int checkoutID) {

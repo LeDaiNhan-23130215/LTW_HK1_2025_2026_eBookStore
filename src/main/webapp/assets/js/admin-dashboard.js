@@ -14,30 +14,74 @@ document.querySelectorAll('.card').forEach(card => {
 
 document.addEventListener("DOMContentLoaded", () => {
 
-  const ctx = document.getElementById("revenueChart");
+    fetch(BASE_URL + "/admin-dashboard-revenue")
+        .then(res => res.json())
+        .then(data => {
+            new Chart(document.getElementById("revenueChart"), {
+                type: 'line',
+                data: {
+                    labels: data.labels,
+                    datasets: [{
+                        label: "Doanh thu (VND)",
+                        data: data.values,
+                        borderWidth: 3,
+                        tension: 0.3,
+                        fill: true
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    scales: {
+                        y: { beginAtZero: true }
+                    }
+                }
+            });
+        })
 
-  new Chart(ctx, {
-    type: 'line',
-    data: {
-      labels: ["Tháng 5", "Tháng 6", "Tháng 7", "Tháng 8", "Tháng 9", "Tháng 10"],
-      datasets: [{
-        label: "Doanh thu (VND)",
-        data: [1200000, 1500000, 2100000, 1800000, 2600000, 3000000],
-        borderWidth: 3,
-        borderColor: "rgba(75, 132, 255, 1)",
-        backgroundColor: "rgba(75, 132, 255, 0.3)",
-        tension: 0.3,
-        pointRadius: 4,
-        fill: true
-      }]
-    },
-    options: {
-      responsive: true,
-      maintainAspectRatio: false,
-      scales: {
-        y: { beginAtZero: false }
-      }
-    }
-  });
+    fetch(BASE_URL + "/admin-chart-orders")
+        .then(r => r.json())
+        .then(d => {
+            new Chart(document.getElementById("orderChart"), {
+                type: 'bar',
+                data: {
+                    labels: d.labels,
+                    datasets: [{ label: "Số đơn", data: d.values }]
+                }
+            });
+        });
 
+    fetch(BASE_URL + "/admin-chart-category")
+        .then(r => r.json())
+        .then(d => {
+            new Chart(document.getElementById("categoryChart"), {
+                type: 'doughnut',
+                data: {
+                    labels: d.labels,
+                    datasets: [{ data: d.values }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: {
+                            display: false
+                        }
+                    }
+                }
+            });
+        });
+
+    fetch(BASE_URL + "/admin-chart-top-ebooks")
+        .then(r => r.json())
+        .then(d => {
+            new Chart(document.getElementById("ebookChart"), {
+                type: 'bar',
+                data: {
+                    labels: d.labels,
+                    datasets: [{ label: "Doanh thu", data: d.values }]
+                },
+                options: { indexAxis: 'y' }
+            });
+        });
 });

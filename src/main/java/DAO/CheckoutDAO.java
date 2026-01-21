@@ -6,7 +6,9 @@ import utils.DBConnection;
 
 import java.sql.*;
 import java.util.ArrayList;
+import java.util.LinkedHashMap;
 import java.util.List;
+import java.util.Map;
 
 public class CheckoutDAO {
     // 1. Tạo checkout và trả về checkoutID
@@ -149,6 +151,37 @@ public class CheckoutDAO {
         return 0;
     }
 
+    public Map<Integer, Double> getMonthlyRevenue(int year) {
+        Map<Integer, Double> result = new LinkedHashMap<>();
+
+        String sql = """
+        SELECT MONTH(checkoutDate) AS month,
+               SUM(totalAmount) AS revenue
+        FROM checkout
+        WHERE YEAR(checkoutDate) = ?
+        GROUP BY MONTH(checkoutDate)
+        ORDER BY month
+    """;
+
+        try (Connection con = DBConnection.getConnection();
+             PreparedStatement ps = con.prepareStatement(sql)) {
+
+            ps.setInt(1, year);
+            ResultSet rs = ps.executeQuery();
+
+            while (rs.next()) {
+                result.put(
+                        rs.getInt("month"),
+                        rs.getDouble("revenue")
+                );
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return result;
+    }
+
     public int countSuccessOrderThisMonth() {
         String sql =
                 "SELECT COUNT(*) FROM checkout " +
@@ -259,5 +292,94 @@ public class CheckoutDAO {
         }
 
         return list;
+    }
+
+    public Map<Integer, Integer> checkoutPerMonth() {
+        Map<Integer, Integer> result = new LinkedHashMap<>();
+
+        String sql = """
+        SELECT MONTH(checkoutDate) AS month, COUNT(*) AS total
+        FROM checkout
+        WHERE YEAR(checkoutDate) = YEAR(CURDATE())
+        GROUP BY MONTH(checkoutDate)
+        ORDER BY month;
+    """;
+
+        try (Connection con = DBConnection.getConnection();
+             PreparedStatement ps = con.prepareStatement(sql)) {
+
+            ResultSet rs = ps.executeQuery();
+
+            while (rs.next()) {
+                result.put(
+                        rs.getInt("month"),
+                        rs.getInt("total")
+                );
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return result;
+    }
+
+    public Map<String, Double> revenueByCategory() {
+        Map<String, Double> result = new LinkedHashMap<>();
+
+        String sql = """
+        SELECT c.categoryName, SUM(co.totalAmount) AS revenue
+        FROM checkout co
+        JOIN checkoutdetail cd ON co.id = cd.checkoutID
+        JOIN ebook e ON cd.bookID = e.id
+        JOIN category c ON e.categoryID = c.id
+        GROUP BY c.id;
+    """;
+
+        try (Connection con = DBConnection.getConnection();
+             PreparedStatement ps = con.prepareStatement(sql)) {
+
+            ResultSet rs = ps.executeQuery();
+
+            while (rs.next()) {
+                result.put(
+                        rs.getString("categoryName"),
+                        rs.getDouble("revenue")
+                );
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return result;
+    }
+
+    public Map<String, Double> top5Ebook() {
+        Map<String, Double> result = new LinkedHashMap<>();
+
+        String sql = """
+        SELECT e.title, SUM(cd.price) AS revenue
+        FROM checkoutdetail cd
+        JOIN ebook e ON cd.bookID = e.id
+        GROUP BY e.id
+        ORDER BY revenue DESC
+        LIMIT 5;
+    """;
+
+        try (Connection con = DBConnection.getConnection();
+             PreparedStatement ps = con.prepareStatement(sql)) {
+
+            ResultSet rs = ps.executeQuery();
+
+            while (rs.next()) {
+                result.put(
+                        rs.getString("title"),
+                        rs.getDouble("revenue")
+                );
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return result;
     }
 }

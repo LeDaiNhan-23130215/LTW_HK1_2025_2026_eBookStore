@@ -108,48 +108,49 @@
         </section>
 
         <!-- Chart -->
-        <section class="chart-section">
-            <h2>Biểu đồ doanh thu</h2>
-            <div class="chart-container">
+        <div class="chart-grid">
+
+            <!-- CHART CHÍNH -->
+            <div class="chart-box full">
+                <div class="chart-header">
+                    <h3>📈 Doanh thu theo tháng</h3>
+                    <span>VNĐ / 2026</span>
+                </div>
                 <canvas id="revenueChart"></canvas>
             </div>
-        </section>
 
-        <!-- Recent activity table -->
-        <section class="table-section">
-            <table id="activityTable" class="table table-striped table-bordered">
-                <thead>
-                <tr>
-                    <th>Ngày</th>
-                    <th>Người dùng</th>
-                    <th>Hoạt động</th>
-                    <th>Chi tiết</th>
-                </tr>
-                </thead>
-                <tbody>
-                <tr>
-                    <td>21/10/2025</td>
-                    <td>nguyenkhanh</td>
-                    <td>Mua Ebook</td>
-                    <td>"Clean Code"</td>
-                </tr>
-                <tr>
-                    <td>20/10/2025</td>
-                    <td>admin</td>
-                    <td>Thêm banner mới</td>
-                    <td>Black Friday Sale</td>
-                </tr>
-                <tr>
-                    <td>19/10/2025</td>
-                    <td>huynguyen</td>
-                    <td>Đăng ký tài khoản</td>
-                    <td>-</td>
-                </tr>
-                </tbody>
-            </table>
-        </section>
+            <!-- CHART PHỤ -->
+            <div class="chart-box">
+                <div class="chart-header">
+                    <h3>🧾 Đơn hàng</h3>
+                    <span>Theo tháng</span>
+                </div>
+                <canvas id="orderChart"></canvas>
+            </div>
+
+            <div class="chart-box">
+                <div class="chart-header">
+                    <h3>📚 Danh mục</h3>
+                    <span>Tỉ lệ sách</span>
+                </div>
+                <canvas id="categoryChart"></canvas>
+            </div>
+
+            <!-- CHART FULL -->
+            <div class="chart-box full">
+                <div class="chart-header">
+                    <h3>🔥 Top eBook</h3>
+                    <span>Doanh thu cao nhất</span>
+                </div>
+                <canvas id="ebookChart"></canvas>
+            </div>
+
+        </div>
     </div>
-    <script src="assets/js/admin-darkmode.js"></script>
-    <script src="assets/js/admin-dashboard.js"></script>
+    <script>
+        const BASE_URL = "${pageContext.request.contextPath}";
+    </script>
+    <script src="${pageContext.request.contextPath}/assets/js/admin-darkmode.js"></script>
+    <script src="${pageContext.request.contextPath}/assets/js/admin-dashboard.js"></script>
 </body>
 </html>
