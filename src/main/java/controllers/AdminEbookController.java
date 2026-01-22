@@ -1,10 +1,14 @@
 package controllers;
-import DTO.AdminEbookView;
+import DAO.DemoFileDAO;
+import DAO.FullFileDAO;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.MultipartConfig;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.*;
+import models.DemoFile;
 import models.Ebook;
+import models.FullFile;
+import models.Image;
 import services.AdminServices;
 
 import java.io.IOException;
@@ -99,6 +103,9 @@ public class AdminEbookController extends HttpServlet {
                         c -> c.getName()
                 ));
 
+        req.setAttribute("authors", adminServices.getListAuthors());
+        req.setAttribute("categories", adminServices.getListCategory());
+
         req.setAttribute("ebooks", ebooks);
         req.setAttribute("authorMap", authorMap);
         req.setAttribute("categoryMap", categoryMap);
@@ -131,7 +138,7 @@ public class AdminEbookController extends HttpServlet {
                     .forward(req, resp);
 
         } catch (Exception e) {
-            e.printStackTrace(); // <<< CỰC KỲ QUAN TRỌNG
+            e.printStackTrace();
             resp.sendError(500, e.getMessage());
         }
     }
@@ -151,8 +158,21 @@ public class AdminEbookController extends HttpServlet {
 
         int id = Integer.parseInt(req.getParameter("id"));
 
-        Ebook ebook = buildEbookFromRequest(req);
-        ebook.setId(id);
+        Ebook old = adminServices.getEbookByID(id);
+
+        Ebook ebook = new Ebook(
+                id,
+                req.getParameter("title"),
+                Integer.parseInt(req.getParameter("authorId")),
+                Double.parseDouble(req.getParameter("price")),
+                old.getImageID(),
+                req.getParameter("description"),
+                Integer.parseInt(req.getParameter("categoryId")),
+                old.getFullFileID(),
+                old.getDemoFileID(),
+                old.getStatus(),
+                old.geteBookCode()
+        );
 
         adminServices.updateEbook(ebook);
 
@@ -179,9 +199,24 @@ public class AdminEbookController extends HttpServlet {
         double price = Double.parseDouble(req.getParameter("price"));
         String description = req.getParameter("description");
 
-        int imageID = 1;
-        int fullFileID = 1;
-        int demoFileID = 1;
+        String coverURL = req.getParameter("coverUrl");
+        Image image = new Image(title, coverURL, "ACTIVE");
+
+        int imageID = adminServices.getIDAfterInserted(image);
+
+        String fullFileUrl = req.getParameter("filePath");
+
+        FullFile fullFile = new FullFile(title, getFileFormat(fullFileUrl), 0, fullFileUrl, "ACTIVE");
+        FullFileDAO fullFileDAO = new FullFileDAO();
+        int fullFileID = fullFileDAO.insertAndReturnId(fullFile);
+
+        String demoFileUrl = req.getParameter("filePath");
+
+        DemoFile demoFile = new DemoFile(title, getFileFormat(demoFileUrl), 0, demoFileUrl, 10, "ACTIVE");
+        DemoFileDAO demoFileDAO = new DemoFileDAO();
+        int demoFileID = demoFileDAO.insertAndReturnId(demoFile);
+
+        String code = adminServices.generateEbookCode(categoryID);
 
         return new Ebook(
                 0,
@@ -193,7 +228,16 @@ public class AdminEbookController extends HttpServlet {
                 categoryID,
                 fullFileID,
                 demoFileID,
-                "ACTIVE"
+                "ACTIVE",
+                code
         );
+    }
+
+    private String getFileFormat(String url) {
+        int dot = url.lastIndexOf(".");
+        if (dot != -1) {
+            return url.substring(dot + 1).toUpperCase();
+        }
+        return "UNKNOWN";
     }
 }

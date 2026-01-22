@@ -75,4 +75,12 @@ public class EbookService {
         return categoryDAO.getAllCategory();
     }
 
+    public String generateEBookCode(int categoryId) {
+        String categoryCode = categoryDAO.getCategoryCodeById(categoryId);
+        Integer maxNumber = ebookDAO.getMaxCodeNumberByCategory(categoryId);
+
+        int nextNumber = (maxNumber == null) ? 1 : maxNumber + 1;
+
+        return categoryCode + String.format("%03d", nextNumber);
+    }
 }

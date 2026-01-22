@@ -103,7 +103,7 @@
                     <select name="categoryId" required>
                         <option value="">-- Chọn thể loại --</option>
                         <c:forEach var="c" items="${categories}">
-                            <option value="${c.id}">${c.categoryName}</option>
+                            <option value="${c.id}">${c.name}</option>
                         </c:forEach>
                     </select>
                 </div>
@@ -142,6 +142,7 @@
             <tr>
                 <th>ID</th>
                 <th>Tên sách</th>
+                <th>Mã sách</th>
                 <th>Tác giả</th>
                 <th>Thể loại</th>
                 <th>Giá</th>
@@ -154,6 +155,7 @@
                 <tr>
                     <td>${e.id}</td>
                     <td>${e.title}</td>
+                    <td>${e.eBookCode}</td>
                     <td>${authorMap[e.authorID]}</td>
                     <td>${categoryMap[e.categoryID]}</td>
                     <td>${e.price}</td>

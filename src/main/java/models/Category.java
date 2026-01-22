@@ -4,6 +4,7 @@ public class Category extends Base {
     private String name;
     private String description;
     private String icon;
+    private String categoryCode;
 
     public Category(int id, String name, String description, String icon) {
         super(id);
@@ -49,5 +50,13 @@ public class Category extends Base {
 
     public void setIcon(String icon) {
         this.icon = icon;
+    }
+
+    public String getCategoryCode() {
+        return categoryCode;
+    }
+
+    public void setCategoryCode(String categoryCode) {
+        this.categoryCode = categoryCode;
     }
 }
