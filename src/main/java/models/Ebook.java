@@ -17,8 +17,9 @@ public class Ebook extends Base {
     private int fullFileID;
     private int demoFileID;
     private String status;
+    private String eBookCode;
 
-    public Ebook(int id, String title, int authorID, double price, int imageID, String description, int categoryID, int fullFileID, int demoFileID, String status) {
+    public Ebook(int id, String title, int authorID, double price, int imageID, String description, int categoryID, int fullFileID, int demoFileID, String status, String eBookCode) {
         super(id);
         this.title = title;
         this.authorID = authorID;
@@ -29,6 +30,7 @@ public class Ebook extends Base {
         this.status = status;
         this.demoFileID = demoFileID;
         this.categoryID = categoryID;
+        this.eBookCode = eBookCode;
     }
 
     public Ebook(int id) {
@@ -138,4 +140,11 @@ public class Ebook extends Base {
         return Integer.hashCode(id);
     }
 
+    public String geteBookCode() {
+        return eBookCode;
+    }
+
+    public void seteBookCode(String eBookCode) {
+        this.eBookCode = eBookCode;
+    }
 }

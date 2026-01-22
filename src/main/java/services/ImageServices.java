@@ -14,4 +14,8 @@ public class ImageServices {
         Map<Integer, Image> images = imageDAO.getImagesMap();
         return images != null ? images : new HashMap<>();
     }
+
+    public int insertAndGetImgID(Image image) {
+        return imageDAO.insertAndReturnId(image);
+    }
 }

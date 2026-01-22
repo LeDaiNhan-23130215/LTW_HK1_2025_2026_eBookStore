@@ -114,4 +114,20 @@ public class CategoryDAO {
         }
         return false;
     }
+
+    public String getCategoryCodeById(int categoryId) {
+        String sql = "SELECT categoryCode FROM category WHERE id = ?";
+        try (Connection conn = DBConnection.getConnection();
+             PreparedStatement ps = conn.prepareStatement(sql)) {
+
+            ps.setInt(1, categoryId);
+            ResultSet rs = ps.executeQuery();
+            if (rs.next()) {
+                return rs.getString("categoryCode");
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
 }

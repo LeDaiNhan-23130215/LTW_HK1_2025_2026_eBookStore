@@ -12,6 +12,13 @@ public class Image extends Base {
         this.imgStatus = imgStatus;
     }
 
+    public Image(String imgName, String imgLink, String imgStatus) {
+        super(-1);
+        this.imgName = imgName;
+        this.imgLink = imgLink;
+        this.imgStatus = imgStatus;
+    }
+
     public Image(int id) {
         super(id);
     }

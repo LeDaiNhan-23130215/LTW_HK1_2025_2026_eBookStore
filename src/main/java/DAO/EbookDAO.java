@@ -35,7 +35,8 @@ public class EbookDAO {
                         rs.getInt("categoryID"),
                         rs.getInt("fullFileID"),
                         rs.getInt("demoFileID"),
-                        rs.getString("status")
+                        rs.getString("status"),
+                        rs.getString("eBookCode")
                 );
             }
 
@@ -59,7 +60,7 @@ public class EbookDAO {
 
     public List<Ebook> getNewBook() {
         List<Ebook> ebooks = new ArrayList<>();
-        String sql = "SELECT id, title, authorID, price, imageID, description, categoryID, fullFileID, demoFileID, status " +
+        String sql = "SELECT id, title, authorID, price, imageID, description, categoryID, fullFileID, demoFileID, status, eBookCode " +
                 "FROM ebook " +
                 "WHERE status = 'ACTIVE' " +  // FIXED: Added space before ORDER BY
                 "ORDER BY id DESC " +
@@ -79,7 +80,8 @@ public class EbookDAO {
                         rs.getInt("categoryID"),
                         rs.getInt("fullFileID"),
                         rs.getInt("demoFileID"),
-                        rs.getString("status")
+                        rs.getString("status"),
+                        rs.getString("eBookCode")
                 ));
             }
         } catch (SQLException e) {
@@ -106,7 +108,8 @@ public class EbookDAO {
                         rs.getInt("categoryID"),
                         rs.getInt("fullFileID"),
                         rs.getInt("demoFileID"),
-                        rs.getString("status")
+                        rs.getString("status"),
+                        rs.getString("eBookCode")
                 ));
             }
         } catch (SQLException e) {
@@ -263,8 +266,8 @@ public class EbookDAO {
         String sql = """
         INSERT INTO ebook
         (title, authorID, price, imageID, description,
-         categoryID, fullFileID, demoFileID, status)
-        VALUES (?, ?, ?, ?, ?, ?, ?, ?, 'ACTIVE')
+         categoryID, fullFileID, demoFileID, status, eBookCode)
+        VALUES (?, ?, ?, ?, ?, ?, ?, ?, 'ACTIVE', ?)
     """;
 
         try (Connection con = DBConnection.getConnection();
@@ -278,6 +281,7 @@ public class EbookDAO {
             ps.setInt(6, e.getCategoryID());
             ps.setInt(7, e.getFullFileID());
             ps.setInt(8, e.getDemoFileID());
+            ps.setString(9, e.geteBookCode());
 
             return ps.executeUpdate() > 0;
 
@@ -307,7 +311,8 @@ public class EbookDAO {
                         rs.getInt("categoryID"),
                         rs.getInt("fullFileID"),
                         rs.getInt("demoFileID"),
-                        rs.getString("status")
+                        rs.getString("status"),
+                        rs.getString("eBookCode")
                 );
             }
 
@@ -402,6 +407,27 @@ public class EbookDAO {
             params.add("%" + f.getKeywords() + "%");
             params.add("%" + f.getKeywords() + "%");
         }
+    }
+
+    public Integer getMaxCodeNumberByCategory(int categoryId) {
+        String sql = """
+        SELECT MAX(CAST(SUBSTRING(eBookCode, 3) AS UNSIGNED))
+        FROM ebook
+        WHERE categoryID = ?
+    """;
+
+        try (Connection conn = DBConnection.getConnection();
+             PreparedStatement ps = conn.prepareStatement(sql)) {
+
+            ps.setInt(1, categoryId);
+            ResultSet rs = ps.executeQuery();
+            if (rs.next()) {
+                return rs.getInt(1);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return null;
     }
 
     public void bindParams(PreparedStatement ps, List<Object> params) throws SQLException {

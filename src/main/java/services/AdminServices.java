@@ -24,6 +24,8 @@ public class AdminServices {
     private NewsDAO newsDAO = new NewsDAO();
     private FeedbackDAO feedbackDAO = new FeedbackDAO();
     private AuthorDAO authorDAO = new AuthorDAO();
+    private EbookService ebookService = new EbookService();
+    private ImageServices imageServices = new ImageServices();
 
     public AdminServices() {}
 
@@ -84,6 +86,9 @@ public class AdminServices {
     public List<AdminEbookView> getAllEbooks(){ return ebookDAO.findAllForAdmin(); }
     public Ebook getEbookByID(int id){ return ebookDAO.getEbookByID(id); }
     public List<Ebook> findAll() { return ebookDAO.findAll(); }
+    public String generateEbookCode(int categoryId) {
+        return ebookService.generateEBookCode(categoryId);
+    }
 
     //Checkout
     public int getTotalSuccessOrders(){
@@ -335,5 +340,10 @@ public class AdminServices {
             e.printStackTrace();
             throw new RuntimeException("Import category thất bại");
         }
+    }
+
+    //Image
+    public int getIDAfterInserted(Image image ) {
+        return imageServices.insertAndGetImgID(image);
     }
 }

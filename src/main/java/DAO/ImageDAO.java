@@ -3,10 +3,7 @@ package DAO;
 import models.Image;
 import utils.DBConnection;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.sql.*;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -47,6 +44,31 @@ public class ImageDAO {
             e.printStackTrace();
         }
         return imageMap;
+    }
+
+    public int insertAndReturnId(Image image) {
+        String sql = """
+        INSERT INTO Image (imgName, imgLink, imgStatus)
+        VALUES (?, ?, ?)
+    """;
+
+        try (Connection conn = DBConnection.getConnection();
+             PreparedStatement ps = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
+
+            ps.setString(1, image.getImgName());
+            ps.setString(2, image.getImgLink());
+            ps.setString(3, image.getImgStatus());
+
+            ps.executeUpdate();
+
+            ResultSet rs = ps.getGeneratedKeys();
+            if (rs.next()) {
+                return rs.getInt(1);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return -1;
     }
 
     public static void main(String[] args) {
