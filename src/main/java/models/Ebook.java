@@ -7,24 +7,22 @@ import java.util.List;
 import java.util.Locale;
 
 public class Ebook extends Base {
-    private String ebookNum;
     private String title;
-    private int  authorID;
+    private int authorID;
     private double price;
-    private int imageID;
     private String description;
     private int categoryID;
     private int fullFileID;
     private int demoFileID;
     private String status;
     private String eBookCode;
+    private List<Image> images;
 
-    public Ebook(int id, String title, int authorID, double price, int imageID, String description, int categoryID, int fullFileID, int demoFileID, String status, String eBookCode) {
+    public Ebook(int id, String title, int authorID, double price, String description, int categoryID, int fullFileID, int demoFileID, String status, String eBookCode) {
         super(id);
         this.title = title;
         this.authorID = authorID;
         this.price = price;
-        this.imageID = imageID;
         this.description = description;
         this.fullFileID = fullFileID;
         this.status = status;
@@ -55,18 +53,6 @@ public class Ebook extends Base {
         return this.price;
     }
 
-    public int getImageID() {
-        return this.imageID;
-    }
-
-    public String getEbookNum() {
-        return ebookNum;
-    }
-
-    public void setEbookNum(String ebookNum) {
-        this.ebookNum = ebookNum;
-    }
-
     public void setTitle(String title) {
         this.title = title;
     }
@@ -81,10 +67,6 @@ public class Ebook extends Base {
 
     public void setPrice(double price) {
         this.price = price;
-    }
-
-    public void setImageID(int imageID) {
-        this.imageID = imageID;
     }
 
     public String getDescription() {
@@ -146,5 +128,13 @@ public class Ebook extends Base {
 
     public void seteBookCode(String eBookCode) {
         this.eBookCode = eBookCode;
+    }
+
+    public List<Image> getImages() {
+        return images;
+    }
+
+    public void setImages(List<Image> images) {
+        this.images = images;
     }
 }

@@ -84,7 +84,7 @@ public class AdminServices {
     public boolean updateEbook(Ebook ebook){ return ebookDAO.update(ebook); }
     public boolean deleteEbook(int id){ return ebookDAO.delete(id); }
     public List<AdminEbookView> getAllEbooks(){ return ebookDAO.findAllForAdmin(); }
-    public Ebook getEbookByID(int id){ return ebookDAO.getEbookByID(id); }
+    public Ebook getEbookByID(int id){ return ebookDAO.getEbookById(id); }
     public List<Ebook> findAll() { return ebookDAO.findAll(); }
     public String generateEbookCode(int categoryId) {
         return ebookService.generateEBookCode(categoryId);
@@ -342,8 +342,33 @@ public class AdminServices {
         }
     }
 
-    //Image
-    public int getIDAfterInserted(Image image ) {
-        return imageServices.insertAndGetImgID(image);
+    // Ebook + Images
+    public void addEbookWithImages(Ebook ebook, List<String> imageUrls) {
+
+        // 1. Insert Ebook trước
+        int ebookID = ebookDAO.insertAndReturnId(ebook);
+
+        if (ebookID <= 0) {
+            throw new RuntimeException("Insert ebook failed");
+        }
+
+        // 2. Insert images theo ebookID
+        for (String url : imageUrls) {
+            Image img = new Image(
+                    ebookID,
+                    ebook.getTitle(),
+                    url,
+                    "ACTIVE"
+            );
+            imageServices.insert(img);
+        }
+    }
+
+    public void insertImage(Image img) {
+        imageServices.insert(img);
+    }
+
+    public int addEbookAndReturnID(Ebook ebook) {
+        return ebookDAO.insertAndReturnId(ebook);
     }
 }

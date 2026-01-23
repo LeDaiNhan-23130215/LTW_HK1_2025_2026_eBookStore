@@ -19,19 +19,28 @@ public class EbookService {
     private CategoryDAO categoryDAO = new CategoryDAO();
     public List<EbookProductCardView> getProductCards() {
         List<Ebook> ebooks = ebookDAO.findAll();
-        List<EbookProductCardView> result = new ArrayList<EbookProductCardView>();
+        List<EbookProductCardView> result = new ArrayList<>();
 
-        for(Ebook e : ebooks) {
-            Image img = imageDAO.getImageById(e.getImageID());
+        for (Ebook e : ebooks) {
+            Image img = imageDAO.getFirstImageByEbookID(e.getId());
 
-            result.add(new EbookProductCardView(e.getId(), e.getTitle(), e.getPrice(), img.getImgLink()));
+            String imgLink = (img != null)
+                    ? img.getImgLink()
+                    : "/assets/img/default.jpg";
+
+            result.add(new EbookProductCardView(
+                    e.getId(),
+                    e.getTitle(),
+                    e.getPrice(),
+                    imgLink
+            ));
         }
         return result;
     }
 
     public List<EbookProductCardView> getNewEbookProductCards() {
         List<Ebook> ebooks = ebookDAO.getNewBook();
-        return getEbookProductCardViews(ebooks);
+        return buildProductCardViews(ebooks);
     }
 
     private static final int PAGE_SIZE = 24;
@@ -59,14 +68,14 @@ public class EbookService {
     private List<EbookProductCardView> getEbookProductCardViews(List<Ebook> ebooks) {
         List<EbookProductCardView> result = new ArrayList<>();
         for (Ebook e : ebooks) {
-            Image img = imageDAO.getImageById(e.getImageID());
-
-            result.add(new EbookProductCardView(
-                    e.getId(),
-                    e.getTitle(),
-                    e.getPrice(),
-                    img.getImgLink()
-            ));
+            for(Image img : e.getImages()) {
+                result.add(new EbookProductCardView(
+                        e.getId(),
+                        e.getTitle(),
+                        e.getPrice(),
+                        img.getImgLink()
+                ));
+            }
         }
         return result;
     }
@@ -82,5 +91,25 @@ public class EbookService {
         int nextNumber = (maxNumber == null) ? 1 : maxNumber + 1;
 
         return categoryCode + String.format("%03d", nextNumber);
+    }
+
+    private List<EbookProductCardView> buildProductCardViews(List<Ebook> ebooks) {
+        List<EbookProductCardView> result = new ArrayList<>();
+
+        for (Ebook e : ebooks) {
+            Image img = imageDAO.getFirstImageByEbookID(e.getId());
+
+            String imgLink = (img != null)
+                    ? img.getImgLink()
+                    : "/assets/img/no-image.png";
+
+            result.add(new EbookProductCardView(
+                    e.getId(),
+                    e.getTitle(),
+                    e.getPrice(),
+                    imgLink
+            ));
+        }
+        return result;
     }
 }

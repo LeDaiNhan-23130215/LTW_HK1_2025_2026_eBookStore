@@ -119,7 +119,7 @@
                 </div>
 
                 <div class="form-actions">
-                    <button type="submit" class="btn-addCategory">
+                    <button type="submit" class="btn-Edit" style="background:#28a745; color: white">
                         <i class="fa-solid fa-save"></i> Lưu thay đổi
                     </button>
 

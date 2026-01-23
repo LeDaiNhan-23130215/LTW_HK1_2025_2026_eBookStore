@@ -77,7 +77,6 @@ public class WishlistDetailDAO {
                 e.setTitle(rs.getString("title"));
                 e.setAuthorID(Integer.parseInt(rs.getString("authorID")));
                 e.setPrice(rs.getDouble("price"));
-                e.setImageID(Integer.parseInt(rs.getString("imageID")));
                 list.add(e);
             }
         } catch (Exception e) {
@@ -104,7 +103,6 @@ public class WishlistDetailDAO {
                 e.setTitle(rs.getString("title"));
                 e.setAuthorID(Integer.parseInt(rs.getString("authorID")));
                 e.setPrice(rs.getDouble("price"));
-                e.setImageID(Integer.parseInt(rs.getString("imageID")));
                 list.add(e);
             }
         }
