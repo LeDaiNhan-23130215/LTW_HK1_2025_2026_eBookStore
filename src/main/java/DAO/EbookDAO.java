@@ -4,33 +4,30 @@ import DTO.AdminEbookView;
 import DTO.EbookFilterView;
 import DTO.EbookProductCardView;
 import models.Ebook;
+import services.EbookService;
 import utils.DBConnection;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
 public class EbookDAO {
 
-    public Ebook getEbookByID(int id) {
+    public Ebook getEbookById(int id) {
         String sql = "SELECT * FROM ebook WHERE id = ?";
+        ImageDAO imageDAO = new ImageDAO();
 
         try (Connection connection = DBConnection.getConnection();
              PreparedStatement ps = connection.prepareStatement(sql)) {
-
             ps.setInt(1, id);
             ResultSet rs = ps.executeQuery();
 
             if (rs.next()) {
-                return new Ebook(
+                Ebook ebook = new Ebook(
                         rs.getInt("id"),
                         rs.getString("title"),
                         rs.getInt("authorID"),
                         rs.getDouble("price"),
-                        rs.getInt("imageID"),
                         rs.getString("description"),
                         rs.getInt("categoryID"),
                         rs.getInt("fullFileID"),
@@ -38,10 +35,12 @@ public class EbookDAO {
                         rs.getString("status"),
                         rs.getString("eBookCode")
                 );
-            }
 
+                ebook.setImages(imageDAO.getByEbookID(id));
+                return ebook;
+            }
         } catch (SQLException e) {
-            e.printStackTrace();
+            throw new RuntimeException(e);
         }
         return null;
     }
@@ -60,9 +59,9 @@ public class EbookDAO {
 
     public List<Ebook> getNewBook() {
         List<Ebook> ebooks = new ArrayList<>();
-        String sql = "SELECT id, title, authorID, price, imageID, description, categoryID, fullFileID, demoFileID, status, eBookCode " +
+        String sql = "SELECT id, title, authorID, price, description, categoryID, fullFileID, demoFileID, status, eBookCode " +
                 "FROM ebook " +
-                "WHERE status = 'ACTIVE' " +  // FIXED: Added space before ORDER BY
+                "WHERE status = 'ACTIVE' " +
                 "ORDER BY id DESC " +
                 "LIMIT 15";
         try (Connection connection = DBConnection.getConnection();
@@ -75,7 +74,6 @@ public class EbookDAO {
                         rs.getString("title"),
                         rs.getInt("authorID"),
                         rs.getDouble("price"),
-                        rs.getInt("imageID"),
                         rs.getString("description"),
                         rs.getInt("categoryID"),
                         rs.getInt("fullFileID"),
@@ -92,7 +90,7 @@ public class EbookDAO {
 
     public List<Ebook> findAll() {
         List<Ebook> result = new ArrayList<>();
-        String sql = "SELECT * FROM ebook";
+        String sql = "SELECT * FROM ebook where status = 'ACTIVE'";
         try (Connection connection = DBConnection.getConnection();
              PreparedStatement ps = connection.prepareStatement(sql)) {
 
@@ -103,7 +101,6 @@ public class EbookDAO {
                         rs.getString("title"),
                         rs.getInt("authorID"),
                         rs.getDouble("price"),
-                        rs.getInt("imageID"),
                         rs.getString("description"),
                         rs.getInt("categoryID"),
                         rs.getInt("fullFileID"),
@@ -265,9 +262,9 @@ public class EbookDAO {
 
         String sql = """
         INSERT INTO ebook
-        (title, authorID, price, imageID, description,
+        (title, authorID, price, description,
          categoryID, fullFileID, demoFileID, status, eBookCode)
-        VALUES (?, ?, ?, ?, ?, ?, ?, ?, 'ACTIVE', ?)
+        VALUES (?, ?, ?, ?, ?, ?, ?, 'ACTIVE', ?)
     """;
 
         try (Connection con = DBConnection.getConnection();
@@ -276,18 +273,51 @@ public class EbookDAO {
             ps.setString(1, e.getTitle());
             ps.setInt(2, e.getAuthorID());
             ps.setDouble(3, e.getPrice());
-            ps.setInt(4, e.getImageID());
-            ps.setString(5, e.getDescription());
-            ps.setInt(6, e.getCategoryID());
-            ps.setInt(7, e.getFullFileID());
-            ps.setInt(8, e.getDemoFileID());
-            ps.setString(9, e.geteBookCode());
+            ps.setString(4, e.getDescription());
+            ps.setInt(5, e.getCategoryID());
+            ps.setInt(6, e.getFullFileID());
+            ps.setInt(7, e.getDemoFileID());
+            ps.setString(8, e.geteBookCode());
 
             return ps.executeUpdate() > 0;
 
         } catch (SQLException ex) {
             throw new RuntimeException(ex);
         }
+    }
+
+    public int insertAndReturnId(Ebook e) {
+        String sql = """
+        INSERT INTO ebook
+        (title, authorID, price, description,
+         categoryID, fullFileID, demoFileID, status, eBookCode)
+        VALUES (?, ?, ?, ?, ?, ?, ?, 'ACTIVE', ?)
+    """;
+
+        try (Connection con = DBConnection.getConnection();
+             PreparedStatement ps = con.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
+
+            ps.setString(1, e.getTitle());
+            ps.setInt(2, e.getAuthorID());
+            ps.setDouble(3, e.getPrice());
+            ps.setString(4, e.getDescription());
+            ps.setInt(5, e.getCategoryID());
+            ps.setInt(6, e.getFullFileID());
+            ps.setInt(7, e.getDemoFileID());
+            ps.setString(8, e.geteBookCode());
+
+            int affectedRows = ps.executeUpdate();
+            if (affectedRows > 0) {
+                try (ResultSet rs = ps.getGeneratedKeys()) {
+                    if (rs.next()) {
+                        return rs.getInt(1);
+                    }
+                }
+            }
+        } catch (SQLException ex) {
+            throw new RuntimeException(ex);
+        }
+        return -1;
     }
 
     public Ebook getByIdForAdmin(int id) {
@@ -306,7 +336,6 @@ public class EbookDAO {
                         rs.getString("title"),
                         rs.getInt("authorID"),
                         rs.getDouble("price"),
-                        rs.getInt("imageID"),
                         rs.getString("description"),
                         rs.getInt("categoryID"),
                         rs.getInt("fullFileID"),
@@ -330,25 +359,26 @@ public class EbookDAO {
         SET title = ?,
             authorID = ?,
             price = ?,
-            imageID = ?,
             description = ?,
             categoryID = ?,
             fullFileID = ?,
-            demoFileID = ?
+            demoFileID = ?,
+            eBookCode = ?
         WHERE id = ?
     """;
 
         try (Connection con = DBConnection.getConnection();
              PreparedStatement ps = con.prepareStatement(sql)) {
-
+            EbookService service = new EbookService();
+            String eBookCode = service.generateEBookCode(e.getCategoryID());
             ps.setString(1, e.getTitle());
             ps.setInt(2, e.getAuthorID());
             ps.setDouble(3, e.getPrice());
-            ps.setInt(4, e.getImageID());
-            ps.setString(5, e.getDescription());
-            ps.setInt(6, e.getCategoryID());
-            ps.setInt(7, e.getFullFileID());
-            ps.setInt(8, e.getDemoFileID());
+            ps.setString(4, e.getDescription());
+            ps.setInt(5, e.getCategoryID());
+            ps.setInt(6, e.getFullFileID());
+            ps.setInt(7, e.getDemoFileID());
+            ps.setString(8, eBookCode);
             ps.setInt(9, e.getId());
 
             return ps.executeUpdate() > 0;

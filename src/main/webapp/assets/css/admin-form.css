@@ -85,6 +85,30 @@
     align-items: center;
 }
 
+.image-input {
+    display: grid;
+    grid-template-columns: 1fr auto;
+    gap: 10px;
+    margin-bottom: 12px;
+}
+
+.image-input input {
+    grid-column: 1 / 2;
+}
+
+.image-input img {
+    grid-column: 1 / 2;
+    max-width: 160px;
+    max-height: 220px;
+    object-fit: cover;
+    border: 1px solid #ddd;
+    border-radius: 6px;
+}
+
+.image-input button {
+    grid-column: 2 / 3;
+}
+
 /* ===================== ANIMATION ===================== */
 @keyframes fadeIn {
     from {

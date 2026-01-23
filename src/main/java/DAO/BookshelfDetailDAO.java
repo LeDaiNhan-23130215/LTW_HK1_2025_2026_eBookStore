@@ -73,7 +73,6 @@ public class BookshelfDetailDAO {
                 Ebook e = new Ebook(id);
                 e.setTitle(rs.getString("title"));
                 e.setPrice(rs.getDouble("price"));
-                e.setImageID(rs.getInt("imageID"));
                 list.add(e);
             }
 
@@ -87,7 +86,7 @@ public class BookshelfDetailDAO {
         List<Ebook> books = new ArrayList<>();
 
         String sql = """
-                SELECT e.id, e.title, e.price, e.imageID
+                SELECT e.id, e.title, e.price
                 FROM bookshelfdetail bd
                 JOIN bookshelf b ON bd.bsID = b.id
                 JOIN ebook e ON bd.ebookID = e.id
@@ -106,7 +105,6 @@ public class BookshelfDetailDAO {
                     Ebook ebook = new Ebook(id);
                     ebook.setTitle(rs.getString("title"));
                     ebook.setPrice(rs.getDouble("price"));
-                    ebook.setImageID(rs.getInt("imageID"));
 
                     books.add(ebook);
                 }

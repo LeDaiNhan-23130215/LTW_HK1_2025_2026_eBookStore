@@ -14,6 +14,7 @@ import services.ImageServices;
 import services.WishlistService;
 
 import java.io.IOException;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
@@ -45,7 +46,13 @@ public class WishlistController extends HttpServlet {
         List<Ebook> wishlist = wishlistService.getWishlist(userID);
 
         Map<Integer, Author> authorMap = authorService.getAuthors();
-        Map<Integer, Image> imageMap = imageServices.getImages();
+        Map<Integer, Image> imageMap = new HashMap<>();
+
+        for(Ebook ebook : wishlist){
+            Image image = imageServices.getThumbnail(ebook.getId());
+            imageMap.put(ebook.getId(), image);
+        }
+
         List<Integer> wishlistIds = wishlist.stream()
                 .map(Ebook::getId)
                 .collect(Collectors.toList());

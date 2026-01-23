@@ -114,8 +114,35 @@
                 </div>
 
                 <div class="form-row">
-                    <label>Ảnh bìa (URL):</label>
-                    <input type="text" name="coverUrl">
+                    <label>Ảnh bìa:</label>
+
+                    <div id="image-container">
+                        <small class="text-muted">
+                            Nếu không nhập ảnh, hệ thống sẽ dùng ảnh mặc định
+                        </small>
+                        <div class="image-input">
+                            <input type="text"
+                                   name="coverUrls[]"
+                                   placeholder="URL ảnh bìa"
+                                   oninput="previewImage(this)">
+
+                            <img class="img-preview"
+                                 style="display:none"/>
+
+                            <button type="button"
+                                    class="btn btn-danger btn-sm"
+                                    onclick="removeImage(this)">
+                                <i class="fa-solid fa-trash"></i>
+                            </button>
+                        </div>
+
+                    </div>
+
+                    <button type="button"
+                            class="btn btn-secondary btn-sm mt-2"
+                            onclick="addImage()">
+                        <i class="fa-solid fa-plus"></i> Thêm ảnh
+                    </button>
                 </div>
 
                 <div class="form-row">
@@ -181,5 +208,53 @@
 
 <script src="${pageContext.request.contextPath}/assets/js/admin-darkmode.js"></script>
 <script src="${pageContext.request.contextPath}/assets/js/showForm.js"></script>
+<script>
+    function addImage() {
+        const container = document.getElementById("image-container");
+
+        const div = document.createElement("div");
+        div.className = "image-input";
+        div.innerHTML = `
+            <input type="text"
+                   name="coverUrls[]"
+                   placeholder="URL ảnh bìa"
+                   oninput="previewImage(this)">
+
+            <img class="img-preview"
+                 style="display:none"/>
+
+            <button type="button"
+                    class="btn btn-danger btn-sm"
+                    onclick="removeImage(this)">
+                <i class="fa-solid fa-trash"></i>
+            </button>
+        `;
+
+        container.appendChild(div);
+    }
+
+    function removeImage(btn) {
+        btn.parentElement.remove();
+    }
+
+    function previewImage(input) {
+        const url = input.value.trim();
+        const img = input.parentElement.querySelector(".img-preview");
+
+        if (!url) {
+            img.style.display = "none";
+            img.src = "";
+            return;
+        }
+
+        img.src = url;
+        img.style.display = "block";
+
+        // nếu link lỗi → ẩn ảnh
+        img.onerror = () => {
+            img.style.display = "none";
+        };
+    }
+</script>
 </body>
 </html>

@@ -165,7 +165,6 @@ public class AdminEbookController extends HttpServlet {
                 req.getParameter("title"),
                 Integer.parseInt(req.getParameter("authorId")),
                 Double.parseDouble(req.getParameter("price")),
-                old.getImageID(),
                 req.getParameter("description"),
                 Integer.parseInt(req.getParameter("categoryId")),
                 old.getFullFileID(),
@@ -199,39 +198,67 @@ public class AdminEbookController extends HttpServlet {
         double price = Double.parseDouble(req.getParameter("price"));
         String description = req.getParameter("description");
 
-        String coverURL = req.getParameter("coverUrl");
-        Image image = new Image(title, coverURL, "ACTIVE");
-
-        int imageID = adminServices.getIDAfterInserted(image);
-
-        String fullFileUrl = req.getParameter("filePath");
-
-        FullFile fullFile = new FullFile(title, getFileFormat(fullFileUrl), 0, fullFileUrl, "ACTIVE");
-        FullFileDAO fullFileDAO = new FullFileDAO();
-        int fullFileID = fullFileDAO.insertAndReturnId(fullFile);
-
-        String demoFileUrl = req.getParameter("filePath");
-
-        DemoFile demoFile = new DemoFile(title, getFileFormat(demoFileUrl), 0, demoFileUrl, 10, "ACTIVE");
-        DemoFileDAO demoFileDAO = new DemoFileDAO();
-        int demoFileID = demoFileDAO.insertAndReturnId(demoFile);
-
         String code = adminServices.generateEbookCode(categoryID);
 
-        return new Ebook(
+        Ebook ebook = new Ebook(
                 0,
                 title,
                 authorID,
                 price,
-                imageID,
                 description,
                 categoryID,
-                fullFileID,
-                demoFileID,
+                0,
+                0,
                 "ACTIVE",
                 code
         );
+
+        int ebookID = adminServices.addEbookAndReturnID(ebook);
+
+        String fullFileUrl = req.getParameter("filePath");
+        FullFile fullFile = new FullFile(
+                title,
+                getFileFormat(fullFileUrl),
+                0,
+                fullFileUrl,
+                "ACTIVE"
+        );
+        int fullFileID = new FullFileDAO().insertAndReturnId(fullFile);
+
+        String demoFileUrl = req.getParameter("filePath");
+        DemoFile demoFile = new DemoFile(
+                title,
+                getFileFormat(demoFileUrl),
+                0,
+                demoFileUrl,
+                10,
+                "ACTIVE"
+        );
+        int demoFileID = new DemoFileDAO().insertAndReturnId(demoFile);
+
+        ebook.setId(ebookID);
+        ebook.setFullFileID(fullFileID);
+        ebook.setDemoFileID(demoFileID);
+        adminServices.updateEbook(ebook);
+
+        String[] coverUrls = req.getParameterValues("coverUrls");
+        if (coverUrls != null) {
+            for (String url : coverUrls) {
+                if (url != null && !url.trim().isEmpty()) {
+                    Image img = new Image(
+                            title,
+                            url.trim(),
+                            "ACTIVE"
+                    );
+                    img.setEbookID(ebookID);
+                    adminServices.insertImage(img);
+                }
+            }
+        }
+
+        return ebook;
     }
+
 
     private String getFileFormat(String url) {
         int dot = url.lastIndexOf(".");

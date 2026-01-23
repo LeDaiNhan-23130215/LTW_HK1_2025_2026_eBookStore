@@ -55,10 +55,10 @@ public class CartService {
 
         for (CartDetail cd : details) {
 
-            Ebook ebook = ebookDAO.getEbookByID(cd.getBookID());
+            Ebook ebook = ebookDAO.getEbookById(cd.getBookID());
 
             if (ebook != null) {
-                Image image = imageDAO.getImageById(ebook.getImageID());
+                Image image = imageDAO.getFirstImageByEbookID(cd.getBookID());
 
                 CartItem item = new CartItem(
                         cd.getId(),

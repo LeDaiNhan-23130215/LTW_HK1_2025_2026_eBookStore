@@ -80,8 +80,11 @@
                         <c:when test="${not empty sessionScope.userID}">
                             <form action="${pageContext.request.contextPath}/wishlist" method="post">
                                 <input type="hidden" name="ebookId" value="${eb.id}">
+                                <input type="hidden" name="action"
+                                       value="${wishlistIds != null && wishlistIds.contains(eb.id) ? 'remove' : 'add'}">
+
                                 <button type="submit"
-                                        class="favorite-btn ${wishlistIds != null && wishlistIds.contains(eb.id) ? 'active' : ''}">
+                                        class="favorite-btn ${wishlistIds.contains(eb.id) ? 'active' : ''}">
                                     <i class="fa-solid fa-heart"></i>
                                 </button>
                             </form>
