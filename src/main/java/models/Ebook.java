@@ -8,7 +8,6 @@ import java.util.Locale;
 
 public class Ebook extends Base {
     private String title;
-    private int authorID;
     private double price;
     private String description;
     private int categoryID;
@@ -17,11 +16,23 @@ public class Ebook extends Base {
     private String status;
     private String eBookCode;
     private List<Image> images;
+    private List<Author> authors;
 
-    public Ebook(int id, String title, int authorID, double price, String description, int categoryID, int fullFileID, int demoFileID, String status, String eBookCode) {
+    public Ebook(int id, String title, double price, String description, int categoryID, int fullFileID, int demoFileID, String status, String eBookCode) {
         super(id);
         this.title = title;
-        this.authorID = authorID;
+        this.price = price;
+        this.description = description;
+        this.fullFileID = fullFileID;
+        this.status = status;
+        this.demoFileID = demoFileID;
+        this.categoryID = categoryID;
+        this.eBookCode = eBookCode;
+    }
+
+    public Ebook(String title, double price, String description, int categoryID, int fullFileID, int demoFileID, String status, String eBookCode) {
+        super(-1);
+        this.title = title;
         this.price = price;
         this.description = description;
         this.fullFileID = fullFileID;
@@ -55,14 +66,6 @@ public class Ebook extends Base {
 
     public void setTitle(String title) {
         this.title = title;
-    }
-
-    public int getAuthorID() {
-        return authorID;
-    }
-
-    public void setAuthorID(int authorID) {
-        this.authorID = authorID;
     }
 
     public void setPrice(double price) {
@@ -109,6 +112,14 @@ public class Ebook extends Base {
         this.status = status;
     }
 
+    public List<Author> getAuthors() {
+        return authors;
+    }
+
+    public void setAuthors(List<Author> authors) {
+        this.authors = authors;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -126,7 +137,7 @@ public class Ebook extends Base {
         return eBookCode;
     }
 
-    public void seteBookCode(String eBookCode) {
+    public void setBookCode(String eBookCode) {
         this.eBookCode = eBookCode;
     }
 

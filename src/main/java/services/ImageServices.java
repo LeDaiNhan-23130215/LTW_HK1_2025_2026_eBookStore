@@ -1,37 +1,51 @@
 package services;
 
+import DAO.EbookImageDAO;
 import DAO.ImageDAO;
-import models.Author;
 import models.Image;
 
-import java.util.HashMap;
+import java.util.Collections;
 import java.util.List;
-import java.util.Map;
 
 public class ImageServices {
-    ImageDAO imageDAO = new ImageDAO();
+
+    private final ImageDAO imageDAO = new ImageDAO();
+    private final EbookImageDAO ebookImageDAO = new EbookImageDAO();
+
+    /* ================= GET ================= */
 
     public List<Image> getImagesByEbookID(int ebookID) {
-        return imageDAO.getByEbookID(ebookID);
+        List<Image> list = imageDAO.getByEbookID(ebookID);
+        return list != null ? list : Collections.emptyList();
     }
 
     public Image getThumbnail(int ebookID) {
         return imageDAO.getFirstImageByEbookID(ebookID);
     }
 
+    /* ================= INSERT ================= */
+
     public void insertImages(int ebookID, List<String> urls, String ebookTitle) {
+        if (urls == null || urls.isEmpty()) return;
+
         for (String url : urls) {
-            Image img = new Image(
-                    ebookID,
+            Image image = new Image(
                     ebookTitle,
                     url,
                     "ACTIVE"
             );
-            imageDAO.insert(img);
+
+            int imageID = imageDAO.insertAndReturnId(image);
+
+            if (imageID > 0) {
+                ebookImageDAO.insert(ebookID, imageID);
+            }
         }
     }
 
-    public void insert(Image image) {
-        imageDAO.insert(image);
+    /* ================= DELETE (SOFT) ================= */
+
+    public void removeAllImagesOfEbook(int ebookID) {
+        ebookImageDAO.removeByEbookID(ebookID);
     }
 }

@@ -1,7 +1,9 @@
 package services;
 
+import DAO.AuthorDAO;
 import DAO.BookshelfDAO;
 import DAO.BookshelfDetailDAO;
+import DAO.ImageDAO;
 import models.Bookshelf;
 import models.Ebook;
 import models.Image;
@@ -13,8 +15,12 @@ public class BookshelfService {
 
     private final BookshelfDAO bookshelfDAO;
     private final BookshelfDetailDAO bookshelfDetailDAO;
+    private final AuthorDAO authorDAO;
+    private final ImageDAO imageDAO;
 
     public BookshelfService() {
+        this.authorDAO = new AuthorDAO();
+        this.imageDAO = new ImageDAO();
         this.bookshelfDAO = new BookshelfDAO();
         this.bookshelfDetailDAO = new BookshelfDetailDAO();
     }
@@ -46,5 +52,23 @@ public class BookshelfService {
         if (bookshelf == null) return false;
 
         return bookshelfDetailDAO.exists(bookshelf.getId(), ebookId);
+    }
+
+    public List<Ebook> getBooksOfUserWithDetails(int userId) {
+
+        List<Ebook> ebooks = bookshelfDetailDAO.getBooksByUser(userId);
+
+        for (Ebook ebook : ebooks) {
+
+            ebook.setImages(
+                    imageDAO.getByEbookID(ebook.getId())
+            );
+
+            ebook.setAuthors(
+                    authorDAO.getByEbookID(ebook.getId())
+            );
+        }
+
+        return ebooks;
     }
 }

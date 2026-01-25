@@ -5,109 +5,23 @@ import utils.DBConnection;
 
 import java.sql.*;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 public class ImageDAO {
-    public void insert(Image image) {
-        String sql = """
-            INSERT INTO image (ebookID, imgName, imgLink, imgStatus)
-            VALUES (?, ?, ?, ?)
-        """;
 
-        try (Connection connection = DBConnection.getConnection();
-             PreparedStatement ps = connection.prepareStatement(sql);) {
-            ps.setInt(1, image.getEbookID());
-            ps.setString(2, image.getImgName());
-            ps.setString(3, image.getImgLink());
-            ps.setString(4, image.getImgStatus());
-            ps.executeUpdate();
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
-        }
-    }
-
-    public Image getImageById(int id) {
-        Image result = null;
-        String sql = "SELECT * FROM image WHERE id = ? ";
-
-        try (Connection connection = DBConnection.getConnection();
-             PreparedStatement ps = connection.prepareStatement(sql);) {
-            ps.setInt(1, id);
-            ResultSet rs = ps.executeQuery();
-            while(rs.next()) {
-                result = new Image(rs.getInt("id"), rs.getInt("ebookID"),rs.getString("imgName"), rs.getString("imgLink"), rs.getString("imgStatus"));
-            }
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-
-        return result;
-    }
-
-    public Image getFirstImageByEbookID(int ebookID) {
-        String sql = """
-        SELECT * FROM image
-        WHERE ebookID = ? AND imgStatus = 'ACTIVE'
-        ORDER BY id ASC
-        LIMIT 1
-    """;
-
-        try (Connection connection = DBConnection.getConnection();
-             PreparedStatement ps = connection.prepareStatement(sql);) {
-            ps.setInt(1, ebookID);
-            ResultSet rs = ps.executeQuery();
-
-            if (rs.next()) {
-                return new Image(
-                        rs.getInt("id"),
-                        rs.getInt("ebookID"),
-                        rs.getString("imgName"),
-                        rs.getString("imgLink"),
-                        rs.getString("imgStatus")
-                );
-            }
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
-        }
-        return null;
-    }
-
-    public Map<Integer, Image> getImagesMap() {
-        Map<Integer, Image> imageMap = new HashMap<Integer, Image>();
-        String sql = "SELECT * FROM image";
-        try(Connection connection = DBConnection.getConnection();
-        PreparedStatement ps = connection.prepareStatement(sql);){
-            ResultSet rs = ps.executeQuery();
-            while(rs.next()) {
-                int id = rs.getInt("id");
-                Image image = new Image(id);
-                image.setEbookID(rs.getInt("ebookID"));
-                image.setImgLink(rs.getString("imgLink"));
-                image.setImgName(rs.getString("imgName"));
-                image.setImgStatus(rs.getString("imgStatus"));
-                imageMap.put(image.getId(), image);
-            }
-        } catch (Exception e){
-            e.printStackTrace();
-        }
-        return imageMap;
-    }
-
+    /* ================= INSERT IMAGE ================= */
     public int insertAndReturnId(Image image) {
         String sql = """
-        INSERT INTO Image (imgName, ebookID, imgLink, imgStatus)
-        VALUES (?, ?, ?, ?)
-    """;
+            INSERT INTO image (imgName, imgLink, imgStatus)
+            VALUES (?, ?, ?)
+        """;
 
         try (Connection conn = DBConnection.getConnection();
              PreparedStatement ps = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
 
             ps.setString(1, image.getImgName());
-            ps.setInt(2, image.getEbookID());
-            ps.setString(3, image.getImgLink());
-            ps.setString(4, image.getImgStatus());
+            ps.setString(2, image.getImgLink());
+            ps.setString(3, image.getImgStatus());
 
             ps.executeUpdate();
 
@@ -115,42 +29,96 @@ public class ImageDAO {
             if (rs.next()) {
                 return rs.getInt(1);
             }
-        } catch (Exception e) {
-            e.printStackTrace();
+
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
         }
         return -1;
     }
 
+    /* ================= GET IMAGE BY ID ================= */
+    public Image getImageById(int id) {
+        String sql = "SELECT * FROM image WHERE id = ?";
+
+        try (Connection conn = DBConnection.getConnection();
+             PreparedStatement ps = conn.prepareStatement(sql)) {
+
+            ps.setInt(1, id);
+            ResultSet rs = ps.executeQuery();
+
+            if (rs.next()) {
+                return mapImage(rs);
+            }
+
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+        return null;
+    }
+
+    /* ================= GET IMAGES BY EBOOK ID ================= */
     public List<Image> getByEbookID(int ebookID) {
         List<Image> list = new ArrayList<>();
 
         String sql = """
-            SELECT * FROM image
-            WHERE ebookID = ? AND imgStatus = 'ACTIVE'
+            SELECT i.*
+            FROM ebookimages ei
+            JOIN image i ON ei.imageID = i.id
+            WHERE ei.ebookID = ?
+              AND i.imgStatus = 'ACTIVE'
         """;
 
         try (Connection conn = DBConnection.getConnection();
              PreparedStatement ps = conn.prepareStatement(sql)) {
+
             ps.setInt(1, ebookID);
             ResultSet rs = ps.executeQuery();
 
             while (rs.next()) {
-                list.add(new Image(
-                        rs.getInt("id"),
-                        rs.getInt("ebookID"),
-                        rs.getString("imgName"),
-                        rs.getString("imgLink"),
-                        rs.getString("imgStatus")
-                ));
+                list.add(mapImage(rs));
             }
+
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
         return list;
     }
 
-    public static void main(String[] args) {
-        ImageDAO imgDAO = new ImageDAO();
-        System.out.println(imgDAO.getImageById(1).getImgLink());
+    /* ================= GET FIRST IMAGE BY EBOOK ================= */
+    public Image getFirstImageByEbookID(int ebookID) {
+        String sql = """
+            SELECT i.*
+            FROM ebookimages ei
+            JOIN image i ON ei.imageID = i.id
+            WHERE ei.ebookID = ?
+              AND i.imgStatus = 'ACTIVE'
+            ORDER BY i.id ASC
+            LIMIT 1
+        """;
+
+        try (Connection conn = DBConnection.getConnection();
+             PreparedStatement ps = conn.prepareStatement(sql)) {
+
+            ps.setInt(1, ebookID);
+            ResultSet rs = ps.executeQuery();
+
+            if (rs.next()) {
+                return mapImage(rs);
+            }
+
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+        return null;
+    }
+
+    /* ================= HELPER ================= */
+    private Image mapImage(ResultSet rs) throws SQLException {
+        return new Image(
+                rs.getInt("id"),
+                rs.getString("imgName"),
+                rs.getString("imgLink"),
+                rs.getString("imgStatus")
+        );
     }
 }

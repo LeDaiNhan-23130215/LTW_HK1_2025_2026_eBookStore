@@ -51,7 +51,7 @@
                   <c:forEach var="book" items="${wishlist}">
                       <div class="wishlist-item">
 
-                          <img src="<c:url value='${imageMap[book.id].imgLink}' />" alt="${book.title}"/>
+                          <img src="<c:url value='${book.images[0].imgLink}' />" alt="${book.title}"/>
 
                           <div class="infor">
                               <h3>${book.title}</h3>
@@ -60,8 +60,8 @@
                               <p>
                                   Tác giả:
                                   <c:choose>
-                                      <c:when test="${authorMap[book.authorID] != null}">
-                                          ${authorMap[book.authorID].authorName}
+                                      <c:when test="${book.authors != null}">
+                                          ${a.authorName}
                                       </c:when>
                                       <c:otherwise>
                                           Đang cập nhật

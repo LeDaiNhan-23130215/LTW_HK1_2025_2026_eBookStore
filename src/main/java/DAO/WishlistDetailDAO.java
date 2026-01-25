@@ -75,7 +75,6 @@ public class WishlistDetailDAO {
                 int id = rs.getInt("id");
                 Ebook e = new Ebook(id);
                 e.setTitle(rs.getString("title"));
-                e.setAuthorID(Integer.parseInt(rs.getString("authorID")));
                 e.setPrice(rs.getDouble("price"));
                 list.add(e);
             }
@@ -101,7 +100,6 @@ public class WishlistDetailDAO {
                 int id = rs.getInt("id");
                 Ebook e = new Ebook(id);
                 e.setTitle(rs.getString("title"));
-                e.setAuthorID(Integer.parseInt(rs.getString("authorID")));
                 e.setPrice(rs.getDouble("price"));
                 list.add(e);
             }

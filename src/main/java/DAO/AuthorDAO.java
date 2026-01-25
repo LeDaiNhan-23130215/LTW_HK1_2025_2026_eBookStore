@@ -3,125 +3,183 @@ package DAO;
 import models.Author;
 import utils.DBConnection;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.sql.*;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 public class AuthorDAO {
-    public Author getAuthorByID (int id) {
-        String query = "SELECT * FROM author WHERE id = ? LIMIT 1";
-        Author author = null;
 
-        try {
-            Connection connection = DBConnection.getConnection();
-            PreparedStatement ps = connection.prepareStatement(query);
-            ps.setInt(1,id);
-            ResultSet rs = ps.executeQuery();
-            while(rs.next()) {
-                author = new Author(rs.getInt("id"), rs.getString("authorName"),
-                        rs.getString("authorDetail"), rs.getInt("birthYear"), rs.getString("nationality")
-                        , rs.getInt("numberOfBook"), rs.getString("awards"));
-            }
-        } catch (Exception e){
-            e.printStackTrace();
-        }
-        return author;
-    }
+    /* ================= INSERT ================= */
+    public int insertAndReturnId(Author author) {
+        String sql = """
+            INSERT INTO author
+            (authorName, authorDetail, birthYear, nationality, numberOfBook, awards)
+            VALUES (?, ?, ?, ?, ?, ?)
+        """;
 
-    public Map<Integer, Author> getAuthorMap(){
-        Map<Integer, Author> authorMap = new HashMap<Integer, Author>();
-        String sql = "SELECT id,authorName,authorDetail FROM author";
-        try(Connection connection = DBConnection.getConnection();
-        PreparedStatement stm = connection.prepareStatement(sql)){
-            ResultSet rs = stm.executeQuery();
-            while(rs.next()) {
-                int id = rs.getInt("id");
-                Author author = new Author(id);
-                author.setAuthorName(rs.getString("authorName"));
-                author.setAuthorDetail(rs.getString("authorDetail"));
+        try (Connection conn = DBConnection.getConnection();
+             PreparedStatement ps = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
 
-                authorMap.put(author.getId(), author);
-            }
-        } catch (Exception e){
-            e.printStackTrace();
-        }
-        return authorMap;
-    }
+            ps.setString(1, author.getAuthorName());
+            ps.setString(2, author.getAuthorDetail());
+            ps.setInt(3, author.getBirthYear());
+            ps.setString(4, author.getNationality());
+            ps.setInt(5, author.getNumberOfBooks());
+            ps.setString(6, author.getAwards());
 
-    public boolean updateAuthor(Author author){
-        String sql = "update author set authorName = ?, authorDetail = ?, birthYear = ?, nationality = ?, numberOfBook = ?, awards = ? where id = ?";
-        try (Connection connection = DBConnection.getConnection();
-             PreparedStatement stm = connection.prepareStatement(sql)){
-            stm.setString(1, author.getAuthorName());
-            stm.setString(2, author.getAuthorDetail());
-            stm.setInt(3, author.getBirthYear());
-            stm.setString(4, author.getNationality());
-            stm.setInt(5, author.getNumberOfBooks());
-            stm.setString(6, author.getAwards());
-            stm.setInt(7, author.getId());
-            int rows = stm.executeUpdate();
-            return rows > 0;
-        } catch (SQLException e){
-            e.printStackTrace();
-        }
-        return false;
-    }
+            ps.executeUpdate();
+            ResultSet rs = ps.getGeneratedKeys();
+            if (rs.next()) return rs.getInt(1);
 
-    public boolean deleteAuthor(int id){
-        String sql = "delete from author where id = ?";
-        try (Connection connection = DBConnection.getConnection();
-             PreparedStatement stm = connection.prepareStatement(sql)){
-            stm.setInt(1, id);
-            int rows = stm.executeUpdate();
-            return rows > 0;
         } catch (SQLException e) {
-            e.printStackTrace();
+            throw new RuntimeException(e);
         }
-        return false;
+        return -1;
     }
 
-    public boolean addAuthor(Author author){
-        String sql = "insert into author (authorName, authorDetail, birthYear, nationality, numberOfBook, awards) values (?, ?, ?, ?, ?, ?)";
-        try(Connection connection = DBConnection.getConnection();
-            PreparedStatement stm = connection.prepareStatement(sql)){
-            stm.setString(1, author.getAuthorName());
-            stm.setString(2, author.getAuthorDetail());
-            stm.setInt(3, author.getBirthYear());
-            stm.setString(4, author.getNationality());
-            stm.setInt(5, author.getNumberOfBooks());
-            stm.setString(6, author.getAwards());
-            int rows = stm.executeUpdate();
-            return rows > 0;
-        } catch (SQLException e){
-            e.printStackTrace();
+    public boolean addAuthor(Author author) {
+        String sql = """
+            INSERT INTO author
+            (authorName, authorDetail, birthYear, nationality, numberOfBook, awards)
+            VALUES (?, ?, ?, ?, ?, ?)
+        """;
+
+        try (Connection conn = DBConnection.getConnection();
+             PreparedStatement ps = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
+
+            ps.setString(1, author.getAuthorName());
+            ps.setString(2, author.getAuthorDetail());
+            ps.setInt(3, author.getBirthYear());
+            ps.setString(4, author.getNationality());
+            ps.setInt(5, author.getNumberOfBooks());
+            ps.setString(6, author.getAwards());
+
+            return ps.executeUpdate() > 0;
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
         }
-        return false;
     }
 
-    public List<Author> getAllAuthors() {
-        List<Author> list = new ArrayList<Author>();
+    /* ================= GET BY ID ================= */
+    public Author getById(int id) {
+        String sql = "SELECT * FROM author WHERE id = ?";
+
+        try (Connection conn = DBConnection.getConnection();
+             PreparedStatement ps = conn.prepareStatement(sql)) {
+
+            ps.setInt(1, id);
+            ResultSet rs = ps.executeQuery();
+
+            if (rs.next()) return mapAuthor(rs);
+
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+        return null;
+    }
+
+    /* ================= GET ALL ================= */
+    public List<Author> findAll() {
+        List<Author> list = new ArrayList<>();
         String sql = "SELECT * FROM author";
 
-        try (Connection connection = DBConnection.getConnection();
-             PreparedStatement stm = connection.prepareStatement(sql);
-             ResultSet rs = stm.executeQuery()) {
+        try (Connection conn = DBConnection.getConnection();
+             PreparedStatement ps = conn.prepareStatement(sql);
+             ResultSet rs = ps.executeQuery()) {
 
             while (rs.next()) {
-                Author author = new Author(rs.getInt("id"), rs.getString("authorName"),
-                        rs.getString("authorDetail"), rs.getInt("birthYear"), rs.getString("nationality")
-                        , rs.getInt("numberOfBook"), rs.getString("awards"));
-                list.add(author);
+                list.add(mapAuthor(rs));
             }
 
         } catch (SQLException e) {
-            e.printStackTrace();
+            throw new RuntimeException(e);
         }
-
         return list;
+    }
+
+    /* ================= GET AUTHORS BY EBOOK ================= */
+    public List<Author> getByEbookID(int ebookID) {
+        List<Author> list = new ArrayList<>();
+
+        String sql = """
+            SELECT a.*
+            FROM ebookauthor ea
+            JOIN author a ON ea.authorID = a.id
+            WHERE ea.ebookID = ?
+        """;
+
+        try (Connection conn = DBConnection.getConnection();
+             PreparedStatement ps = conn.prepareStatement(sql)) {
+
+            ps.setInt(1, ebookID);
+            ResultSet rs = ps.executeQuery();
+
+            while (rs.next()) {
+                list.add(mapAuthor(rs));
+            }
+
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+        return list;
+    }
+
+    /* ================= UPDATE ================= */
+    public boolean update(Author author) {
+        String sql = """
+            UPDATE author
+            SET authorName = ?,
+                authorDetail = ?,
+                birthYear = ?,
+                nationality = ?,
+                numberOfBook = ?,
+                awards = ?
+            WHERE id = ?
+        """;
+
+        try (Connection conn = DBConnection.getConnection();
+             PreparedStatement ps = conn.prepareStatement(sql)) {
+
+            ps.setString(1, author.getAuthorName());
+            ps.setString(2, author.getAuthorDetail());
+            ps.setInt(3, author.getBirthYear());
+            ps.setString(4, author.getNationality());
+            ps.setInt(5, author.getNumberOfBooks());
+            ps.setString(6, author.getAwards());
+            ps.setInt(7, author.getId());
+
+            return ps.executeUpdate() > 0;
+
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    /* ================= DELETE ================= */
+    public boolean delete(int id) {
+        String sql = "DELETE FROM author WHERE id = ?";
+
+        try (Connection conn = DBConnection.getConnection();
+             PreparedStatement ps = conn.prepareStatement(sql)) {
+
+            ps.setInt(1, id);
+            return ps.executeUpdate() > 0;
+
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    /* ================= HELPER ================= */
+    private Author mapAuthor(ResultSet rs) throws SQLException {
+        return new Author(
+                rs.getInt("id"),
+                rs.getString("authorName"),
+                rs.getString("authorDetail"),
+                rs.getInt("birthYear"),
+                rs.getString("nationality"),
+                rs.getInt("numberOfBook"),
+                rs.getString("awards")
+        );
     }
 }
