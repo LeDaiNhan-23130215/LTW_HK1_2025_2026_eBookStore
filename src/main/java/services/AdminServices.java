@@ -26,6 +26,9 @@ public class AdminServices {
     private AuthorDAO authorDAO = new AuthorDAO();
     private EbookService ebookService = new EbookService();
     private ImageServices imageServices = new ImageServices();
+    private AuthorService authorService = new AuthorService();
+    private FullFileDAO fullFileDAO = new FullFileDAO();
+    private DemoFileDAO demoFileDAO = new DemoFileDAO();
 
     public AdminServices() {}
 
@@ -88,6 +91,41 @@ public class AdminServices {
     public List<Ebook> findAll() { return ebookDAO.findAll(); }
     public String generateEbookCode(int categoryId) {
         return ebookService.generateEBookCode(categoryId);
+    }
+
+    public void createEbook(
+            Ebook ebook,
+            List<Integer> authorIds,
+            List<String> imageUrls
+    ) {
+
+        // 1. insert ebook
+        int ebookId = ebookDAO.insertAndReturnId(ebook);
+        ebook.setId(ebookId);
+
+        // 2. insert file
+        int fullFileId = fullFileDAO.insertAndReturnId(buildFullFile(ebook));
+        int demoFileId = demoFileDAO.insertAndReturnId(buildDemoFile(ebook));
+
+        ebook.setFullFileID(fullFileId);
+        ebook.setDemoFileID(demoFileId);
+        ebookDAO.update(ebook);
+
+        // 3. map authors
+        for (int authorId : authorIds) {
+            authorService.insert(ebookId, authorId);
+        }
+
+        // 4. map images
+        imageServices.insertImages(ebookId, imageUrls, ebook.getTitle());
+    }
+
+    private DemoFile buildDemoFile(Ebook ebook) {
+        return null;
+    }
+
+    private FullFile buildFullFile(Ebook ebook) {
+        return null;
     }
 
     //Checkout
@@ -159,6 +197,10 @@ public class AdminServices {
     }
 
     public boolean addCategory(Category category){
+        if (category.getCategoryCode() == null) {
+            String code = generateCategoryCode(category.getName());
+            category.setCategoryCode(code);
+        }
         return categoryDAO.addCategory(category);
     }
 
@@ -300,24 +342,24 @@ public class AdminServices {
     }
 
     //Author
-    public List<Author> getListAuthors(){
-        return authorDAO.getAllAuthors();
+    public List<Author> getListAuthors() {
+        return authorService.getAll();
     }
 
-    public boolean addAuthor(Author author){
-        return authorDAO.addAuthor(author);
+    public Author getAuthorById(int id) {
+        return authorService.getById(id);
     }
 
-    public boolean updateAuthor(Author author){
-        return authorDAO.updateAuthor(author);
+    public boolean addAuthor(Author author) {
+        return authorService.addAuthor(author);
     }
 
-    public boolean deleteAuthor(int id){
-        return authorDAO.deleteAuthor(id);
+    public boolean updateAuthor(Author author) {
+        return authorService.updateAuthor(author);
     }
 
-    public Author getAuthorById(int id){
-        return authorDAO.getAuthorByID(id);
+    public boolean deleteAuthor(int id) {
+        return authorService.deleteAuthor(id);
     }
 
     public void importAuthorFile(Part filePart) {
@@ -342,33 +384,30 @@ public class AdminServices {
         }
     }
 
-    // Ebook + Images
-    public void addEbookWithImages(Ebook ebook, List<String> imageUrls) {
-
-        // 1. Insert Ebook trước
-        int ebookID = ebookDAO.insertAndReturnId(ebook);
-
-        if (ebookID <= 0) {
-            throw new RuntimeException("Insert ebook failed");
-        }
-
-        // 2. Insert images theo ebookID
-        for (String url : imageUrls) {
-            Image img = new Image(
-                    ebookID,
-                    ebook.getTitle(),
-                    url,
-                    "ACTIVE"
-            );
-            imageServices.insert(img);
-        }
-    }
-
-    public void insertImage(Image img) {
-        imageServices.insert(img);
-    }
-
     public int addEbookAndReturnID(Ebook ebook) {
         return ebookDAO.insertAndReturnId(ebook);
+    }
+
+    //Image
+    public List<Image> getListImagesByEbookID(int ebookID) {
+        return imageServices.getImagesByEbookID(ebookID);
+    }
+
+    public void insertImage(int ebookID, List<String> urls, String ebookTitle) {
+        imageServices.insertImages(ebookID, urls, ebookTitle);
+    }
+
+    public void removeAllImagesOfEbook(int ebookID) {
+        imageServices.removeAllImagesOfEbook(ebookID);
+    }
+
+    public String generateCategoryCode(String name) {
+        String[] words = name.trim().toUpperCase().split("\\s+");
+        StringBuilder code = new StringBuilder();
+
+        for (String w : words) {
+            code.append(w.charAt(0));
+        }
+        return code.toString();
     }
 }

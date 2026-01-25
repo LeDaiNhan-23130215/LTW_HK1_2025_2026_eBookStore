@@ -19,27 +19,28 @@ import java.util.Map;
 public class BookShelfController extends HttpServlet {
 
     private BookshelfService bookshelfService;
-    private ImageServices imageServices;
 
     @Override
     public void init() {
         bookshelfService = new BookshelfService();
-        imageServices = new ImageServices();
     }
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp)
             throws ServletException, IOException {
 
-        int userId = (int) req.getSession().getAttribute("userID");
-        List<Ebook> books = bookshelfService.getBooksOfUser(userId);
-        Map<Integer, Image> imageMap = new HashMap<>();
-        for(Ebook ebook : books){
-            Image image = imageServices.getThumbnail(ebook.getId());
-            imageMap.put(ebook.getId(), image);
+        var session = req.getSession(false);
+        if (session == null || session.getAttribute("userID") == null) {
+            resp.sendRedirect(req.getContextPath() + "/login");
+            return;
         }
+
+        int userId = (Integer) session.getAttribute("userID");
+
+        List<Ebook> books = bookshelfService.getBooksOfUserWithDetails(userId);
+
         req.setAttribute("books", books);
-        req.setAttribute("imageMap", imageMap);
+
         req.getRequestDispatcher("/WEB-INF/views/book-shelf.jsp")
                 .forward(req, resp);
     }

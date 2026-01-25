@@ -6,16 +6,14 @@ import models.Image;
 public class CartItem {
     private int cartDetailID;
     private Ebook ebook;
-    private Image image;
     private double priceAtADD;
 
     public CartItem() {
     }
 
-    public CartItem(int cartDetailID, Ebook ebook, Image image, double priceAtADD) {
+    public CartItem(int cartDetailID, Ebook ebook, double priceAtADD) {
         this.cartDetailID = cartDetailID;
         this.ebook = ebook;
-        this.image = image;
         this.priceAtADD = priceAtADD;
     }
 
@@ -41,9 +39,5 @@ public class CartItem {
 
     public void setPriceAtADD(double priceAtADD) {
         this.priceAtADD = priceAtADD;
-    }
-
-    public Image getImage() {
-        return image;
     }
 }

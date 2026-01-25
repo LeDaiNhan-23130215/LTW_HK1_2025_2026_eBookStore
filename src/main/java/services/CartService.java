@@ -17,7 +17,6 @@ public class CartService {
     private CartDAO cartDAO = new CartDAO();
     private CartDetailDAO cartDetailDAO = new CartDetailDAO();
     private EbookDAO ebookDAO = new EbookDAO();
-    private ImageDAO imageDAO = new ImageDAO();
 
     public Cart getCartByUserID(int userID) {
         return cartDAO.getCartByUserId(userID);
@@ -55,15 +54,12 @@ public class CartService {
 
         for (CartDetail cd : details) {
 
-            Ebook ebook = ebookDAO.getEbookById(cd.getBookID());
+            Ebook ebook = ebookDAO.getEbookWithDetailsById(cd.getBookID());
 
             if (ebook != null) {
-                Image image = imageDAO.getFirstImageByEbookID(cd.getBookID());
-
                 CartItem item = new CartItem(
                         cd.getId(),
                         ebook,
-                        image,
                         cd.getPrice()
                 );
                 items.add(item);

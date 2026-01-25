@@ -1,22 +1,12 @@
 package models;
 
 public class Image extends Base {
-    private int ebookID;
     private String imgName;
     private String imgLink;
     private String imgStatus;
 
-    public Image(int id, int ebookID, String imgName, String imgLink, String imgStatus) {
+    public Image(int id, String imgName, String imgLink, String imgStatus) {
         super(id);
-        this.ebookID = ebookID;
-        this.imgName = imgName;
-        this.imgLink = imgLink;
-        this.imgStatus = imgStatus;
-    }
-
-    public Image(int ebookID, String imgName, String imgLink, String imgStatus) {
-        super(-1);
-        this.ebookID = ebookID;
         this.imgName = imgName;
         this.imgLink = imgLink;
         this.imgStatus = imgStatus;
@@ -31,14 +21,6 @@ public class Image extends Base {
 
     public Image(int id) {
         super(id);
-    }
-
-    public int getEbookID() {
-        return ebookID;
-    }
-
-    public void setEbookID(int ebookID) {
-        this.ebookID = ebookID;
     }
 
     public String getImgName() {

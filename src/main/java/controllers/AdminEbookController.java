@@ -1,17 +1,17 @@
 package controllers;
+
 import DAO.DemoFileDAO;
 import DAO.FullFileDAO;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.MultipartConfig;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.*;
-import models.DemoFile;
-import models.Ebook;
-import models.FullFile;
-import models.Image;
+import models.*;
 import services.AdminServices;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
@@ -22,6 +22,7 @@ import java.util.stream.Collectors;
         maxFileSize = 5 * 1024 * 1024
 )
 public class AdminEbookController extends HttpServlet {
+
     private AdminServices adminServices;
 
     @Override
@@ -34,19 +35,15 @@ public class AdminEbookController extends HttpServlet {
     protected void doGet(HttpServletRequest req, HttpServletResponse resp)
             throws ServletException, IOException {
 
-        String action = req.getParameter("action");
-
-        if (action == null) action = "list";
+        String action = getAction(req);
 
         switch (action) {
             case "edit":
                 showEditForm(req, resp);
                 break;
-
             case "delete":
                 deleteEbook(req, resp);
                 break;
-
             default:
                 showList(req, resp);
         }
@@ -58,57 +55,33 @@ public class AdminEbookController extends HttpServlet {
             throws ServletException, IOException {
 
         req.setCharacterEncoding("UTF-8");
-
-        String action = req.getParameter("action");
-
-        if (action == null) {
-            resp.sendRedirect(req.getContextPath() + "/admin-ebook");
-            return;
-        }
+        String action = getAction(req);
 
         switch (action) {
             case "add":
                 insertEbook(req, resp);
                 break;
-
             case "update":
                 updateEbook(req, resp);
                 break;
-
             default:
                 resp.sendRedirect(req.getContextPath() + "/admin-ebook");
         }
     }
 
-    // ===================== METHODS =====================
+    // ===================== VIEW =====================
 
     private void showList(HttpServletRequest req, HttpServletResponse resp)
             throws ServletException, IOException {
 
         List<Ebook> ebooks = adminServices.findAll();
 
-        // ===== MAP AUTHOR =====
-        Map<Integer, String> authorMap = adminServices.getListAuthors()
-                .stream()
-                .collect(Collectors.toMap(
-                        a -> a.getId(),
-                        a -> a.getAuthorName()
-                ));
-
-        // ===== MAP CATEGORY =====
-        Map<Integer, String> categoryMap = adminServices.getListCategory()
-                .stream()
-                .collect(Collectors.toMap(
-                        c -> c.getId(),
-                        c -> c.getName()
-                ));
-
+        req.setAttribute("ebooks", ebooks);
         req.setAttribute("authors", adminServices.getListAuthors());
         req.setAttribute("categories", adminServices.getListCategory());
 
-        req.setAttribute("ebooks", ebooks);
-        req.setAttribute("authorMap", authorMap);
-        req.setAttribute("categoryMap", categoryMap);
+        req.setAttribute("authorMap", buildAuthorMap());
+        req.setAttribute("categoryMap", buildCategoryMap());
 
         req.getRequestDispatcher("/WEB-INF/views/admin-ebook.jsp")
                 .forward(req, resp);
@@ -117,62 +90,62 @@ public class AdminEbookController extends HttpServlet {
     private void showEditForm(HttpServletRequest req, HttpServletResponse resp)
             throws ServletException, IOException {
 
-        try {
-            String idRaw = req.getParameter("id");
-            if (idRaw == null) {
-                throw new RuntimeException("ID is null");
-            }
+        int id = parseInt(req.getParameter("id"));
 
-            int id = Integer.parseInt(idRaw);
-
-            Ebook ebook = adminServices.getEbookByID(id);
-            if (ebook == null) {
-                throw new RuntimeException("Ebook not found with id=" + id);
-            }
-
-            req.setAttribute("ebook", ebook);
-            req.setAttribute("authors", adminServices.getListAuthors());
-            req.setAttribute("categories", adminServices.getListCategory());
-
-            req.getRequestDispatcher("/WEB-INF/views/admin-ebook-edit.jsp")
-                    .forward(req, resp);
-
-        } catch (Exception e) {
-            e.printStackTrace();
-            resp.sendError(500, e.getMessage());
+        Ebook ebook = adminServices.getEbookByID(id);
+        if (ebook == null) {
+            resp.sendRedirect(req.getContextPath() + "/admin-ebook");
+            return;
         }
+
+        req.setAttribute("ebook", ebook);
+        req.setAttribute("authors", adminServices.getListAuthors());
+        req.setAttribute("categories", adminServices.getListCategory());
+
+        req.getRequestDispatcher("/WEB-INF/views/admin-ebook-edit.jsp")
+                .forward(req, resp);
     }
+
+    // ===================== ACTION =====================
 
     private void insertEbook(HttpServletRequest req, HttpServletResponse resp)
             throws IOException {
 
-        Ebook ebook = buildEbookFromRequest(req);
+        Ebook ebook = buildEbook(req);
 
-        adminServices.addEbook(ebook);
+        List<Integer> authorIds = parseIds(req.getParameterValues("authorIds"));
+        List<String> imageUrls = parseStrings(req.getParameterValues("coverUrls"));
+
+        adminServices.createEbook(ebook, authorIds, imageUrls);
 
         resp.sendRedirect(req.getContextPath() + "/admin-ebook");
+    }
+
+    private List<String> parseStrings(String[] coverUrls) {
+        ArrayList<String> imageUrls;
+        return imageUrls = new ArrayList<>(Arrays.asList(coverUrls));
+    }
+
+    private List<Integer> parseIds(String[] authorIds) {
+        List<Integer> ids = new ArrayList<>();
+        for(String id : authorIds) {
+            ids.add(Integer.parseInt(id));
+        }
+        return ids;
     }
 
     private void updateEbook(HttpServletRequest req, HttpServletResponse resp)
             throws IOException {
 
-        int id = Integer.parseInt(req.getParameter("id"));
-
+        int id = parseInt(req.getParameter("id"));
         Ebook old = adminServices.getEbookByID(id);
 
-        Ebook ebook = new Ebook(
-                id,
-                req.getParameter("title"),
-                Integer.parseInt(req.getParameter("authorId")),
-                Double.parseDouble(req.getParameter("price")),
-                req.getParameter("description"),
-                Integer.parseInt(req.getParameter("categoryId")),
-                old.getFullFileID(),
-                old.getDemoFileID(),
-                old.getStatus(),
-                old.geteBookCode()
-        );
+        if (old == null) {
+            resp.sendRedirect(req.getContextPath() + "/admin-ebook");
+            return;
+        }
 
+        Ebook ebook = buildUpdatedEbook(req, old);
         adminServices.updateEbook(ebook);
 
         resp.sendRedirect(req.getContextPath() + "/admin-ebook");
@@ -181,90 +154,93 @@ public class AdminEbookController extends HttpServlet {
     private void deleteEbook(HttpServletRequest req, HttpServletResponse resp)
             throws IOException {
 
-        int id = Integer.parseInt(req.getParameter("id"));
-
+        int id = parseInt(req.getParameter("id"));
         adminServices.deleteEbook(id);
 
         resp.sendRedirect(req.getContextPath() + "/admin-ebook");
     }
 
-    // ===================== HELPER =====================
+    // ===================== BUILDER =====================
 
-    private Ebook buildEbookFromRequest(HttpServletRequest req) {
-
-        String title = req.getParameter("title");
-        int authorID = Integer.parseInt(req.getParameter("authorId"));
-        int categoryID = Integer.parseInt(req.getParameter("categoryId"));
-        double price = Double.parseDouble(req.getParameter("price"));
-        String description = req.getParameter("description");
-
-        String code = adminServices.generateEbookCode(categoryID);
-
-        Ebook ebook = new Ebook(
-                0,
-                title,
-                authorID,
-                price,
-                description,
-                categoryID,
+    private Ebook buildEbook(HttpServletRequest req) {
+        return new Ebook(
+                req.getParameter("title"),
+                parseDouble(req.getParameter("price")),
+                req.getParameter("description"),
+                parseInt(req.getParameter("categoryId")),
                 0,
                 0,
                 "ACTIVE",
-                code
+                adminServices.generateEbookCode(
+                        parseInt(req.getParameter("categoryId"))
+                )
         );
-
-        int ebookID = adminServices.addEbookAndReturnID(ebook);
-
-        String fullFileUrl = req.getParameter("filePath");
-        FullFile fullFile = new FullFile(
-                title,
-                getFileFormat(fullFileUrl),
-                0,
-                fullFileUrl,
-                "ACTIVE"
-        );
-        int fullFileID = new FullFileDAO().insertAndReturnId(fullFile);
-
-        String demoFileUrl = req.getParameter("filePath");
-        DemoFile demoFile = new DemoFile(
-                title,
-                getFileFormat(demoFileUrl),
-                0,
-                demoFileUrl,
-                10,
-                "ACTIVE"
-        );
-        int demoFileID = new DemoFileDAO().insertAndReturnId(demoFile);
-
-        ebook.setId(ebookID);
-        ebook.setFullFileID(fullFileID);
-        ebook.setDemoFileID(demoFileID);
-        adminServices.updateEbook(ebook);
-
-        String[] coverUrls = req.getParameterValues("coverUrls");
-        if (coverUrls != null) {
-            for (String url : coverUrls) {
-                if (url != null && !url.trim().isEmpty()) {
-                    Image img = new Image(
-                            title,
-                            url.trim(),
-                            "ACTIVE"
-                    );
-                    img.setEbookID(ebookID);
-                    adminServices.insertImage(img);
-                }
-            }
-        }
-
-        return ebook;
     }
 
+    private Ebook buildUpdatedEbook(HttpServletRequest req, Ebook old) {
+
+        return new Ebook(
+                old.getId(),
+                req.getParameter("title"),
+                parseDouble(req.getParameter("price")),
+                req.getParameter("description"),
+                parseInt(req.getParameter("categoryId")),
+                old.getFullFileID(),
+                old.getDemoFileID(),
+                old.getStatus(),
+                old.geteBookCode()
+        );
+    }
+
+    // ===================== FILE / IMAGE =====================
+
+    private int insertFullFile(String title, String url) {
+        FullFile file = new FullFile(
+                title, getFileFormat(url), 0, url, "ACTIVE"
+        );
+        return new FullFileDAO().insertAndReturnId(file);
+    }
+
+    private int insertDemoFile(String title, String url) {
+        DemoFile file = new DemoFile(
+                title, getFileFormat(url), 0, url, 10, "ACTIVE"
+        );
+        return new DemoFileDAO().insertAndReturnId(file);
+    }
+
+    // ===================== MAP =====================
+
+    private Map<Integer, String> buildAuthorMap() {
+        return adminServices.getListAuthors()
+                .stream()
+                .collect(Collectors.toMap(Author::getId, Author::getAuthorName));
+    }
+
+    private Map<Integer, String> buildCategoryMap() {
+        return adminServices.getListCategory()
+                .stream()
+                .collect(Collectors.toMap(Category::getId, Category::getName));
+    }
+
+    // ===================== UTIL =====================
+
+    private String getAction(HttpServletRequest req) {
+        return req.getParameter("action") == null ? "list" : req.getParameter("action");
+    }
+
+    private int parseInt(String value) {
+        try { return Integer.parseInt(value); }
+        catch (Exception e) { return 0; }
+    }
+
+    private double parseDouble(String value) {
+        try { return Double.parseDouble(value); }
+        catch (Exception e) { return 0; }
+    }
 
     private String getFileFormat(String url) {
+        if (url == null) return "UNKNOWN";
         int dot = url.lastIndexOf(".");
-        if (dot != -1) {
-            return url.substring(dot + 1).toUpperCase();
-        }
-        return "UNKNOWN";
+        return dot != -1 ? url.substring(dot + 1).toUpperCase() : "UNKNOWN";
     }
 }

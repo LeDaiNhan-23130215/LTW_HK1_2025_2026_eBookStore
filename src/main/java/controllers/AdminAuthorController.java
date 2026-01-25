@@ -16,12 +16,14 @@ import java.util.List;
 )
 public class AdminAuthorController extends HttpServlet {
 
-    private AdminServices adminServices;
+    private AdminServices adminService;
 
     @Override
-    public void init() throws ServletException {
-        adminServices = new AdminServices();
+    public void init() {
+        adminService = new AdminServices();
     }
+
+    /* ================= GET ================= */
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp)
@@ -29,22 +31,20 @@ public class AdminAuthorController extends HttpServlet {
 
         String action = req.getParameter("action");
 
-        if (action == null) {
-            loadAuthorPage(req, resp);
+        if ("edit".equals(action)) {
+            showEditForm(req, resp);
             return;
         }
 
-        switch (action) {
-            case "delete":
-                deleteAuthor(req, resp);
-                break;
-            case "edit":
-                showEditForm(req, resp);
-                break;
-            default:
-                loadAuthorPage(req, resp);
+        if ("delete".equals(action)) {
+            deleteAuthor(req, resp);
+            return;
         }
+
+        showAuthorList(req, resp);
     }
+
+    /* ================= POST ================= */
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp)
@@ -54,7 +54,7 @@ public class AdminAuthorController extends HttpServlet {
         String action = req.getParameter("action");
 
         if ("add".equals(action)) {
-            handleAddAuthor(req, resp);
+            addAuthor(req, resp);
             return;
         }
 
@@ -63,99 +63,101 @@ public class AdminAuthorController extends HttpServlet {
             return;
         }
 
-        loadAuthorPage(req, resp);
+        resp.sendRedirect(req.getContextPath() + "/admin-author");
     }
 
-    private void loadAuthorPage(HttpServletRequest req, HttpServletResponse resp)
+    /* ================= HANDLERS ================= */
+
+    private void showAuthorList(HttpServletRequest req, HttpServletResponse resp)
             throws ServletException, IOException {
 
-        List<Author> authors = adminServices.getListAuthors();
+        List<Author> authors = adminService.getListAuthors();
         req.setAttribute("authors", authors);
 
-        req.getRequestDispatcher("/WEB-INF/views/admin-author.jsp")
-                .forward(req, resp);
-    }
-
-    private void handleAddAuthor(HttpServletRequest req, HttpServletResponse resp)
-            throws ServletException, IOException {
-
-        String mode = req.getParameter("mode");
-
-        if ("import".equals(mode)) {
-            Part filePart = req.getPart("file");
-
-            if (filePart != null && filePart.getSize() > 0) {
-                adminServices.importAuthorFile(filePart);
-            }
-
-        } else {
-            Author author = getAuthorFromRequest(req);
-            adminServices.addAuthor(author);
-        }
-
-        resp.sendRedirect(req.getContextPath() + "/admin-author");
+        forward(req, resp, "/WEB-INF/views/admin-author.jsp");
     }
 
     private void showEditForm(HttpServletRequest req, HttpServletResponse resp)
             throws ServletException, IOException {
 
-        int id = Integer.parseInt(req.getParameter("id"));
-        Author author = adminServices.getAuthorById(id);
+        int id = getIntParam(req, "id");
+        Author author = adminService.getAuthorById(id);
 
         if (author == null) {
-            resp.sendRedirect(req.getContextPath() + "/admin-author");
+            redirect(resp, req);
             return;
         }
 
         req.setAttribute("author", author);
-        req.getRequestDispatcher("/WEB-INF/views/admin-author-edit.jsp")
-                .forward(req, resp);
+        forward(req, resp, "/WEB-INF/views/admin-author-edit.jsp");
+    }
+
+    private void addAuthor(HttpServletRequest req, HttpServletResponse resp)
+            throws IOException, ServletException {
+
+        String mode = req.getParameter("mode");
+
+        if ("import".equals(mode)) {
+            Part file = req.getPart("file");
+            if (file != null && file.getSize() > 0) {
+                adminService.importAuthorFile(file);
+            }
+        } else {
+            Author author = buildAuthor(req);
+            adminService.addAuthor(author);
+        }
+
+        redirect(resp, req);
     }
 
     private void updateAuthor(HttpServletRequest req, HttpServletResponse resp)
             throws IOException {
 
-        int id = Integer.parseInt(req.getParameter("id"));
-        Author author = getAuthorFromRequest(req);
+        int id = getIntParam(req, "id");
+        Author author = buildAuthor(req);
         author.setId(id);
 
-        adminServices.updateAuthor(author);
-        resp.sendRedirect(req.getContextPath() + "/admin-author");
+        adminService.updateAuthor(author);
+        redirect(resp, req);
     }
 
     private void deleteAuthor(HttpServletRequest req, HttpServletResponse resp)
             throws IOException {
 
-        int id = Integer.parseInt(req.getParameter("id"));
-        adminServices.deleteAuthor(id);
-        resp.sendRedirect(req.getContextPath() + "/admin-author");
+        int id = getIntParam(req, "id");
+        adminService.deleteAuthor(id);
+        redirect(resp, req);
     }
 
-    private Author getAuthorFromRequest(HttpServletRequest req) {
+    /* ================= HELPERS ================= */
 
-        String authorName = req.getParameter("authorName");
-        String authorDetail = req.getParameter("authorDetail");
-        String nationality = req.getParameter("nationality");
-        String awards = req.getParameter("awards");
-
-        int birthYear = parseIntSafe(req.getParameter("birthYear"));
-        int numberOfBooks = parseIntSafe(req.getParameter("numberOfBooks"));
+    private Author buildAuthor(HttpServletRequest req) {
 
         return new Author(
-                authorName,
-                authorDetail,
-                birthYear,
-                nationality,
-                numberOfBooks,
-                awards
+                req.getParameter("authorName"),
+                req.getParameter("authorDetail"),
+                getIntParam(req, "birthYear"),
+                req.getParameter("nationality"),
+                getIntParam(req, "numberOfBooks"),
+                req.getParameter("awards")
         );
     }
 
-    private int parseIntSafe(String value) {
+    private int getIntParam(HttpServletRequest req, String name) {
         try {
-            return Integer.parseInt(value);
+            return Integer.parseInt(req.getParameter(name));
         } catch (Exception e) {
             return 0;
         }
+    }
+
+    private void forward(HttpServletRequest req, HttpServletResponse resp, String path)
+            throws ServletException, IOException {
+        req.getRequestDispatcher(path).forward(req, resp);
+    }
+
+    private void redirect(HttpServletResponse resp, HttpServletRequest req)
+            throws IOException {
+        resp.sendRedirect(req.getContextPath() + "/admin-author");
     }
 }
