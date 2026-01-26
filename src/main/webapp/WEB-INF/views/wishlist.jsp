@@ -61,7 +61,7 @@
                                   Tác giả:
                                   <c:choose>
                                       <c:when test="${book.authors != null}">
-                                          ${a.authorName}
+                                          ${book.authors[0].authorName}
                                       </c:when>
                                       <c:otherwise>
                                           Đang cập nhật

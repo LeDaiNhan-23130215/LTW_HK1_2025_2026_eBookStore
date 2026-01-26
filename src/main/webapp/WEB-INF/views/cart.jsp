@@ -42,10 +42,7 @@
 
                             <div class="cart-product">
                                 <a href="#" class="cart-img">
-                                    <c:set var="img"
-                                           value="${not empty item.ebook.images
-                                          ? item.ebook.images[0].imgLink
-                                          : '/assets/img/no-image.png'}" />
+                                    <img src="${item.ebook.images[0].imgLink}" alt="${item.ebook.images[0].imgLink}">
                                 </a>
 
                                 <div class="cart-infor">
