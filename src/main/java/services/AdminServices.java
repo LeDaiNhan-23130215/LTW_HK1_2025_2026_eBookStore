@@ -88,6 +88,7 @@ public class AdminServices {
     public List<AdminEbookView> getAllEbooks(){ return ebookDAO.findAllForAdmin(); }
     public Ebook getEbookByID(int id){ return ebookDAO.getEbookById(id); }
     public List<Ebook> findAll() { return ebookDAO.findAll(); }
+    public List<Ebook> listBooksForAdmin(int page, int size) { return ebookDAO.getAdminEbooks(page, size); }
     public String generateEbookCode(int categoryId) {
         return ebookService.generateEBookCode(categoryId);
     }

@@ -170,7 +170,6 @@
                 <th>ID</th>
                 <th>Tên sách</th>
                 <th>Mã sách</th>
-                <th>Tác giả</th>
                 <th>Thể loại</th>
                 <th>Giá</th>
                 <th>Thao tác</th>
@@ -183,7 +182,6 @@
                     <td>${e.id}</td>
                     <td>${e.title}</td>
                     <td>${e.eBookCode}</td>
-                    <td>${authorMap[e.authorID]}</td>
                     <td>${categoryMap[e.categoryID]}</td>
                     <td>${e.price}</td>
                     <td id="btn-place">
@@ -255,6 +253,37 @@
             img.style.display = "none";
         };
     }
+
+    document.addEventListener("DOMContentLoaded", function () {
+
+        const authorSelect = document.querySelector("select[name='authorId']");
+        const categorySelect = document.querySelector("select[name='categoryId']");
+
+        if (!authorSelect || !categorySelect) {
+        console.error("Không tìm thấy select author/category");
+        return;
+    }
+
+        fetch("${pageContext.request.contextPath}/admin-ebook/form-data")
+        .then(res => res.json())
+        .then(data => {
+
+        console.log("FORM DATA:", data);
+
+        authorSelect.innerHTML = `<option value="">-- Chọn tác giả --</option>`;
+        categorySelect.innerHTML = `<option value="">-- Chọn thể loại --</option>`;
+
+            data.authors.forEach(a => {
+                authorSelect.add(new Option(a.label, a.id));
+            });
+
+            data.categories.forEach(c => {
+                categorySelect.add(new Option(c.label, c.id));
+            });
+
+    })
+        .catch(err => console.error("Load form data error:", err));
+    });
 </script>
 </body>
 </html>

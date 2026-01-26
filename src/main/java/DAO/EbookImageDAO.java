@@ -60,7 +60,7 @@ public class EbookImageDAO {
             ResultSet rs = ps.executeQuery();
 
             while (rs.next()) {
-                int imageId = rs.getInt("imgID");
+                int imageId = rs.getInt("id");
                 Image img = new Image(imageId);
                 img.setImgName(rs.getString("imgName"));
                 img.setImgLink(rs.getString("imgLink"));

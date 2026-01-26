@@ -316,6 +316,39 @@ public class EbookDAO {
         return list;
     }
 
+    public List<Ebook> getAdminEbooks(int page, int size) {
+        List<Ebook> list = new ArrayList<>();
+
+        String sql = """
+        SELECT id, title, price, status, eBookCode, categoryID
+        FROM ebook
+        ORDER BY id DESC
+        LIMIT ? OFFSET ?
+    """;
+
+        try (Connection conn = DBConnection.getConnection();
+             PreparedStatement ps = conn.prepareStatement(sql)) {
+
+            ps.setInt(1, size);
+            ps.setInt(2, (page - 1) * size);
+
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                int id = Integer.parseInt(rs.getString("id"));
+                Ebook e = new Ebook(id);
+                e.setTitle(rs.getString("title"));
+                e.setPrice(rs.getDouble("price"));
+                e.setStatus(rs.getString("status"));
+                e.setBookCode(rs.getString("eBookCode"));
+                e.setCategoryID(rs.getInt("categoryID"));
+                list.add(e);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return list;
+    }
+
     public boolean insert(Ebook e) {
 
         String sql = """
