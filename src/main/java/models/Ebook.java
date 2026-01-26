@@ -76,8 +76,6 @@ public class Ebook extends Base {
         this.description = description;
     }
 
-
-
     public int getCategoryID() {
         return categoryID;
     }
@@ -123,7 +121,7 @@ public class Ebook extends Base {
         return Integer.hashCode(id);
     }
 
-    public String geteBookCode() {
+    public String getEBookCode() {
         return eBookCode;
     }
 

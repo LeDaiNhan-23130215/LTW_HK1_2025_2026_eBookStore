@@ -55,13 +55,13 @@
 
                           <div class="infor">
                               <h3>${book.title}</h3>
-                              <p>Mã số: ${book.eBookCode}</p>
+                              <p>Mã số: ${book.EBookCode}</p>
 
                               <p>
                                   Tác giả:
                                   <c:choose>
                                       <c:when test="${book.authors != null}">
-                                          ${a.authorName}
+                                          ${book.authors[0].authorName}
                                       </c:when>
                                       <c:otherwise>
                                           Đang cập nhật

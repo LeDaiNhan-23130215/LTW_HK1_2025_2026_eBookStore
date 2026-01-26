@@ -33,7 +33,6 @@ public class AdminEbookController extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp)
             throws ServletException, IOException {
-
         String action = getAction(req);
 
         switch (action) {
@@ -73,13 +72,15 @@ public class AdminEbookController extends HttpServlet {
     private void showList(HttpServletRequest req, HttpServletResponse resp)
             throws ServletException, IOException {
 
-        List<Ebook> ebooks = adminServices.findAll();
+        int page = Integer.parseInt(
+                req.getParameter("page") != null ? req.getParameter("page") : "1"
+        );
+
+        List<Ebook> ebooks = adminServices.listBooksForAdmin(page, 20);
 
         req.setAttribute("ebooks", ebooks);
-        req.setAttribute("authors", adminServices.getListAuthors());
-        req.setAttribute("categories", adminServices.getListCategory());
+        req.setAttribute("page", page);
 
-        req.setAttribute("authorMap", buildAuthorMap());
         req.setAttribute("categoryMap", buildCategoryMap());
 
         req.getRequestDispatcher("/WEB-INF/views/admin-ebook.jsp")
@@ -179,7 +180,7 @@ public class AdminEbookController extends HttpServlet {
 
         return new Ebook(
                 old.getId(),
-                old.geteBookCode(),
+                old.getEBookCode(),
                 req.getParameter("title"),
                 parseDouble(req.getParameter("price")),
                 req.getParameter("description"),

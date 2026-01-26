@@ -69,26 +69,6 @@
                     <textarea name="authorDetail" rows="4">${author.authorDetail}</textarea>
                 </div>
 
-                <div class="form-row">
-                    <label>Năm sinh:</label>
-                    <input type="number" name="birthYear" value="${author.birthYear}" required>
-                </div>
-
-                <div class="form-row">
-                    <label>Quốc tịch:</label>
-                    <input type="text" name="nationality" value="${author.nationality}">
-                </div>
-
-                <div class="form-row">
-                    <label>Số lượng sách:</label>
-                    <input type="number" name="numberOfBooks" value="${author.numberOfBooks}">
-                </div>
-
-                <div class="form-row">
-                    <label>Giải thưởng:</label>
-                    <textarea name="awards" rows="3">${author.awards}</textarea>
-                </div>
-
                 <button type="submit" class="btn-addCategory" style="background:#28a745;">
                     Lưu thay đổi
                 </button>

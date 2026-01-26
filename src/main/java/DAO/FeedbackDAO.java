@@ -15,7 +15,7 @@ public class FeedbackDAO {
         SELECT f.id, f.userID, f.message, f.createdAt, f.status,
                u.userName, u.email
         FROM feedback f
-        JOIN user u ON f.userID = u.id
+        JOIN users u ON f.userID = u.id
         WHERE f.id = ?
     """;
 
@@ -51,7 +51,7 @@ public class FeedbackDAO {
             f.id, f.userID, f.message, f.createdAt, f.status,
             u.userName, u.email
         FROM feedback f
-        JOIN user u ON f.userID = u.id
+        JOIN users u ON f.userID = u.id
         ORDER BY f.createdAt DESC
     """;
 
