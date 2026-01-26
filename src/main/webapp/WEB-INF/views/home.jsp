@@ -100,7 +100,7 @@
                     </c:choose>
 
                     <div class="img-wrapper">
-                        <img src="<c:url value='${eb.imageLink}' />" alt="${eb.title}"/>
+                      <img src="${eb.imageLink}" alt="">
                     </div>
 
                     <p>${eb.title}</p>

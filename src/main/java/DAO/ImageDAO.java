@@ -62,8 +62,8 @@ public class ImageDAO {
 
         String sql = """
             SELECT i.*
-            FROM ebookimages ei
-            JOIN image i ON ei.imageID = i.id
+            FROM ebookimage ei
+            JOIN images i ON ei.imgID = i.id
             WHERE ei.ebookID = ?
               AND i.imgStatus = 'ACTIVE'
         """;
@@ -88,8 +88,8 @@ public class ImageDAO {
     public Image getFirstImageByEbookID(int ebookID) {
         String sql = """
             SELECT i.*
-            FROM ebookimages ei
-            JOIN image i ON ei.imageID = i.id
+            FROM ebookimage ei
+            JOIN images i ON ei.imgID = i.id
             WHERE ei.ebookID = ?
               AND i.imgStatus = 'ACTIVE'
             ORDER BY i.id ASC

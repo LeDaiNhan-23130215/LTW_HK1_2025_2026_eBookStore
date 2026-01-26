@@ -30,6 +30,9 @@ public class EbookService {
 
     public List<EbookProductCardView> getNewEbookProductCards() {
         List<Ebook> ebooks = ebookDAO.getNewBook();
+        for(Ebook eb : ebooks) {
+            eb.setImages(imageService.getImagesByEbookID(eb.getId()));
+        }
         return buildProductCards(ebooks);
     }
 
@@ -84,7 +87,7 @@ public class EbookService {
         String imgLink = "/assets/img/no-image.png";
 
         if (ebook.getImages() != null && !ebook.getImages().isEmpty()) {
-            imgLink = ebook.getImages().getFirst().getImgLink();
+            imgLink = ebook.getImages().get(0).getImgLink();
         }
 
         return new EbookProductCardView(
