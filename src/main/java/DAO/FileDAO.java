@@ -1,6 +1,6 @@
 package DAO;
 
-import models.DemoFile;
+import models.File;
 import utils.DBConnection;
 
 import java.sql.Connection;
@@ -8,11 +8,11 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.Statement;
 
-public class DemoFileDAO {
-    public int insertAndReturnId(DemoFile file) {
+public class FileDAO {
+    public int insertAndReturnId(File file) {
         String sql = """
-        INSERT INTO DemoFile (fileName, fileFormat, fileSize, fileLink, limitPage, fileStatus)
-        VALUES (?, ?, ?, ?, ?, ?)
+        INSERT INTO File (fileName, fileFormat, fileSize, fileLink, fileStatus)
+        VALUES (?, ?, ?, ?, ?)
     """;
 
         try (Connection conn = DBConnection.getConnection();
@@ -22,8 +22,7 @@ public class DemoFileDAO {
             ps.setString(2, file.getFileFormat());
             ps.setLong(3, file.getFileSize());
             ps.setString(4, file.getFileLink());
-            ps.setInt(5, file.getLimitPage());
-            ps.setString(6, file.getFileStatus());
+            ps.setString(5, file.getFileStatus());
 
             ps.executeUpdate();
 
@@ -36,5 +35,4 @@ public class DemoFileDAO {
         }
         return -1;
     }
-
 }

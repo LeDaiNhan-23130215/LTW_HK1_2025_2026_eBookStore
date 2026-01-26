@@ -10,34 +10,30 @@ public class Ebook extends Base {
     private String title;
     private double price;
     private String description;
-    private int categoryID;
-    private int fullFileID;
-    private int demoFileID;
+    private int fileID;
     private String status;
     private String eBookCode;
+    private int categoryID;
     private List<Image> images;
     private List<Author> authors;
 
-    public Ebook(int id, String title, double price, String description, int categoryID, int fullFileID, int demoFileID, String status, String eBookCode) {
+    public Ebook(int id,String eBookCode, String title, double price, String description, int categoryID, int fileID, String status) {
         super(id);
         this.title = title;
         this.price = price;
         this.description = description;
-        this.fullFileID = fullFileID;
         this.status = status;
-        this.demoFileID = demoFileID;
         this.categoryID = categoryID;
         this.eBookCode = eBookCode;
     }
 
-    public Ebook(String title, double price, String description, int categoryID, int fullFileID, int demoFileID, String status, String eBookCode) {
+    public Ebook( String eBookCode, String title, double price, String description, int categoryID, int fileID, String status) {
         super(-1);
         this.title = title;
         this.price = price;
         this.description = description;
-        this.fullFileID = fullFileID;
         this.status = status;
-        this.demoFileID = demoFileID;
+        this.fileID = fileID;
         this.categoryID = categoryID;
         this.eBookCode = eBookCode;
     }
@@ -80,13 +76,7 @@ public class Ebook extends Base {
         this.description = description;
     }
 
-    public int getFullFileID() {
-        return fullFileID;
-    }
 
-    public void setFullFileID(int fullFileID) {
-        this.fullFileID = fullFileID;
-    }
 
     public int getCategoryID() {
         return categoryID;
@@ -96,12 +86,12 @@ public class Ebook extends Base {
         this.categoryID = categoryID;
     }
 
-    public int getDemoFileID() {
-        return demoFileID;
+    public int getFileID() {
+        return fileID;
     }
 
-    public void setDemoFileID(int demoFileID) {
-        this.demoFileID = demoFileID;
+    public void setFileID(int fileID) {
+        this.fileID = fileID;
     }
 
     public String getStatus() {
