@@ -1,13 +1,13 @@
 package models;
 
-public class FullFile extends Base {
+public class File extends Base {
     private String fileName;
     private String fileFormat;
     private long fileSize;
     private String fileLink;
     private String fileStatus;
 
-    public FullFile(String fileName, String fileFormat, long fileSize, String fileLink, String fileStatus) {
+    public File(String fileName, String fileFormat, long fileSize, String fileLink, String fileStatus) {
         super(-1);
         this.fileName = fileName;
         this.fileFormat = fileFormat;
@@ -16,7 +16,7 @@ public class FullFile extends Base {
         this.fileStatus = fileStatus;
     }
 
-    public FullFile(int id) {
+    public File(int id) {
         super(id);
     }
 

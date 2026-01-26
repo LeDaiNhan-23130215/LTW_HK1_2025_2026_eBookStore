@@ -1,7 +1,6 @@
 package controllers;
 
-import DAO.DemoFileDAO;
-import DAO.FullFileDAO;
+import DAO.FileDAO;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.MultipartConfig;
 import jakarta.servlet.annotation.WebServlet;
@@ -164,16 +163,15 @@ public class AdminEbookController extends HttpServlet {
 
     private Ebook buildEbook(HttpServletRequest req) {
         return new Ebook(
+                adminServices.generateEbookCode(
+                        parseInt(req.getParameter("categoryId"))
+                ),
                 req.getParameter("title"),
                 parseDouble(req.getParameter("price")),
                 req.getParameter("description"),
                 parseInt(req.getParameter("categoryId")),
                 0,
-                0,
-                "ACTIVE",
-                adminServices.generateEbookCode(
-                        parseInt(req.getParameter("categoryId"))
-                )
+                "ACTIVE"
         );
     }
 
@@ -181,31 +179,23 @@ public class AdminEbookController extends HttpServlet {
 
         return new Ebook(
                 old.getId(),
+                old.geteBookCode(),
                 req.getParameter("title"),
                 parseDouble(req.getParameter("price")),
                 req.getParameter("description"),
                 parseInt(req.getParameter("categoryId")),
-                old.getFullFileID(),
-                old.getDemoFileID(),
-                old.getStatus(),
-                old.geteBookCode()
+                old.getFileID(),
+                old.getStatus()
         );
     }
 
     // ===================== FILE / IMAGE =====================
 
-    private int insertFullFile(String title, String url) {
-        FullFile file = new FullFile(
+    private int insertFile(String title, String url) {
+        File file = new File(
                 title, getFileFormat(url), 0, url, "ACTIVE"
         );
-        return new FullFileDAO().insertAndReturnId(file);
-    }
-
-    private int insertDemoFile(String title, String url) {
-        DemoFile file = new DemoFile(
-                title, getFileFormat(url), 0, url, 10, "ACTIVE"
-        );
-        return new DemoFileDAO().insertAndReturnId(file);
+        return new FileDAO().insertAndReturnId(file);
     }
 
     // ===================== MAP =====================

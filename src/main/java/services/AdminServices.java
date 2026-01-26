@@ -27,8 +27,7 @@ public class AdminServices {
     private EbookService ebookService = new EbookService();
     private ImageServices imageServices = new ImageServices();
     private AuthorService authorService = new AuthorService();
-    private FullFileDAO fullFileDAO = new FullFileDAO();
-    private DemoFileDAO demoFileDAO = new DemoFileDAO();
+    private FileDAO fileDAO = new FileDAO();
 
     public AdminServices() {}
 
@@ -104,11 +103,9 @@ public class AdminServices {
         ebook.setId(ebookId);
 
         // 2. insert file
-        int fullFileId = fullFileDAO.insertAndReturnId(buildFullFile(ebook));
-        int demoFileId = demoFileDAO.insertAndReturnId(buildDemoFile(ebook));
+        int fileId = fileDAO.insertAndReturnId(buildFile(ebook));
 
-        ebook.setFullFileID(fullFileId);
-        ebook.setDemoFileID(demoFileId);
+        ebook.setFileID(fileId);
         ebookDAO.update(ebook);
 
         // 3. map authors
@@ -120,14 +117,9 @@ public class AdminServices {
         imageServices.insertImages(ebookId, imageUrls, ebook.getTitle());
     }
 
-    private DemoFile buildDemoFile(Ebook ebook) {
+    private File buildFile(Ebook ebook) {
         return null;
     }
-
-    private FullFile buildFullFile(Ebook ebook) {
-        return null;
-    }
-
     //Checkout
     public int getTotalSuccessOrders(){
         return checkoutDAO.countSuccessOrder();
