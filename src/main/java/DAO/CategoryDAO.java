@@ -22,8 +22,7 @@ public class CategoryDAO {
                     return new Category(
                             rs.getInt("id"),
                             rs.getString("categoryName"),
-                            rs.getString("description"),
-                            rs.getString("icon")
+                            rs.getString("description")
                     );
                 }
             }
@@ -45,8 +44,7 @@ public class CategoryDAO {
                 Category c = new Category(
                         rs.getInt("id"),
                         rs.getString("categoryName"),
-                        rs.getString("description"),
-                        rs.getString("icon")
+                        rs.getString("description")
                 );
                 list.add(c);
             }
@@ -59,13 +57,11 @@ public class CategoryDAO {
     }
 
     public boolean addCategory(Category category){
-        String sql = "insert into category (categoryName, description, icon, categoryCode) values (?, ?, ?, ?)";
+        String sql = "insert into category (categoryName, description) values (?, ?)";
         try(Connection connection = DBConnection.getConnection();
             PreparedStatement stm = connection.prepareStatement(sql)){
             stm.setString(1, category.getName());
             stm.setString(2, category.getDescription());
-            stm.setString(3, category.getIcon());
-            stm.setString(4, category.getCategoryCode());
             int rows = stm.executeUpdate();
             return rows > 0;
         } catch (SQLException e){
@@ -88,12 +84,11 @@ public class CategoryDAO {
     }
 
     public boolean updateCategory(Category category){
-        String sql = "update category set categoryName = ?, description = ?, icon = ? where id = ?";
+        String sql = "update category set categoryName = ?, description = ? where id = ?";
         try (Connection connection = DBConnection.getConnection();
         PreparedStatement stm = connection.prepareStatement(sql)){
             stm.setString(1, category.getName());
             stm.setString(2, category.getDescription());
-            stm.setString(3, category.getIcon());
             stm.setInt(4, category.getId());
             int rows = stm.executeUpdate();
             return rows > 0;

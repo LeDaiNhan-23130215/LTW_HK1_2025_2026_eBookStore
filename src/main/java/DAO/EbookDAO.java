@@ -181,17 +181,20 @@ public class EbookDAO {
         List<EbookProductCardView> result = new ArrayList<>();
 
         StringBuilder sql = new StringBuilder("""
-        SELECT e.id, e.title, e.price, MIN(i.imgLink) AS imgLink
-        FROM ebook e
-        JOIN ebookimage ie ON e.id = ie.ebookID
-        JOIN image i ON ie.imageID = i.id
-        WHERE i.imgStatus = 'ACTIVE'
-        GROUP BY e.id, e.title, e.price
+            SELECT e.id, e.title, e.price, MIN(i.imgLink) AS imgLink
+            FROM ebook e
+            JOIN ebookimage ie ON e.id = ie.ebookID
+            JOIN images i ON ie.imgID = i.id
+            LEFT JOIN ebookauthor ea ON e.id = ea.ebookID
+            LEFT JOIN author a ON ea.authorID = a.id
+            LEFT JOIN files f ON f.id = e.id
+            WHERE i.imgStatus = 'ACTIVE'
+            AND i.imgStatus = 'ACTIVE'
         """);
 
         List<Object> params = new ArrayList<>();
         applyFilter(sql, params, filter);
-
+        sql.append(" GROUP BY e.id, e.title, e.price ");
         // ===== SORTING (ALWAYS APPLY) =====
         sql.append(" ORDER BY ");
 
@@ -259,6 +262,7 @@ public class EbookDAO {
         FROM ebook e
         LEFT JOIN ebookauthor ea ON e.id = ea.ebookID
         LEFT JOIN author a ON ea.authorID = a.id
+        JOIN files f ON f.id = e.id
         WHERE e.status = 'ACTIVE'
         """);
 
@@ -470,7 +474,7 @@ public class EbookDAO {
 
         // ===== FORMAT FILTER (NEW) =====
         if (f.getFormats() != null && !f.getFormats().isEmpty()) {
-            sql.append(" AND e.format IN (");
+            sql.append(" AND f.fileFormat IN (");
             for (int i = 0; i < f.getFormats().size(); i++) {
                 sql.append("?");
                 if (i < f.getFormats().size() - 1) {

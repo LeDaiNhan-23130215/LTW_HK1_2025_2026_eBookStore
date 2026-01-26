@@ -29,7 +29,7 @@ public class ExcelUtil {
                     ? row.getCell(1).getStringCellValue().trim()
                     : "fa-solid fa-folder";
             if(!name.isEmpty()){
-                categories.add(new Category(name, description, icon));
+                categories.add(new Category(name, description));
             }
         }
         workbook.close();

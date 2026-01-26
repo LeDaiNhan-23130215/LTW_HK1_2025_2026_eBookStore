@@ -72,7 +72,7 @@ public class AdminCategoryController extends HttpServlet {
                 icon = "fa-solid fa-folder";
             }
 
-            adminServices.updateCategory(new Category(id, name, desc, icon));
+            adminServices.updateCategory(new Category(id, name, desc));
             resp.sendRedirect(req.getContextPath() + "/admin-category");
             return;
         }
@@ -88,7 +88,7 @@ public class AdminCategoryController extends HttpServlet {
                     icon = "fa-solid fa-folder";
                 }
 
-                adminServices.addCategory(new Category(name.trim(), desc, icon));
+                adminServices.addCategory(new Category(name.trim(), desc));
 
                 resp.sendRedirect(req.getContextPath() + "/admin-category");
                 return;

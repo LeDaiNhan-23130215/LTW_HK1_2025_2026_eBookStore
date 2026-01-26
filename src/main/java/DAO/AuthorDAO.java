@@ -13,8 +13,8 @@ public class AuthorDAO {
     public int insertAndReturnId(Author author) {
         String sql = """
             INSERT INTO author
-            (authorName, authorDetail, birthYear, nationality, numberOfBook, awards)
-            VALUES (?, ?, ?, ?, ?, ?)
+            (authorName, authorDetail)
+            VALUES (?, ?)
         """;
 
         try (Connection conn = DBConnection.getConnection();
@@ -22,10 +22,6 @@ public class AuthorDAO {
 
             ps.setString(1, author.getAuthorName());
             ps.setString(2, author.getAuthorDetail());
-            ps.setInt(3, author.getBirthYear());
-            ps.setString(4, author.getNationality());
-            ps.setInt(5, author.getNumberOfBooks());
-            ps.setString(6, author.getAwards());
 
             ps.executeUpdate();
             ResultSet rs = ps.getGeneratedKeys();
@@ -40,8 +36,8 @@ public class AuthorDAO {
     public boolean addAuthor(Author author) {
         String sql = """
             INSERT INTO author
-            (authorName, authorDetail, birthYear, nationality, numberOfBook, awards)
-            VALUES (?, ?, ?, ?, ?, ?)
+            (authorName, authorDetails)
+            VALUES (?, ?)
         """;
 
         try (Connection conn = DBConnection.getConnection();
@@ -49,10 +45,6 @@ public class AuthorDAO {
 
             ps.setString(1, author.getAuthorName());
             ps.setString(2, author.getAuthorDetail());
-            ps.setInt(3, author.getBirthYear());
-            ps.setString(4, author.getNationality());
-            ps.setInt(5, author.getNumberOfBooks());
-            ps.setString(6, author.getAwards());
 
             return ps.executeUpdate() > 0;
         } catch (SQLException e) {
@@ -130,10 +122,6 @@ public class AuthorDAO {
             UPDATE author
             SET authorName = ?,
                 authorDetail = ?,
-                birthYear = ?,
-                nationality = ?,
-                numberOfBook = ?,
-                awards = ?
             WHERE id = ?
         """;
 
@@ -142,11 +130,6 @@ public class AuthorDAO {
 
             ps.setString(1, author.getAuthorName());
             ps.setString(2, author.getAuthorDetail());
-            ps.setInt(3, author.getBirthYear());
-            ps.setString(4, author.getNationality());
-            ps.setInt(5, author.getNumberOfBooks());
-            ps.setString(6, author.getAwards());
-            ps.setInt(7, author.getId());
 
             return ps.executeUpdate() > 0;
 
@@ -175,11 +158,7 @@ public class AuthorDAO {
         return new Author(
                 rs.getInt("id"),
                 rs.getString("authorName"),
-                rs.getString("authorDetail"),
-                rs.getInt("birthYear"),
-                rs.getString("nationality"),
-                rs.getInt("numberOfBook"),
-                rs.getString("awards")
+                rs.getString("authorDetail")
         );
     }
 }

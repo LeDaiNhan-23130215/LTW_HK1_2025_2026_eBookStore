@@ -17,7 +17,7 @@ public class ListbookController extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        request.setAttribute("categories", ebookService.getAllCategories());
+        request.setAttribute("categories", ebookService.getAllCategories().subList(0,3));
 
         // ===== PAGE =====
         int page = 1;
@@ -89,7 +89,7 @@ public class ListbookController extends HttpServlet {
         request.setAttribute("queryString", queryStringForPagination);
 
         // For sort buttons (excludes page, sortBy, sortDir)
-        String queryStringForSort = buildQueryString(request, false, false);
+        String queryStringForSort = buildQueryString(request, false, true);
         request.setAttribute("queryStringForSort", queryStringForSort);
 
 

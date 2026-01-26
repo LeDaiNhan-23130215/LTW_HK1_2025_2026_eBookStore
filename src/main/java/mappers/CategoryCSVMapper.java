@@ -11,6 +11,6 @@ public class CategoryCSVMapper implements CSVMapper<Category> {
 
         if (name.isEmpty()) return null;
 
-        return new Category(name, desc, icon);
+        return new Category(name, desc);
     }
 }
