@@ -47,8 +47,8 @@ public class EbookImageDAO {
 
         String sql = """
         SELECT i.id, i.imgName, i.imgLink, i.imgStatus
-        FROM ebookimages ei
-        JOIN image i ON ei.imageID = i.id
+        FROM ebookimage ei
+        JOIN images i ON ei.imgID = i.id
         WHERE ei.ebookID = ?
         ORDER BY i.id
     """;
@@ -60,7 +60,7 @@ public class EbookImageDAO {
             ResultSet rs = ps.executeQuery();
 
             while (rs.next()) {
-                int imageId = rs.getInt("imgID");
+                int imageId = rs.getInt("id");
                 Image img = new Image(imageId);
                 img.setImgName(rs.getString("imgName"));
                 img.setImgLink(rs.getString("imgLink"));
