@@ -48,4 +48,9 @@ public class ImageServices {
     public void removeAllImagesOfEbook(int ebookID) {
         ebookImageDAO.removeByEbookID(ebookID);
     }
+    public static void main(String[] args) {
+        ImageServices imgS = new ImageServices();
+        System.out.println(imgS.getThumbnail(283).getImgLink());
+    }
 }
+

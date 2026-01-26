@@ -181,13 +181,12 @@ public class EbookDAO {
         List<EbookProductCardView> result = new ArrayList<>();
 
         StringBuilder sql = new StringBuilder("""
-        SELECT 
-        SELECT e.id, e.title, e.price, i.imgLink
+        SELECT e.id, e.title, e.price, MIN(i.imgLink) AS imgLink
         FROM ebook e
-        JOIN ebookimages ei ON e.id = ei.ebookID
-        JOIN image i ON ei.imageID = i.id
+        JOIN ebookimage ie ON e.id = ie.ebookID
+        JOIN image i ON ie.imageID = i.id
         WHERE i.imgStatus = 'ACTIVE'
-        GROUP BY e.id
+        GROUP BY e.id, e.title, e.price
         """);
 
         List<Object> params = new ArrayList<>();
@@ -256,9 +255,10 @@ public class EbookDAO {
     public int countProductCards(EbookFilterView filter) {
 
         StringBuilder sql = new StringBuilder("""
-        SELECT COUNT(e.id)
+        SELECT COUNT(DISTINCT e.id)
         FROM ebook e
-        JOIN author a ON e.authorID = a.id
+        LEFT JOIN ebookauthor ea ON e.id = ea.ebookID
+        LEFT JOIN author a ON ea.authorID = a.id
         WHERE e.status = 'ACTIVE'
         """);
 
@@ -470,7 +470,7 @@ public class EbookDAO {
 
         // ===== FORMAT FILTER (NEW) =====
         if (f.getFormats() != null && !f.getFormats().isEmpty()) {
-            sql.append(" AND e.fat ormIN (");
+            sql.append(" AND e.format IN (");
             for (int i = 0; i < f.getFormats().size(); i++) {
                 sql.append("?");
                 if (i < f.getFormats().size() - 1) {
