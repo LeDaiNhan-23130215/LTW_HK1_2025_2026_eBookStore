@@ -1,6 +1,7 @@
 package controllers;
 
 import DTO.CartItem;
+import enums.AddBookResult;
 import jakarta.servlet.*;
 import jakarta.servlet.http.*;
 import jakarta.servlet.annotation.*;
@@ -38,7 +39,7 @@ public class CartController extends HttpServlet {
             cart = cartService.getCartByUserID(userId);
         }
 
-        List<CartItem> cartItems = cartService.getCartItemsByCartID(cart.getId());
+        List<CartItem> cartItems = cartService.getCartItemsByCartID(userId, cart.getId());
         double totalPrice = 0;
         for (CartItem ci : cartItems) {
             totalPrice += ci.getPriceAtADD();
@@ -74,7 +75,32 @@ public class CartController extends HttpServlet {
             int bookId = Integer.parseInt(request.getParameter("bookId"));
             double price = Double.parseDouble(request.getParameter("price"));
 
-            cartService.addBookToCart(cart.getId(), bookId, price);
+            AddBookResult result = cartService.addBookToCart(
+                    userId, cart.getId(), bookId, price
+            );
+
+            switch (result) {
+                case ALREADY_OWNED:
+                    request.getSession().setAttribute(
+                            "toastError",
+                            "📚 Bạn đã sở hữu sách này rồi"
+                    );
+                    break;
+
+                case ALREADY_EXISTS:
+                    request.getSession().setAttribute(
+                            "toastWarning",
+                            "⚠️ Sách đã có trong giỏ hàng"
+                    );
+                    break;
+
+                case SUCCESS:
+                    request.getSession().setAttribute(
+                            "toastSuccess",
+                            "✅ Đã thêm sách vào giỏ hàng"
+                    );
+                    break;
+            }
         }
 
         if ("remove".equals(action)) {

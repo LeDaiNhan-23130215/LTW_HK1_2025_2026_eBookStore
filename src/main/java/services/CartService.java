@@ -1,10 +1,8 @@
 package services;
 
-import DAO.CartDAO;
-import DAO.CartDetailDAO;
-import DAO.EbookDAO;
-import DAO.ImageDAO;
+import DAO.*;
 import DTO.CartItem;
+import enums.AddBookResult;
 import models.Cart;
 import models.CartDetail;
 import models.Ebook;
@@ -17,6 +15,7 @@ public class CartService {
     private CartDAO cartDAO = new CartDAO();
     private CartDetailDAO cartDetailDAO = new CartDetailDAO();
     private EbookDAO ebookDAO = new EbookDAO();
+    private BookshelfDAO bookshelfDAO = new BookshelfDAO();
 
     public Cart getCartByUserID(int userID) {
         return cartDAO.getCartByUserId(userID);
@@ -26,13 +25,23 @@ public class CartService {
         return cartDAO.createCart(userID);
     }
 
-    public void addBookToCart(int cartId, int bookId, double price) {
+    public AddBookResult addBookToCart(
+            int userId,
+            int cartId,
+            int bookId,
+            double price
+    ) {
 
-        CartDetailDAO cdDao = new CartDetailDAO();
-
-        if (!cdDao.isBookInCart(cartId, bookId)) {
-            cdDao.addBookToCart(cartId, bookId, price);
+        if (bookshelfDAO.userOwnsEbook(userId, bookId)) {
+            return AddBookResult.ALREADY_OWNED;
         }
+
+        if (cartDetailDAO.isBookInCart(cartId, bookId)) {
+            return AddBookResult.ALREADY_EXISTS;
+        }
+
+        cartDetailDAO.addBookToCart(cartId, bookId, price);
+        return AddBookResult.SUCCESS;
     }
 
     public boolean removeItem(int cartId, int bookId){
@@ -47,13 +56,15 @@ public class CartService {
         return cartDetailDAO.getCartDetailsByCartID(cartID);
     }
 
-    public List<CartItem> getCartItemsByCartID(int cartID) {
+    public List<CartItem> getCartItemsByCartID(int userId, int cartID) {
 
         List<CartItem> items = new ArrayList<>();
         List<CartDetail> details = cartDetailDAO.getCartDetailsByCartID(cartID);
 
         for (CartDetail cd : details) {
-
+            if(bookshelfDAO.userOwnsEbook(userId, cartID)){
+                continue;
+            }
             Ebook ebook = ebookDAO.getEbookWithDetailsById(cd.getBookID());
 
             if (ebook != null) {

@@ -119,4 +119,26 @@ public class BookshelfDAO {
         }
         return -1;
     }
+
+    public boolean userOwnsEbook(int userId, int ebookId) {
+        String sql = """
+        SELECT 1
+        FROM bookshelf b
+        JOIN bookshelfdetail bd ON b.id = bd.bsID
+        WHERE b.userID = ? AND bd.eBookID = ?
+    """;
+
+        try (Connection conn = DBConnection.getConnection();
+             PreparedStatement ps = conn.prepareStatement(sql)) {
+
+            ps.setInt(1, userId);
+            ps.setInt(2, ebookId);
+
+            return ps.executeQuery().next();
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return false;
+    }
 }

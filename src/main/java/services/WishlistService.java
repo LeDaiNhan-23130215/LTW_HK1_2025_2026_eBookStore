@@ -1,9 +1,7 @@
 package services;
 
-import DAO.AuthorDAO;
-import DAO.ImageDAO;
-import DAO.WishlistDAO;
-import DAO.WishlistDetailDAO;
+import DAO.*;
+import enums.AddBookResult;
 import models.*;
 
 import java.util.List;
@@ -13,13 +11,22 @@ public class WishlistService {
     private WishlistDetailDAO wishlistDetailDAO = new WishlistDetailDAO();
     private AuthorDAO authorDAO = new AuthorDAO();
     private ImageDAO imageDAO = new ImageDAO();
+    private BookshelfDAO bookshelfDAO = new BookshelfDAO();
 
-    public void addToWishlist(int userId, int bookId) {
+    public AddBookResult addToWishlist(int userId, int bookId) {
+
+        if (bookshelfDAO.userOwnsEbook(userId, bookId)) {
+            return AddBookResult.ALREADY_OWNED;
+        }
+
         int wishlistId = wishlistDAO.getOrCreate(userId);
 
-        if (!wishlistDetailDAO.exists(wishlistId, bookId)) {
-            wishlistDetailDAO.addBookToWishlist(wishlistId, bookId);
+        if (wishlistDetailDAO.exists(wishlistId, bookId)) {
+            return AddBookResult.ALREADY_EXISTS;
         }
+
+        wishlistDetailDAO.addBookToWishlist(wishlistId, bookId);
+        return AddBookResult.SUCCESS;
     }
 
     public void removeFromWishlist(int userId, int bookId) {
@@ -29,7 +36,11 @@ public class WishlistService {
 
     public List<Ebook> getWishlist(int userId) {
         int wishlistId = wishlistDAO.getOrCreate(userId);
-        return wishlistDetailDAO.getBooksByWishlistId(wishlistId);
+        List<Ebook> ebooks = wishlistDetailDAO.getBooksByWishlistId(wishlistId);
+
+        return ebooks.stream()
+                .filter(e -> !bookshelfDAO.userOwnsEbook(userId, e.getId()))
+                .toList();
     }
 
     public boolean isInWishlist(int userId, int bookId) {
@@ -41,7 +52,9 @@ public class WishlistService {
         List<Ebook> ebooks = wishlistDetailDAO.getBooksByWishlistId(userId);
 
         for (Ebook ebook : ebooks) {
-
+            if (bookshelfDAO.userOwnsEbook(userId, ebook.getId())) {
+                continue;
+            }
             // authors
             List<Author> authors = authorDAO.getByEbookID(ebook.getId());
             ebook.setAuthors(authors);
