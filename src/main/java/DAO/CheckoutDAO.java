@@ -226,7 +226,7 @@ public class CheckoutDAO {
             c.checkoutDate,
             c.status
         FROM checkout c
-        JOIN user u ON c.userID = u.id
+        JOIN users u ON c.userID = u.id
         JOIN paymentmethod pm ON c.pmID = pm.id
         WHERE c.id = ?
     """;
@@ -267,7 +267,7 @@ public class CheckoutDAO {
             c.checkoutDate,
             c.status
         FROM checkout c
-        JOIN user u ON c.userID = u.id
+        JOIN users u ON c.userID = u.id
         JOIN paymentmethod pm ON c.pmID = pm.id
         ORDER BY c.checkoutDate DESC
     """;

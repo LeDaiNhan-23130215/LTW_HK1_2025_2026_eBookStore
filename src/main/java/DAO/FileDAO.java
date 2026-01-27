@@ -11,7 +11,7 @@ import java.sql.Statement;
 public class FileDAO {
     public int insertAndReturnId(File file) {
         String sql = """
-        INSERT INTO File (fileName, fileFormat, fileSize, fileLink, fileStatus)
+        INSERT INTO files (fileName, fileFormat, fileSize, fileLink, fileStatus)
         VALUES (?, ?, ?, ?, ?)
     """;
 
