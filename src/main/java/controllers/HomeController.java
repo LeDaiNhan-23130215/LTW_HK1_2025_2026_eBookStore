@@ -52,8 +52,15 @@ public class HomeController extends HttpServlet {
         String imgRandom2 = randomEbook.get(1).getImageLink();
         request.setAttribute("rdBookimg2",imgRandom2);
 
-        Banner imgHomeTop = bannerDAO.getBannerByLocation("homeTop");
+        Banner imgHomeTop = bannerDAO.getBannerByLocation("HomeTop");
         request.setAttribute("homeTop", imgHomeTop);
+
+        Banner imgHomeMiddleLeft = bannerDAO.getBannerByLocation("HomeMiddleLeft");
+        request.setAttribute("HomeMiddleLeft", imgHomeMiddleLeft);
+
+        Banner imgHomeMiddleRight = bannerDAO.getBannerByLocation("HomeMiddleRight");
+        request.setAttribute("HomeMiddleRight", imgHomeMiddleRight);
+
         // Chỉ lấy wishlist nếu đã login
         if (session != null && session.getAttribute("userID") != null) {
             int userID = (Integer) session.getAttribute("userID");

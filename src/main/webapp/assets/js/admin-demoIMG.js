@@ -1,13 +1,15 @@
 const bannerInput = document.getElementById('url');
-const bannerReview = document.getElementById('banner-preview-img');
+const bannerPreview = document.getElementById('banner-preview-img');
 
-bannerInput.addEventListener("input", () => {
-    const url = bannerInput.value.trim();
+if (bannerInput && bannerPreview) {
+    bannerInput.addEventListener("input", () => {
+        const url = bannerInput.value.trim();
 
-    if(url) {
-        bannerReview.src = url;
-        bannerReview.style.display = "block";
-    } else{
-        bannerReview.style.display = "none"
-    }
-});
+        if (url) {
+            bannerPreview.src = url;
+            bannerPreview.style.display = "block";
+        } else {
+            bannerPreview.style.display = "none";
+        }
+    });
+}
