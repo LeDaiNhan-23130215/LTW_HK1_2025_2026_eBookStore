@@ -36,7 +36,7 @@ public class AuthorDAO {
     public boolean addAuthor(Author author) {
         String sql = """
             INSERT INTO author
-            (authorName, authorDetails)
+            (authorName, authorDetail)
             VALUES (?, ?)
         """;
 
@@ -121,7 +121,7 @@ public class AuthorDAO {
         String sql = """
             UPDATE author
             SET authorName = ?,
-                authorDetail = ?,
+                authorDetail = ?
             WHERE id = ?
         """;
 
@@ -130,6 +130,7 @@ public class AuthorDAO {
 
             ps.setString(1, author.getAuthorName());
             ps.setString(2, author.getAuthorDetail());
+            ps.setInt(3, author.getId());
 
             return ps.executeUpdate() > 0;
 

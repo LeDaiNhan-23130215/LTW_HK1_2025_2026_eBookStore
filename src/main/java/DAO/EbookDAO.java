@@ -448,24 +448,18 @@ public class EbookDAO {
         SET title = ?,
             price = ?,
             description = ?,
-            categoryID = ?,
-            fullFileID = ?,
-            demoFileID = ?,
-            eBookCode = ?
+            categoryID = ?
         WHERE id = ?
     """;
 
         try (Connection con = DBConnection.getConnection();
              PreparedStatement ps = con.prepareStatement(sql)) {
-            EbookService service = new EbookService();
-            String eBookCode = service.generateEBookCode(e.getCategoryID());
+
             ps.setString(1, e.getTitle());
             ps.setDouble(2, e.getPrice());
             ps.setString(3, e.getDescription());
             ps.setInt(4, e.getCategoryID());
-            ps.setInt(5, e.getFileID());
-            ps.setString(6, eBookCode);
-            ps.setInt(7, e.getId());
+            ps.setInt(5, e.getId());
 
             return ps.executeUpdate() > 0;
 

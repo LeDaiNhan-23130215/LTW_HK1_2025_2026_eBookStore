@@ -155,6 +155,7 @@
                 <th>Tên danh mục</th>
                 <th>Mô tả</th>
                 <th>Icon</th>
+                <th>Mã danh mục</th>
                 <th>Thao tác</th>
             </tr>
             </thead>
@@ -166,7 +167,7 @@
                     <td>${c.name}</td>
                     <td>${c.description}</td>
                     <td><i class="${c.icon}"></i></td>
-
+                    <td>${c.categoryCode}</td>
                     <td>
                         <a class="btn-Edit"
                            href="${pageContext.request.contextPath}/admin-category?action=edit&id=${c.id}">

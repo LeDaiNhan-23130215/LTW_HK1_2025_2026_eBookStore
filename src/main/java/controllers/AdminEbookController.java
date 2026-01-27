@@ -122,13 +122,15 @@ public class AdminEbookController extends HttpServlet {
     }
 
     private List<String> parseStrings(String[] coverUrls) {
-        ArrayList<String> imageUrls;
-        return imageUrls = new ArrayList<>(Arrays.asList(coverUrls));
+        if (coverUrls == null) return new ArrayList<>();
+        return new ArrayList<>(Arrays.asList(coverUrls));
     }
 
     private List<Integer> parseIds(String[] authorIds) {
         List<Integer> ids = new ArrayList<>();
-        for(String id : authorIds) {
+        if (authorIds == null) return ids;
+
+        for (String id : authorIds) {
             ids.add(Integer.parseInt(id));
         }
         return ids;

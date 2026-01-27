@@ -46,7 +46,8 @@ public class CategoryDAO {
                         rs.getInt("id"),
                         rs.getString("categoryName"),
                         rs.getString("description"),
-                        rs.getString("icon")
+                        rs.getString("icon"),
+                        rs.getString("categoryCode")
                 );
                 list.add(c);
             }
@@ -59,12 +60,13 @@ public class CategoryDAO {
     }
 
     public boolean addCategory(Category category){
-        String sql = "insert into category (categoryName, description, icon) values (?, ?, ?)";
+        String sql = "insert into category (categoryName, description, icon, categoryCode) values (?, ?, ?, ?)";
         try(Connection connection = DBConnection.getConnection();
             PreparedStatement stm = connection.prepareStatement(sql)){
             stm.setString(1, category.getName());
             stm.setString(2, category.getDescription());
             stm.setString(3, category.getIcon());
+            stm.setString(4, category.getCategoryCode());
             int rows = stm.executeUpdate();
             return rows > 0;
         } catch (SQLException e){

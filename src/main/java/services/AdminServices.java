@@ -83,7 +83,12 @@ public class AdminServices {
         return ebookDAO.countTotalEBook();
     }
     public boolean addEbook(Ebook ebook){ return ebookDAO.insert(ebook); }
-    public boolean updateEbook(Ebook ebook){ return ebookDAO.update(ebook); }
+    public boolean updateEbook(Ebook ebook) {
+        if (ebook.getFileID() <= 0) {
+            ebook.setFileID(-1);
+        }
+        return ebookDAO.update(ebook);
+    }
     public boolean deleteEbook(int id){ return ebookDAO.delete(id); }
     public List<AdminEbookView> getAllEbooks(){ return ebookDAO.findAllForAdmin(); }
     public Ebook getEbookByID(int id){ return ebookDAO.getEbookById(id); }
@@ -98,29 +103,36 @@ public class AdminServices {
             List<Integer> authorIds,
             List<String> imageUrls
     ) {
+        // 1. insert file
+        File file = buildFile(ebook);
+        int fileId = fileDAO.insertAndReturnId(file);
 
-        // 1. insert ebook
+        // 2. set fileID cho ebook
+        ebook.setFileID(fileId);
+
+        // 3. insert ebook
         int ebookId = ebookDAO.insertAndReturnId(ebook);
         ebook.setId(ebookId);
 
-        // 2. insert file
-        int fileId = fileDAO.insertAndReturnId(buildFile(ebook));
-
-        ebook.setFileID(fileId);
-        ebookDAO.update(ebook);
-
-        // 3. map authors
+        // 4. map authors
         for (int authorId : authorIds) {
             authorService.insert(ebookId, authorId);
         }
 
-        // 4. map images
+        // 5. map images
         imageServices.insertImages(ebookId, imageUrls, ebook.getTitle());
     }
 
     private File buildFile(Ebook ebook) {
-        return null;
+        return new File(
+                ebook.getTitle(),
+                "PDF",
+                0,
+                "",
+                "ACTIVE"
+        );
     }
+
     //Checkout
     public int getTotalSuccessOrders(){
         return checkoutDAO.countSuccessOrder();
@@ -190,7 +202,7 @@ public class AdminServices {
     }
 
     public boolean addCategory(Category category){
-        if (category.getCategoryCode() == null) {
+        if (category.getCategoryCode() == null || category.getCategoryCode().isBlank()) {
             String code = generateCategoryCode(category.getName());
             category.setCategoryCode(code);
         }

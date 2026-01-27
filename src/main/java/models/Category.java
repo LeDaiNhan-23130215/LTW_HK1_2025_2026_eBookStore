@@ -11,6 +11,15 @@ public class Category extends Base {
         this.name = name;
         this.description = description;
         this.icon = icon;
+        this.categoryCode = null;
+    }
+
+    public Category(int id, String name, String description, String icon, String categoryCode) {
+        super(id);
+        this.name = name;
+        this.description = description;
+        this.icon = icon;
+        this.categoryCode = categoryCode;
     }
 
     public Category(String name, String description, String icon) {
@@ -18,6 +27,15 @@ public class Category extends Base {
         this.name = name;
         this.description = description;
         this.icon = icon;
+        this.categoryCode = null;
+    }
+
+    public Category(String name, String description, String icon, String categoryCode) {
+        super(-1);
+        this.name = name;
+        this.description = description;
+        this.icon = icon;
+        this.categoryCode = categoryCode;
     }
 
     public int getId() {

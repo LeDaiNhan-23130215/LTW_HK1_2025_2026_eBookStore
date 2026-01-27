@@ -70,9 +70,10 @@
                     <select name="authorId" required>
                         <c:forEach var="a" items="${authors}">
                             <option value="${a.id}"
-                                    <c:if test="${a.id == ebook.authorID}">
+                                    <c:if test="${a.id == ebook.authors[0].id}">
                                         selected
-                                    </c:if>>
+                                    </c:if>
+                            >
                                     ${a.authorName}
                             </option>
                         </c:forEach>
