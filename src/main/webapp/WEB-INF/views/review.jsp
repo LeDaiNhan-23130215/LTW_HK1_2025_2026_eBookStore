@@ -138,7 +138,7 @@
         </div>
       
       <div class="load-more">
-        <button class="submit-review-btn">Xem thêm đánh giá</button>
+
       </div>
     </section>
 

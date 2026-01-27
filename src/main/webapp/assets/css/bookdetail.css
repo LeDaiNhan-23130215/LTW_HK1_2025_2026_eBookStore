@@ -355,6 +355,36 @@ body {
 .btn-docthu:hover {
   background: #eaeaea;
 }
+/* ================== REVIEW BUTTON ================== */
+.review-link-wrapper {
+  margin-top: 25px;
+  text-align: center;
+}
+
+.btn-review {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+
+  height: 48px;
+  padding: 0 28px;
+
+  border-radius: 8px;
+  font-weight: 600;
+  font-size: 1rem;
+
+  background: #007bff;
+  color: #fff;
+  border: 2px solid #007bff;
+
+  text-decoration: none;
+  transition: all 0.2s ease;
+}
+
+.btn-review:hover {
+  background: #0056b3;
+  border-color: #0056b3;
+}
 
 
 

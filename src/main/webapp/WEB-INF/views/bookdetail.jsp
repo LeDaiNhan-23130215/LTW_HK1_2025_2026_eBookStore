@@ -85,10 +85,11 @@
           </form>
 
           <!-- READ SAMPLE -->
-          <a href="${pageContext.request.contextPath}/readbook?id=${ebook.id}"
+          <a href="${pageContext.request.contextPath}/readbook?id=${ebook.id}&page=1"
              class="btn btn-docthu">
             Đọc thử
           </a>
+
 
 
           <!-- ❤️ WISHLIST (NẰM TRONG BTN-GROUP) -->
@@ -174,6 +175,13 @@
             <li><strong>Bước 4:</strong> Thanh toán</li>
           </ul>
         </div>
+      </div>
+      <!-- ===== REVIEW LINK ===== -->
+      <div class="review-link-wrapper">
+        <a href="${pageContext.request.contextPath}/review?id=${ebook.id}"
+           class="btn btn-review">
+          Xem đánh giá & nhận xét
+        </a>
       </div>
     </div>
   </div>
