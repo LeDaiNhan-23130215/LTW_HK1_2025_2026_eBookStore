@@ -1,6 +1,7 @@
 package DAO;
 
 import models.Category;
+import models.Ebook;
 import utils.DBConnection;
 
 import java.sql.Connection;
@@ -129,5 +130,25 @@ public class CategoryDAO {
             e.printStackTrace();
         }
         return null;
+    }
+
+    public List<Category> getRandom5Categories() {
+        List<Category> result = new ArrayList<Category>();
+        String sql = "SELECT * FROM category ORDER BY RAND() LIMIT 5";
+        try (Connection conn = DBConnection.getConnection();
+             PreparedStatement ps = conn.prepareStatement(sql)) {
+            ResultSet rs = ps.executeQuery();
+            while(rs.next()) {
+                int id = rs.getInt("id");
+                String name = rs.getString("CategoryName");
+                String description = rs.getString("description");
+                String icon = rs.getString("icon");
+                Category category = new Category(id, name, description, icon);
+                result.add(category);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return result;
     }
 }

@@ -1,79 +1,25 @@
+/* =========================
+   MAIN FILTER
+========================= */
 .main-filters {
   margin: 60px auto;
 }
 
-.main-content h2 {
-  text-align: center;
-  margin: 20px;
-  font-size: 2rem;
-}
-
-.filter-row {
-  display: flex;
-  gap: 12px;
-  flex-wrap: wrap;
-  margin-bottom: 20px;
-  border: 2px solid #004aad;
-}
-
-.filter-group {
-  display: flex;
-  gap: 8px;
-  flex-wrap: wrap;
-  align-items: center;
-}
-
-.filter-group h3 {
-  color: #004aad;
-}
-
-.filter-option {
-  padding: 8px 14px;
-  border: 1px solid gray;
-  border-radius: 6px;
-  cursor: pointer;
-  background-color: white;
-  transition: 0.3s;
-}
-
-.filter-option.active {
-  background-color: #0396c7;
-  color: white;
-}
-
-.btn-filter {
-  width: 100px;
-  text-align: center;
-  display: inline-block;
-  padding: 10px 18px;
-  background-color: white;
-  color: #004aad;
-  border: 1px solid #004aad;
-  border-radius: 10px;
-  text-decoration: none;
-  font-weight: bold;
-  margin: 0 auto;
-}
-
-.btn-filter:hover {
-  background-color: #004aad;
-  color: white;
-}
-
+/* =========================
+   CONTAINER
+========================= */
 .main-container {
   display: flex;
   gap: 20px;
   max-width: 1200px;
   margin: 20px auto;
-  align-items: center;
+  align-items: flex-start;
   justify-content: center;
 }
 
-.main-content {
-  display: flex;
-  flex-direction: column;
-}
-
+/* =========================
+   SIDE BANNER
+========================= */
 .side-banner {
   width: 180px;
   background: linear-gradient(135deg, #f0f7ff, #e0f0ff);
@@ -84,38 +30,131 @@
 
 .side-banner img {
   width: 100%;
-  height: 100%;
+  height: auto;
 }
 
+/* =========================
+   MAIN CONTENT
+========================= */
+.main-content {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  min-width: 320px;
+}
+
+.main-content h3 {
+  font-size: 1.6rem;
+  color: #004aad;
+}
+
+/* =========================
+   FILTER ROW
+========================= */
 .filter-row {
   display: flex;
   flex-direction: column;
-  gap: 20px;
-  align-items: flex-start;
-  margin-bottom: 30px;
+  gap: 14px;
   background-color: #f9faff;
-  padding: 12px;
+  padding: 16px;
   border-radius: 8px;
+  border: 1px solid #dde7f5;
 }
 
+/* =========================
+   FILTER ITEM (1 dòng)
+========================= */
+.filter-item {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  gap: 16px;
+  align-items: center;
+}
+
+/* =========================
+   FILTER OPTION
+========================= */
+.filter-option {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 14px;
+  border: 1px solid #b5b5b5;
+  border-radius: 6px;
+  cursor: pointer;
+  background-color: white;
+  transition: 0.25s;
+  white-space: nowrap;
+}
+
+.filter-option:hover {
+  background-color: #eaf3ff;
+  border-color: #004aad;
+}
+
+.filter-option input[type="checkbox"] {
+  accent-color: #004aad;
+  cursor: pointer;
+}
+
+.filter-option i {
+  color: #004aad;
+}
+
+.cat-name {
+  font-weight: 600;
+  color: #333;
+}
+
+/* =========================
+   DESCRIPTION
+========================= */
+.cat-desc {
+  font-size: 0.9rem;
+  color: #555;
+  line-height: 1.4;
+}
+
+/* =========================
+   FILTER BUTTON
+========================= */
+.btn-filter {
+  margin-top: 12px;
+  align-self: center;
+  padding: 10px 22px;
+  background-color: white;
+  color: #004aad;
+  border: 1px solid #004aad;
+  border-radius: 10px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.btn-filter:hover {
+  background-color: #004aad;
+  color: white;
+}
+
+/* =========================
+   RESPONSIVE
+========================= */
 @media (max-width: 1024px) {
   .side-banner {
     display: none;
   }
-}
 
-@media (max-width: 768px) {
-  .side-banner {
-    display: none;
+  .main-container {
+    padding: 0 16px;
   }
 }
 
 @media (max-width: 600px) {
-  .side-banner {
-    display: none;
+  .filter-item {
+    grid-template-columns: 1fr;
   }
 
-  .filter-row {
-    width: 40vh;
+  .filter-option {
+    width: 100%;
   }
 }
