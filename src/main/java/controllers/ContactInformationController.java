@@ -44,7 +44,7 @@ public class ContactInformationController extends HttpServlet {
             cart = cartService.getCartByUserID(userId);
         }
 
-        List<CartItem> cartItems = cartService.getCartItemsByCartID(cart.getId());
+        List<CartItem> cartItems = cartService.getCartItemsByCartID(userId, cart.getId());
         double totalPrice = 0;
         for (CartItem ci : cartItems) {
             totalPrice += ci.getPriceAtADD();

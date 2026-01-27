@@ -1,5 +1,6 @@
 package controllers;
 
+import enums.AddBookResult;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
@@ -62,7 +63,30 @@ public class WishlistController extends HttpServlet {
         int ebookId = Integer.parseInt(req.getParameter("ebookId"));
 
         if ("add".equalsIgnoreCase(action)) {
-            wishlistService.addToWishlist(userID, ebookId);
+            AddBookResult result = wishlistService.addToWishlist(userID, ebookId);
+
+            switch (result) {
+                case ALREADY_OWNED:
+                    req.getSession().setAttribute(
+                            "toastError",
+                            "📚 Bạn đã sở hữu sách này rồi"
+                    );
+                    break;
+
+                case ALREADY_EXISTS:
+                    req.getSession().setAttribute(
+                            "toastWarning",
+                            "⚠️ Sách đã có trong giỏ hàng"
+                    );
+                    break;
+
+                case SUCCESS:
+                    req.getSession().setAttribute(
+                            "toastSuccess",
+                            "✅ Đã thêm sách vào giỏ hàng"
+                    );
+                    break;
+            }
         } else if ("remove".equalsIgnoreCase(action)) {
             wishlistService.removeFromWishlist(userID, ebookId);
         }
