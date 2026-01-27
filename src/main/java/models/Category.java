@@ -3,18 +3,21 @@ package models;
 public class Category extends Base {
     private String name;
     private String description;
+    private String icon;
     private String categoryCode;
 
-    public Category(int id, String name, String description) {
+    public Category(int id, String name, String description, String icon) {
         super(id);
         this.name = name;
         this.description = description;
+        this.icon = icon;
     }
 
-    public Category(String name, String description) {
+    public Category(String name, String description, String icon) {
         super(-1);
         this.name = name;
         this.description = description;
+        this.icon = icon;
     }
 
     public int getId() {
@@ -41,6 +44,13 @@ public class Category extends Base {
         this.description = description;
     }
 
+    public String getIcon() {
+        return icon;
+    }
+
+    public void setIcon(String icon) {
+        this.icon = icon;
+    }
 
     public String getCategoryCode() {
         return categoryCode;

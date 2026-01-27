@@ -55,7 +55,7 @@
 
                           <div class="infor">
                               <h3>${book.title}</h3>
-                              <p>Mã số: ${book.eBookCode}</p>
+                              <p>Mã số: ${book.EBookCode}</p>
 
                               <p>
                                   Tác giả:

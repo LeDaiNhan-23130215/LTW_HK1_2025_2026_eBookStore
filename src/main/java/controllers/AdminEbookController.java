@@ -180,7 +180,7 @@ public class AdminEbookController extends HttpServlet {
 
         return new Ebook(
                 old.getId(),
-                old.geteBookCode(),
+                old.getEBookCode(),
                 req.getParameter("title"),
                 parseDouble(req.getParameter("price")),
                 req.getParameter("description"),

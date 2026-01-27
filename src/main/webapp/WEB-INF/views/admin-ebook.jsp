@@ -181,7 +181,7 @@
                 <tr>
                     <td>${e.id}</td>
                     <td>${e.title}</td>
-                    <td>${e.eBookCode}</td>
+                    <td>${e.EBookCode}</td>
                     <td>${categoryMap[e.categoryID]}</td>
                     <td>${e.price}</td>
                     <td id="btn-place">

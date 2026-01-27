@@ -8,7 +8,7 @@ import java.util.List;
 public class EbookImageDAO {
 
     public void insert(int ebookId, int imageId) {
-        String sql = "INSERT INTO ebookimages (ebookID, imageID) VALUES (?, ?)";
+        String sql = "INSERT INTO ebookimage (ebookID, imgID) VALUES (?, ?)";
 
         try (Connection con = DBConnection.getConnection();
              PreparedStatement ps = con.prepareStatement(sql)) {
@@ -24,7 +24,7 @@ public class EbookImageDAO {
 
     public List<Integer> getImageIdsByEbook(int ebookId) {
         List<Integer> list = new ArrayList<>();
-        String sql = "SELECT imageID FROM ebookimages WHERE ebookID = ?";
+        String sql = "SELECT imgID FROM ebookimage WHERE ebookID = ?";
 
         try (Connection con = DBConnection.getConnection();
              PreparedStatement ps = con.prepareStatement(sql)) {
@@ -47,8 +47,8 @@ public class EbookImageDAO {
 
         String sql = """
         SELECT i.id, i.imgName, i.imgLink, i.imgStatus
-        FROM ebookimages ei
-        JOIN image i ON ei.imageID = i.id
+        FROM ebookimage ei
+        JOIN images i ON ei.imgID = i.id
         WHERE ei.ebookID = ?
         ORDER BY i.id
     """;
@@ -74,7 +74,7 @@ public class EbookImageDAO {
     }
 
     public void linkImageToEbook(int ebookID, int imageID) {
-        String sql = "INSERT INTO ebookimages (ebookID, imageID) VALUES (?, ?)";
+        String sql = "INSERT INTO ebookimage (ebookID, imgID) VALUES (?, ?)";
 
         try (Connection conn = DBConnection.getConnection();
              PreparedStatement ps = conn.prepareStatement(sql)) {
@@ -89,7 +89,7 @@ public class EbookImageDAO {
     }
 
     public void removeByEbookID(int ebookID) {
-        String sql = "DELETE FROM ebookimages WHERE ebookID = ?";
+        String sql = "DELETE FROM ebookimage WHERE ebookID = ?";
 
         try (Connection conn = DBConnection.getConnection();
              PreparedStatement ps = conn.prepareStatement(sql)) {
