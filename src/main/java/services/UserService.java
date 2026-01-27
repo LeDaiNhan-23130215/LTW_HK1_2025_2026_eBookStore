@@ -8,7 +8,7 @@ public class UserService {
         return userDAO.verifyPassword(userId, oldPassword);
     }
 
-    public void changePassword(int userId, String newPassword) {
-        userDAO.updatePassword(userId, newPassword);
+    public boolean changePassword(int userId, String newPassword) {
+        return userDAO.updatePassword(userId, newPassword);
     }
 }

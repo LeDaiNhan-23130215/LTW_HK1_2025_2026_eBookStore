@@ -39,14 +39,14 @@ public class ChangePasswordController extends HttpServlet {
                 oldPassword.isEmpty() || newPassword.isEmpty() || confirmPassword.isEmpty()) {
 
             req.setAttribute("error_msg", "Vui lòng nhập đầy đủ thông tin");
-            req.getRequestDispatcher("/change-password.jsp").forward(req, resp);
+            req.getRequestDispatcher("/change-password").forward(req, resp);
             return;
         }
 
         // 2. Check mật khẩu xác nhận
         if (!newPassword.equals(confirmPassword)) {
             req.setAttribute("error_msg", "Mật khẩu xác nhận không khớp");
-            req.getRequestDispatcher("/change-password.jsp").forward(req, resp);
+            req.getRequestDispatcher("/change-password").forward(req, resp);
             return;
         }
 
@@ -54,12 +54,17 @@ public class ChangePasswordController extends HttpServlet {
         boolean valid = userService.checkPassword(user.getId(), oldPassword);
         if (!valid) {
             req.setAttribute("error_msg", "Mật khẩu cũ không đúng");
-            req.getRequestDispatcher("/change-password.jsp").forward(req, resp);
+            req.getRequestDispatcher("/change-password").forward(req, resp);
             return;
         }
 
         // 4. Update mật khẩu
-        userService.changePassword(user.getId(), newPassword);
+        boolean updated = userService.changePassword(user.getId(), newPassword);
+        if (!updated) {
+            req.setAttribute("error_msg", "Đổi mật khẩu thất bại, vui lòng thử lại");
+            req.getRequestDispatcher("/change-password").forward(req, resp);
+            return;
+        }
 
         session.invalidate();
         resp.sendRedirect(req.getContextPath() + "/login?msg=password_changed");
