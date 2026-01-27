@@ -25,8 +25,16 @@
     </div>
 
     <nav class="sidebar-nav">
-        <a href="${pageContext.request.contextPath}/admin-dashboard">Dashboard</a>
+        <a href="${pageContext.request.contextPath}/admin-ebook">Ebook</a>
+        <a href="${pageContext.request.contextPath}/admin-author">Tác giả</a>
+        <a href="${pageContext.request.contextPath}/admin-category">Danh mục</a>
+        <a href="${pageContext.request.contextPath}/admin-user">Người dùng</a>
         <a href="${pageContext.request.contextPath}/admin-payment" class="active">Thanh toán</a>
+        <a href="${pageContext.request.contextPath}/admin-banner">Banner</a>
+        <a href="${pageContext.request.contextPath}/admin-news">Tin tức</a>
+        <a href="${pageContext.request.contextPath}/admin-review">Review</a>
+        <a href="${pageContext.request.contextPath}/admin-feedback">Feedback</a>
+
         <hr>
         <a href="${pageContext.request.contextPath}/admin-login" class="logout">Đăng xuất</a>
     </nav>
@@ -91,7 +99,7 @@
                 </td>
 
                 <td>
-                    <fmt:formatDate value="${payment.paymentDate}"
+                    <fmt:formatDate value="${payment.checkoutDate}"
                                     pattern="yyyy-MM-dd"/>
                 </td>
 
