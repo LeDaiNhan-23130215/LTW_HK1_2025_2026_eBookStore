@@ -546,7 +546,37 @@ public class EbookDAO {
         }
     }
 
+    public List<Ebook> getRandomEbook(int numberOfBook) {
+        List<Ebook> ebooks = new ArrayList<>();
+        String sql = "SELECT id, ebookCode, title, price, description, categoryID, fileID, status " +
+                "FROM ebook " +
+                "WHERE status = 'active' " +
+                "ORDER BY RAND() " +
+                "LIMIT ?";
+        try (Connection connection = DBConnection.getConnection();
+             PreparedStatement stm = connection.prepareStatement(sql)) {
+            stm.setInt(1, numberOfBook);
+            ResultSet rs = stm.executeQuery();
+            while(rs.next()) {
+                ebooks.add(new Ebook(
+                        rs.getInt("id"),
+                        rs.getString("ebookCode"),
+                        rs.getString("title"),
+                        rs.getDouble("price"),
+                        rs.getString("description"),
+                        rs.getInt("categoryID"),
+                        rs.getInt("fileID"),
+                        rs.getString("status")
+                ));
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+        return ebooks;
+    }
+
     public static void main(String[] args) {
         // Test code here
+
     }
 }

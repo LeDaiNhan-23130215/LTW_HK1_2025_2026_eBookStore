@@ -33,7 +33,7 @@ public class EbookImageDAO {
             ResultSet rs = ps.executeQuery();
 
             while (rs.next()) {
-                list.add(rs.getInt("imageID"));
+                list.add(rs.getInt("imgID"));
             }
 
         } catch (Exception e) {

@@ -12,7 +12,7 @@ public class ImageDAO {
     /* ================= INSERT IMAGE ================= */
     public int insertAndReturnId(Image image) {
         String sql = """
-            INSERT INTO image (imgName, imgLink, imgStatus)
+            INSERT INTO images (imgName, imgLink, imgStatus)
             VALUES (?, ?, ?)
         """;
 
@@ -38,7 +38,7 @@ public class ImageDAO {
 
     /* ================= GET IMAGE BY ID ================= */
     public Image getImageById(int id) {
-        String sql = "SELECT * FROM image WHERE id = ?";
+        String sql = "SELECT * FROM images WHERE id = ?";
 
         try (Connection conn = DBConnection.getConnection();
              PreparedStatement ps = conn.prepareStatement(sql)) {

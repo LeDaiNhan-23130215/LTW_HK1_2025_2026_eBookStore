@@ -11,11 +11,11 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class BannerDAO {
-    public Banner getBannerById (int id) {
+    public Banner getBannerById(int id) {
         String query = "SELECT * FROM banner WHERE id = ?";
 
-        try(Connection connection = DBConnection.getConnection();
-            PreparedStatement ps = connection.prepareStatement(query);){
+        try (Connection connection = DBConnection.getConnection();
+             PreparedStatement ps = connection.prepareStatement(query);) {
             ps.setInt(1, id);
             try (ResultSet rs = ps.executeQuery()) {
                 if (rs.next()) {
@@ -62,8 +62,8 @@ public class BannerDAO {
 
     public boolean addBanner(Banner banner) {
         String sql = "insert into banner (url, position, startDate, endDate, isActive) values (?, ?, ?, ?, ?)";
-        try(Connection connection = DBConnection.getConnection();
-            PreparedStatement stm = connection.prepareStatement(sql)){
+        try (Connection connection = DBConnection.getConnection();
+             PreparedStatement stm = connection.prepareStatement(sql)) {
             stm.setString(1, banner.getUrl());
             stm.setString(2, banner.getPosition());
             stm.setString(3, banner.getStartDate());
@@ -72,16 +72,16 @@ public class BannerDAO {
 
             int rows = stm.executeUpdate();
             return rows > 0;
-        } catch (SQLException e){
+        } catch (SQLException e) {
             e.printStackTrace();
         }
         return false;
     }
 
-    public boolean deleteBanner(int id){
+    public boolean deleteBanner(int id) {
         String sql = "delete from banner where id = ?";
         try (Connection connection = DBConnection.getConnection();
-             PreparedStatement stm = connection.prepareStatement(sql)){
+             PreparedStatement stm = connection.prepareStatement(sql)) {
             stm.setInt(1, id);
             int rows = stm.executeUpdate();
             return rows > 0;
@@ -91,10 +91,10 @@ public class BannerDAO {
         return false;
     }
 
-    public boolean updateBanner(Banner banner){
+    public boolean updateBanner(Banner banner) {
         String sql = "update banner set url = ?, position = ?, startDate = ?, endDate = ?, isActive = ? where id = ?";
         try (Connection connection = DBConnection.getConnection();
-             PreparedStatement stm = connection.prepareStatement(sql)){
+             PreparedStatement stm = connection.prepareStatement(sql)) {
             stm.setString(1, banner.getUrl());
             stm.setString(2, banner.getPosition());
             stm.setString(3, banner.getStartDate());
@@ -103,9 +103,43 @@ public class BannerDAO {
             stm.setInt(6, banner.getId());
             int rows = stm.executeUpdate();
             return rows > 0;
-        } catch (SQLException e){
+        } catch (SQLException e) {
             e.printStackTrace();
         }
         return false;
+    }
+
+    public Banner getBannerByLocation(String pos) {
+        String sql = """
+        SELECT *
+        FROM banner
+        WHERE position = ?
+          AND isActive = 1
+          AND startDate <= NOW()
+          AND (endDate IS NULL OR endDate >= NOW())
+        ORDER BY createdAt DESC
+        LIMIT 1
+        """;
+        Banner banner = null;
+        try (Connection connection = DBConnection.getConnection();
+             PreparedStatement stm = connection.prepareStatement(sql)) {
+
+            stm.setString(1, pos);
+            ResultSet rs = stm.executeQuery();
+
+            if (rs.next()) {
+                int id =rs.getInt("id");
+                String url =rs.getString("url");
+                System.out.print(url);
+                String position =rs.getString("position");
+                String startDate = rs.getString("startDate");
+                String endDate = rs.getString("endDate");
+                int isActive = rs.getInt("isActive");
+                banner = new Banner(id, url, position, startDate, endDate, isActive);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return banner;
     }
 }
