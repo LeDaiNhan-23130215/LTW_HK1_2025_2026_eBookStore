@@ -89,7 +89,7 @@ public class EbookDAO {
              PreparedStatement stm = connection.prepareStatement(sql)) {
 
             ResultSet rs = stm.executeQuery();
-            while(rs.next()) {
+            while (rs.next()) {
                 ebooks.add(new Ebook(
                         rs.getInt("id"),
                         rs.getString("ebookCode"),
@@ -114,7 +114,7 @@ public class EbookDAO {
              PreparedStatement ps = connection.prepareStatement(sql)) {
 
             ResultSet rs = ps.executeQuery();
-            while(rs.next()) {
+            while (rs.next()) {
                 result.add(new Ebook(
                         rs.getInt("id"),
                         rs.getString("eBookCode"),
@@ -181,16 +181,16 @@ public class EbookDAO {
         List<EbookProductCardView> result = new ArrayList<>();
 
         StringBuilder sql = new StringBuilder("""
-            SELECT e.id, e.title, e.price, MIN(i.imgLink) AS imgLink
-            FROM ebook e
-            JOIN ebookimage ie ON e.id = ie.ebookID
-            JOIN images i ON ie.imgID = i.id
-            LEFT JOIN ebookauthor ea ON e.id = ea.ebookID
-            LEFT JOIN author a ON ea.authorID = a.id
-            LEFT JOIN files f ON f.id = e.id
-            WHERE i.imgStatus = 'ACTIVE'
-            AND i.imgStatus = 'ACTIVE'
-        """);
+                    SELECT e.id, e.title, e.price, MIN(i.imgLink) AS imgLink
+                    FROM ebook e
+                    JOIN ebookimage ie ON e.id = ie.ebookID
+                    JOIN images i ON ie.imgID = i.id
+                    LEFT JOIN ebookauthor ea ON e.id = ea.ebookID
+                    LEFT JOIN author a ON ea.authorID = a.id
+                    LEFT JOIN files f ON f.id = e.id
+                    WHERE i.imgStatus = 'ACTIVE'
+                    AND i.imgStatus = 'ACTIVE'
+                """);
 
         List<Object> params = new ArrayList<>();
         applyFilter(sql, params, filter);
@@ -258,13 +258,13 @@ public class EbookDAO {
     public int countProductCards(EbookFilterView filter) {
 
         StringBuilder sql = new StringBuilder("""
-        SELECT COUNT(DISTINCT e.id)
-        FROM ebook e
-        LEFT JOIN ebookauthor ea ON e.id = ea.ebookID
-        LEFT JOIN author a ON ea.authorID = a.id
-        JOIN files f ON f.id = e.id
-        WHERE e.status = 'ACTIVE'
-        """);
+                SELECT COUNT(DISTINCT e.id)
+                FROM ebook e
+                LEFT JOIN ebookauthor ea ON e.id = ea.ebookID
+                LEFT JOIN author a ON ea.authorID = a.id
+                JOIN files f ON f.id = e.id
+                WHERE e.status = 'ACTIVE'
+                """);
 
         List<Object> params = new ArrayList<>();
         applyFilter(sql, params, filter);
@@ -541,7 +541,7 @@ public class EbookDAO {
     }
 
     public void bindParams(PreparedStatement ps, List<Object> params) throws SQLException {
-        for(int i = 0; i < params.size(); i++){
+        for (int i = 0; i < params.size(); i++) {
             ps.setObject(i + 1, params.get(i));
         }
     }
@@ -557,7 +557,7 @@ public class EbookDAO {
              PreparedStatement stm = connection.prepareStatement(sql)) {
             stm.setInt(1, numberOfBook);
             ResultSet rs = stm.executeQuery();
-            while(rs.next()) {
+            while (rs.next()) {
                 ebooks.add(new Ebook(
                         rs.getInt("id"),
                         rs.getString("ebookCode"),
@@ -574,6 +574,53 @@ public class EbookDAO {
         }
         return ebooks;
     }
+
+    public List<Ebook> getSimilarByCategory(int categoryID, int excludeEbookId, int limit) {
+        List<Ebook> list = new ArrayList<>();
+
+        String sql = """
+        SELECT id, eBookCode, title, price, description, categoryID, fileID, status
+        FROM ebook
+        WHERE status = 'ACTIVE'
+          AND categoryID = ?
+          AND id <> ?
+        ORDER BY RAND()
+        LIMIT ?
+    """;
+
+        try (Connection con = DBConnection.getConnection();
+             PreparedStatement ps = con.prepareStatement(sql)) {
+
+            ps.setInt(1, categoryID);
+            ps.setInt(2, excludeEbookId);
+            ps.setInt(3, limit);
+
+            ResultSet rs = ps.executeQuery();
+
+            while (rs.next()) {
+                list.add(new Ebook(
+                        rs.getInt("id"),
+                        rs.getString("eBookCode"),
+                        rs.getString("title"),
+                        rs.getDouble("price"),
+                        rs.getString("description"),
+                        rs.getInt("categoryID"),
+                        rs.getInt("fileID"),
+                        rs.getString("status")
+                ));
+            }
+
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+
+        return list;
+    }
+
+
+
+
+
 
     public static void main(String[] args) {
         // Test code here

@@ -382,4 +382,27 @@ public class CheckoutDAO {
 
         return result;
     }
+    public boolean hasPurchased(int userId, int ebookId) {
+        String sql = """
+        SELECT 1
+        FROM checkoutdetail cd
+        JOIN checkout c ON cd.checkoutID = c.id
+        WHERE c.userID = ? AND cd.ebookID = ?
+    """;
+
+        try (Connection conn = DBConnection.getConnection();
+             PreparedStatement ps = conn.prepareStatement(sql)) {
+
+            ps.setInt(1, userId);
+            ps.setInt(2, ebookId);
+
+            ResultSet rs = ps.executeQuery();
+            return rs.next();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return false;
+    }
+
+
 }
