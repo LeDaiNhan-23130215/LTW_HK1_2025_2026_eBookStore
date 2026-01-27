@@ -17,7 +17,7 @@ import java.io.IOException;
 import java.util.List;
 
 @WebServlet(name = "HomeController", value = "/home")
-public class HomeController extends HttpServlet {
+public class  HomeController extends HttpServlet {
     private EbookService ebookService;
     private WishlistService wishlistService;
     private CategoryDAO ctDAO = new CategoryDAO();
