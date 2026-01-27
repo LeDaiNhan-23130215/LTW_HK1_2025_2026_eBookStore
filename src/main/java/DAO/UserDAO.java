@@ -10,7 +10,7 @@ import java.util.List;
 
 public class UserDAO {
     public User login(String usernameOrEmail, String password) {
-        String sql = "SELECT * FROM user WHERE (userName = ? OR email = ?) LIMIT 1";
+        String sql = "SELECT * FROM users WHERE (userName = ? OR email = ?) LIMIT 1";
 
         try (Connection con = DBConnection.getConnection();
              PreparedStatement ps = con.prepareStatement(sql)) {
@@ -44,7 +44,7 @@ public class UserDAO {
     }
 
     public boolean signUp(String userName, String email, String phoneNum, String password) {
-        String sql = "INSERT INTO user(userName, email, phoneNum, password, role) VALUES(?, ?, ?, ?, 'user')";
+        String sql = "INSERT INTO users(userName, email, phoneNum, password, role) VALUES(?, ?, ?, ?, 'user')";
         try (Connection connection = DBConnection.getConnection();
              PreparedStatement stm = connection.prepareStatement(sql)) {
 
@@ -65,7 +65,7 @@ public class UserDAO {
 
 
     public boolean checkAvailableUserNameOrEmail(String userNameOrEmail) {
-        String sql = "select userName, email from user where userName = ? or email = ?";
+        String sql = "select userName, email from users where userName = ? or email = ?";
         try (Connection connection = DBConnection.getConnection();
              PreparedStatement stm = connection.prepareStatement(sql)) {
             stm.setString(1, userNameOrEmail);
@@ -79,7 +79,7 @@ public class UserDAO {
     }
 
     public User getUserByID(int id) {
-        String sql = "select * from user where id = ?";
+        String sql = "select * from users where id = ?";
         try (Connection connection = DBConnection.getConnection();
              PreparedStatement stm = connection.prepareStatement(sql)) {
             stm.setInt(1, id);
@@ -99,7 +99,7 @@ public class UserDAO {
     }
 
     public List<User> getAllUsers() {
-        String sql = "SELECT * FROM user";
+        String sql = "SELECT * FROM users";
         List<User> list = new ArrayList<>();
 
         try (Connection connection = DBConnection.getConnection();
@@ -123,7 +123,7 @@ public class UserDAO {
     }
 
     public boolean addUser(User user) {
-        String sql = "INSERT INTO user(userName, email, phoneNum, password, role) VALUES(?, ?, ?, ?, ?)";
+        String sql = "INSERT INTO users(userName, email, phoneNum, password, role) VALUES(?, ?, ?, ?, ?)";
         try (Connection connection = DBConnection.getConnection();
              PreparedStatement stm = connection.prepareStatement(sql)) {
 
@@ -141,7 +141,7 @@ public class UserDAO {
     }
 
     public boolean updateUser(User user) {
-        String sql = "UPDATE user SET userName=?, email=?, phoneNum=?, role=? WHERE id=?";
+        String sql = "UPDATE users SET userName=?, email=?, phoneNum=?, role=? WHERE id=?";
         try (Connection connection = DBConnection.getConnection();
              PreparedStatement stm = connection.prepareStatement(sql)) {
 
@@ -161,7 +161,7 @@ public class UserDAO {
 
 
     public boolean deleteUser(int id) {
-        String sql = "DELETE from user where id=?";
+        String sql = "DELETE from users where id=?";
         try (Connection connection = DBConnection.getConnection();
              PreparedStatement stm = connection.prepareStatement(sql)) {
             stm.setInt(1, id);
@@ -173,7 +173,7 @@ public class UserDAO {
     }
 
     public boolean checkAdminLogin(String usernameOrEmail, String password) {
-        String sql = "select password from user where (userName=? OR email=?) and role = 'admin'";
+        String sql = "select password from users where (userName=? OR email=?) and role = 'admin'";
         try (Connection connection = DBConnection.getConnection();
              PreparedStatement stm = connection.prepareStatement(sql)) {
             stm.setString(1, usernameOrEmail);
@@ -193,7 +193,7 @@ public class UserDAO {
     }
 
     public String getUserNameByEmail(String userAndEmail) {
-        String query = "SELECT userName FROM user WHERE (email = ? or userName = ?)";
+        String query = "SELECT userName FROM users WHERE (email = ? or userName = ?)";
         String username = "";
         try (Connection connection = DBConnection.getConnection();
              PreparedStatement stm = connection.prepareStatement(query)){
@@ -210,7 +210,7 @@ public class UserDAO {
     }
 
     public int countTotalUser() {
-        String sql = "SELECT COUNT(*) FROM `user` WHERE role = 'user'";
+        String sql = "SELECT COUNT(*) FROM `users` WHERE role = 'user'";
         try (Connection connection = DBConnection.getConnection();
              PreparedStatement stm = connection.prepareStatement(sql)) {
             ResultSet rs = stm.executeQuery();
@@ -220,7 +220,7 @@ public class UserDAO {
     }
 
     public boolean verifyPassword(int userId, String oldPassword) {
-        String sql = "SELECT password FROM user WHERE id = ?";
+        String sql = "SELECT password FROM users WHERE id = ?";
 
         try (Connection con = DBConnection.getConnection();
              PreparedStatement ps = con.prepareStatement(sql)) {
@@ -244,7 +244,7 @@ public class UserDAO {
     }
 
     public boolean updatePassword(int userId, String newPassword) {
-        String sql = "UPDATE user SET password = ? WHERE id = ?";
+        String sql = "UPDATE users SET password = ? WHERE id = ?";
 
         try (Connection con = DBConnection.getConnection();
              PreparedStatement ps = con.prepareStatement(sql)) {
@@ -264,7 +264,7 @@ public class UserDAO {
     }
 
     public User findUserByEmail(String email) {
-        String sql = "SELECT * FROM user WHERE email = ?";
+        String sql = "SELECT * FROM users WHERE email = ?";
         try(Connection con = DBConnection.getConnection();
         PreparedStatement ps = con.prepareStatement(sql)){
             ps.setString(1, email);
@@ -286,7 +286,7 @@ public class UserDAO {
     }
 
     public boolean updateUserInfo(User user) {
-        String sql = "UPDATE user SET userName=?, email=?, phoneNum=? WHERE id=?";
+        String sql = "UPDATE users SET userName=?, email=?, phoneNum=? WHERE id=?";
         try (Connection conn = DBConnection.getConnection();
              PreparedStatement ps = conn.prepareStatement(sql)) {
             ps.setString(1, user.getUsername());

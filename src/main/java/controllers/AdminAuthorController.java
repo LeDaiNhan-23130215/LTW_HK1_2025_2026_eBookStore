@@ -135,11 +135,7 @@ public class AdminAuthorController extends HttpServlet {
 
         return new Author(
                 req.getParameter("authorName"),
-                req.getParameter("authorDetail"),
-                getIntParam(req, "birthYear"),
-                req.getParameter("nationality"),
-                getIntParam(req, "numberOfBooks"),
-                req.getParameter("awards")
+                req.getParameter("authorDetail")
         );
     }
 

@@ -89,6 +89,7 @@ public class WishlistDetailDAO {
             SELECT e.*
             FROM wishlistdetail wd
             JOIN ebook e ON wd.bookID = e.id
+            
             WHERE wd.wishlistID = ?
         """;
         try (Connection con = DBConnection.getConnection();

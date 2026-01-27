@@ -8,6 +8,7 @@ document.addEventListener("DOMContentLoaded", () => {
   function fetchData() {
     const params = new URLSearchParams(new FormData(form));
 
+    // ===== LẤY KEYWORD TỪ URL =====
     const urlParams = new URLSearchParams(window.location.search);
     const keyword = urlParams.get("keyword");
 
@@ -15,6 +16,14 @@ document.addEventListener("DOMContentLoaded", () => {
       params.set("keyword", keyword.trim());
     }
 
+    // ===== RESET VỀ TRANG 1 KHI FILTER =====
+    params.set("page", "1");
+
+    // ===== CẬP NHẬT URL KHÔNG RELOAD =====
+    const newUrl = `${window.location.pathname}?${params.toString()}`;
+    window.history.pushState({}, "", newUrl);
+
+    // ===== GỌI AJAX =====
     fetch("list-book?" + params.toString(), {
       headers: { "X-Requested-With": "XMLHttpRequest" }
     })
@@ -22,6 +31,11 @@ document.addEventListener("DOMContentLoaded", () => {
         .then(html => {
           grid.innerHTML = html;
           renderActiveFilters();
+          setupPaginationLinks(); // Gắn lại event listeners cho pagination mới
+          updateSortButtonsState(); // Cập nhật trạng thái active của sort buttons
+        })
+        .catch(err => {
+          console.error("Error fetching data:", err);
         });
   }
 
@@ -45,13 +59,9 @@ document.addEventListener("DOMContentLoaded", () => {
       if ((input.type === "checkbox" || input.type === "radio") && input.checked) {
         activeFilters.push({ input, label: getLabelForInput(input) });
       }
-
-      if (input.type === "text" && input.value.trim() !== "") {
-        activeFilters.push({ input, label: "🔍 " + input.value.trim() });
-      }
     });
 
-    // ===== LẤY SEARCH TỪ HEADER (keyword trên URL) =====
+    // ===== LẤY SEARCH TỪ URL =====
     const urlParams = new URLSearchParams(window.location.search);
     const keyword = urlParams.get("keyword");
 
@@ -83,11 +93,12 @@ document.addEventListener("DOMContentLoaded", () => {
       `;
 
       tag.querySelector("button").addEventListener("click", () => {
-        const urlParams = new URLSearchParams(window.location.search);
-
         // ===== XÓA SEARCH =====
         if (input.name === "keyword") {
+          const urlParams = new URLSearchParams(window.location.search);
           urlParams.delete("keyword");
+
+          // Reload trang với URL mới (không có keyword)
           window.location.search = urlParams.toString();
           return;
         }
@@ -110,13 +121,117 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   }
 
+  function updateSortButtonsState() {
+    const sortByInput = form.querySelector('[name="sortBy"]');
+    const sortDirInput = form.querySelector('[name="sortDir"]');
+
+    const currentSortBy = sortByInput ? sortByInput.value : 'created_at';
+    const currentSortDir = sortDirInput ? sortDirInput.value : 'desc';
+
+    // Xóa class active khỏi tất cả sort buttons
+    document.querySelectorAll('.sort-button').forEach(btn => {
+      btn.classList.remove('active');
+    });
+
+    // Thêm class active vào button tương ứng
+    document.querySelectorAll('.sort-button').forEach(btn => {
+      const url = new URL(btn.href);
+      const btnSortBy = url.searchParams.get('sortBy');
+      const btnSortDir = url.searchParams.get('sortDir');
+
+      if (btnSortBy === currentSortBy && btnSortDir === currentSortDir) {
+        btn.classList.add('active');
+      }
+    });
+  }
+
+  // ===== XỬ LÝ SORT BUTTONS =====
+  function setupSortButtons() {
+    document.querySelectorAll('.sort-button').forEach(button => {
+      button.addEventListener('click', (e) => {
+        e.preventDefault(); // Ngăn không cho reload trang
+        e.stopPropagation(); // Ngăn event bubbling
+
+        const url = new URL(button.href);
+        const sortBy = url.searchParams.get('sortBy');
+        const sortDir = url.searchParams.get('sortDir');
+
+        // Cập nhật giá trị sort trong form
+        const sortByInput = form.querySelector('[name="sortBy"]');
+        const sortDirInput = form.querySelector('[name="sortDir"]');
+
+        if (sortByInput) sortByInput.value = sortBy;
+        if (sortDirInput) sortDirInput.value = sortDir;
+
+        // Gọi fetchData để load lại dữ liệu
+        fetchData();
+      });
+    });
+  }
+
+  // ===== XỬ LÝ PAGINATION LINKS (sau khi AJAX render lại) =====
+  function setupPaginationLinks() {
+    document.querySelectorAll('.pagination a').forEach(link => {
+      link.addEventListener('click', (e) => {
+        e.preventDefault();
+        e.stopPropagation();
+
+        // Lấy page number từ href
+        const url = new URL(link.href);
+        const page = url.searchParams.get('page') || 1;
+
+        // Tạo params từ form hiện tại
+        const params = new URLSearchParams(new FormData(form));
+
+        // Thêm keyword nếu có
+        const urlParams = new URLSearchParams(window.location.search);
+        const keyword = urlParams.get("keyword");
+        if (keyword && keyword.trim() !== "") {
+          params.set("keyword", keyword.trim());
+        }
+
+        // Set page number
+        params.set("page", page);
+
+        // Cập nhật URL
+        const newUrl = `${window.location.pathname}?${params.toString()}`;
+        window.history.pushState({}, "", newUrl);
+
+        // Gọi AJAX
+        fetch("list-book?" + params.toString(), {
+          headers: { "X-Requested-With": "XMLHttpRequest" }
+        })
+            .then(res => res.text())
+            .then(html => {
+              grid.innerHTML = html;
+              setupPaginationLinks(); // Gắn lại event cho pagination mới
+
+              // Scroll lên đầu danh sách
+              document.querySelector('.content').scrollIntoView({
+                behavior: 'smooth',
+                block: 'start'
+              });
+            })
+            .catch(err => {
+              console.error("Error loading page:", err);
+            });
+      });
+    });
+  }
+
   // ===== BẮT SỰ KIỆN FILTER =====
   form.querySelectorAll("input").forEach(input => {
     input.addEventListener("change", fetchData);
-    if (input.type === "text") {
-      input.addEventListener("input", fetchData);
-    }
   });
 
+  // ===== KHỞI TẠO =====
   renderActiveFilters();
+  setupSortButtons();
+  setupPaginationLinks(); // Gắn event cho pagination ban đầu
+  updateSortButtonsState();
+
+  // ===== XỬ LÝ BACK/FORWARD BUTTON =====
+  window.addEventListener("popstate", () => {
+    location.reload();
+  });
 });
