@@ -52,4 +52,39 @@ public class CheckoutDetailDAO {
         }
         return list;
     }
+
+    public List<Integer> getEbookIdsTopSale() {
+        List<Integer> list = new ArrayList<>();
+        String sql = """
+                SELECT
+                    bookID,
+                    COUNT(*) AS total_sold
+                FROM checkoutDetail
+                GROUP BY bookID
+                ORDER BY total_sold DESC
+                LIMIT 7;
+                """;
+        try (Connection con = DBConnection.getConnection();
+             PreparedStatement ps = con.prepareStatement(sql)) {
+
+            ResultSet rs = ps.executeQuery();
+
+            while (rs.next()) {
+                int id = rs.getInt("bookID");
+                list.add(id);
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return list;
+    }
+
+    public static void main(String[] args) {
+        CheckoutDetailDAO cddao = new CheckoutDetailDAO();
+
+        for (int i : cddao.getEbookIdsTopSale()) {
+            System.out.println(i);
+        }
+    }
 }

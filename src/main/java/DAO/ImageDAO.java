@@ -12,7 +12,7 @@ public class ImageDAO {
     /* ================= INSERT IMAGE ================= */
     public int insertAndReturnId(Image image) {
         String sql = """
-            INSERT INTO image (imgName, imgLink, imgStatus)
+            INSERT INTO images (imgName, imgLink, imgStatus)
             VALUES (?, ?, ?)
         """;
 

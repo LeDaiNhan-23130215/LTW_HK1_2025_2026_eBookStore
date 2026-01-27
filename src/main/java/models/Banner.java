@@ -18,8 +18,7 @@ public class Banner extends Base {
 
     public Banner(int id) {
         super(id);
-    }
-
+    };
     public Banner(String url, String position, String startDate, String endDate, int isActive) {
         super(-1);
         this.url = url;

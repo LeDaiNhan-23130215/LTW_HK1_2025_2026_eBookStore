@@ -107,6 +107,7 @@
 
 .container .san-pham-moi h5 {
   margin: 0;
+  margin-bottom: 15px;
 }
 
 .slider-container {
@@ -169,10 +170,10 @@
   margin-bottom: 15px;
 }
 .sp-noi-bat-grid {
-  width: 90vw;
+  width: 100%;
   display: grid;
 
-  grid-template-columns: repeat(5, 1fr);
+  grid-template-columns: repeat(4, 1fr);
   grid-template-rows: repeat(2, 1fr);
 
   gap: 10px;
@@ -186,7 +187,6 @@
 
 .sp-noi-bat-container a {
   color: black;
-  background-color: none;
   border: 3px solid #004aad;
   padding: 10px 20px;
   font-size: 1rem;

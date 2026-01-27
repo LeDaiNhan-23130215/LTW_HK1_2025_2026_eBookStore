@@ -4,10 +4,11 @@ import DTO.*;
 import jakarta.servlet.*;
 import jakarta.servlet.http.*;
 import jakarta.servlet.annotation.*;
+import models.Category;
 import services.EbookService;
 
 import java.io.IOException;
-import java.util.Arrays;
+import java.util.*;
 
 @WebServlet(name = "ListbookController", value = "/list-book")
 public class ListbookController extends HttpServlet {
@@ -17,7 +18,9 @@ public class ListbookController extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        request.setAttribute("categories", ebookService.getAllCategories().subList(0,3));
+
+        // TẠO MỚI filter cho mỗi request
+        EbookFilterView filter = new EbookFilterView();
 
         // ===== PAGE =====
         int page = 1;
@@ -29,9 +32,6 @@ public class ListbookController extends HttpServlet {
                 page = 1;
             }
         }
-
-        // ===== FILTER OBJECT =====
-        EbookFilterView filter = new EbookFilterView();
 
         // ===== FREE / PAID =====
         String freeParam = request.getParameter("free");
@@ -61,15 +61,15 @@ public class ListbookController extends HttpServlet {
             filter.setFormats(Arrays.asList(formats));
         }
 
-        // ===== SORTING =====
-        String sortBy = request.getParameter("sortBy");
-        String sortDir = request.getParameter("sortDir");
-
         // ===== SEARCH =====
         String keyword = request.getParameter("keyword");
         if (keyword != null && !keyword.isEmpty()) {
             filter.setKeywords(keyword);
         }
+
+        // ===== SORTING =====
+        String sortBy = request.getParameter("sortBy");
+        String sortDir = request.getParameter("sortDir");
 
         if (sortBy != null && !sortBy.isEmpty()) {
             filter.setSortBy(sortBy);
@@ -83,15 +83,43 @@ public class ListbookController extends HttpServlet {
             filter.setSortDir("desc"); // default direction
         }
 
+        // ===== SIDEBAR CATEGORIES =====
+        List<Category> allCategories = ebookService.getAllCategories();
+        int limit = Math.min(3, allCategories.size());
+
+        // Dùng Set<Integer> để lưu ID, tránh trùng lặp
+        Set<Integer> categoryIds = new LinkedHashSet<>(); // LinkedHashSet để giữ thứ tự
+
+        // Thêm 3 category đầu tiên
+        for (int i = 0; i < limit; i++) {
+            categoryIds.add(allCategories.get(i).getId());
+        }
+
+        // Thêm các category được filter (nếu có)
+        if (filter.getCategoryId() != null) {
+            categoryIds.addAll(filter.getCategoryId());
+        }
+
+        // Chuyển từ Set<Integer> sang List<Category>
+        List<Category> sidebarCats = new ArrayList<>();
+        for (Integer id : categoryIds) {
+            Category c = ebookService.getCategoryById(id);
+            if (c != null) {
+                sidebarCats.add(c);
+            }
+        }
+
+        request.setAttribute("categories", sidebarCats);
+
+        request.setAttribute("categories", sidebarCats);
+        request.setAttribute("filter", filter);
+
         // ===== BUILD QUERY STRINGS =====
-        // For pagination (excludes page only)
-        String queryStringForPagination = buildQueryString(request, true, true);
+        String queryStringForPagination = buildQueryString(request, filter, true, true);
         request.setAttribute("queryString", queryStringForPagination);
 
-        // For sort buttons (excludes page, sortBy, sortDir)
-        String queryStringForSort = buildQueryString(request, false, true);
+        String queryStringForSort = buildQueryString(request, filter, false, true);
         request.setAttribute("queryStringForSort", queryStringForSort);
-
 
         // ===== GET DATA =====
         PageView<EbookProductCardView> pageView = ebookService.getBooks(page, filter);
@@ -99,10 +127,8 @@ public class ListbookController extends HttpServlet {
         // ===== SET ATTRIBUTES =====
         request.setAttribute("pageView", pageView);
         request.setAttribute("newEBooks", pageView.getItems());
-        request.setAttribute("filter", filter);
         request.setAttribute("currentPage", page);
         request.setAttribute("totalPages", pageView.getTotalPages());
-
 
         // ==== AJAX ====
         boolean isAjax = "XMLHttpRequest".equals(
@@ -120,12 +146,8 @@ public class ListbookController extends HttpServlet {
         }
     }
 
-    /**
-     * Build query string
-     * @param includeSorting - include sortBy and sortDir in query string
-     * @param includeFilters - include filter parameters in query string
-     */
     private String buildQueryString(HttpServletRequest request,
+                                    EbookFilterView filter,
                                     boolean includeSorting,
                                     boolean includeFilters) {
         StringBuilder sb = new StringBuilder();
@@ -138,10 +160,9 @@ public class ListbookController extends HttpServlet {
             }
 
             // Categories
-            String[] categories = request.getParameterValues("category");
-            if (categories != null) {
-                for (String cat : categories) {
-                    sb.append("category=").append(cat).append("&");
+            if (filter != null && filter.getCategoryId() != null) {
+                for (Integer catId : filter.getCategoryId()) {
+                    sb.append("category=").append(catId).append("&");
                 }
             }
 
@@ -155,7 +176,6 @@ public class ListbookController extends HttpServlet {
         }
 
         if (includeSorting) {
-            // Sorting
             String sortBy = request.getParameter("sortBy");
             String sortDir = request.getParameter("sortDir");
 
@@ -172,7 +192,6 @@ public class ListbookController extends HttpServlet {
         if (keyword != null && !keyword.isEmpty()) {
             sb.append("keyword=").append(keyword).append("&");
         }
-
 
         // Remove trailing &
         if (sb.length() > 0 && sb.charAt(sb.length() - 1) == '&') {

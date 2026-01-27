@@ -31,24 +31,33 @@
         </div>
 
         <!-- Nội dung chính -->
-        <form method="get" action="list-book" class="main-contentx">
+        <form method="get" action="list-book" class="main-content">
 
           <h3>Thể loại</h3>
 
           <c:set var="selectedCategories" value="${paramValues.category}" />
 
-          <c:forEach var="cat" items="${categories}">
-            <label class="filter-option">
-              <input type="checkbox"
-                     name="category"
-                     value="${cat.id}"
-              <c:if test="${fn:contains(selectedCategories, cat.id.toString())}">
-                     checked
-              </c:if>
-              >
-                ${cat.name}
-            </label>
-          </c:forEach>
+          <div class="filter-row">
+            <c:forEach var="cat" items="${categories}">
+              <div class="filter-item">
+                <label class="filter-option">
+                  <input type="checkbox"
+                         name="category"
+                         value="${cat.id}"
+                  <c:if test="${fn:contains(selectedCategories, cat.id.toString())}">
+                         checked
+                  </c:if>
+                  >
+                  <i class="${cat.icon}"></i>
+                  <span class="cat-name">${cat.name}</span>
+                </label>
+
+                <span class="cat-desc">
+                    ${cat.description}
+                </span>
+              </div>
+            </c:forEach>
+          </div>
 
           <button type="submit" class="btn-filter">
             Lọc sách

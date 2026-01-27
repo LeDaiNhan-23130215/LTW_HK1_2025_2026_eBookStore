@@ -1,6 +1,7 @@
 package services;
 
 import DAO.CategoryDAO;
+import DAO.CheckoutDetailDAO;
 import DAO.EbookDAO;
 import DTO.EbookFilterView;
 import DTO.EbookProductCardView;
@@ -14,7 +15,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 public class EbookService {
-
+    private final CheckoutDetailDAO checkoutDetailDAO = new CheckoutDetailDAO();
     private final EbookDAO ebookDAO = new EbookDAO();
     private final CategoryDAO categoryDAO = new CategoryDAO();
     private final ImageServices imageService = new ImageServices();
@@ -62,7 +63,9 @@ public class EbookService {
     public List<Category> getAllCategories() {
         return categoryDAO.getAllCategory();
     }
-
+    public Category getCategoryById(Integer id) {
+        return categoryDAO.getCategoryById(id);
+    }
     /* ================= BUSINESS ================= */
 
     public String generateEBookCode(int categoryId) {
@@ -96,5 +99,28 @@ public class EbookService {
                 ebook.getPrice(),
                 imgLink
         );
+    }
+
+    public List<EbookProductCardView> getTopSaleEbookProductCards() {
+        List<Integer> bid = checkoutDetailDAO.getEbookIdsTopSale();
+        List<Ebook> ebooks = new ArrayList<Ebook>();
+
+        for(Integer id : bid) {
+            Ebook eb = ebookDAO.getEbookById(id);
+            ebooks.add(eb);
+        }
+        for(Ebook eb : ebooks) {
+            eb.setImages(imageService.getImagesByEbookID(eb.getId()));
+        }
+        return buildProductCards(ebooks);
+    }
+
+
+    public List<EbookProductCardView> getRandomEbook() {
+        List<Ebook> eb = ebookDAO.getRandomEbook(8);
+        for(Ebook ebook : eb) {
+            ebook.setImages(imageService.getImagesByEbookID(ebook.getId()));
+        }
+        return buildProductCards(eb);
     }
 }
