@@ -365,7 +365,7 @@ public class EbookDAO {
         try (Connection con = DBConnection.getConnection();
              PreparedStatement ps = con.prepareStatement(sql)) {
 
-            ps.setString(1, e.geteBookCode());
+            ps.setString(1, e.getEBookCode());
             ps.setString(2, e.getTitle());
             ps.setDouble(3, e.getPrice());
             ps.setString(4, e.getDescription());
@@ -390,7 +390,7 @@ public class EbookDAO {
         try (Connection con = DBConnection.getConnection();
              PreparedStatement ps = con.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
 
-            ps.setString(1, e.geteBookCode());
+            ps.setString(1, e.getEBookCode());
             ps.setString(2, e.getTitle());
             ps.setDouble(3, e.getPrice());
             ps.setString(4, e.getDescription());

@@ -102,6 +102,7 @@ public class WishlistDetailDAO {
                 Ebook e = new Ebook(id);
                 e.setTitle(rs.getString("title"));
                 e.setPrice(rs.getDouble("price"));
+                e.setBookCode(rs.getString("eBookCode"));
                 list.add(e);
             }
         }

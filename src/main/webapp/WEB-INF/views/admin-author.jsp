@@ -109,26 +109,6 @@
                         <label>Chi tiết:</label>
                         <textarea name="authorDetail"></textarea>
                     </div>
-
-                    <div class="form-row">
-                        <label>Năm sinh:</label>
-                        <input type="text" name="birthYear">
-                    </div>
-
-                    <div class="form-row">
-                        <label>Quốc tịch:</label>
-                        <input type="text" name="nationality">
-                    </div>
-
-                    <div class="form-row">
-                        <label>Số lượng tác phẩm:</label>
-                        <input type="number" name="numberOfBooks" value="0">
-                    </div>
-
-                    <div class="form-row">
-                        <label>Giải thưởng:</label>
-                        <textarea name="awards"></textarea>
-                    </div>
                 </div>
 
                 <!-- Import -->
@@ -153,10 +133,6 @@
             <tr>
                 <th>ID</th>
                 <th>Tên tác giả</th>
-                <th>Năm sinh</th>
-                <th>Quốc tịch</th>
-                <th>Số tác phẩm</th>
-                <th>Giải thưởng</th>
                 <th>Thao tác</th>
             </tr>
             </thead>
@@ -166,19 +142,6 @@
                 <tr>
                     <td>${a.id}</td>
                     <td>${a.authorName}</td>
-                    <td>${a.birthYear}</td>
-                    <td>${a.nationality}</td>
-                    <td>${a.numberOfBooks}</td>
-                    <td>
-                        <c:choose>
-                            <c:when test="${empty a.awards}">
-                                <i>Chưa có</i>
-                            </c:when>
-                            <c:otherwise>
-                                ${a.awards}
-                            </c:otherwise>
-                        </c:choose>
-                    </td>
                     <td>
                         <a class="btn-Edit"
                            href="${pageContext.request.contextPath}/admin-author?action=edit&id=${a.id}">
