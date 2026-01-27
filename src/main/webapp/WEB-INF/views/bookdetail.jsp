@@ -1,6 +1,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
          pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 <!DOCTYPE html>
 <html lang="vi">
 <head>
@@ -20,16 +21,30 @@
         href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"/>
 </head>
 
+<script>
+  function showTab(index) {
+    const buttons = document.querySelectorAll(".tab-btn");
+    const contents = document.querySelectorAll(".tab-content");
+
+    buttons.forEach(b => b.classList.remove("active"));
+    contents.forEach(c => c.classList.remove("active"));
+
+    buttons[index].classList.add("active");
+    contents[index].classList.add("active");
+  }
+</script>
+
 <body>
+
 <jsp:include page="/WEB-INF/views/header.jsp"/>
-<!-- ===== BOOK DETAIL ===== -->
+
 <div class="container">
   <div class="product-wrapper">
+
     <!-- LEFT: IMAGE -->
     <div class="col-left gallery-section">
       <div class="main-image-box">
-        <img src="${ebook.images[0].imgLink}"
-             alt="${ebook.title}">
+        <img src="${ebook.images[0].imgLink}" alt="${ebook.title}">
       </div>
     </div>
 
@@ -41,48 +56,56 @@
       <h1 class="product-title">${ebook.title}</h1>
 
       <div class="meta-row">
-        <p>Tác giả: <strong>
+        <p>
+          Tác giả:
           <c:forEach var="author" items="${ebook.authors}">
             <strong>${author.authorName}</strong>
           </c:forEach>
-        </strong></p>
+        </p>
         <p>Mã SP: <span>#${ebook.EBookCode}</span></p>
       </div>
 
       <div class="price-box">
-                <span class="current-price">
-                    ${ebook.price} đ
-                </span>
+        <span class="current-price">${ebook.price} đ</span>
       </div>
 
+      <!-- ===== ACTION BUTTONS ===== -->
       <div class="actions-wrapper">
         <div class="btn-group">
+
+          <!-- ADD TO CART -->
           <form action="${pageContext.request.contextPath}/cart" method="post">
             <input type="hidden" name="action" value="add"/>
             <input type="hidden" name="bookId" value="${ebook.id}"/>
             <input type="hidden" name="price" value="${ebook.price}"/>
             <input type="hidden" name="quantity" value="1"/>
-
             <button type="submit" class="btn btn-primary">
               Thêm vào giỏ
             </button>
           </form>
 
-          <a href="${pageContext.request.contextPath}/readbook?id=${ebook.id}">
-            <button class="btn btn-docthu">Đọc thử</button>
-
+          <!-- READ SAMPLE -->
+          <a href="${pageContext.request.contextPath}/readbook?id=${ebook.id}"
+             class="btn btn-docthu">
+            Đọc thử
           </a>
 
+
+          <!-- ❤️ WISHLIST (NẰM TRONG BTN-GROUP) -->
           <c:choose>
             <c:when test="${not empty sessionScope.userID}">
-              <form action="${pageContext.request.contextPath}/wishlist" method="post">
+              <form class="wishlist-form"
+                    action="${pageContext.request.contextPath}/wishlist"
+                    method="post">
                 <input type="hidden" name="ebookId" value="${ebook.id}">
                 <input type="hidden" name="action"
                        value="${wishlistIds != null && wishlistIds.contains(ebook.id) ? 'remove' : 'add'}">
 
                 <button type="submit"
-                        class="favorite-btn ${wishlistIds.contains(ebook.id) ? 'active' : ''}">
-                  <i class="fa-solid fa-heart"></i>
+                        class="favorite-btn ${wishlistIds != null && wishlistIds.contains(ebook.id) ? 'active' : ''}">
+                  <i class="${wishlistIds != null && wishlistIds.contains(ebook.id)
+                                                ? 'fa-solid'
+                                                : 'fa-regular'} fa-heart"></i>
                 </button>
               </form>
             </c:when>
@@ -98,12 +121,26 @@
 
         </div>
       </div>
+
     </div>
 
     <!-- RIGHT: RELATED -->
-    <div class="col-right sidebar">
-      <h3>Sản phẩm tương tự</h3>
-      <p>Đang cập nhật...</p>
+    <div class="similar-list">
+      <c:forEach items="${similarEbooks}" var="e">
+        <a class="similar-item"
+           href="${pageContext.request.contextPath}/bookdetail?id=${e.id}">
+
+          <img src="${e.images[0].imgLink}" alt="${e.title}">
+
+          <div class="similar-info">
+            <span class="title">${e.title}</span>
+            <span class="price">
+          <fmt:formatNumber value="${e.price}" pattern="#,### đ"/>
+        </span>
+          </div>
+
+        </a>
+      </c:forEach>
     </div>
 
   </div>
@@ -111,9 +148,14 @@
   <!-- ===== TABS ===== -->
   <div class="product-bottom-tabs">
     <div class="tab-headers">
-      <button class="tab-btn active">Mô tả sản phẩm</button>
-      <button class="tab-btn">Hướng dẫn mua hàng</button>
+      <button class="tab-btn active" onclick="showTab(0)">
+        Mô tả sản phẩm
+      </button>
+      <button class="tab-btn" onclick="showTab(1)">
+        Hướng dẫn mua hàng
+      </button>
     </div>
+
 
     <div class="tab-content-wrapper">
       <div class="tab-content active">

@@ -73,11 +73,7 @@
         </dependency>
 
         <!-- https://mvnrepository.com/artifact/org.apache.pdfbox/pdfbox -->
-        <dependency>
-            <groupId>org.apache.pdfbox</groupId>
-            <artifactId>pdfbox</artifactId>
-            <version>3.0.6</version>
-        </dependency>
+
 
         <dependency>
             <groupId>com.sun.mail</groupId>
@@ -141,12 +137,14 @@
         </dependency>
 
 
-        <!-- Đây là dependency của apache PDFbox -->
         <dependency>
             <groupId>org.apache.pdfbox</groupId>
             <artifactId>pdfbox</artifactId>
-            <version>3.0.3</version>
+            <version>3.0.2</version>
         </dependency>
+
+
+
 
         <!-- Source: https://mvnrepository.com/artifact/com.google.code.gson/gson -->
         <dependency>

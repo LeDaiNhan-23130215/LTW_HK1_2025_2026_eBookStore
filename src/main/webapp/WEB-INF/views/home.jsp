@@ -201,7 +201,7 @@
                         </c:forEach>
                     </div>
 
-                    <a href="list-book">Xem tất cả</a>
+                     <a href="list-book" id="xem-tat-ca" class="xem-tat-ca">Xem tất cả</a>
                 </div>
             </div>
 
