@@ -548,5 +548,7 @@ public class EbookDAO {
 
     public static void main(String[] args) {
         // Test code here
+        EbookDAO ebDAO = new EbookDAO();
+        System.out.println(ebDAO.getEbookById(292).getImages().getFirst().getImgLink());
     }
 }

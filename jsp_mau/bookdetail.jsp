@@ -142,9 +142,9 @@
             <h3>Mô tả sản phẩm</h3>
             <h4>Deep Work - Carl Newport</h4>
             <p>
-Cal Newport lập luận rằng trong thời đại ngập tràn thông tin và xao nhãng, khả năng “làm việc sâu” – 
-tập trung hoàn toàn vào một nhiệm vụ khó – là kỹ năng quý giá nhất. Ông đưa ra các chiến lược cụ thể để 
-rèn luyện sự tập trung, loại bỏ thói quen làm việc nông, và đạt hiệu suất vượt trội. Cuốn sách kết hợp nghiên 
+Cal Newport lập luận rằng trong thời đại ngập tràn thông tin và xao nhãng, khả năng “làm việc sâu” –
+tập trung hoàn toàn vào một nhiệm vụ khó – là kỹ năng quý giá nhất. Ông đưa ra các chiến lược cụ thể để
+rèn luyện sự tập trung, loại bỏ thói quen làm việc nông, và đạt hiệu suất vượt trội. Cuốn sách kết hợp nghiên
 cứu khoa học, ví dụ thực tế và lời khuyên thực hành, giúp người đọc làm việc thông minh hơn, sáng tạo hơn và đạt thành tựu lớn mà vẫn duy trì cân bằng cuộc sống.
             </p>
           </div>
@@ -202,7 +202,7 @@ cứu khoa học, ví dụ thực tế và lời khuyên thực hành, giúp ng�
                 >
                 <div class="related-price">
                   <span class="current-price">211.500 VNĐ</span>
-            
+
                 </div>
               </div>
             </li>
@@ -218,7 +218,7 @@ cứu khoa học, ví dụ thực tế và lời khuyên thực hành, giúp ng�
                 >
                 <div class="related-price">
                   <span class="current-price">175.500 VNĐ</span>
-             
+
                 </div>
               </div>
             </li>
@@ -234,7 +234,7 @@ cứu khoa học, ví dụ thực tế và lời khuyên thực hành, giúp ng�
                 >
                 <div class="related-price">
                   <span class="current-price">342.000 VNĐ</span>
-               
+
                 </div>
               </div>
             </li>
@@ -244,96 +244,7 @@ cứu khoa học, ví dụ thực tế và lời khuyên thực hành, giúp ng�
     </div>
   </div>
 </main> -->
-  <div class="container">
-    <div class="product-wrapper">
 
-      <div class="col-left gallery-section">
-        <div class="main-image-box">
-          <img id="mainImg" src="https://via.placeholder.com/400x600" alt="Main Book Cover">
-        </div>
-        <div class="thumbnail-list" id="thumbnailContainer">
-        </div>
-      </div>
-
-      <div class="col-center product-info">
-        <span class="badge" id="categoryName">Thể loại</span>
-        <h1 class="product-title" id="bookTitle">Tên Sách Đang Load...</h1>
-
-        <div class="meta-row">
-          <p>Tác giả: <strong id="authorName">...</strong></p>
-          <p>Mã SP: <span id="bookID">#000</span></p>
-        </div>
-
-        <div class="rating-box">
-          <div class="stars" id="starRating">
-          </div>
-          <span class="review-count">(<span id="reviewCount">0</span> đánh giá)</span>
-        </div>
-
-        <div class="price-box">
-          <span class="current-price" id="finalPrice">0 đ</span>
-          <span class="old-price" id="originalPrice">0 đ</span>
-          <span class="discount-tag" id="discountTag">-0%</span>
-        </div>
-
-        <div class="short-desc">
-          <p id="shortDesc">Mô tả ngắn đang tải...</p>
-        </div>
-
-        <div class="actions-wrapper">
-          <div class="quantity-control">
-            <button onclick="updateQty(-1)">-</button>
-            <input type="number" id="qtyInput" value="1" min="1">
-            <button onclick="updateQty(1)">+</button>
-          </div>
-
-          <div class="btn-group">
-            <button class="btn btn-primary">
-              <i class="fas fa-shopping-cart"></i> Thêm vào giỏ
-            </button>
-            <button class="btn btn-buy">Mua ngay</button>
-          </div>
-
-          <button class="btn-wishlist">
-            <i class="far fa-heart"></i>
-          </button>
-        </div>
-      </div>
-
-      <div class="col-right sidebar">
-        <h3>Sản phẩm tương tự</h3>
-        <div class="related-list" id="relatedProducts">
-        </div>
-      </div>
-    </div>
-
-    <div class="product-bottom-tabs">
-      <div class="tab-headers">
-        <button class="tab-btn active" onclick="openTab(event, 'descTab')">Mô tả sản phẩm</button>
-        <button class="tab-btn" onclick="openTab(event, 'guideTab')">Hướng dẫn mua hàng</button>
-      </div>
-
-      <div class="tab-content-wrapper">
-        <div id="descTab" class="tab-content active">
-          <div id="fullDescription">
-          </div>
-        </div>
-
-        <div id="guideTab" class="tab-content">
-          <div class="guide-box">
-            <h4>Quy trình mua hàng</h4>
-            <ul>
-              <li><strong>Bước 1:</strong> Chọn sản phẩm và số lượng cần mua.</li>
-              <li><strong>Bước 2:</strong> Nhấn nút "Mua ngay" hoặc thêm vào giỏ hàng.</li>
-              <li><strong>Bước 3:</strong> Điền thông tin giao hàng (họ tên, sđt, địa chỉ).</li>
-              <li><strong>Bước 4:</strong> Chọn phương thức thanh toán (chấp nhận thẻ Visa, Momo theo bảng
-                PaymentMethod).</li>
-            </ul>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
 
 
 
