@@ -70,32 +70,33 @@
 
           <a href="${pageContext.request.contextPath}/readbook?id=${ebook.id}">
             <button class="btn btn-docthu">Đọc thử</button>
+
           </a>
-        </div>
 
-        <c:choose>
-          <c:when test="${not empty sessionScope.userID}">
-            <form action="${pageContext.request.contextPath}/wishlist" method="post">
-              <input type="hidden" name="ebookId" value="${ebook.id}">
-              <input type="hidden" name="action"
-                     value="${wishlistIds != null && wishlistIds.contains(ebook.id) ? 'remove' : 'add'}">
+          <c:choose>
+            <c:when test="${not empty sessionScope.userID}">
+              <form action="${pageContext.request.contextPath}/wishlist" method="post">
+                <input type="hidden" name="ebookId" value="${ebook.id}">
+                <input type="hidden" name="action"
+                       value="${wishlistIds != null && wishlistIds.contains(ebook.id) ? 'remove' : 'add'}">
 
-              <button type="submit"
-                      class="favorite-btn ${wishlistIds.contains(ebook.id) ? 'active' : ''}">
-                <i class="fa-solid fa-heart"></i>
+                <button type="submit"
+                        class="favorite-btn ${wishlistIds.contains(ebook.id) ? 'active' : ''}">
+                  <i class="fa-solid fa-heart"></i>
+                </button>
+              </form>
+            </c:when>
+
+            <c:otherwise>
+              <button type="button"
+                      class="favorite-btn"
+                      onclick="alert('Vui lòng đăng nhập để sử dụng chức năng này')">
+                <i class="fa-regular fa-heart"></i>
               </button>
-            </form>
-          </c:when>
+            </c:otherwise>
+          </c:choose>
 
-          <c:otherwise>
-            <button type="button"
-                    class="favorite-btn"
-                    onclick="alert('Vui lòng đăng nhập để sử dụng chức năng này')">
-              <i class="fa-regular fa-heart"></i>
-            </button>
-          </c:otherwise>
-        </c:choose>
-
+        </div>
       </div>
     </div>
 

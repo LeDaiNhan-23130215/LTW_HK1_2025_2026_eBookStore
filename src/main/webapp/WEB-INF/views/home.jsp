@@ -86,24 +86,35 @@
                                 </c:otherwise>
                             </c:choose>
 
-                            <div class="img-wrapper">
-                                <img src="${eb.imageLink}" alt="">
-                            </div>
+                            <!-- CLICK ẢNH → BOOK DETAIL -->
+                            <a href="${pageContext.request.contextPath}/bookdetail?id=${eb.id}">
+                                <div class="img-wrapper">
+                                    <img src="${eb.imageLink}" alt="${eb.title}"
+                                         onerror="this.onerror=null; this.src='${pageContext.request.contextPath}/assets/img/default-book.png';">
+                                </div>
+                            </a>
 
-                            <p>${eb.title}</p>
+                            <!-- CLICK TÊN → BOOK DETAIL -->
+                            <p class="book-title">
+                                <a href="${pageContext.request.contextPath}/bookdetail?id=${eb.id}">
+                                        ${eb.title}
+                                </a>
+                            </p>
 
                             <div>
                                 <c:if test="${eb.price != null and eb.price gt 0}">
-                <span class="price">
-                    <fmt:formatNumber value="${eb.price}" type="currency" groupingUsed="true"/>
-                </span>
+                    <span class="price">
+                        <fmt:formatNumber value="${eb.price}" type="currency" groupingUsed="true"/>
+                    </span>
                                 </c:if>
 
                                 <c:if test="${eb.price eq 0}">
                                     <span>Free!!!</span>
                                 </c:if>
 
-                                <form action="cart" method="post" class="add-to-cart-form">
+                                <!-- ADD TO CART KHÔNG BỊ ẢNH HƯỞNG -->
+                                <form action="${pageContext.request.contextPath}/cart" method="post"
+                                      class="add-to-cart-form">
                                     <input type="hidden" name="action" value="add"/>
                                     <input type="hidden" name="bookId" value="${eb.id}"/>
                                     <input type="hidden" name="price" value="${eb.price}"/>
@@ -115,11 +126,11 @@
                         </div>
                     </c:forEach>
 
-
                     <button class="next-btn">
                         <i class="fa-solid fa-arrow-right"></i>
                     </button>
                 </div>
+
             </div>
 
             <div class="sp-noi-bat">
@@ -153,24 +164,31 @@
                                     </c:otherwise>
                                 </c:choose>
 
-                                <div class="img-wrapper">
-                                    <img src="${eb.imageLink}" alt="">
-                                </div>
+                                <a href="${pageContext.request.contextPath}/bookdetail?id=${eb.id}">
+                                    <div class="img-wrapper">
+                                        <img src="${eb.imageLink}" alt="${eb.title}"
+                                             onerror="this.onerror=null; this.src='${pageContext.request.contextPath}/assets/img/default-book.png';">
+                                    </div>
+                                </a>
 
-                                <p>${eb.title}</p>
+                                <p class="book-title">
+                                    <a href="${pageContext.request.contextPath}/bookdetail?id=${eb.id}">
+                                            ${eb.title}
+                                    </a>
+                                </p>
 
                                 <div>
                                     <c:if test="${eb.price != null and eb.price gt 0}">
-                <span class="price">
-                    <fmt:formatNumber value="${eb.price}" type="currency" groupingUsed="true"/>
-                </span>
+                    <span class="price">
+                        <fmt:formatNumber value="${eb.price}" type="currency" groupingUsed="true"/>
+                    </span>
                                     </c:if>
 
                                     <c:if test="${eb.price eq 0}">
                                         <span>Free!!!</span>
                                     </c:if>
 
-                                    <form action="cart" method="post" class="add-to-cart-form">
+                                    <form action="${pageContext.request.contextPath}/cart" method="post" class="add-to-cart-form">
                                         <input type="hidden" name="action" value="add"/>
                                         <input type="hidden" name="bookId" value="${eb.id}"/>
                                         <input type="hidden" name="price" value="${eb.price}"/>
@@ -182,6 +200,7 @@
                             </div>
                         </c:forEach>
                     </div>
+
                     <a href="list-book">Xem tất cả</a>
                 </div>
             </div>
@@ -242,26 +261,31 @@
                                         </c:otherwise>
                                     </c:choose>
 
-                                    <div class="img-wrapper">
-                                        <img src="${eb.imageLink}"
-                                             alt="ebook"
-                                             onerror="this.onerror=null; this.src='${pageContext.request.contextPath}/assets/img/default-book.png';">
-                                    </div>
+                                    <a href="${pageContext.request.contextPath}/bookdetail?id=${eb.id}">
+                                        <div class="img-wrapper">
+                                            <img src="${eb.imageLink}" alt="${eb.title}"
+                                                 onerror="this.onerror=null; this.src='${pageContext.request.contextPath}/assets/img/default-book.png';">
+                                        </div>
+                                    </a>
 
-                                    <p>${eb.title}</p>
+                                    <p class="book-title">
+                                        <a href="${pageContext.request.contextPath}/bookdetail?id=${eb.id}">
+                                                ${eb.title}
+                                        </a>
+                                    </p>
 
                                     <div>
                                         <c:if test="${eb.price != null and eb.price gt 0}">
-                <span class="price">
-                    <fmt:formatNumber value="${eb.price}" type="currency" groupingUsed="true"/>
-                </span>
+                    <span class="price">
+                        <fmt:formatNumber value="${eb.price}" type="currency" groupingUsed="true"/>
+                    </span>
                                         </c:if>
 
                                         <c:if test="${eb.price eq 0}">
                                             <span>Free!!!</span>
                                         </c:if>
 
-                                        <form action="cart" method="post" class="add-to-cart-form">
+                                        <form action="${pageContext.request.contextPath}/cart" method="post" class="add-to-cart-form">
                                             <input type="hidden" name="action" value="add"/>
                                             <input type="hidden" name="bookId" value="${eb.id}"/>
                                             <input type="hidden" name="price" value="${eb.price}"/>
@@ -273,6 +297,7 @@
                                 </div>
                             </c:forEach>
                         </div>
+
                         <div class="more">
                             <div class="all-product-button">
                                 <button>Xem tất cả</button>
