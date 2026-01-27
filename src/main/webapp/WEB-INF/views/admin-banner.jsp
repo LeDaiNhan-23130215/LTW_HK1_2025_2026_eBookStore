@@ -111,20 +111,27 @@
 
                     <div class="form-row">
                         <label>Đường dẫn (URL):</label>
-                        <input name="url" type="text">
+                        <input id="url" name="url" type="text">
+                    </div>
+
+                    <div class="form-row">
+                        <label>Xem trước:</label>
+
+                        <div class="banner-preview">
+                            <img id="banner-preview-img"
+                                 src=""
+                                 alt="Banner preview"
+                                 style="display:none; max-width:100%; max-height:200px; border:1px solid #ddd; padding:5px;">
+                        </div>
                     </div>
 
                     <div class="form-row">
                         <label>Vị trí:</label>
                         <select name="position">
                             <option value="">--Chọn vị trí--</option>
-                            <option>Home-1</option>
-                            <option>Home-2</option>
-                            <option>Home-3</option>
-                            <option>Home-4</option>
-                            <option>Home-5</option>
-                            <option>Home-6</option>
-                            <option>Home-7</option>
+                            <option>HomeTop</option>
+                            <option>HomeMiddleLeft</option>
+                            <option>HomeMiddleRight</option>
                         </select>
                     </div>
 
@@ -225,5 +232,6 @@
 
 <script src="${pageContext.request.contextPath}/assets/js/admin-darkmode.js"></script>
 <script src="${pageContext.request.contextPath}/assets/js/showForm.js"></script>
+<script src="${pageContext.request.contextPath}/assets/js/admin-demoIMG.js"></script>
 </body>
 </html>

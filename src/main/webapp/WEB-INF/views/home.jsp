@@ -188,11 +188,11 @@
 
             <div class="banner">
                 <img
-                        src="https://img.freepik.com/free-vector/hand-drawn-book-club-twitter-header-template_23-2149753861.jpg"
+                        src="${HomeMiddleLeft.url}"
                         alt="banner"
                 />
                 <img
-                        src="https://img.freepik.com/free-vector/hand-drawn-book-club-twitter-header-template_23-2149753861.jpg"
+                        src="${HomeMiddleRight.url}"
                         alt="banner"
                 />
             </div>
@@ -243,7 +243,9 @@
                                     </c:choose>
 
                                     <div class="img-wrapper">
-                                        <img src="${eb.imageLink}" alt="">
+                                        <img src="${eb.imageLink}"
+                                             alt="ebook"
+                                             onerror="this.onerror=null; this.src='${pageContext.request.contextPath}/assets/img/default-book.png';">
                                     </div>
 
                                     <p>${eb.title}</p>

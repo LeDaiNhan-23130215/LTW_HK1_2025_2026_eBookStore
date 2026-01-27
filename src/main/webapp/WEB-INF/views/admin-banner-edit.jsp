@@ -71,13 +71,9 @@
                     <label for="position">Vị trí:</label>
                     <select name="position" id="position" required>
                         <option value="">--Chọn vị trí--</option>
-                        <option value="Home-1" ${banner.position == 'Home-1' ? 'selected' : ''}>Home-1</option>
-                        <option value="Home-2" ${banner.position == 'Home-2' ? 'selected' : ''}>Home-2</option>
-                        <option value="Home-3" ${banner.position == 'Home-3' ? 'selected' : ''}>Home-3</option>
-                        <option value="Home-4" ${banner.position == 'Home-4' ? 'selected' : ''}>Home-4</option>
-                        <option value="Home-5" ${banner.position == 'Home-5' ? 'selected' : ''}>Home-5</option>
-                        <option value="Home-6" ${banner.position == 'Home-6' ? 'selected' : ''}>Home-6</option>
-                        <option value="Home-7" ${banner.position == 'Home-7' ? 'selected' : ''}>Home-7</option>
+                        <option value="HomeTop" ${banner.position == 'HomeTop' ? 'selected' : ''}>HomeTop</option>
+                        <option value="HomeMiddleLeft" ${banner.position == 'HomeMiddleLeft' ? 'selected' : ''}>HomeMiddleLeft</option>
+                        <option value="HomeMiddleRight" ${banner.position == 'HomeMiddleRight' ? 'selected' : ''}>HomeMiddleRight</option>
                     </select>
                 </div>
 

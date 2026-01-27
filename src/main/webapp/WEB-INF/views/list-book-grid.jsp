@@ -33,7 +33,9 @@
 
                 <!-- IMAGE -->
                 <div class="img-wrapper">
-                    <img src="${eb.imageLink}" alt="${eb.title}"/>
+                    <img src="${eb.imageLink}"
+                         alt="ebook"
+                         onerror="this.onerror=null; this.src='${pageContext.request.contextPath}/assets/img/default-book.png';">
                 </div>
 
                 <!-- TITLE -->

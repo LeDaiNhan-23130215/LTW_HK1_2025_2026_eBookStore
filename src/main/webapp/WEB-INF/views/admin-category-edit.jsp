@@ -69,8 +69,23 @@
                 </div>
 
                 <div class="form-row">
-                    <label for="catDesc">Icon</label>
-                    <textarea id="catDesc" name="icon" rows="4">${category.icon}</textarea>
+                    <label>Icon:</label>
+
+                    <div class="icon-select-wrapper">
+                        <select name="icon" id="iconSelect" class="icon-select">
+                            <c:forEach var="ic" items="${iconList}">
+                                <option value="${ic}"
+                                        <c:if test="${ic == category.icon}">selected</c:if>>
+                                        ${ic}
+                                </option>
+                            </c:forEach>
+                        </select>
+
+                        <!-- preview -->
+                        <span class="icon-preview">
+                            <i class="${category.icon}"></i>
+                        </span>
+                    </div>
                 </div>
 
                 <button type="submit" class="btn-addCategory" style="background:#28a745;">
@@ -90,6 +105,6 @@
 
 <script src="${pageContext.request.contextPath}/assets/js/admin-darkmode.js"></script>
 <script src="${pageContext.request.contextPath}/assets/js/showForm.js"></script>
-
+<script src="${pageContext.request.contextPath}/assets/js/admin-demoIMG.js"></script>
 </body>
 </html>
