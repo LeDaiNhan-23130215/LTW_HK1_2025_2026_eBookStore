@@ -1,5 +1,6 @@
 package controller;
 
+import DAO.CategoryDAO;
 import jakarta.servlet.*;
 import jakarta.servlet.http.*;
 import jakarta.servlet.annotation.*;
@@ -11,7 +12,7 @@ import java.util.List;
 
 @WebServlet(name = "HomeController", value = "/Home")
 public class HomeController extends HttpServlet {
-    private CateoryDAO
+    private CategoryDAO ctDAO = new CategoryDAO();w
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
