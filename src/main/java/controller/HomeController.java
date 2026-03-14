@@ -3,11 +3,16 @@ package controller;
 import jakarta.servlet.*;
 import jakarta.servlet.http.*;
 import jakarta.servlet.annotation.*;
+import models.Banner;
+import models.Category;
 
 import java.io.IOException;
+import java.util.List;
 
 @WebServlet(name = "HomeController", value = "/Home")
 public class HomeController extends HttpServlet {
+    private CateoryDAO
+
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         HttpSession session = request.getSession(false);
