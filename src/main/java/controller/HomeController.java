@@ -1,11 +1,15 @@
 package controller;
 
+import DAO.BannerDAO;
 import DAO.CategoryDAO;
+import DTO.EbookProductCardView;
 import jakarta.servlet.*;
 import jakarta.servlet.http.*;
 import jakarta.servlet.annotation.*;
 import models.Banner;
 import models.Category;
+import models.Ebook;
+import services.EbookService;
 
 import java.io.IOException;
 import java.util.List;
@@ -13,6 +17,9 @@ import java.util.List;
 @WebServlet(name = "HomeController", value = "/Home")
 public class HomeController extends HttpServlet {
     private CategoryDAO ctDAO = new CategoryDAO();
+    private EbookService ebookService = new EbookService();
+    private BannerDAO bannerDAO = new BannerDAO();
+
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
