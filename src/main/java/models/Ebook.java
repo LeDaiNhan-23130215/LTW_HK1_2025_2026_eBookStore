@@ -1,10 +1,7 @@
 package models;
 
 import java.awt.*;
-import java.io.File;
-import java.text.NumberFormat;
 import java.util.List;
-import java.util.Locale;
 
 public class Ebook extends Base {
     private String title;
