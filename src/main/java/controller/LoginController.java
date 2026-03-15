@@ -33,7 +33,7 @@ public class LoginController extends HttpServlet {
         if (input == null || input.isEmpty() ||
                 password == null || password.isEmpty()) {
 
-            req.setAttribute("error_msg", "Please enter username and password");
+            req.setAttribute("error_msg", "Vui lòng nhập tên người dùng và mật khẩu.");
             req.getRequestDispatcher("/WEB-INF/views/login.jsp").forward(req, resp);
             return;
         }
