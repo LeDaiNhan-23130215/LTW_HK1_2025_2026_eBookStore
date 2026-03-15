@@ -12,7 +12,7 @@ import java.util.List;
 
 @WebServlet(name = "HomeController", value = "/Home")
 public class HomeController extends HttpServlet {
-    private CategoryDAO ctDAO = new CategoryDAO();w
+    private CategoryDAO ctDAO = new CategoryDAO();
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
