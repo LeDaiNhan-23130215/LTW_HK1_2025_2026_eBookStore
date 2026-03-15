@@ -12,7 +12,6 @@ import java.util.List;
 
 public class CheckoutDetailDAO {
 
-    // 1. Thêm 1 dòng checkout detail
     public boolean addCheckoutDetail(Connection con, CheckoutDetail detail) throws SQLException {
         String sql =
                 "INSERT INTO checkoutdetail (checkoutID, bookID, price) VALUES (?, ?, ?)";
@@ -26,7 +25,6 @@ public class CheckoutDetailDAO {
     }
 
 
-    // 2. Lấy danh sách chi tiết theo checkoutID
     public List<CheckoutDetail> getDetailsByCheckoutID(int checkoutID) {
         List<CheckoutDetail> list = new ArrayList<>();
         String sql = "SELECT * FROM checkoutdetail WHERE checkoutID = ?";
@@ -80,4 +78,11 @@ public class CheckoutDetailDAO {
         return list;
     }
 
+    public static void main(String[] args) {
+        CheckoutDetailDAO cddao = new CheckoutDetailDAO();
+
+        for (int i : cddao.getEbookIdsTopSale()) {
+            System.out.println(i);
+        }
+    }
 }
